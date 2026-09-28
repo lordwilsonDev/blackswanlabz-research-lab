@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use or build on this work, please cite it as below."
+title: "BlackSwanLabz Research Lab"
+type: dataset
+authors:
+  - family-names: "Wilson"
+    given-names: "Lord"
+    alias: "lordwilsonDev"
+license: CC-BY-4.0
+repository-code: "https://github.com/lordwilsonDev/blackswanlabz-research-lab"
+date-released: "2026-09-28"

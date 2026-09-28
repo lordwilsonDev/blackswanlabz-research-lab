@@ -1,0 +1,71 @@
+# BlackSwanLabz Research Lab
+
+> Lord Wilson's work in one place: a thesis (intelligence becomes abundant; verification becomes scarce), the December 2025 cornerstone package, the frameworks (North Star, Axiom Inversion Logic, Mixture of Inversion Experts, ACTS, Adaptive Infrastructure), the systems that implement them (MSB v3 active, FCVE archived), papers, experiments, proofs, the operating SOPs that run the practice (08-operations, verbatim, some company names redacted at the author's direction), and a roadmap of what is not built yet (07-next). CLAIMS.md is the authority on what is verified. Procedures and roadmap are not evidence.
+
+Read in this order.
+
+## Overview
+- [README](README.md): the lab's front page and map.
+
+## Thesis
+- [The Intelligence Infrastructure Mismatch](00-thesis/intelligence-infrastructure-mismatch.md): the problem statement; capability is scaling faster than the economy can absorb it.
+
+## Cornerstone
+- [The cornerstone: GITHUB_AI_PROJECTS_PACKAGE](01-cornerstone/README.md): what the commit record shows and does not show about the December 2025 package.
+- [The 35 categories](01-cornerstone/categories.md): the package's top-level folders as committed by 2025-12-18, the repo's first commit.
+- [Line breakdown (C-002)](01-cornerstone/line-breakdown.md): breaks the 32.5 million committed lines into categories.
+- [Prediction timeline](01-cornerstone/prediction-timeline.md): each package category beside where the industry went after that date.
+- [Cornerstone evidence](01-cornerstone/evidence/README.md): the raw GitHub API and Insights captures behind the numbers.
+
+## Frameworks
+- [ACTS, the 5-Act research method](02-frameworks/acts-5-act-research.md): the outer operating shell for running research as a continuous, stateful process.
+- [Adaptive Infrastructure](02-frameworks/adaptive-infrastructure.md): the system owns the workflow; the model is a swappable worker.
+- [Axiom Inversion Logic (AIL)](02-frameworks/axiom-inversion-logic.md): invert an assumption a field treats as settled and ask what would have to be true.
+- [Mixture of Inversion Experts (MoIE)](02-frameworks/moie.md): a five-agent sequence that turns an AIL inversion into a falsifiable hypothesis.
+- [North Star](02-frameworks/north-star.md): the one-sentence goal and the five parts of the architecture that serve it.
+
+## Systems
+- [FCVE, Formal Claim Verification Engine](03-systems/fcve.md): archived 2026-09-19; turned a mathematical claim into an auditable evidence package.
+- [FDE Kernel skills](03-systems/fde-kernel.md): a mission state machine and bounded Gateway packaged as Claude Code skills; not yet public.
+- [MSB v3 governance SOP](03-systems/msb-v3-governance-sop.md): a written procedure for operating MSB v3 (draft, pending); not evidence that controls operate.
+- [MSB v3](03-systems/msb-v3.md): a governed, local-first agent runtime.
+
+## Papers
+- [Papers index](04-papers/README.md): each paper with its status and where to read it.
+- [The Constraint Migration](04-papers/constraint-migration-white-paper.md): white paper (2026-09-28) arguing the binding constraint moves from generating intelligence to verified execution; figures pending until link-checked.
+- [AIL + MoIE Recursive Research Protocol](04-papers/ail-moie-recursive-research-protocol.md): the evidence-in, theory-update-out loop specification.
+- [Epistemic State Transition: Question Engineering](04-papers/epistemic-state-transition-question-engineering.md): research white paper on question engineering, knowledge acquisition, and verified inquiry.
+
+## Experiments
+- [Experiments index](05-experiments/README.md): each experiment with its result and claim.
+- [Adaptive Infrastructure reproduce.py](05-experiments/adaptive-infrastructure-reproduce.md): a self-contained script of five toy calculations, reproduced byte-for-byte.
+- [FDE Kernel missions M005 to M008](05-experiments/fde-kernel-missions.md): mission outcomes read from a local repository; pending.
+- [Hermes12 benchmark](05-experiments/hermes12-benchmark.md): pre-registered replication package; harness validated, experiment not yet run.
+- [AIL research-loop reference tests](05-experiments/research-loop-reference-tests.md): the 8 unit tests for the reference implementation.
+
+## Proofs
+- [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected at least once and superseded.
+
+## Next (roadmap, not built)
+- [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.
+
+## Operations (verbatim SOPs; some company names redacted)
+- [08 Operations](08-operations/README.md): the operating standards for running BlackSwanLabz; several describe the target system, not what runs today.
+- [Complete Client Loop](08-operations/complete-client-loop.md): frozen single source of truth for the client lifecycle loop.
+- [Day-to-Day Operating Manual](08-operations/day-to-day-operating-manual.md): daily operations, the control-center queues and the day-to-day loop.
+- [FDE Customer Intake and Environment Discovery SOP v1.3](08-operations/fde-customer-intake-sop-v1.3.md): frozen research baseline plus North Star measurement overlay for all new FDE engagements.
+- [Hardened Blueprint v2.1](08-operations/hardened-blueprint-v2.1.md): current system architecture, the governing equation and the three gates.
+- [Master SOP](08-operations/master-sop.md): the master internal operating standard, end to end.
+- [North Star Architecture](08-operations/north-star-architecture.md): the single North Star, the architecture that serves it, and the measurement discipline.
+- [North Star x FDE Protocol x Cybernetic Loop](08-operations/north-star-fde-cybernetic-loop.md): the claim that these are one feedback loop seen from different sides.
+- [Operator SOP](08-operations/operator-sop.md): execution runbook, what an operator or agent does per phase.
+- [Propulsion Engine SOP](08-operations/propulsion-engine-sop.md): UAC domain module for safety-critical physical systems.
+- [Research Manual v1](08-operations/research-manual-v1.md): company intelligence and operational opportunity research manual.
+- [Research Service](08-operations/research-service.md): the BlackSwanLabz research service offer.
+
+## Claims
+- [CLAIMS](CLAIMS.md): every number or factual claim with status (verified, pending, retracted), evidence, and how to check.
+
+## Optional
+- [Design spec](docs/specs/2026-09-28-research-lab-design.md): how and why the lab is built.
+- [Implementation plan](docs/plans/2026-09-28-research-lab-v1.md): the build steps.

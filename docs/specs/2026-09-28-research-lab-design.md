@@ -1,8 +1,10 @@
+> **Superseded by what was built.** This document is the original design/plan. Where it differs from the lab (README, CLAIMS.md), the lab governs. Known corrections: the cornerstone's first commit is 2025-12-18 (C-017), not 'by 2025-12-14'; C-002 was verified by a streamed count, not cloc/tokei; 07-next and 08-operations were added; 08-operations carries author-directed redactions; the AIL white paper and the four Adaptive Infrastructure portfolio artifacts were not published.
+
 # BlackSwanLabz Research Lab — Design Spec (v1)
 
 - **Date:** 2026-09-28
 - **Author:** Lord Wilson (lordwilsonDev)
-- **Status:** approved design, awaiting spec review
+- **Status:** built; see README
 - **Repo:** `lordwilsonDev/blackswanlabz-research-lab` (built locally first; publishing is Wilson's decision)
 
 ## 1. Purpose
@@ -85,7 +87,7 @@ blackswanlabz-research-lab/
 
 ## 8. Prediction timeline
 
-`01-cornerstone/prediction-timeline.md` maps each cornerstone category to a later industry event. A row is included only if **both sides are dated and sourced** and the cornerstone date comes first. Cornerstone date anchor: GitHub code frequency, week of 2025-12-14. Rows that can't be dated stay out (or are listed as pending).
+`01-cornerstone/prediction-timeline.md` maps each cornerstone category to a later industry event. A row is included only if **both sides are dated and sourced** and the cornerstone date comes first. Cornerstone date anchor: the repo's first commit, 2025-12-18 (C-017), which already contained all 35 category folders. (GitHub's code-frequency "week of 2025-12-14" bucket, used for the line-count claim C-001, is a separate weekly aggregation window, not the existence date.) Rows that can't be dated stay out (or are listed as pending).
 
 ## 9. CLAIMS.md
 
@@ -108,7 +110,7 @@ Seed rows:
 
 - `llms.txt` (llmstxt.org format): summary, reading order (thesis → cornerstone → frameworks → systems → papers → experiments → proofs → CLAIMS), one line per file.
 - `AGENTS.md`: `CLAIMS.md` is authoritative; pending ≠ verified; code lives in linked repos at pinned commits.
-- **Size budget:** repo text (excluding images) stays under ~150k tokens so one model can hold it.
+- **Size budget:** repo text (excluding images) stays under ~250k tokens so one model can hold it.
 
 ## 11. Verification
 
@@ -140,7 +142,7 @@ CC BY 4.0 (writing, papers), MIT (scripts). `CITATION.cff` with Wilson's name; O
 
 - **Adaptive Infrastructure repo:** README/file mismatch, missing research-loop files, smoke-run crash, and epidemiology CI rounding fixed in lordwilsonDev/blackswanlabz-AI-ADAPTIVE-INFRASTRUCTURE#1 (merged `fb17587`). Still open at source: spec (12+3 states) vs execution plan (15 states) not reconciled; DRB-001…005 run records absent; no LICENSE; repo created 2026-09-27, so it evidences the harness, not early timing.
 
-- Commit dates prove existence **by** 2025-12-14, not origin dates of individual projects.
+- Commit dates prove existence **by** 2025-12-18 (the repo's first commit, C-017), not origin dates of individual projects.
 - FCVE is archived; the lab presents it as completed work, not ongoing.
 - The AIL+MoIE benchmark has no results; the lab presents its pre-registration and falsification condition only.
 - Snapshots can drift from sources; headers and `verify.sh` make drift visible, not impossible.

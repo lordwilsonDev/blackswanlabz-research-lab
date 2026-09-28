@@ -1,3 +1,5 @@
+> **Superseded by what was built.** This document is the original design/plan. Where it differs from the lab (README, CLAIMS.md), the lab governs. Known corrections: the cornerstone's first commit is 2025-12-18 (C-017), not 'by 2025-12-14'; C-002 was verified by a streamed count, not cloc/tokei; 07-next and 08-operations were added; 08-operations carries author-directed redactions; the AIL white paper and the four Adaptive Infrastructure portfolio artifacts were not published.
+
 # BlackSwanLabz Research Lab v1 — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
@@ -16,7 +18,7 @@
 - Local Python: `/opt/homebrew/Caskroom/miniforge/base/bin/python` (3.12.9, has pytest 9.1.1). Every command below uses `$PY`; set it once per shell: `PY=/opt/homebrew/Caskroom/miniforge/base/bin/python`.
 - `scripts/verify.py` uses the standard library only.
 - Licenses: CC BY 4.0 (writing/papers, `LICENSE`), MIT (scripts, `LICENSE-CODE`).
-- Size budget: all text in the repo (excluding images/PDF/binaries and `.git`) stays under **150,000 tokens** (estimated as characters ÷ 4).
+- Size budget: all text in the repo (excluding images/PDF/binaries and `.git`) stays under **250,000 tokens** (estimated as characters ÷ 4).
 - Snapshot header keys: `source`, `captured` (YYYY-MM-DD), `status` ∈ {`active`, `archived`, `pending`}; optional `repo` + `commit` (pin), `vault-date`.
 - Claim statuses: `verified`, `pending`, `retracted`. Pending is never restated as fact.
 - "Lines committed" is never written as "lines of code" until C-002 is verified.
@@ -24,7 +26,7 @@
 - Pinned commits must exist on the **remote** (check with `gh api repos/<repo>/commits/<sha>`); never pin a local-only commit (msb-v3 local `main` has unpushed `[do-not-push]` commits).
 - ORCID stays blank in `CITATION.cff`.
 - FCVE is **archived** (Wilson declared it dead 2026-09-19): describe as completed work, never as ongoing.
-- Commit messages end with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+- Commit messages end with a `Co-Authored-By: <model that wrote the commit> <noreply@anthropic.com>` line naming the model that actually wrote it (e.g. `Claude Haiku 4.5`, `Claude Sonnet 5`, `Claude Opus 5.5`). Decided by Wilson 2026-09-28. The commit examples below show the Opus line; substitute your own model.
 
 ---
 
@@ -968,15 +970,15 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Modify: `CLAIMS.md` (one row per included timeline row, IDs continue from C-006)
 
 **Interfaces:**
-- Consumes: `01-cornerstone/categories.md` (category names), C-001 (date anchor 2025-12-14).
+- Consumes: `01-cornerstone/categories.md` (category names), C-017 (date anchor 2025-12-18, the repo's first commit — supersedes an earlier draft that anchored on C-001's 2025-12-14 code-frequency week label).
 
-Inclusion rule (spec §8): a row is included only if **both sides are dated and sourced** and the cornerstone date (2025-12-14) comes first. Candidate categories: `03-orchestration-coordination`, `09-swarm-collective`, `04-memory-knowledge`, `32-gateways-apis`, `16-communication-protocols`, `30-mini-mind`, `13-nanoapex`, `27-safety-recovery`, `11-sovereignty-security`, `31-monitoring-metrics`, `28-testing-synthesis`, `26-evolution-improvement`.
+Inclusion rule (spec §8): a row is included only if **both sides are dated and sourced** and the cornerstone date (2025-12-18) comes first. Candidate categories: `03-orchestration-coordination`, `09-swarm-collective`, `04-memory-knowledge`, `32-gateways-apis`, `16-communication-protocols`, `30-mini-mind`, `13-nanoapex`, `27-safety-recovery`, `11-sovereignty-security`, `31-monitoring-metrics`, `28-testing-synthesis`, `26-evolution-improvement`.
 
 - [ ] **Step 1: Research each candidate**
 
-For each candidate category, use WebSearch to find **one industry event dated after 2025-12-14** in that area (a product launch, standard release, or major publication), with a primary source (vendor blog, standards body, paper). Also record whether the area was **already established before 2025-12-14** and cite one source for that (e.g. MCP was announced by Anthropic in November 2024). Record in a scratch table: category · event · event date · source URL · already-established? · source URL.
+For each candidate category, use WebSearch to find **one industry event dated after 2025-12-18** in that area (a product launch, standard release, or major publication), with a primary source (vendor blog, standards body, paper). Also record whether the area was **already established before 2025-12-18** and cite one source for that (e.g. MCP was announced by Anthropic in November 2024). Record in a scratch table: category · event · event date · source URL · already-established? · source URL.
 
-Drop any candidate where no post-2025-12-14 event with a primary source is found.
+Drop any candidate where no post-2025-12-18 event with a primary source is found.
 
 - [ ] **Step 2: Write `01-cornerstone/prediction-timeline.md`**
 
@@ -990,19 +992,19 @@ status: active
 ---
 # Prediction timeline
 
-By 2025-12-14, the package contained these categories ([C-001](../CLAIMS.md)). This table sets each one beside where the industry went **after** that date.
+By 2025-12-18 -- the repo's first commit ([C-017](../CLAIMS.md)) -- the package contained these categories. This table sets each one beside where the industry went **after** that date.
 
-**How to read it.** A row is here only if both dates are sourced and the package date comes first. The last column says whether the area already existed before December 2025. A "yes" there means the row shows *early convergence*, not a first-of-its-kind prediction. Both are listed, not hidden.
+**How to read it.** A row is here only if both dates are sourced and the package date comes first. The last column says whether the area already existed before December 2025. Every included row is early convergence; none shows a first-of-its-kind prediction. Both the pre-anchor origin and the post-anchor event are listed for each row, not hidden.
 
-| Category (by 2025-12-14) | Industry event after | Event date | Source | Area already established before 2025-12-14? | Claim |
+| Category (by 2025-12-18) | Industry event after | Event date | Source | Area already established before 2025-12-18? | Claim |
 |---|---|---|---|---|---|
 ```
 
-One table row per surviving candidate, each with its own claim ID (`C-007`, `C-008`, …). After the table, a `## Excluded candidates` section listing each dropped category and why (e.g. "no post-2025-12-14 primary source found").
+One table row per surviving candidate, each with its own claim ID (`C-007`, `C-008`, …). After the table, a `## Excluded candidates` section listing each dropped category and why (e.g. "no post-2025-12-18 primary source found").
 
 - [ ] **Step 3: Add one CLAIMS row per timeline row**
 
-Format: `| C-0NN | <category> existed in the package by 2025-12-14 and <event> followed on <date> | [prediction-timeline.md](01-cornerstone/prediction-timeline.md) + <source URL> | open both sources; compare dates | verified | 2026-09-28 |`
+Format: `| C-0NN | <category> existed in the package by 2025-12-18 and <event> followed on <date> | [prediction-timeline.md](01-cornerstone/prediction-timeline.md) + <source URL> | open both sources; compare dates | verified | 2026-09-28 |`
 
 - [ ] **Step 4: Run the checker**
 
@@ -1426,3 +1428,99 @@ git commit -m "feat: C-002 line breakdown of the cornerstone (tokei)
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
+
+---
+
+## Addendum (Wilson, 2026-09-28): three more sources, run after Task 11 and before Task 12
+
+### Task 16: MSB v3 governance SOP (MSB-ENT-SOP-001)
+
+**Files:**
+- Create: `03-systems/msb-v3-governance-sop.md`
+- Modify: `03-systems/msb-v3.md` (one link in its Evidence section), `CLAIMS.md` (only if the page states numbers)
+
+**Source:** `~/projects/AI-Agents/msb-v3/docs/governance/MSB-ENT-SOP-001-enterprise-trust-security-privacy-ai-governance-service-operations.md` (~1,560 lines, **untracked** in msb-v3: no commit, no remote copy).
+
+- [ ] **Step 1: Read the whole SOP.** List any private material (customer or client names, personal contact details, emails, phone numbers, internal credentials, pricing). If there is any, stop and report NEEDS_CONTEXT, listing each item's line and a one-line description.
+- [ ] **Step 2: Decide verbatim vs. excerpt by size.** If the SOP body is ≤ 12,000 words, publish it verbatim. Otherwise publish sections 1–3 (Purpose, Scope, Control Principles) verbatim and summarize the rest section by section, keeping each summary faithful to the source.
+- [ ] **Step 3: Header and framing.** Use `source: ~/projects/AI-Agents/msb-v3/docs/governance/MSB-ENT-SOP-001-…md (uncommitted in msb-v3 as of 2026-09-28)`, `captured: 2026-09-28`, `status: pending`, with no `repo`/`commit`. Open the page with this note: "This is a written procedure. It describes how MSB v3 is meant to be operated; it is not evidence that each control is implemented or operating. Where a control maps to code in MSB v3, that mapping is not yet verified." Do not add claims that controls operate.
+- [ ] **Step 4: Link and check.** Link the new page from `03-systems/msb-v3.md`. Run `$PY scripts/verify.py --offline` and expect `OK`.
+- [ ] **Step 5: Commit** `feat: MSB v3 governance SOP snapshot (procedure, not evidence)`.
+
+### Task 17: FDE Kernel experiments
+
+**Files:**
+- Create: `03-systems/fde-kernel.md`, `05-experiments/fde-kernel-missions.md`
+- Modify: `05-experiments/README.md` (add a row), `CLAIMS.md`
+
+**Source:** `~/projects/fde-kernel-skills` (local git repo, **no remote**; HEAD `f88d8ab` on 2026-09-28). Read `README.md` and `AGENTS.md`, list `runs/` and `docs/`, and read the pre-registration and report files for M005–M008 that exist.
+
+- [ ] **Step 1: Run the gate without changing anything.** Run `cd ~/projects/fde-kernel-skills && make check 2>&1 | tail -30`, and record the test count and pass/fail as printed. Never modify, commit or delete anything in that repo. If `make check` writes files, report which ones.
+- [ ] **Step 2: Write `03-systems/fde-kernel.md`** (~400–700 words). Header: `source: ~/projects/fde-kernel-skills (local git, no remote; HEAD <full sha>)`, `captured`, `status: active`, with no `repo`/`commit` pin. Sections: what the Kernel is (from the README); the three skills; enforced blindness (the README's own caveat, quoted: "a guard, not a sandbox"); the vault persistence split; `## Sources`.
+- [ ] **Step 3: Write `05-experiments/fde-kernel-missions.md`.** Include a table of missions M005–M008: what each tested, its pre-registration status, and its outcome as recorded in the run and report files. An outcome may be stated only if a file in the repo records it. Otherwise write "no recorded outcome". Add a `## How blindness is enforced` section and the Step 1 gate result.
+- [ ] **Step 4: Claims.** The Step 1 gate result gets one `verified` claim; its "How to check" is `cd fde-kernel-skills && make check` and notes that the repo is not yet public. Every mission outcome gets a `pending` claim reading "recorded in the local run files; repo not yet public" until the repo is pushed.
+- [ ] **Step 5: Check and commit.** Run `$PY scripts/verify.py --offline`, then commit `feat: FDE Kernel system + mission experiments`.
+
+### Task 18: BlackSwanLabz OS (roadmap)
+
+**Files:**
+- Create: `07-next/blackswanlabz-os.md`
+- Modify: `scripts/verify.py` (add `"07-next"` to `SNAPSHOT_DIRS`, with a test first), `tests/test_verify.py`
+
+**Source:** `~/Documents/Vault/10_Projects/BlackSwanLabz-OS.md`, plus the three research notes it cites in `~/Documents/Vault/20_Research/North-Star/`.
+
+- [ ] **Step 1: TDD.** Add `test_snapshot_headers_cover_07_next(tmp_path)`: write `07-next/x.md` with no header and assert that `check_snapshot_headers` reports it. Run it and watch it fail, add `"07-next"` to `SNAPSHOT_DIRS`, then run it and watch it pass. Run the full suite.
+- [ ] **Step 2: Write `07-next/blackswanlabz-os.md`** (~300–500 words). Header: `source: vault:10_Projects/BlackSwanLabz-OS.md`, `vault-date`, `captured`, `status: pending`. Open with **"Not built yet."** Cover:
+  - what it is: an Omarchy-based fork with Hermes, controlled by voice, with North Star built in
+  - the decision, with its date, to give AIL and MoIE away free
+  - a licensing summary: MIT/BSD permit forking; the "Omarchy" trademark means rebranding; third-party AI CLIs are installed lazily
+  - open decisions
+
+  Exclude business-model and pricing details beyond "free", along with personal notes and wikilinks. No numbers without claims.
+- [ ] **Step 3: Check and commit.** Run `$PY scripts/verify.py --offline`, then commit `feat: roadmap — BlackSwanLabz OS (not built)`.
+
+### Task 19: North Star operating SOPs (Wilson, 2026-09-28)
+
+Wilson's goal: show how he thought about running a research lab as a business. His decisions: publish **all verbatim**, **keep prices**, **keep honest current-state notes**, and **drop links to private notes**. The size budget rises to **250,000 tokens**.
+
+**Files:**
+- Create: `08-operations/README.md`, plus one verbatim file per source below (kebab-case names, e.g. `08-operations/master-sop.md`)
+- Modify: `scripts/verify.py` (add `"08-operations"` to `SNAPSHOT_DIRS`; `TOKEN_BUDGET = 250_000`), `tests/test_verify.py`, the Global Constraints size line in this plan and in the spec §10
+- Modify: `02-frameworks/north-star.md` (add a link to the verbatim North Star Architecture)
+
+**Sources (vault):**
+- `10_Projects/BlackSwanLabz/SOPs/Master-SOP.md`
+- `10_Projects/BlackSwanLabz/SOPs/Hardened-Blueprint-v2.1.md`
+- `10_Projects/BlackSwanLabz/SOPs/Operator-SOP.md`
+- `10_Projects/BlackSwanLabz/SOPs/Day-to-Day-Operating-Manual.md`
+- `10_Projects/BlackSwanLabz/SOPs/Complete-Client-Loop.md`
+- `10_Projects/BlackSwanLabz/SOPs/Propulsion-Engine-SOP.md`
+- `30_Architecture/FDE-Customer-Intake-Environment-Discovery-SOP-v1.3.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-Research-Manual-v1.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-Research-Service.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-North-Star-Architecture.md`
+- `30_Architecture/North-Star-FDE-Cybernetic-Loop.md`
+
+- [ ] **Step 1: TDD for the checker.**
+  - Add `test_snapshot_headers_cover_08_operations` (a `08-operations/x.md` with no header must be reported).
+  - Add `test_token_budget_is_250k` (`assert verify.TOKEN_BUDGET == 250_000`).
+  - Run them and watch them fail. Change `SNAPSHOT_DIRS` and `TOKEN_BUDGET`, then watch them pass. Run the full suite.
+- [ ] **Step 2: Privacy read of every source.** Stop and report NEEDS_CONTEXT, listing line and category only, if a source contains any of the following:
+  - names of real clients, prospects or companies being targeted
+  - names of private individuals
+  - phone numbers, emails or addresses
+  - credentials
+  - legal or family matters
+  - investor or fundraising material
+
+  Prices and honest status notes are **approved to publish**.
+- [ ] **Step 3: Copy each file verbatim** using a file-copy approach (`cat`/`cp`, then edit), never retyped. Drop the source's own frontmatter. The only allowed edit is turning every Obsidian `[[Target|Label]]` or `[[Target]]` into plain text (`Label` or `Target`), done mechanically with a regex. Record the replacement count per file. Header: `source: vault:<path>`, `vault-date: <source updated:>`, `captured: 2026-09-28`, `status: active`.
+- [ ] **Step 4: Verbatim check.** For each file, compare the published body against the source with only the same wikilink transform applied. The diff must be empty. Record the command.
+- [ ] **Step 5: Write `08-operations/README.md`.**
+  - Header: `source: index of operating documents`.
+  - An intro of 2–3 sentences: these are the operating standards Wilson wrote for running BlackSwanLabz as an evidence-first research-and-automation practice; several describe the target system, and their own status notes say what exists today.
+  - A reading-order table of Doc · Role · Words, using the roles from the vault's `SOPs/_INDEX.md`.
+  - The "How these relate" tree.
+  - A note that prices are the offers as written in the documents at capture, not a current price list.
+- [ ] **Step 6: Link and check.** Add the link in `02-frameworks/north-star.md`. Run `$PY -m pytest tests -q` and `$PY scripts/verify.py --offline` (expect OK).
+- [ ] **Step 7: Commit** `feat: North Star operating SOPs (verbatim, 08-operations)`.
