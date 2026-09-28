@@ -32,6 +32,7 @@ Read in this order.
 
 ## Papers
 - [Papers index](04-papers/README.md): each paper with its status and where to read it.
+- [The Constraint Migration](04-papers/constraint-migration-white-paper.md): white paper (2026-09-28) arguing the binding constraint moves from generating intelligence to verified execution; figures pending until link-checked.
 - [AIL + MoIE Recursive Research Protocol](04-papers/ail-moie-recursive-research-protocol.md): the evidence-in, theory-update-out loop specification.
 - [Epistemic State Transition: Question Engineering](04-papers/epistemic-state-transition-question-engineering.md): research white paper on question engineering, knowledge acquisition, and verified inquiry.
 

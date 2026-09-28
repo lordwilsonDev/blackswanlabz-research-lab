@@ -55,7 +55,7 @@ Three of its rows:
 
 ## 5. Papers and tests
 
-- [Papers](04-papers/README.md): two papers, each labelled with its own status, plus one referenced paper whose text has not been located. It is listed so the gap is visible.
+- [Papers](04-papers/README.md): three papers, including the newest white paper, [The Constraint Migration](04-papers/constraint-migration-white-paper.md) (its figures are pending until link-checked), each labelled with its own status, plus one referenced paper whose text has not been located. It is listed so the gap is visible.
 - [Experiments](05-experiments/README.md): the Adaptive Infrastructure script reproduces its published output byte-for-byte ([C-005](CLAIMS.md)) and its numbers hold under hand recomputation ([C-006](CLAIMS.md)), as do the outbreak RR and OR from the run's own counts ([C-046](CLAIMS.md)); the AIL research-loop reference passes its 8 unit tests ([C-036](CLAIMS.md)).
 - The AIL+MoIE benchmark against compute-matched best-of-n baselines is pre-registered and **pending**: the harness is validated, the experiment has not run ([C-004](CLAIMS.md), [Hermes12](05-experiments/hermes12-benchmark.md)).
 - Its binding falsification condition: if the primary hypothesis fails across two independent replications, the integration claim is reported as false.
