@@ -1,3 +1,5 @@
+> **Superseded by what was built.** This document is the original design/plan. Where it differs from the lab (README, CLAIMS.md), the lab governs. Known corrections: the cornerstone's first commit is 2025-12-18 (C-017), not 'by 2025-12-14'; C-002 was verified by a streamed count, not cloc/tokei; 07-next and 08-operations were added; 08-operations carries author-directed redactions; the AIL white paper and the four Adaptive Infrastructure portfolio artifacts were not published.
+
 # BlackSwanLabz Research Lab v1 — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
