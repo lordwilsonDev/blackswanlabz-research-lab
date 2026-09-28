@@ -8,7 +8,7 @@ Every number here links to [CLAIMS.md](CLAIMS.md). If a claim isn't verified, it
 
 ## 1. The problem
 
-The cost of a given level of AI capability is falling fast, while the infrastructure that produces it is large, fixed and long-lived.
+The thesis starts from reported evidence that the cost of a given level of AI capability is falling fast (pending, [C-018](CLAIMS.md), [C-019](CLAIMS.md)), while the infrastructure that produces it is large, fixed and long-lived.
 The thesis calls this a duration mismatch: model-level differentiation may lose its value faster than the obligations financing the infrastructure shrink.
 It does not claim that demand is fake, that models will stop improving, or that AI companies will fail.
 If it holds, scarcity moves away from raw intelligence toward problem selection, context, workflow integration, verification, permissions, trust and accountability, and the durable layer becomes the system that converts abundant intelligence into verified outcomes.
@@ -27,6 +27,7 @@ The package's own counts (208+ projects, 35 categories) are self-reported and pe
 
 The [timeline](01-cornerstone/prediction-timeline.md) sets each category beside where the industry went after 2025-12-18.
 Every row is early convergence with a trend already under way, not a first-of-its-kind prediction: the last column shows each area existed before December 2025.
+Why it matters: it shows this work was already under way here by December 2025, ahead of the industry events below, which is the practical side of the thesis's bet on the systems around the model rather than the model itself.
 Three of its rows:
 
 | Category (by 2025-12-18) | Industry event after | Event date | Source | Area already established before 2025-12-18? | Claim |
@@ -45,7 +46,7 @@ Three of its rows:
 
 ## 4. The proof
 
-- **[MSB v3](03-systems/msb-v3.md)** (active): a governed, local-first agent runtime. Every privileged action passes a fail-closed registry of governed tools and leaves a receipt. At the pinned commit, pytest collected 3,942 of 4,018 tests ([C-030](CLAIMS.md)); that is a collection count, not a pass count.
+- **[MSB v3](03-systems/msb-v3.md)** (active): a governed, local-first agent runtime. Per its README, it is designed so that every privileged action passes a fail-closed registry of governed tools and leaves a receipt. At the pinned commit, pytest collected 3,942 of 4,018 tests ([C-030](CLAIMS.md)); that is a collection count, not a pass count.
 - **[MSB v3 governance SOP](03-systems/msb-v3-governance-sop.md)**: a draft written procedure, marked not approved. It describes how MSB v3 is meant to be run; it is not evidence that its controls operate.
 - **[FDE Kernel](03-systems/fde-kernel.md)** (active, not yet public): a mission harness where the model proposes and the Kernel decides, run against pre-registered missions. Its `make check` gate passed on 2 of 3 runs on 2026-09-28; the other run hit one intermittent test failure ([C-037](CLAIMS.md)).
 - FDE Kernel mission outcomes are read from local files and stay pending until the repo is public ([C-038](CLAIMS.md) to [C-044](CLAIMS.md), [missions](05-experiments/fde-kernel-missions.md)).
@@ -85,7 +86,7 @@ It checks that:
 6. every pinned commit still exists in its repo (online);
 7. the cornerstone's code frequency still matches [C-001](CLAIMS.md) (online).
 
-CI runs the tests and this script on every push and pull request, and weekly. The badge at the top shows the result.
+CI runs the tests and this script on every push and pull request, and weekly. The badge at the top shows the result once the repo is published.
 
 ## 9. For AI readers
 
