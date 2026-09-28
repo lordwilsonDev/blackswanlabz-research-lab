@@ -37,7 +37,7 @@ Two caveats are in the README itself:
 
 ## Gate result
 
-`make check` at the pinned HEAD passed with 231 unit tests OK, plus scenario lints, pre-registration verify, format check and type check ([C-037](../CLAIMS.md)). Details, including one earlier failed run, are on the [missions page](../05-experiments/fde-kernel-missions.md#gate-result).
+`make check` at the pinned HEAD passed on 2 of 3 runs, with 231 unit tests OK, plus scenario lints, pre-registration verify, format check and type check ([C-037](../CLAIMS.md)). Details, including one earlier failed run, are on the [missions page](../05-experiments/fde-kernel-missions.md#gate-result).
 
 ## Sources
 

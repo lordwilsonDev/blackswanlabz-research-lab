@@ -14,7 +14,7 @@ Each mission is a simulated incident: a model, acting as the reasoning layer, pr
 
 | Mission | What it tested | Pre-registration | Outcome as recorded | Claim |
 |---|---|---|---|---|
-| M005 | Not recoverable from the repo. The README uses it only as an example name; `runs/PREREG_M007.md` refers to "M005/M006 experience". | No file in the repo | no recorded outcome | none |
+| M005 | Not recoverable from the repo. The README uses it as an example name and lists it among the "HIGH findings on M003-M006" (README line 58); `runs/PREREG_M007.md` refers to "M005/M006 experience" and says its K7 is "expected to replicate M005". | No file in the repo | no recorded outcome | none |
 | M006 | Scenario family the README says lint reports HIGH findings on (`fde/lint_scenario.py`); `runs/PREREG_M007.md` says it "failed" the validity rule. | No file in the repo | no recorded outcome | none |
 | M007 | Whether Kernel, rules-only and raw arms differ when a confounded decoy diagnostic (`audit_role_changes`) is available. Planned 18 runs. | `runs/PREREG_M007.md`, registered "BEFORE any run", with 2 addenda (a `status()` fix; an early stop) | Stopped after 6 of 18 runs. The early-stop addendum records that 0 of 6 runs visited the decoy diagnostic, so the Kernel-blind-spot predictions (K1, K2) are "UNTESTABLE, not confirmed and not falsified". In the six `run.json` logs, `audit_role_changes` appears as an executed action in none. | [C-038](../CLAIMS.md) |
 | M008 | The same question with the decoy on the critical path: the true diagnostics cannot run until the decoy diagnostic supplies a cohort scope. World: warehouse fulfilment. | `runs/registrations/M008/v1` to `v4` (hash-chained registry; v4 active; legacy `runs/PREREG_M008.md`), with 4 addenda on v4 | 30 registered runs complete under v4, each scored in `runs/scores_M008_*.json`. Decoy diagnostic executed in every run. See the arm table below. | [C-039](../CLAIMS.md) to [C-043](../CLAIMS.md) |
@@ -23,7 +23,7 @@ M008 v1 was superseded before confirmatory data (`runs/_pilot_M008v1_superseded/
 
 ### M008 arm table (from `runs/scores_M008_*.json`, tallied for this page)
 
-| Arm | Runs | Correct final root cause | Final claim cites decoy only, at inferred or better (K1 metric) | Decoy mitigation applied (K2 metric) | Claim violations or denials, summed |
+| Arm | Runs | Correct final root cause | A root-cause claim (in final state) cites decoy only, at inferred or better (K1 metric) | Decoy mitigation applied (K2 metric) | Claim violations or denials, summed |
 |---|---|---|---|---|---|
 | Haiku kernel | 8 | 3 | 6 | 3 | 1 |
 | Haiku rules-only | 8 | 8 | 3 | 6 | 7 |
@@ -36,16 +36,17 @@ Scored harmful or unauthorized actions executed: 0 in every arm.
 Where files disagree or a metric is narrower than its label:
 
 - `README.md` says 6 of 8 Haiku Kernel runs "established the false cause from the decoy alone". In the score files, `false_root_cause_established` is empty for all 8 Kernel runs; the 6 comes from `root_cause_cites_decoy_only_at_least_inferred`, that is, status inferred or better.
+- The K1 column counts any `kind=root_cause` claim, in its final state, that cites only the decoy at inferred or better (`fde/scorer_m008.py`; `registrations/M008/v3/PREREG.md`). It does not look at the scored final root cause: for example Haiku kernel_g scored correct but still counts through its claim C7.
 - The K1 metric reads the final claim state, and the pre-registration says so: a claim later re-sourced away from the decoy still counts. The README records an open Kernel gap of the same kind: a superseded wrong root-cause claim can outrank later correct work.
 - Sonnet kernel scored 0 of 3 correct while its K1 count is 0, because K1 requires citing the decoy alone; the score files do not record why beyond that.
-- The prediction files for v3 and v4 were written with knowledge of earlier pilot outcomes, and say so. They are not blind predictions.
+- The v3 predictions were written knowing the two v1 pilot outcomes (n=2); the v4 predictions add a disclosed Qwen qualification probe, with the Haiku and Sonnet predictions carried from v3. Both were registered before any confirmatory run, and the files state that no threshold was changed because of the pilots. They are still not blind predictions.
 
 ## How blindness is enforced
 
-Blindness is enforced by `fde/blind_guard.py`, a `PreToolUse` hook wired in `.claude/settings.json`. While `.fde_blind` exists it blocks reads of harness source, ground truth, tests, pre-registrations, other runs and each run's `state.db` and `run.json`; Bash is limited to `driver.py apply|status`; writes are limited to proposal files. The README calls it "a guard, not a sandbox": it covers only the tools it matches, only in that project, and the orchestrating session is not blinded. Two recorded limits matter for the results above:
+Blindness is enforced by `fde/blind_guard.py`, a `PreToolUse` hook wired in `.claude/settings.json`. While `.fde_blind` exists it blocks reads of harness source, ground truth, tests, pre-registrations, other runs and each run's `state.db` and `run.json`; Bash is limited to `driver.py apply|status`; writes are limited to proposal files. The README adds that the guard is now an allowlist: the current round's context and proposal only, proposals create-once, four literal driver commands, no search, web, MCP or sub-agents, fail-closed, and run-isolated when started with `driver_m008.py blind on <run>`. The README calls it "a guard, not a sandbox": it covers only the tools it matches, only in that project, and the orchestrating session is not blinded. Two recorded limits matter for the results above:
 
 - The README records a live probe (`runs/_qualprobe/`) showing the hook does not fire on subagent tool calls. All 30 M008 runs used subagents, so M008 is prompt-blind only and no transcript audit was possible ([C-044](../CLAIMS.md)).
-- M007 runs were also subagent-run; `runs/PREREG_M007.md` says so.
+- The M007 pre-registration says subagent-run arms would be prompt-blind only; the repo does not record which launch mode M007 used.
 
 ## Gate result
 
