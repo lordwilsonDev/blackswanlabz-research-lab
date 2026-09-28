@@ -6,7 +6,7 @@ status: active
 
 # FDE Kernel skills
 
-> Not yet public. The source is a local git repository with no remote, so a reader of this lab cannot open it. Every claim below is pending a public push, except the gate result, which is checkable only by someone who has the repo. See [the missions page](../05-experiments/fde-kernel-missions.md) and the claims [C-037](../CLAIMS.md) to [C-044](../CLAIMS.md).
+> Not yet public. The source is a local git repository with no remote, so a reader of this lab cannot open it. Every claim below is pending a public push, including the gate result (pending, C-037), which is checkable only by someone who has the repo. See [the missions page](../05-experiments/fde-kernel-missions.md) and the claims [C-037](../CLAIMS.md) to [C-044](../CLAIMS.md).
 
 ## What the Kernel is
 
@@ -28,7 +28,7 @@ While a run is being scored, the model must not read the harness source, ground 
 
 Two caveats are in the README itself:
 
-- The guard was verified live not to fire on Claude Code subagent tool calls (probe in `runs/_qualprobe/`). All 30 M008 runs were driven through subagents, so M008 is prompt-blind only, not hook-enforced.
+- The README records that the guard was not observed to fire on Claude Code subagent tool calls (probe in `runs/_qualprobe/`). All 30 M008 runs were driven through subagents, so M008 is prompt-blind only, not hook-enforced.
 - Not verified, per the README: the skills loading in a live session, the hook firing in a top-level interactive session, and the headless scripts end to end (they stopped at a credit-balance error).
 
 ## Vault persistence split
@@ -37,7 +37,7 @@ Two caveats are in the README itself:
 
 ## Gate result
 
-`make check` at the pinned HEAD passed on 2 of 3 runs, with 231 unit tests OK, plus scenario lints, pre-registration verify, format check and type check ([C-037](../CLAIMS.md)). Details, including one earlier failed run, are on the [missions page](../05-experiments/fde-kernel-missions.md#gate-result).
+`make check` at the pinned HEAD passed on 2 of 3 runs, with 231 unit tests OK, plus scenario lints, pre-registration verify, format check and type check (pending: [C-037](../CLAIMS.md), becomes verifiable when the repo is public). Details, including one earlier failed run, are on the [missions page](../05-experiments/fde-kernel-missions.md#gate-result).
 
 ## Sources
 

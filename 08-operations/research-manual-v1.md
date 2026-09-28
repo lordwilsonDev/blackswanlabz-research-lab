@@ -5,7 +5,7 @@ captured: 2026-09-28
 status: active
 ---
 
-> Redacted for publication: 5 company names replaced with [prospect]/[company] at the author's direction (2026-09-28). No other changes besides converting private-note links to plain text.
+> Redacted for publication: 5 mentions of 1 company name replaced with [company] at the author's direction (2026-09-28). No other changes besides converting private-note links to plain text.
 
 
 # BlackSwanLabz Company Intelligence & Operational Opportunity Research Manual

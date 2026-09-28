@@ -5,7 +5,7 @@ captured: 2026-09-28
 status: active
 ---
 
-> Redacted for publication: 2 company names replaced with [prospect]/[company] at the author's direction (2026-09-28). No other changes besides converting private-note links to plain text.
+> Redacted for publication: 2 mentions of 2 company names replaced with [company] at the author's direction (2026-09-28). No other changes besides converting private-note links to plain text.
 
 
 > **BlackSwanLabz SOP set** — SOP index  ·  **this doc:** frozen single-source-of-truth for the client lifecycle loop (every module, data flow, integration point)

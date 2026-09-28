@@ -6,6 +6,8 @@ status: active
 ---
 # The Intelligence Infrastructure Mismatch
 
+> The figures in this thesis are quoted as the author wrote them. None is link-verified yet; each is a pending claim (C-018 to C-027) — see Sources for figures at the end.
+
 *By Lord Wilson.*
 
 # The Intelligence Infrastructure Mismatch

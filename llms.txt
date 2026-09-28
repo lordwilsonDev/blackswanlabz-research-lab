@@ -37,13 +37,13 @@ Read in this order.
 
 ## Experiments
 - [Experiments index](05-experiments/README.md): each experiment with its result and claim.
-- [Adaptive Infrastructure reproduce.py](05-experiments/adaptive-infrastructure-reproduce.md): a self-contained script of four toy calculations, reproduced byte-for-byte.
+- [Adaptive Infrastructure reproduce.py](05-experiments/adaptive-infrastructure-reproduce.md): a self-contained script of five toy calculations, reproduced byte-for-byte.
 - [FDE Kernel missions M005 to M008](05-experiments/fde-kernel-missions.md): mission outcomes read from a local repository; pending.
 - [Hermes12 benchmark](05-experiments/hermes12-benchmark.md): pre-registered replication package; harness validated, experiment not yet run.
 - [AIL research-loop reference tests](05-experiments/research-loop-reference-tests.md): the 8 unit tests for the reference implementation.
 
 ## Proofs
-- [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected once and superseded.
+- [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected at least once and superseded.
 
 ## Next (roadmap, not built)
 - [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.

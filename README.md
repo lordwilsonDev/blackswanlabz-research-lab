@@ -48,7 +48,7 @@ Three of its rows:
 
 - **[MSB v3](03-systems/msb-v3.md)** (active): a governed, local-first agent runtime. Per its README, it is designed so that every privileged action passes a fail-closed registry of governed tools and leaves a receipt. At the pinned commit, pytest collected 3,942 of 4,018 tests ([C-030](CLAIMS.md)); that is a collection count, not a pass count.
 - **[MSB v3 governance SOP](03-systems/msb-v3-governance-sop.md)**: a draft written procedure, marked not approved. It describes how MSB v3 is meant to be run; it is not evidence that its controls operate.
-- **[FDE Kernel](03-systems/fde-kernel.md)** (active, not yet public): a mission harness where the model proposes and the Kernel decides, run against pre-registered missions. Its `make check` gate passed on 2 of 3 runs on 2026-09-28; the other run hit one intermittent test failure ([C-037](CLAIMS.md)).
+- **[FDE Kernel](03-systems/fde-kernel.md)** (active, not yet public): a mission harness where the model proposes and the Kernel decides, run against pre-registered missions. Its `make check` gate passed on 2 of 3 runs on 2026-09-28; the other run hit one intermittent test failure (pending, [C-037](CLAIMS.md): checkable only once the repo is public).
 - FDE Kernel mission outcomes are read from local files and stay pending until the repo is public ([C-038](CLAIMS.md) to [C-044](CLAIMS.md), [missions](05-experiments/fde-kernel-missions.md)).
 - **[FCVE](03-systems/fcve.md)** (archived 2026-09-19): turned a mathematical claim into an auditable evidence package through a fixed chain of gates and a hash-chained ledger. Two small Collatz results, neither of which resolves the conjecture, were issued as corrected packages with PROMOTE decisions recorded by Wilson ([C-034](CLAIMS.md), [proofs](06-proofs/README.md)).
 - FCVE's two upstream patches: `leanprover/lean4export#52` is open, `ammkrn/nanoda_lib#36` is merged ([C-033](CLAIMS.md)).
@@ -56,7 +56,7 @@ Three of its rows:
 ## 5. Papers and tests
 
 - [Papers](04-papers/README.md): two papers, each labelled with its own status, plus one referenced paper whose text has not been located. It is listed so the gap is visible.
-- [Experiments](05-experiments/README.md): the Adaptive Infrastructure script reproduces its published output byte-for-byte ([C-005](CLAIMS.md)) and its numbers hold under hand recomputation ([C-006](CLAIMS.md)); the AIL research-loop reference passes its 8 unit tests ([C-036](CLAIMS.md)).
+- [Experiments](05-experiments/README.md): the Adaptive Infrastructure script reproduces its published output byte-for-byte ([C-005](CLAIMS.md)) and its numbers hold under hand recomputation ([C-006](CLAIMS.md)), as do the outbreak RR and OR from the run's own counts ([C-046](CLAIMS.md)); the AIL research-loop reference passes its 8 unit tests ([C-036](CLAIMS.md)).
 - The AIL+MoIE benchmark against compute-matched best-of-n baselines is pre-registered and **pending**: the harness is validated, the experiment has not run ([C-004](CLAIMS.md), [Hermes12](05-experiments/hermes12-benchmark.md)).
 - Its binding falsification condition: if the primary hypothesis fails across two independent replications, the integration claim is reported as false.
 
@@ -82,7 +82,7 @@ It checks that:
 2. every internal link resolves;
 3. every snapshot page has a source, captured-date and status header;
 4. the text stays under its size budget;
-5. no secrets or email addresses are committed;
+5. no secrets or email addresses are in the tree;
 6. every pinned commit still exists in its repo (online);
 7. the cornerstone's code frequency still matches [C-001](CLAIMS.md) (online).
 

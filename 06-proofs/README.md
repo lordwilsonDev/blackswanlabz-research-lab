@@ -8,7 +8,7 @@ status: archived
 
 # Proofs
 
-Two theorems were run end-to-end through [FCVE](../03-systems/fcve.md), FCVE's own Formal Claim Verification Engine, and issued as deliverable packages. Each was corrected once and superseded, never overwritten — the repair revision ("rev r") stays in the repo alongside the superseding revision ("rev s") that carries the final governance decision.
+Two theorems were run end-to-end through [FCVE](../03-systems/fcve.md), the Formal Claim Verification Engine, and issued as deliverable packages. Each was corrected at least once and superseded, never overwritten — the repair revision ("rev r") stays in the repo alongside the superseding revision ("rev s") that carries the final governance decision.
 
 ## VCE-001 — Eliahou bound on nontrivial Collatz cycle length
 

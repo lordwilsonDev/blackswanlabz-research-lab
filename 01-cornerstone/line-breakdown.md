@@ -41,7 +41,7 @@ Each text file's lines are counted (newline count, plus one if the last line has
 | other_text | 16,878 | 411 |
 | **Total text lines** | **32,543,027** | |
 
-The total equals GitHub's net additions for the repo (32,544,351 added minus 1,324 deleted across all weeks in code-frequency.json = net 32,543,027), which corroborates [C-001](../CLAIMS.md). The stream was run twice (once by the controller, once independently) and the JSON output was byte-identical.
+The total equals GitHub's net additions for the repo (32,544,351 added minus 1,324 deleted across all weeks in code-frequency.json = net 32,543,027), which corroborates [C-001](../CLAIMS.md). The stream was run twice (once by the lab build, once independently) and the JSON output was byte-identical.
 
 ## Source lines by language
 

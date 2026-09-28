@@ -10,7 +10,7 @@ status: active
 
 ## What it computes
 
-`reproduce.py` is a single self-contained script (stdlib `math` + `numpy`) covering four unrelated toy calculations bundled as a preliminary artifact:
+`reproduce.py` is a single self-contained script (stdlib `math` + `numpy`) covering five unrelated toy calculations bundled as a preliminary artifact:
 
 - **Orbit / SSO** — solves for the sun-synchronous inclination at 550 km altitude via J2 nodal-precession balance, then derives orbital period, eclipse fraction/duration, a Hohmann-style end-of-life deorbit delta-v, and a 10-degree plane-change delta-v.
 - **Power** — a first-order orbital power budget (eclipse/sunlit energy, nominal array power, minimum battery capacity) plus an end-of-life array power and radiator sizing from a fixed heat-rejection load.
@@ -35,4 +35,4 @@ Note: numpy on Apple Silicon can print spurious BLAS/matmul performance warnings
 
 ## Hand-checked values
 
-Independent hand recomputation of the published numbers (SSO inclination 97.59° at 550 km, period 95.65 min, 10° plane-change delta-v 1,322 m/s, HHI 1864 → 3106) is recorded as [C-006](../CLAIMS.md). This byte-identical reproduction is [C-005](../CLAIMS.md).
+Independent hand recomputation of the published numbers (SSO inclination 97.59° at 550 km, period 95.65 min, 10° plane-change delta-v 1,322 m/s, HHI 1864 → 3106) is recorded as [C-006](../CLAIMS.md). The outbreak figures in the same artifact (RR 7.39, OR 18.42) come from a separate run record, not `reproduce.py`; they recompute from its counts of 38/60 exposed ill versus 12/140 unexposed ill ([C-046](../CLAIMS.md)). This byte-identical reproduction is [C-005](../CLAIMS.md).

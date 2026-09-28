@@ -57,7 +57,7 @@ Command: `cd ~/projects/fde-kernel-skills && make check`, run 2026-09-28 at HEAD
 - The README says `make check` exit 0 on 2026-09-22; that agrees with runs 2 and 3, not with run 1.
 - The gate is documented as read-only. `git status --short` in the source repo was empty before and after all runs; only ignored caches (`.mypy_cache`, `__pycache__`) exist, and I did not check whether they pre-existed.
 
-Recorded as [C-037](../CLAIMS.md), `verified`. The source repo is not yet public, so only someone with a local copy can re-run it.
+Recorded as [C-037](../CLAIMS.md), `pending`: passed on 2 of 3 local runs by the lab build on 2026-09-28; becomes verifiable when the repo is public, since only someone with a local copy can re-run it.
 
 ## Sources
 
