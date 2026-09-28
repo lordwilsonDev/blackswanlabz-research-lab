@@ -51,3 +51,7 @@ In control-theory terms: the North Star supplies the **setpoint** (the desired s
 
 - `~/Documents/Vault/10_Projects/BlackSwanLabz/BlackSwanLabz-North-Star-Architecture.md`
 - `~/Documents/Vault/30_Architecture/North-Star-FDE-Cybernetic-Loop.md`
+
+## Verbatim source
+
+The full North Star Architecture and the control-loop note are published in this repo: [north-star-architecture.md](../08-operations/north-star-architecture.md) and [north-star-fde-cybernetic-loop.md](../08-operations/north-star-fde-cybernetic-loop.md). The wider operating standards are indexed in [08-operations/README.md](../08-operations/README.md).
