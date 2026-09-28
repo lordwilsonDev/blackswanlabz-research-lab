@@ -23,7 +23,7 @@ The source note breaks the sentence into five moves:
 4. **So the business gets better** — measurable improvement, not activity.
 5. **And the people inside it get better at what they do** — augmentation over replacement; skills compound toward the direction the business wants to go.
 
-The note is explicit that this is not "sell automation," "be an AI company," or "sell tools" — it frames those as means, and states the North Star as the outcome itself.
+The note is explicit that this is not "sell automation" or "be an AI company." Its anti-patterns section names the same idea directly: "**Selling tools or AI as the product.** The North Star is the outcome: a business that is measurably better, and a team inside it that is measurably more capable. Tools and AI are means, not the product." The note frames tools and automation as means, and states the North Star as the outcome itself.
 
 ## Decision before automation
 

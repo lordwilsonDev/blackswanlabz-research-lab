@@ -7,7 +7,7 @@ status: active
 
 # ACTS — the 5-Act research method
 
-AIL ACT (also called ACTS in this repo, for its five Acts) is the outer operating shell for running a research investigation as a continuous, stateful process rather than a sequence of disconnected answers: five sequential acts, each producing a structured handoff to the next, never silently resetting between acts.
+AIL ACT, referred to here as ACTS, is the outer operating shell for running a research investigation as a continuous, stateful process rather than a sequence of disconnected answers: five sequential acts, each producing a structured handoff to the next, never silently resetting between acts.
 
 | Act | Title | What it does |
 |---|---|---|
@@ -23,7 +23,7 @@ The apparatus has one complete, evidence-cited run, on the question: **"Under wh
 
 - **Act I** produced the research mission: the question, an initial consensus model ("AI tools improve productivity, so access should create value"), five candidate inversions, and four competing hypotheses — from H1 ("access sufficiency": tool access is enough) through H4 ("adoption lag": local gains can coexist with flat firm-level productivity during implementation).
 - **Act II** collected and characterized four evidence objects — including a randomized task-level experiment, a survey-based analysis, a field study, and transaction-based adoption research — each tagged with what it does and does not support, and its limitations.
-- **Act III** converted Acts I–II into persistent state: an evidence ledger, hypothesis-version history, and a ranked research frontier.
+- **Act III** converted Acts I–II into persistent state: an evidence ledger, hypothesis-version history, and a prioritized research frontier.
 - **Act IV** validated the resulting object graph, recorded integrity warnings, and defined the cycle's discriminating falsification test, **FT-001**.
 - **Act V** reconstructed the cycle, classified what was learned (established / plausible / contested / rejected), and stopped at the human decision gate rather than continuing on its own.
 
@@ -37,7 +37,7 @@ Act V is a hard stop, not a summary. It presents established/plausible/contested
 
 > **"Now that we have these findings, what would you like to do with the information?"**
 
-The operating skill is explicit that the system may recommend a path but "the final selection belongs to the user," and that it must "not automatically perform the selected next action until the user chooses it."
+The worked example is explicit that the system may recommend a path but "the final selection belongs to the user," and the operating skill states the system must "not automatically perform the selected next action until the user chooses it."
 
 ## Sources
 
@@ -48,3 +48,4 @@ The operating skill is explicit that the system may recommend a path but "the fi
 - `~/Documents/Vault/30_Architecture/Scientific-Research-Apparatus/raw-source/worked-example-Act-III.md`
 - `~/Documents/Vault/30_Architecture/Scientific-Research-Apparatus/raw-source/worked-example-Act-IV.md`
 - `~/Documents/Vault/30_Architecture/Scientific-Research-Apparatus/raw-source/worked-example-Act-V.md`
+- `~/acts_mixture_of_inversion_experts/09_META/000_ASSESSMENT_AND_HONEST_STATUS.md`
