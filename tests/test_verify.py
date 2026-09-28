@@ -183,3 +183,44 @@ def test_secrets_flags_personal_email_but_not_noreply(tmp_path):
 def test_secrets_skips_tests_dir(tmp_path):
     write(tmp_path, "tests/test_x.py", "ghp_" + "A" * 36)
     assert verify.check_secrets(tmp_path) == []
+
+
+def test_ignored_dirs_skipped(tmp_path):
+    # Write broken link and personal email to .superpowers/sdd/x.md
+    write(tmp_path, ".superpowers/sdd/x.md", "[x](nope.md)\n")
+    personal_email = "a" + "@" + "example.com"
+    write(tmp_path, ".superpowers/test.py", f"email: {personal_email}\n")
+    # Write OK content to README.md
+    write(tmp_path, "README.md", "ok\n")
+    # Both check_links and check_secrets should ignore .superpowers
+    assert verify.check_links(tmp_path) == []
+    assert verify.check_secrets(tmp_path) == []
+
+
+def test_code_frequency_matches():
+    weeks = [[1765670400, 32543981, -804], [1766275200, 0, 0]]
+    assert verify.check_code_frequency(weeks) == []
+
+
+def test_code_frequency_mismatch_and_missing():
+    assert "32543000" in verify.check_code_frequency([[1765670400, 32543000, -804]])[0]
+    assert "missing" in verify.check_code_frequency([[1766275200, 0, 0]])[0]
+
+
+def test_check_pins_uses_injected_lookup():
+    pins = [("03-systems/a.md", "o/r", "abc1234"), ("03-systems/b.md", "o/r", "def5678")]
+    errors = verify.check_pins(pins, lambda repo, sha: sha == "abc1234")
+    assert errors == ["03-systems/b.md: commit def5678 not found in o/r"]
+
+
+def test_run_offline_on_minimal_repo(tmp_path):
+    write(tmp_path, "CLAIMS.md", CLAIMS_MD)
+    write(tmp_path, "README.md", "32,543,981 lines committed ([C-001](CLAIMS.md)).\n")
+    assert verify.run(tmp_path, online=False) == []
+
+
+def test_main_returns_1_on_errors(tmp_path, capsys):
+    write(tmp_path, "CLAIMS.md", CLAIMS_MD)
+    write(tmp_path, "README.md", "32,543,981 lines.\n")
+    assert verify.main(["--offline", "--root", str(tmp_path)]) == 1
+    assert "FAIL (1)" in capsys.readouterr().out

@@ -2,10 +2,17 @@
 """Mechanical checks for the BlackSwanLabz Research Lab. Standard library only."""
 from __future__ import annotations
 
+import argparse
+import json
 import re
+import subprocess
+import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
+IGNORED_DIRS = (".git", ".superpowers", ".pytest_cache")
 CLAIM_STATUSES = {"verified", "pending", "retracted"}
 CLAIM_ROW = re.compile(r"^\|\s*(C-\d{3})\s*\|(.*)\|\s*$")
 CLAIM_REF = re.compile(r"\bC-\d{3}\b")
@@ -128,7 +135,7 @@ def collect_pins(root: Path) -> list[tuple[str, str, str]]:
 def check_links(root: Path) -> list[str]:
     errors: list[str] = []
     for path in sorted(root.rglob("*.md")):
-        if ".git" in path.parts:
+        if any(part in IGNORED_DIRS for part in path.relative_to(root).parts):
             continue
         rel = path.relative_to(root).as_posix()
         for n, line in enumerate(path.read_text().splitlines(), 1):
@@ -153,7 +160,7 @@ SECRET_PATTERNS = {
 EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+")
 
 
-def _text_files(root: Path, skip_dirs: tuple[str, ...] = (".git",)) -> list[Path]:
+def _text_files(root: Path, skip_dirs: tuple[str, ...] = IGNORED_DIRS) -> list[Path]:
     out: list[Path] = []
     for path in sorted(root.rglob("*")):
         if not path.is_file() or any(part in skip_dirs for part in path.relative_to(root).parts):
@@ -174,7 +181,7 @@ def check_size(root: Path, budget: int = TOKEN_BUDGET) -> list[str]:
 
 def check_secrets(root: Path) -> list[str]:
     errors: list[str] = []
-    for path in _text_files(root, skip_dirs=(".git", "tests")):
+    for path in _text_files(root, skip_dirs=IGNORED_DIRS + ("tests",)):
         rel = path.relative_to(root).as_posix()
         for n, line in enumerate(path.read_text(errors="replace").splitlines(), 1):
             for label, pattern in SECRET_PATTERNS.items():
@@ -184,3 +191,75 @@ def check_secrets(root: Path) -> list[str]:
                 if "noreply" not in email.lower():
                     errors.append(f"{rel}:{n}: email address {email}")
     return errors
+
+
+CORNERSTONE_REPO = "lordwilsonDev/GITHUB_AI_PROJECTS_PACKAGE"
+CORNERSTONE_WEEK = 1765670400  # 2025-12-14 00:00 UTC
+CORNERSTONE_ADDITIONS = 32_543_981
+
+
+def check_code_frequency(weeks: list[list[int]]) -> list[str]:
+    for ts, additions, _deletions in weeks:
+        if ts == CORNERSTONE_WEEK:
+            if additions != CORNERSTONE_ADDITIONS:
+                return [f"C-001: week {ts} additions {additions} != {CORNERSTONE_ADDITIONS}"]
+            return []
+    return [f"C-001: week {CORNERSTONE_WEEK} missing from code frequency"]
+
+
+def check_pins(pins: list[tuple[str, str, str]], commit_exists: Callable[[str, str], bool]) -> list[str]:
+    return [f"{rel}: commit {sha} not found in {repo}"
+            for rel, repo, sha in pins if not commit_exists(repo, sha)]
+
+
+def gh_commit_exists(repo: str, sha: str) -> bool:
+    result = subprocess.run(["gh", "api", f"repos/{repo}/commits/{sha}", "--jq", ".sha"],
+                            capture_output=True, text=True)
+    return result.returncode == 0
+
+
+def gh_code_frequency(repo: str) -> list[list[int]]:
+    for _ in range(6):
+        result = subprocess.run(["gh", "api", f"repos/{repo}/stats/code_frequency"],
+                                capture_output=True, text=True)
+        if result.returncode == 0 and result.stdout.strip():
+            data = json.loads(result.stdout)
+            if isinstance(data, list) and data:
+                return data
+        time.sleep(5)
+    raise RuntimeError(f"code frequency for {repo} unavailable after retries")
+
+
+def run(root: Path, online: bool) -> list[str]:
+    try:
+        claims = parse_claims((root / "CLAIMS.md").read_text())
+    except (OSError, ValueError) as exc:
+        return [f"CLAIMS.md: {exc}"]
+    errors = check_claim_refs((root / "README.md").read_text(), claims)
+    errors += check_links(root)
+    errors += check_snapshot_headers(root)
+    errors += check_size(root)
+    errors += check_secrets(root)
+    if online:
+        errors += check_pins(collect_pins(root), gh_commit_exists)
+        try:
+            errors += check_code_frequency(gh_code_frequency(CORNERSTONE_REPO))
+        except RuntimeError as exc:
+            errors.append(f"C-001: {exc}")
+    return errors
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Verify the research lab's claims and structure.")
+    parser.add_argument("--offline", action="store_true", help="skip GitHub API checks")
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent)
+    args = parser.parse_args(argv)
+    errors = run(args.root, online=not args.offline)
+    for error in errors:
+        print(error)
+    print("OK" if not errors else f"FAIL ({len(errors)})")
+    return 0 if not errors else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
