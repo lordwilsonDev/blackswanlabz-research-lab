@@ -22,6 +22,8 @@ This lab's thesis is that governance brakes and evidence chains — not raw capa
 
 ## Evidence
 
+The project's draft enterprise governance procedure (MSB-ENT-SOP-001) is snapshotted verbatim at [msb-v3-governance-sop.md](msb-v3-governance-sop.md). It is a written procedure, not evidence that its controls operate.
+
 At the pinned commit above, `pytest --collect-only -q` collected **3,942 of 4,018 tests** (76 deselected) — see [C-030](../CLAIMS.md), status verified, checked by re-running the collection command below.
 
 The author's vault project note records the project's own MVP closeout audit on 2026-09-24 as **CLOSED** (MVP scope: system runs, agents run, Gemini works), with each criterion marked VERIFIED against live evidence collected that day (server restart + health check, full test suite 3,799 passed / 0 failed, governance status endpoint, agent registry, a local governed chat reply, a real Gemini Live tool-calling turn, and a Telegram round trip through the Hermes gateway) — see [C-031](../CLAIMS.md), status pending (author-reported in the vault, not independently re-run in this lab).
