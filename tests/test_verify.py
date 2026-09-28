@@ -249,3 +249,10 @@ def test_snapshot_headers_cover_08_operations(tmp_path):
 
 def test_token_budget_is_250k():
     assert verify.TOKEN_BUDGET == 250_000
+
+
+def test_main_offline_success_says_what_was_skipped(tmp_path, capsys):
+    write(tmp_path, "CLAIMS.md", CLAIMS_MD)
+    write(tmp_path, "README.md", "32,543,981 lines committed ([C-001](CLAIMS.md)).\n")
+    assert verify.main(["--offline", "--root", str(tmp_path)]) == 0
+    assert capsys.readouterr().out.strip().splitlines()[-1] == "OK (offline: pin and code-frequency checks skipped)"

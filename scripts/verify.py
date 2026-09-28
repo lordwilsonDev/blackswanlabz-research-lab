@@ -258,7 +258,8 @@ def main(argv: list[str] | None = None) -> int:
     errors = run(args.root, online=not args.offline)
     for error in errors:
         print(error)
-    print("OK" if not errors else f"FAIL ({len(errors)})")
+    ok = "OK (offline: pin and code-frequency checks skipped)" if args.offline else "OK"
+    print(ok if not errors else f"FAIL ({len(errors)})")
     return 0 if not errors else 1
 
 
