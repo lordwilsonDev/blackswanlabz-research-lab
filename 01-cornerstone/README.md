@@ -15,10 +15,11 @@ status: active
 
 ## What it does not show
 
-Commit dates prove existence *by* 2025-12-18, the repo's first commit ([C-017](../CLAIMS.md)), not when each project was first written; "lines committed" includes non-source files (breakdown pending, [C-002](../CLAIMS.md)); the package's own counts are self-reported ([C-003](../CLAIMS.md), pending).
+Commit dates prove existence *by* 2025-12-18, the repo's first commit ([C-017](../CLAIMS.md)), not when each project was first written; "lines committed" is not "lines of code": about 5.07 million lines are source code outside vendored and build folders ([C-002](../CLAIMS.md), [breakdown](line-breakdown.md)), the rest is vendored or build content, data and docs, and whether that source was written for the package rather than copied or generated is unexamined ([C-045](../CLAIMS.md), pending); the package's own counts are self-reported ([C-003](../CLAIMS.md), pending).
 
 ## Contents
 
+- [line-breakdown.md](line-breakdown.md)
 - [categories.md](categories.md)
 - [prediction-timeline.md](prediction-timeline.md)
 - [evidence/](evidence/README.md)
