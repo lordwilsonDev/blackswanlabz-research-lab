@@ -70,10 +70,10 @@ blackswanlabz-research-lab/
 |---|---|---|
 | `00-thesis/` | Intelligence Infrastructure Mismatch (verbatim) | Vault `10_Projects/BlackSwanLabz/BlackSwanLabz-Thesis-Intelligence-Infrastructure-Mismatch.md` |
 | `01-cornerstone/` | Package summary; 35 categories; code-frequency evidence (screenshot + API JSON); `prediction-timeline.md`; cloc/tokei breakdown (pending) | `github.com/lordwilsonDev/GITHUB_AI_PROJECTS_PACKAGE` |
-| `02-frameworks/` | `north-star.md`, `axiom-inversion-logic.md`, `moie.md`, `acts-5-act-research.md` (+ worked example AIL-AI-SMB-001), `adaptive-infrastructure.md` | Vault `10_Projects/BlackSwanLabz/BlackSwanLabz-North-Star-Architecture.md`, `30_Architecture/North-Star-FDE-Cybernetic-Loop.md`, `30_Architecture/Scientific-Research-Apparatus/`, MoIE wiki (`30_Architecture/diagrams/Sovereign-Stack-Tooling/wiki/MoIE-Framework-2.0-revised.md`), msb-v3 `docs/blueprints/` (adaptive build environment, Meta-System), `~/acts_mixture_of_inversion_experts` |
+| `02-frameworks/` | `north-star.md`, `axiom-inversion-logic.md`, `moie.md`, `acts-5-act-research.md` (+ worked example AIL-AI-SMB-001), `adaptive-infrastructure.md` | Vault `10_Projects/BlackSwanLabz/BlackSwanLabz-North-Star-Architecture.md`, `30_Architecture/North-Star-FDE-Cybernetic-Loop.md`, `30_Architecture/Scientific-Research-Apparatus/`, MoIE wiki (`30_Architecture/diagrams/Sovereign-Stack-Tooling/wiki/MoIE-Framework-2.0-revised.md`), msb-v3 `docs/blueprints/` (adaptive build environment, Meta-System), `~/acts_mixture_of_inversion_experts`, `github.com/lordwilsonDev/blackswanlabz-AI-ADAPTIVE-INFRASTRUCTURE` @ `20b9da5` (AIL CSM Harness skillpack v1.0 — Case State Machine, 21 files, 2 domain runs) |
 | `03-systems/` | `msb-v3.md` (what it is, audit results, MVP closure evidence, pinned commit); `fcve.md` (archived 2026-09-19, what it proved) | `~/projects/AI-Agents/msb-v3`, Vault `10_Projects/msb-v3/MSB-v3.md`; `github.com/lordwilsonDev/fcve` |
-| `04-papers/` | AIL-WP-2026-08-005 (AIL + MoIE); Epistemic State Transition Question Engineering paper; others selected during build | ACTS repo; Vault `30_Architecture/` |
-| `05-experiments/` | Tests run and results: MSB v3 suite + CI gates; Meta-System small-model scoreboard (8/9 delegated functions correct); Hermes12 AIL+MoIE benchmark (pre-registered, **not run**) | msb-v3; ACTS `98_HERMES12_BENCHMARK/` |
+| `04-papers/` | AIL-WP-2026-08-005 (AIL + MoIE); AIL MoIE Recursive Research Protocol (PDF); 4 portfolio artifacts (Common Substrate AIL/MoIE, AURORA-6 SSO mission design, HelixChem–Northbond merger analysis, K0 launch closure test protocol); Epistemic State Transition Question Engineering paper | ACTS repo; Adaptive Infrastructure repo; Vault `30_Architecture/` |
+| `05-experiments/` | Tests run and results: MSB v3 suite + CI gates; Meta-System small-model scoreboard (8/9 delegated functions correct); Adaptive Infrastructure `reproduce.py` (re-run 2026-09-28: byte-identical to `reproduce_results.txt`, ~4 s, no NaN/Inf); CSM domain runs (epidemiology — synthetic data; Fourth Amendment CSLI brief — preliminary); Hermes12 AIL+MoIE benchmark (pre-registered, **not run**) | msb-v3; Adaptive Infrastructure repo; ACTS `98_HERMES12_BENCHMARK/` |
 | `06-proofs/` | FCVE VCE-001/002 runs + receipts; Lean/Collatz verification; upstream PRs leanprover/lean4export#52, ammkrn/nanoda_lib#36 | `lordwilsonDev/fcve`, `lordwilsonDev/ico-collatz-verification` |
 
 ## 7. Snapshot rules
@@ -99,6 +99,8 @@ Seed rows:
 | C-002 | Breakdown of C-001 into own source / vendored / data | `cloc` or `tokei` at pinned commit | pending (needs disk or VM) |
 | C-003 | Package contains 208+ projects, 35 categories, 19,864 Python files, 649 dependencies | package README | pending (README self-report; recount) |
 | C-004 | AIL+MoIE outperforms compute-matched baselines (H1c) | Hermes12 benchmark | pending — not run |
+| C-005 | Adaptive Infrastructure `reproduce.py` reproduces its published results exactly | re-run at `20b9da5`, `diff` empty | verified 2026-09-28 |
+| C-006 | Published numbers are correct (SSO inclination 97.59° at 550 km, period 95.65 min, 10° plane change 1,322 m/s, HHI 1864→3106 Δ1242; epidemiology RR 7.39 / OR 18.42 from 38/60 vs 12/140) | independent hand recomputation | verified 2026-09-28 (spot checks; revisit simulation reproduced, not independently modeled) |
 
 "Lines committed" is never restated as "lines of code" until C-002 is verified.
 
@@ -135,6 +137,8 @@ CC BY 4.0 (writing, papers), MIT (scripts). `CITATION.cff` with Wilson's name; O
 7. Wilson decides on publishing
 
 ## 14. Known limitations
+
+- **Adaptive Infrastructure repo (as of `20b9da5`), fix at source before snapshotting:** (1) skillpack `README.md` file table names files that don't exist (`01_problem_intake.md` … `19_cross_domain_validation.md`); actual files are `01-intake-contract.md` … `20-final-synthesis-release-gate.md`; its numbered list also skips 9. (2) Quick start shows `ailmoie new-case`, a command not present in the repo. (3) No LICENSE. (4) Repo created 2026-09-27 — it evidences the harness, not early timing.
 
 - Commit dates prove existence **by** 2025-12-14, not origin dates of individual projects.
 - FCVE is archived; the lab presents it as completed work, not ongoing.
