@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-IGNORED_DIRS = (".git", ".superpowers", ".pytest_cache")
+IGNORED_DIRS = (".git", ".superpowers", ".pytest_cache", "docs")
 CLAIM_STATUSES = {"verified", "pending", "retracted"}
 CLAIM_ROW = re.compile(r"^\|\s*(C-\d{3})\s*\|(.*)\|\s*$")
 CLAIM_REF = re.compile(r"\bC-\d{3}\b")
