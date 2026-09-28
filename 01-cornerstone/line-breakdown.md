@@ -41,7 +41,7 @@ Each text file's lines are counted (newline count, plus one if the last line has
 | other_text | 16,878 | 411 |
 | **Total text lines** | **32,543,027** | |
 
-The total equals GitHub's net additions for the repo (32,543,981 added minus 954 deleted = 32,543,027), which corroborates [C-001](../CLAIMS.md). The stream was run twice (once by the controller, once independently) and the JSON output was byte-identical.
+The total equals GitHub's net additions for the repo (32,544,351 added minus 1,324 deleted across all weeks in code-frequency.json = net 32,543,027), which corroborates [C-001](../CLAIMS.md). The stream was run twice (once by the controller, once independently) and the JSON output was byte-identical.
 
 ## Source lines by language
 
@@ -64,4 +64,4 @@ The total equals GitHub's net additions for the repo (32,543,981 added minus 954
 - generated files;
 - AI-assisted or AI-generated code.
 
-The 744,646 shell lines in particular have not been examined. Whether the source lines were written for the package rather than copied or generated is a separate open claim ([C-045](../CLAIMS.md), pending). Binary files (18,579) are not counted at all. Line counts include blank lines and comments; this is not a tokei-style code/comment/blank split.
+The 744,646 shell lines in particular have not been examined. Whether the source lines were written for the package rather than copied or generated is a separate open claim ([C-045](../CLAIMS.md), pending). Directory-name rules (env, external, target, build and so on) can misclassify project code that happens to sit in such folders. Binary files (18,579) are not counted at all. Line counts include blank lines and comments; this is not a tokei-style code/comment/blank split.

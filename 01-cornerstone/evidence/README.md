@@ -14,4 +14,5 @@ status: active
 The `code-frequency.json` first row, `[1765670400, 32543981, -804]`, is the week starting 2025-12-14 00:00 UTC (Dec 14–20): 32,543,981 lines added. That week bucket includes the 2025-12-18 initial commit but the bucket label itself is not the existence date — see [C-001](../../CLAIMS.md) for the line-count claim and [C-017](../../CLAIMS.md) for the existence-anchor claim.
 
 GitHub counts every line of every committed file (source, data, lock files, vendored code). The breakdown into categories is [C-002](../../CLAIMS.md), verified; see [../line-breakdown.md](../line-breakdown.md).
+
 - `line-breakdown.json` — output of `scripts/cornerstone_breakdown.py` run on the streamed tarball of the pinned commit (no clone), captured 2026-09-28.
