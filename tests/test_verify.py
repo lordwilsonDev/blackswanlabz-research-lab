@@ -148,3 +148,38 @@ def test_links_relative_to_file(tmp_path):
     write(tmp_path, "CLAIMS.md", "x")
     write(tmp_path, "03-systems/msb-v3.md", "[claims](../CLAIMS.md)\n")
     assert verify.check_links(tmp_path) == []
+
+
+def test_size_under_and_over_budget(tmp_path):
+    write(tmp_path, "README.md", "a" * 400)          # 100 tokens
+    assert verify.text_token_estimate(tmp_path) == 100
+    assert verify.check_size(tmp_path, budget=100) == []
+    assert verify.check_size(tmp_path, budget=99)
+
+
+def test_size_ignores_binaries_and_git(tmp_path):
+    write(tmp_path, "README.md", "a" * 40)
+    (tmp_path / "evidence.png").write_bytes(b"\x89PNG" + b"x" * 10_000)
+    write(tmp_path, ".git/objects/blob.txt", "a" * 10_000)
+    assert verify.text_token_estimate(tmp_path) == 10
+
+
+def test_secrets_detects_tokens(tmp_path):
+    fake_gh = "ghp_" + "A" * 36
+    fake_ant = "sk-ant-" + "b" * 30
+    write(tmp_path, "03-systems/x.md", f"token {fake_gh}\nkey {fake_ant}\n")
+    errors = verify.check_secrets(tmp_path)
+    assert len(errors) == 2 and all("03-systems/x.md" in e for e in errors)
+
+
+def test_secrets_flags_personal_email_but_not_noreply(tmp_path):
+    personal = "someone" + "@" + "gmail.com"
+    write(tmp_path, "README.md", f"mail {personal}\nCo-Authored-By: Claude <noreply@anthropic.com>\n"
+                                 "12345+user@users.noreply.github.com\n")
+    errors = verify.check_secrets(tmp_path)
+    assert len(errors) == 1 and "README.md:1" in errors[0]
+
+
+def test_secrets_skips_tests_dir(tmp_path):
+    write(tmp_path, "tests/test_x.py", "ghp_" + "A" * 36)
+    assert verify.check_secrets(tmp_path) == []

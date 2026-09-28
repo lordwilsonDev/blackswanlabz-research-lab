@@ -139,3 +139,48 @@ def check_links(root: Path) -> list[str]:
                 if not (path.parent / target_path).exists():
                     errors.append(f"{rel}:{n}: broken link {target}")
     return errors
+
+
+TOKEN_BUDGET = 150_000
+TEXT_SUFFIXES = {".md", ".txt", ".json", ".cff", ".sh", ".py", ".yml", ".yaml", ".csv"}
+SECRET_PATTERNS = {
+    "GitHub token": re.compile(r"\b(?:ghp|gho|ghu|ghs)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{20,}"),
+    "API key": re.compile(r"\bsk-(?:ant-)?[A-Za-z0-9_-]{20,}"),
+    "AWS key": re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
+    "private key": re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
+    "Slack token": re.compile(r"\bxox[abprs]-[A-Za-z0-9-]{10,}"),
+}
+EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+")
+
+
+def _text_files(root: Path, skip_dirs: tuple[str, ...] = (".git",)) -> list[Path]:
+    out: list[Path] = []
+    for path in sorted(root.rglob("*")):
+        if not path.is_file() or any(part in skip_dirs for part in path.relative_to(root).parts):
+            continue
+        if path.suffix in TEXT_SUFFIXES or path.name.startswith("LICENSE") or path.name == "llms.txt":
+            out.append(path)
+    return out
+
+
+def text_token_estimate(root: Path) -> int:
+    return sum(len(p.read_text(errors="replace")) for p in _text_files(root)) // 4
+
+
+def check_size(root: Path, budget: int = TOKEN_BUDGET) -> list[str]:
+    tokens = text_token_estimate(root)
+    return [] if tokens <= budget else [f"size: ~{tokens:,} tokens exceeds budget {budget:,}"]
+
+
+def check_secrets(root: Path) -> list[str]:
+    errors: list[str] = []
+    for path in _text_files(root, skip_dirs=(".git", "tests")):
+        rel = path.relative_to(root).as_posix()
+        for n, line in enumerate(path.read_text(errors="replace").splitlines(), 1):
+            for label, pattern in SECRET_PATTERNS.items():
+                if pattern.search(line):
+                    errors.append(f"{rel}:{n}: possible {label}")
+            for email in EMAIL.findall(line):
+                if "noreply" not in email.lower():
+                    errors.append(f"{rel}:{n}: email address {email}")
+    return errors
