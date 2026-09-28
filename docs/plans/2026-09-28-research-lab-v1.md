@@ -24,7 +24,7 @@
 - Pinned commits must exist on the **remote** (check with `gh api repos/<repo>/commits/<sha>`); never pin a local-only commit (msb-v3 local `main` has unpushed `[do-not-push]` commits).
 - ORCID stays blank in `CITATION.cff`.
 - FCVE is **archived** (Wilson declared it dead 2026-09-19): describe as completed work, never as ongoing.
-- Commit messages end with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+- Commit messages end with a `Co-Authored-By: <model that wrote the commit> <noreply@anthropic.com>` line naming the model that actually wrote it (e.g. `Claude Haiku 4.5`, `Claude Sonnet 5`, `Claude Opus 5.5`). Decided by Wilson 2026-09-28. The commit examples below show the Opus line; substitute your own model.
 
 ---
 
