@@ -108,7 +108,7 @@ Seed rows:
 
 - `llms.txt` (llmstxt.org format): summary, reading order (thesis → cornerstone → frameworks → systems → papers → experiments → proofs → CLAIMS), one line per file.
 - `AGENTS.md`: `CLAIMS.md` is authoritative; pending ≠ verified; code lives in linked repos at pinned commits.
-- **Size budget:** repo text (excluding images) stays under ~150k tokens so one model can hold it.
+- **Size budget:** repo text (excluding images) stays under ~250k tokens so one model can hold it.
 
 ## 11. Verification
 

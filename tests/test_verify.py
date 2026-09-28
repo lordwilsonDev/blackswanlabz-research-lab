@@ -239,3 +239,13 @@ def test_snapshot_headers_cover_07_next(tmp_path):
     write(tmp_path, "07-next/x.md", "# no header\n")
     errors = verify.check_snapshot_headers(tmp_path)
     assert errors and "07-next/x.md" in errors[0]
+
+
+def test_snapshot_headers_cover_08_operations(tmp_path):
+    write(tmp_path, "08-operations/x.md", "# no header\n")
+    errors = verify.check_snapshot_headers(tmp_path)
+    assert any("08-operations/x.md" in e for e in errors)
+
+
+def test_token_budget_is_250k():
+    assert verify.TOKEN_BUDGET == 250_000

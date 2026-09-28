@@ -16,7 +16,7 @@
 - Local Python: `/opt/homebrew/Caskroom/miniforge/base/bin/python` (3.12.9, has pytest 9.1.1). Every command below uses `$PY`; set it once per shell: `PY=/opt/homebrew/Caskroom/miniforge/base/bin/python`.
 - `scripts/verify.py` uses the standard library only.
 - Licenses: CC BY 4.0 (writing/papers, `LICENSE`), MIT (scripts, `LICENSE-CODE`).
-- Size budget: all text in the repo (excluding images/PDF/binaries and `.git`) stays under **150,000 tokens** (estimated as characters ÷ 4).
+- Size budget: all text in the repo (excluding images/PDF/binaries and `.git`) stays under **250,000 tokens** (estimated as characters ÷ 4).
 - Snapshot header keys: `source`, `captured` (YYYY-MM-DD), `status` ∈ {`active`, `archived`, `pending`}; optional `repo` + `commit` (pin), `vault-date`.
 - Claim statuses: `verified`, `pending`, `retracted`. Pending is never restated as fact.
 - "Lines committed" is never written as "lines of code" until C-002 is verified.

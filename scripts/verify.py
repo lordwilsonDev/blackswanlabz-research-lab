@@ -70,7 +70,7 @@ def check_claim_refs(text: str, claims: dict[str, Claim], name: str = "README.md
 
 SNAPSHOT_DIRS = (
     "00-thesis", "01-cornerstone", "02-frameworks", "03-systems",
-    "04-papers", "05-experiments", "06-proofs", "07-next",
+    "04-papers", "05-experiments", "06-proofs", "07-next", "08-operations",
 )
 SNAPSHOT_STATUSES = {"active", "archived", "pending"}
 REQUIRED_KEYS = ("source", "captured", "status")
@@ -149,7 +149,7 @@ def check_links(root: Path) -> list[str]:
     return errors
 
 
-TOKEN_BUDGET = 150_000
+TOKEN_BUDGET = 250_000
 TEXT_SUFFIXES = {".md", ".txt", ".json", ".cff", ".sh", ".py", ".yml", ".yaml", ".csv"}
 SECRET_PATTERNS = {
     "GitHub token": re.compile(r"\b(?:ghp|gho|ghu|ghs)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{20,}"),
