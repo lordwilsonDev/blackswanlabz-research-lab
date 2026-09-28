@@ -1476,3 +1476,49 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
   Exclude business-model and pricing details beyond "free", along with personal notes and wikilinks. No numbers without claims.
 - [ ] **Step 3: Check and commit.** Run `$PY scripts/verify.py --offline`, then commit `feat: roadmap — BlackSwanLabz OS (not built)`.
+
+### Task 19: North Star operating SOPs (Wilson, 2026-09-28)
+
+Wilson's goal: show how he thought about running a research lab as a business. His decisions: publish **all verbatim**, **keep prices**, **keep honest current-state notes**, and **drop links to private notes**. The size budget rises to **250,000 tokens**.
+
+**Files:**
+- Create: `08-operations/README.md`, plus one verbatim file per source below (kebab-case names, e.g. `08-operations/master-sop.md`)
+- Modify: `scripts/verify.py` (add `"08-operations"` to `SNAPSHOT_DIRS`; `TOKEN_BUDGET = 250_000`), `tests/test_verify.py`, the Global Constraints size line in this plan and in the spec §10
+- Modify: `02-frameworks/north-star.md` (add a link to the verbatim North Star Architecture)
+
+**Sources (vault):**
+- `10_Projects/BlackSwanLabz/SOPs/Master-SOP.md`
+- `10_Projects/BlackSwanLabz/SOPs/Hardened-Blueprint-v2.1.md`
+- `10_Projects/BlackSwanLabz/SOPs/Operator-SOP.md`
+- `10_Projects/BlackSwanLabz/SOPs/Day-to-Day-Operating-Manual.md`
+- `10_Projects/BlackSwanLabz/SOPs/Complete-Client-Loop.md`
+- `10_Projects/BlackSwanLabz/SOPs/Propulsion-Engine-SOP.md`
+- `30_Architecture/FDE-Customer-Intake-Environment-Discovery-SOP-v1.3.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-Research-Manual-v1.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-Research-Service.md`
+- `10_Projects/BlackSwanLabz/BlackSwanLabz-North-Star-Architecture.md`
+- `30_Architecture/North-Star-FDE-Cybernetic-Loop.md`
+
+- [ ] **Step 1: TDD for the checker.**
+  - Add `test_snapshot_headers_cover_08_operations` (a `08-operations/x.md` with no header must be reported).
+  - Add `test_token_budget_is_250k` (`assert verify.TOKEN_BUDGET == 250_000`).
+  - Run them and watch them fail. Change `SNAPSHOT_DIRS` and `TOKEN_BUDGET`, then watch them pass. Run the full suite.
+- [ ] **Step 2: Privacy read of every source.** Stop and report NEEDS_CONTEXT, listing line and category only, if a source contains any of the following:
+  - names of real clients, prospects or companies being targeted
+  - names of private individuals
+  - phone numbers, emails or addresses
+  - credentials
+  - legal or family matters
+  - investor or fundraising material
+
+  Prices and honest status notes are **approved to publish**.
+- [ ] **Step 3: Copy each file verbatim** using a file-copy approach (`cat`/`cp`, then edit), never retyped. Drop the source's own frontmatter. The only allowed edit is turning every Obsidian `[[Target|Label]]` or `[[Target]]` into plain text (`Label` or `Target`), done mechanically with a regex. Record the replacement count per file. Header: `source: vault:<path>`, `vault-date: <source updated:>`, `captured: 2026-09-28`, `status: active`.
+- [ ] **Step 4: Verbatim check.** For each file, compare the published body against the source with only the same wikilink transform applied. The diff must be empty. Record the command.
+- [ ] **Step 5: Write `08-operations/README.md`.**
+  - Header: `source: index of operating documents`.
+  - An intro of 2–3 sentences: these are the operating standards Wilson wrote for running BlackSwanLabz as an evidence-first research-and-automation practice; several describe the target system, and their own status notes say what exists today.
+  - A reading-order table of Doc · Role · Words, using the roles from the vault's `SOPs/_INDEX.md`.
+  - The "How these relate" tree.
+  - A note that prices are the offers as written in the documents at capture, not a current price list.
+- [ ] **Step 6: Link and check.** Add the link in `02-frameworks/north-star.md`. Run `$PY -m pytest tests -q` and `$PY scripts/verify.py --offline` (expect OK).
+- [ ] **Step 7: Commit** `feat: North Star operating SOPs (verbatim, 08-operations)`.
