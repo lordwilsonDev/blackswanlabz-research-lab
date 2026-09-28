@@ -12,7 +12,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-IGNORED_DIRS = (".git", ".superpowers", ".pytest_cache", "docs")
+IGNORED_DIRS = (".git", ".superpowers", ".pytest_cache")
+LINK_IGNORED_DIRS = IGNORED_DIRS + ("docs",)
 CLAIM_STATUSES = {"verified", "pending", "retracted"}
 CLAIM_ROW = re.compile(r"^\|\s*(C-\d{3})\s*\|(.*)\|\s*$")
 CLAIM_REF = re.compile(r"\bC-\d{3}\b")
@@ -135,7 +136,7 @@ def collect_pins(root: Path) -> list[tuple[str, str, str]]:
 def check_links(root: Path) -> list[str]:
     errors: list[str] = []
     for path in sorted(root.rglob("*.md")):
-        if any(part in IGNORED_DIRS for part in path.relative_to(root).parts):
+        if any(part in LINK_IGNORED_DIRS for part in path.relative_to(root).parts):
             continue
         rel = path.relative_to(root).as_posix()
         for n, line in enumerate(path.read_text().splitlines(), 1):

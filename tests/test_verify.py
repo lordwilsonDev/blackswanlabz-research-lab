@@ -150,6 +150,15 @@ def test_links_relative_to_file(tmp_path):
     assert verify.check_links(tmp_path) == []
 
 
+def test_docs_links_skipped_but_scanned(tmp_path):
+    write(tmp_path, "docs/plans/p.md", "[x](nope.md)\n" + "ghp_" + "A" * 36 + "\n")
+    write(tmp_path, "README.md", "ok")
+    assert verify.check_links(tmp_path) == []
+    errors = verify.check_secrets(tmp_path)
+    assert len(errors) == 1
+    assert "docs/plans/p.md" in errors[0]
+
+
 def test_size_under_and_over_budget(tmp_path):
     write(tmp_path, "README.md", "a" * 400)          # 100 tokens
     assert verify.text_token_estimate(tmp_path) == 100
