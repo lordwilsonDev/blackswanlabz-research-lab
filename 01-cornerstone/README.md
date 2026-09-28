@@ -15,7 +15,7 @@ status: active
 
 ## What it does not show
 
-Commit dates prove existence *by* 2025-12-14, not when each project was first written; "lines committed" includes non-source files (breakdown pending, [C-002](../CLAIMS.md)); the package's own counts are self-reported ([C-003](../CLAIMS.md), pending).
+Commit dates prove existence *by* 2025-12-18, the repo's first commit ([C-017](../CLAIMS.md)), not when each project was first written; "lines committed" includes non-source files (breakdown pending, [C-002](../CLAIMS.md)); the package's own counts are self-reported ([C-003](../CLAIMS.md), pending).
 
 ## Contents
 

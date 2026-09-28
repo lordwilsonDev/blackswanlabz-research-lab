@@ -968,15 +968,15 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Modify: `CLAIMS.md` (one row per included timeline row, IDs continue from C-006)
 
 **Interfaces:**
-- Consumes: `01-cornerstone/categories.md` (category names), C-001 (date anchor 2025-12-14).
+- Consumes: `01-cornerstone/categories.md` (category names), C-017 (date anchor 2025-12-18, the repo's first commit — supersedes an earlier draft that anchored on C-001's 2025-12-14 code-frequency week label).
 
-Inclusion rule (spec §8): a row is included only if **both sides are dated and sourced** and the cornerstone date (2025-12-14) comes first. Candidate categories: `03-orchestration-coordination`, `09-swarm-collective`, `04-memory-knowledge`, `32-gateways-apis`, `16-communication-protocols`, `30-mini-mind`, `13-nanoapex`, `27-safety-recovery`, `11-sovereignty-security`, `31-monitoring-metrics`, `28-testing-synthesis`, `26-evolution-improvement`.
+Inclusion rule (spec §8): a row is included only if **both sides are dated and sourced** and the cornerstone date (2025-12-18) comes first. Candidate categories: `03-orchestration-coordination`, `09-swarm-collective`, `04-memory-knowledge`, `32-gateways-apis`, `16-communication-protocols`, `30-mini-mind`, `13-nanoapex`, `27-safety-recovery`, `11-sovereignty-security`, `31-monitoring-metrics`, `28-testing-synthesis`, `26-evolution-improvement`.
 
 - [ ] **Step 1: Research each candidate**
 
-For each candidate category, use WebSearch to find **one industry event dated after 2025-12-14** in that area (a product launch, standard release, or major publication), with a primary source (vendor blog, standards body, paper). Also record whether the area was **already established before 2025-12-14** and cite one source for that (e.g. MCP was announced by Anthropic in November 2024). Record in a scratch table: category · event · event date · source URL · already-established? · source URL.
+For each candidate category, use WebSearch to find **one industry event dated after 2025-12-18** in that area (a product launch, standard release, or major publication), with a primary source (vendor blog, standards body, paper). Also record whether the area was **already established before 2025-12-18** and cite one source for that (e.g. MCP was announced by Anthropic in November 2024). Record in a scratch table: category · event · event date · source URL · already-established? · source URL.
 
-Drop any candidate where no post-2025-12-14 event with a primary source is found.
+Drop any candidate where no post-2025-12-18 event with a primary source is found.
 
 - [ ] **Step 2: Write `01-cornerstone/prediction-timeline.md`**
 
@@ -990,19 +990,19 @@ status: active
 ---
 # Prediction timeline
 
-By 2025-12-14, the package contained these categories ([C-001](../CLAIMS.md)). This table sets each one beside where the industry went **after** that date.
+By 2025-12-18 -- the repo's first commit ([C-017](../CLAIMS.md)) -- the package contained these categories. This table sets each one beside where the industry went **after** that date.
 
-**How to read it.** A row is here only if both dates are sourced and the package date comes first. The last column says whether the area already existed before December 2025. A "yes" there means the row shows *early convergence*, not a first-of-its-kind prediction. Both are listed, not hidden.
+**How to read it.** A row is here only if both dates are sourced and the package date comes first. The last column says whether the area already existed before December 2025. Every included row is early convergence; none shows a first-of-its-kind prediction. Both the pre-anchor origin and the post-anchor event are listed for each row, not hidden.
 
-| Category (by 2025-12-14) | Industry event after | Event date | Source | Area already established before 2025-12-14? | Claim |
+| Category (by 2025-12-18) | Industry event after | Event date | Source | Area already established before 2025-12-18? | Claim |
 |---|---|---|---|---|---|
 ```
 
-One table row per surviving candidate, each with its own claim ID (`C-007`, `C-008`, …). After the table, a `## Excluded candidates` section listing each dropped category and why (e.g. "no post-2025-12-14 primary source found").
+One table row per surviving candidate, each with its own claim ID (`C-007`, `C-008`, …). After the table, a `## Excluded candidates` section listing each dropped category and why (e.g. "no post-2025-12-18 primary source found").
 
 - [ ] **Step 3: Add one CLAIMS row per timeline row**
 
-Format: `| C-0NN | <category> existed in the package by 2025-12-14 and <event> followed on <date> | [prediction-timeline.md](01-cornerstone/prediction-timeline.md) + <source URL> | open both sources; compare dates | verified | 2026-09-28 |`
+Format: `| C-0NN | <category> existed in the package by 2025-12-18 and <event> followed on <date> | [prediction-timeline.md](01-cornerstone/prediction-timeline.md) + <source URL> | open both sources; compare dates | verified | 2026-09-28 |`
 
 - [ ] **Step 4: Run the checker**
 

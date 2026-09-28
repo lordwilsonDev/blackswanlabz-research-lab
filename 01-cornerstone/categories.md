@@ -7,7 +7,7 @@ status: active
 ---
 # The 35 categories
 
-The package's top-level folders, as committed by 2025-12-14.
+The package's top-level folders, as committed by 2025-12-18, the repo's first commit ([C-017](../CLAIMS.md)).
 
 | # | Folder | What it holds |
 |---|---|---|

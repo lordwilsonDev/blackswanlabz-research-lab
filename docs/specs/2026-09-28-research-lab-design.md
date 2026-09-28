@@ -85,7 +85,7 @@ blackswanlabz-research-lab/
 
 ## 8. Prediction timeline
 
-`01-cornerstone/prediction-timeline.md` maps each cornerstone category to a later industry event. A row is included only if **both sides are dated and sourced** and the cornerstone date comes first. Cornerstone date anchor: GitHub code frequency, week of 2025-12-14. Rows that can't be dated stay out (or are listed as pending).
+`01-cornerstone/prediction-timeline.md` maps each cornerstone category to a later industry event. A row is included only if **both sides are dated and sourced** and the cornerstone date comes first. Cornerstone date anchor: the repo's first commit, 2025-12-18 (C-017), which already contained all 35 category folders. (GitHub's code-frequency "week of 2025-12-14" bucket, used for the line-count claim C-001, is a separate weekly aggregation window, not the existence date.) Rows that can't be dated stay out (or are listed as pending).
 
 ## 9. CLAIMS.md
 
@@ -140,7 +140,7 @@ CC BY 4.0 (writing, papers), MIT (scripts). `CITATION.cff` with Wilson's name; O
 
 - **Adaptive Infrastructure repo:** README/file mismatch, missing research-loop files, smoke-run crash, and epidemiology CI rounding fixed in lordwilsonDev/blackswanlabz-AI-ADAPTIVE-INFRASTRUCTURE#1 (merged `fb17587`). Still open at source: spec (12+3 states) vs execution plan (15 states) not reconciled; DRB-001…005 run records absent; no LICENSE; repo created 2026-09-27, so it evidences the harness, not early timing.
 
-- Commit dates prove existence **by** 2025-12-14, not origin dates of individual projects.
+- Commit dates prove existence **by** 2025-12-18 (the repo's first commit, C-017), not origin dates of individual projects.
 - FCVE is archived; the lab presents it as completed work, not ongoing.
 - The AIL+MoIE benchmark has no results; the lab presents its pre-registration and falsification condition only.
 - Snapshots can drift from sources; headers and `verify.sh` make drift visible, not impossible.
