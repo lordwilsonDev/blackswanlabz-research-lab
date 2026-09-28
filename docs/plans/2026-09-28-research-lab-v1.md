@@ -1426,3 +1426,53 @@ git commit -m "feat: C-002 line breakdown of the cornerstone (tokei)
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
+
+---
+
+## Addendum (Wilson, 2026-09-28): three more sources, run after Task 11 and before Task 12
+
+### Task 16: MSB v3 governance SOP (MSB-ENT-SOP-001)
+
+**Files:**
+- Create: `03-systems/msb-v3-governance-sop.md`
+- Modify: `03-systems/msb-v3.md` (one link in its Evidence section), `CLAIMS.md` (only if the page states numbers)
+
+**Source:** `~/projects/AI-Agents/msb-v3/docs/governance/MSB-ENT-SOP-001-enterprise-trust-security-privacy-ai-governance-service-operations.md` (~1,560 lines, **untracked** in msb-v3: no commit, no remote copy).
+
+- [ ] **Step 1: Read the whole SOP.** List any private material (customer or client names, personal contact details, emails, phone numbers, internal credentials, pricing). If there is any, stop and report NEEDS_CONTEXT, listing each item's line and a one-line description.
+- [ ] **Step 2: Decide verbatim vs. excerpt by size.** If the SOP body is ≤ 12,000 words, publish it verbatim. Otherwise publish sections 1–3 (Purpose, Scope, Control Principles) verbatim and summarize the rest section by section, keeping each summary faithful to the source.
+- [ ] **Step 3: Header and framing.** Use `source: ~/projects/AI-Agents/msb-v3/docs/governance/MSB-ENT-SOP-001-…md (uncommitted in msb-v3 as of 2026-09-28)`, `captured: 2026-09-28`, `status: pending`, with no `repo`/`commit`. Open the page with this note: "This is a written procedure. It describes how MSB v3 is meant to be operated; it is not evidence that each control is implemented or operating. Where a control maps to code in MSB v3, that mapping is not yet verified." Do not add claims that controls operate.
+- [ ] **Step 4: Link and check.** Link the new page from `03-systems/msb-v3.md`. Run `$PY scripts/verify.py --offline` and expect `OK`.
+- [ ] **Step 5: Commit** `feat: MSB v3 governance SOP snapshot (procedure, not evidence)`.
+
+### Task 17: FDE Kernel experiments
+
+**Files:**
+- Create: `03-systems/fde-kernel.md`, `05-experiments/fde-kernel-missions.md`
+- Modify: `05-experiments/README.md` (add a row), `CLAIMS.md`
+
+**Source:** `~/projects/fde-kernel-skills` (local git repo, **no remote**; HEAD `f88d8ab` on 2026-09-28). Read `README.md` and `AGENTS.md`, list `runs/` and `docs/`, and read the pre-registration and report files for M005–M008 that exist.
+
+- [ ] **Step 1: Run the gate without changing anything.** Run `cd ~/projects/fde-kernel-skills && make check 2>&1 | tail -30`, and record the test count and pass/fail as printed. Never modify, commit or delete anything in that repo. If `make check` writes files, report which ones.
+- [ ] **Step 2: Write `03-systems/fde-kernel.md`** (~400–700 words). Header: `source: ~/projects/fde-kernel-skills (local git, no remote; HEAD <full sha>)`, `captured`, `status: active`, with no `repo`/`commit` pin. Sections: what the Kernel is (from the README); the three skills; enforced blindness (the README's own caveat, quoted: "a guard, not a sandbox"); the vault persistence split; `## Sources`.
+- [ ] **Step 3: Write `05-experiments/fde-kernel-missions.md`.** Include a table of missions M005–M008: what each tested, its pre-registration status, and its outcome as recorded in the run and report files. An outcome may be stated only if a file in the repo records it. Otherwise write "no recorded outcome". Add a `## How blindness is enforced` section and the Step 1 gate result.
+- [ ] **Step 4: Claims.** The Step 1 gate result gets one `verified` claim; its "How to check" is `cd fde-kernel-skills && make check` and notes that the repo is not yet public. Every mission outcome gets a `pending` claim reading "recorded in the local run files; repo not yet public" until the repo is pushed.
+- [ ] **Step 5: Check and commit.** Run `$PY scripts/verify.py --offline`, then commit `feat: FDE Kernel system + mission experiments`.
+
+### Task 18: BlackSwanLabz OS (roadmap)
+
+**Files:**
+- Create: `07-next/blackswanlabz-os.md`
+- Modify: `scripts/verify.py` (add `"07-next"` to `SNAPSHOT_DIRS`, with a test first), `tests/test_verify.py`
+
+**Source:** `~/Documents/Vault/10_Projects/BlackSwanLabz-OS.md`, plus the three research notes it cites in `~/Documents/Vault/20_Research/North-Star/`.
+
+- [ ] **Step 1: TDD.** Add `test_snapshot_headers_cover_07_next(tmp_path)`: write `07-next/x.md` with no header and assert that `check_snapshot_headers` reports it. Run it and watch it fail, add `"07-next"` to `SNAPSHOT_DIRS`, then run it and watch it pass. Run the full suite.
+- [ ] **Step 2: Write `07-next/blackswanlabz-os.md`** (~300–500 words). Header: `source: vault:10_Projects/BlackSwanLabz-OS.md`, `vault-date`, `captured`, `status: pending`. Open with **"Not built yet."** Cover:
+  - what it is: an Omarchy-based fork with Hermes, controlled by voice, with North Star built in
+  - the decision, with its date, to give AIL and MoIE away free
+  - a licensing summary: MIT/BSD permit forking; the "Omarchy" trademark means rebranding; third-party AI CLIs are installed lazily
+  - open decisions
+
+  Exclude business-model and pricing details beyond "free", along with personal notes and wikilinks. No numbers without claims.
+- [ ] **Step 3: Check and commit.** Run `$PY scripts/verify.py --offline`, then commit `feat: roadmap — BlackSwanLabz OS (not built)`.
