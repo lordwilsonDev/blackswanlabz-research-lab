@@ -70,7 +70,7 @@ def check_claim_refs(text: str, claims: dict[str, Claim], name: str = "README.md
 
 SNAPSHOT_DIRS = (
     "00-thesis", "01-cornerstone", "02-frameworks", "03-systems",
-    "04-papers", "05-experiments", "06-proofs",
+    "04-papers", "05-experiments", "06-proofs", "07-next",
 )
 SNAPSHOT_STATUSES = {"active", "archived", "pending"}
 REQUIRED_KEYS = ("source", "captured", "status")

@@ -233,3 +233,9 @@ def test_main_returns_1_on_errors(tmp_path, capsys):
     write(tmp_path, "README.md", "32,543,981 lines.\n")
     assert verify.main(["--offline", "--root", str(tmp_path)]) == 1
     assert "FAIL (1)" in capsys.readouterr().out
+
+
+def test_snapshot_headers_cover_07_next(tmp_path):
+    write(tmp_path, "07-next/x.md", "# no header\n")
+    errors = verify.check_snapshot_headers(tmp_path)
+    assert errors and "07-next/x.md" in errors[0]
