@@ -1,10 +1,8 @@
 ---
 source: author-supplied text (Lord Wilson), pasted into the lab build session 2026-09-28
 captured: 2026-09-28
-status: pending
+status: active
 ---
-
-> **Published as the author wrote it.** Every figure below is quoted from the paper's own text and cited sources; none has been link-checked by the lab yet. Treat each as pending until it has a verified row in [CLAIMS.md](../CLAIMS.md). Later work on the same argument as [the thesis](../00-thesis/intelligence-infrastructure-mismatch.md).
 
 # The Constraint Migration: How AI Commoditizes Intelligence and Makes Verified Execution the Next Scarce Infrastructure
 

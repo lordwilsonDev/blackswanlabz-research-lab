@@ -26,6 +26,8 @@ Read in this order.
 
 ## Systems
 - [FCVE, Formal Claim Verification Engine](03-systems/fcve.md): archived 2026-09-19; turned a mathematical claim into an auditable evidence package.
+- [The Ethos System](03-systems/ethos-system.md): the seven principles as software you can ask (allow, pause, refuse), with an immune system that proves it hasn't been altered.
+- [Ethos executive summary](03-systems/ethos-executive-summary.md): the generated plain-language report of its latest test run, including every gap it can't yet prove.
 - [FDE Kernel skills](03-systems/fde-kernel.md): a mission state machine and bounded Gateway packaged as Claude Code skills; not yet public.
 - [MSB v3 governance SOP](03-systems/msb-v3-governance-sop.md): a written procedure for operating MSB v3 (draft, pending); not evidence that controls operate.
 - [MSB v3](03-systems/msb-v3.md): a governed, local-first agent runtime.

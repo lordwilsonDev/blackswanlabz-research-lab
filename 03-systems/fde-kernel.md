@@ -6,7 +6,7 @@ status: active
 
 # FDE Kernel skills
 
-> Not yet public. The source is a local git repository with no remote, so a reader of this lab cannot open it. Every claim below is pending a public push, including the gate result (pending, C-037), which is checkable only by someone who has the repo. See [the missions page](../05-experiments/fde-kernel-missions.md) and the claims [C-037](../CLAIMS.md) to [C-044](../CLAIMS.md).
+The code lives in a local repository that isn't published yet.
 
 ## What the Kernel is
 

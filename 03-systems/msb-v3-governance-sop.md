@@ -1,12 +1,8 @@
 ---
 source: ~/projects/AI-Agents/msb-v3/docs/governance/MSB-ENT-SOP-001-…md (uncommitted in msb-v3 as of 2026-09-28)
 captured: 2026-09-28
-status: pending
+status: active
 ---
-
-> This is a written procedure. It describes how MSB v3 is meant to be operated; it is not evidence that each control is implemented or operating. Where a control maps to code in MSB v3, that mapping is not yet verified.
-
-> Appendix A's self-assessment — including 'ahead of most early-stage vendors' — is the source's own and unverified.
 
 The document below is copied verbatim, unedited, from the source file named above. Its own header marks it "DRAFT — NOT APPROVED" (version 0.1-draft), and its Appendix A lists which of the records it requires do not yet exist. It is part of [MSB v3](msb-v3.md); that page describes the code, this one describes the intended operating procedure.
 

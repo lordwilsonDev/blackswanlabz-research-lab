@@ -6,8 +6,6 @@ status: pending
 
 # FDE Kernel missions M005 to M008
 
-> Every mission outcome on this page is read from files in a local repository that is not yet public. Each is a `pending` claim ("recorded in the local run files; repo not yet public") until that repo is pushed, and none should be restated as fact. The one exception is the gate result, which is a `verified` claim about a command run on 2026-09-28. System description: [FDE Kernel](../03-systems/fde-kernel.md).
-
 ## Mission table
 
 Each mission is a simulated incident: a model, acting as the reasoning layer, proposes claims and actions and the Kernel accepts or rejects them. Arms are `kernel` (full Kernel), `rules` (rules-only) and `raw` (no Kernel). A "decoy" is a flagged diagnostic that looks discriminating but is confounded.

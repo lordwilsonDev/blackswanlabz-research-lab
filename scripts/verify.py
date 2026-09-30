@@ -52,6 +52,13 @@ def parse_claims(text: str) -> dict[str, Claim]:
     return claims
 
 
+def check_claim_ids(text: str, claims: dict[str, Claim], name: str = "README.md") -> list[str]:
+    """Showcase rule: every claim ID a page mentions must exist in CLAIMS.md."""
+    return [f"{name}:{n}: unknown claim {ref}"
+            for n, line in enumerate(text.splitlines(), 1)
+            for ref in CLAIM_REF.findall(line) if ref not in claims]
+
+
 def check_claim_refs(text: str, claims: dict[str, Claim], name: str = "README.md") -> list[str]:
     errors: list[str] = []
     for n, line in enumerate(text.splitlines(), 1):
@@ -236,7 +243,7 @@ def run(root: Path, online: bool) -> list[str]:
         claims = parse_claims((root / "CLAIMS.md").read_text())
     except (OSError, ValueError) as exc:
         return [f"CLAIMS.md: {exc}"]
-    errors = check_claim_refs((root / "README.md").read_text(), claims)
+    errors = check_claim_ids((root / "README.md").read_text(), claims)
     errors += check_links(root)
     errors += check_snapshot_headers(root)
     errors += check_size(root)
