@@ -230,7 +230,7 @@ def test_run_offline_on_minimal_repo(tmp_path):
 
 def test_main_returns_1_on_errors(tmp_path, capsys):
     write(tmp_path, "CLAIMS.md", CLAIMS_MD)
-    write(tmp_path, "README.md", "32,543,981 lines.\n")
+    write(tmp_path, "README.md", "32,543,981 lines (C-099).\n")
     assert verify.main(["--offline", "--root", str(tmp_path)]) == 1
     assert "FAIL (1)" in capsys.readouterr().out
 
@@ -256,3 +256,18 @@ def test_main_offline_success_says_what_was_skipped(tmp_path, capsys):
     write(tmp_path, "README.md", "32,543,981 lines committed ([C-001](CLAIMS.md)).\n")
     assert verify.main(["--offline", "--root", str(tmp_path)]) == 0
     assert capsys.readouterr().out.strip().splitlines()[-1] == "OK (offline: pin and code-frequency checks skipped)"
+
+
+def test_run_allows_showcase_readme_numbers(tmp_path):
+    # Showcase front page: plain numbers and no "pending" wording are fine;
+    # the receipts live in CLAIMS.md.
+    write(tmp_path, "CLAIMS.md", CLAIMS_MD)
+    write(tmp_path, "README.md", "32.5 million lines committed; see C-002 for the breakdown.\n")
+    assert verify.run(tmp_path, online=False) == []
+
+
+def test_run_still_rejects_unknown_claim_ids_in_readme(tmp_path):
+    write(tmp_path, "CLAIMS.md", CLAIMS_MD)
+    write(tmp_path, "README.md", "See C-099.\n")
+    errors = verify.run(tmp_path, online=False)
+    assert errors == ["README.md:1: unknown claim C-099"]
