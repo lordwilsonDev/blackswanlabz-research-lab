@@ -142,6 +142,40 @@ def check_llms_coverage(root: Path) -> list[str]:
             for path in _snapshot_files(root) if path.relative_to(root).as_posix() not in linked]
 
 
+RUN_SCHEMA = "05-experiments/learning-trajectory/run-record.schema.json"
+RUN_RECORDS = "05-experiments/learning-trajectory/runs"
+
+
+def check_run_records(root: Path) -> list[str]:
+    """Validate run-record JSON files against the run-record schema.
+
+    Records without protocol_version predate the schema and are skipped. Needs the optional
+    jsonschema package; without it the check is skipped (CI installs it).
+    """
+    try:
+        from jsonschema import Draft202012Validator
+    except ImportError:
+        return []
+    schema_path = root / RUN_SCHEMA
+    if not schema_path.exists():
+        return []
+    validator = Draft202012Validator(json.loads(schema_path.read_text()))
+    errors: list[str] = []
+    for path in sorted((root / RUN_RECORDS).glob("*.json")):
+        rel = path.relative_to(root).as_posix()
+        try:
+            record = json.loads(path.read_text())
+        except json.JSONDecodeError as exc:
+            errors.append(f"{rel}: invalid JSON ({exc})")
+            continue
+        if not isinstance(record, dict) or "protocol_version" not in record:
+            continue
+        for err in validator.iter_errors(record):
+            where = "/".join(str(p) for p in err.absolute_path) or "(root)"
+            errors.append(f"{rel}: {where}: {err.message[:120]}")
+    return errors
+
+
 def collect_pins(root: Path) -> list[tuple[str, str, str]]:
     pins: list[tuple[str, str, str]] = []
     for path in _snapshot_files(root):
@@ -268,6 +302,7 @@ def run(root: Path, online: bool) -> list[str]:
     errors += check_links(root)
     errors += check_snapshot_headers(root)
     errors += check_llms_coverage(root)
+    errors += check_run_records(root)
     errors += check_size(root)
     errors += check_secrets(root)
     if online:

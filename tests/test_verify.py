@@ -279,3 +279,15 @@ def test_llms_coverage_flags_unlinked_pages(tmp_path):
     write(tmp_path, "llms.txt", "- [A](03-systems/a.md)\n")
     errors = verify.check_llms_coverage(tmp_path)
     assert errors == ["llms.txt: missing link to 03-systems/b.md"]
+
+
+def test_run_records_validates_current_and_skips_legacy(tmp_path):
+    pytest.importorskip("jsonschema")
+    schema = '{"type": "object", "required": ["run_id", "status"]}'
+    d = "05-experiments/learning-trajectory"
+    write(tmp_path, f"{d}/run-record.schema.json", schema)
+    write(tmp_path, f"{d}/runs/legacy.json", '{"run_id": "old"}')
+    write(tmp_path, f"{d}/runs/good.json", '{"run_id": "a", "protocol_version": "0.1", "status": "ok"}')
+    write(tmp_path, f"{d}/runs/bad.json", '{"run_id": "b", "protocol_version": "0.1"}')
+    errors = verify.check_run_records(tmp_path)
+    assert len(errors) == 1 and "bad.json" in errors[0] and "status" in errors[0]
