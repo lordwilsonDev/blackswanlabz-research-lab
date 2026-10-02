@@ -1,0 +1,28 @@
+name: learning-trajectory-instrument
+
+on:
+  push:
+    paths:
+      - "05-experiments/learning-trajectory/**"
+      - ".github/workflows/learning-trajectory-instrument.yml"
+  pull_request:
+    paths:
+      - "05-experiments/learning-trajectory/**"
+      - ".github/workflows/learning-trajectory-instrument.yml"
+  workflow_dispatch:
+
+jobs:
+  instrument:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pytest tests -q
+      - run: python 05-experiments/learning-trajectory/check_instrument_conformance.py
+      - run: python 05-experiments/learning-trajectory/test_conformance_mutations.py
+      - run: python 05-experiments/learning-trajectory/verifiers/test_q2b_mbeddr_002_verifier.py
+      - run: python 05-experiments/learning-trajectory/test_replay_preflight.py
