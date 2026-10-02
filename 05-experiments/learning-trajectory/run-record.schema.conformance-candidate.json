@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "q2b-ltb-run-record-conformance-candidate-0.4",
-  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate 0.4",
+  "$id": "q2b-ltb-run-record-conformance-candidate-0.5",
+  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate 0.5",
   "type": "object",
   "required": [
     "run_id",
@@ -1479,7 +1479,9 @@
         "investigator",
         "learner",
         "verifier",
-        "analyst"
+        "analyst",
+        "shared_system",
+        "role_transition_log"
       ],
       "properties": {
         "investigator": {
@@ -1499,9 +1501,30 @@
           "items": {
             "type": "string"
           }
+        },
+        "shared_system": {
+          "type": "boolean"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "shared_system": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "role_transition_log": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
     },
     "evidence_firewall": {
       "type": "object",
