@@ -40,6 +40,10 @@ Over the following months the industry scaled up in the same areas — agent mem
 - [**Experiments**](05-experiments/README.md) — reproductions, reference tests, FDE Kernel missions, and a pre-registered benchmark that tests AIL + MoIE against compute-matched baselines, with its falsification condition written down before it runs.
 - [**Proofs**](06-proofs/README.md) — FCVE's formal verification packages and upstream contributions.
 
+## Learning Trajectory Research Program
+
+[Q2B-LTB-1](05-experiments/learning-trajectory/q2b-ltb-1.md) is the integrated benchmark for question-to-build learning trajectories. It combines LTB learner capability states, INV-LTB problem terrain, verified builds, transfer, retention, cross-model reconstruction, and reference-effort comparison. [CRT-1](05-experiments/learning-trajectory/crt-1.md) tests whether another model can reconstruct the research protocol from its chat and repository evidence package. All definitions are versioned under [05-experiments/learning-trajectory](05-experiments/learning-trajectory/README.md).
+
 ## Black Swan Labs Research Group
 
 [**Black Swan Labs Research Group**](08-operations/black-swan-labs-research-group.md) — the organization-level operating system: a universal research skeleton instantiated through owner intent, question engineering, reusable skills and harnesses, governed state, verification, people operations, experiments, and continuous improvement.

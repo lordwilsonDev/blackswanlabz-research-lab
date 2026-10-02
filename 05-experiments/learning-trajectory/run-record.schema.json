@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "q2b-ltb-run-record-0.1",
+  "title": "Q2B-LTB Run Record",
+  "type": "object",
+  "required": ["run_id", "benchmark_version", "learner", "condition", "problem", "timing", "verification", "status"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "benchmark_version": {"type": "string"},
+    "learner": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "properties": {
+        "id": {"type": "string"},
+        "kind": {"type": "string", "enum": ["human", "model", "hybrid"]},
+        "model_id": {"type": ["string", "null"]},
+        "model_version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "condition": {"type": "string"},
+    "problem": {
+      "type": "object",
+      "required": ["id", "domain"],
+      "properties": {
+        "id": {"type": "string"},
+        "domain": {"type": "string"},
+        "reference_effort": {"type": ["number", "null"]},
+        "reference_effort_unit": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "required": ["start", "active_effort", "active_effort_unit"],
+      "properties": {
+        "start": {"type": "string"},
+        "end": {"type": ["string", "null"]},
+        "active_effort": {"type": "number"},
+        "active_effort_unit": {"type": "string"},
+        "t_first_build": {"type": ["number", "null"]},
+        "t_verified": {"type": ["number", "null"]},
+        "t_transfer": {"type": ["number", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "capability": {
+      "type": "object",
+      "properties": {
+        "stable_level": {"type": ["string", "null"], "enum": ["L1", "L2", "L3", "L4", "L5", null]},
+        "provisional_level": {"type": ["string", "null"], "enum": ["L1", "L2", "L3", "L4", "L5", null]}
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "required": ["capability_check", "correctness_check"],
+      "properties": {
+        "capability_check": {"type": "string", "enum": ["pass", "fail", "pending"]},
+        "correctness_check": {"type": "string", "enum": ["pass", "fail", "pending"]},
+        "independent_reproduction": {"type": "string", "enum": ["pass", "fail", "pending"]},
+        "retention": {"type": "string", "enum": ["pass", "fail", "pending"]}
+      },
+      "additionalProperties": false
+    },
+    "resources": {"type": "object", "additionalProperties": true},
+    "terrain": {"type": "object", "additionalProperties": true},
+    "status": {"type": "string", "enum": ["complete", "provisional", "incomplete", "failed", "unresolved"]},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}
