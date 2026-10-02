@@ -62,14 +62,20 @@ def main() -> int:
     failures += report(
         {"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"} <= set(terrain["required"]),
         "terrain intervention, divergence, and stability structures are enforced",
-        f"missing={sorted({"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"} - set(terrain["required"]))}",
+        "missing=" + str(sorted({"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"} - set(terrain["required"]))),
     )
     failures += report(
-        set(EXPECTED_T) == set(terrain["properties"]) and
-        set(EXPECTED_T) == set(terrain["required"]) and
+        set(EXPECTED_T) <= set(terrain["properties"]) and
+        set(EXPECTED_T) <= set(terrain["required"]) and
         terrain["additionalProperties"] is False,
         "T1-T5 are explicit closed-world terrain fields",
         f"properties={sorted(terrain['properties'])} required={sorted(terrain['required'])}",
+    )
+
+    artifact_refs = schema["properties"]["artifact_refs"]
+    failures += report(
+        set(["protocol", "benchmark", "task", "preregistration", "verifier", "analysis", "schema"]) <= set(artifact_refs["required"]),
+        "replay artifact references include every required component",
     )
 
     problem = schema["properties"]["problem"]
@@ -78,7 +84,8 @@ def main() -> int:
     needed_ref = {
         "reference_effort", "reference_effort_unit",
         "reference_effort_evidence_tier", "reference_effort_source",
-        "reference_effort_comparability"
+        "reference_effort_comparability", "required_output",
+        "success_criteria", "public_documentation", "transfer_opportunities"
     }
     failures += report(
         needed_ref <= pprops and needed_ref <= preq,
