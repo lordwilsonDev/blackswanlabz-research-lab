@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "q2b-ltb-run-record-0.2",
-  "title": "Three-Process Q2B-LTB Run Record",
+  "$id": "q2b-ltb-run-record-conformance-candidate-0.3",
+  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate",
   "type": "object",
   "required": [
     "run_id",
@@ -16,7 +16,18 @@
     "verification",
     "failure_classification",
     "resources",
-    "status"
+    "status",
+    "task_version",
+    "preregistration_id",
+    "verifier_version",
+    "analysis_version",
+    "resource_budget",
+    "stopping_rules",
+    "contamination_controls",
+    "role_separation",
+    "evidence_firewall",
+    "condition_id",
+    "epistemic_status"
   ],
   "properties": {
     "run_id": {
@@ -74,7 +85,12 @@
       "type": "object",
       "required": [
         "id",
-        "domain"
+        "domain",
+        "reference_effort",
+        "reference_effort_unit",
+        "reference_effort_evidence_tier",
+        "reference_effort_source",
+        "reference_effort_comparability"
       ],
       "properties": {
         "id": {
@@ -105,6 +121,24 @@
             "B",
             "C",
             "D",
+            null
+          ]
+        },
+        "reference_effort_source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_effort_comparability": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "comparable",
+            "not_comparable",
+            "pending",
             null
           ]
         }
@@ -274,32 +308,330 @@
     },
     "q_milestones": {
       "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "not_started",
-              "in_progress",
-              "passed",
-              "failed",
-              "pending"
-            ]
+      "additionalProperties": false,
+      "required": [
+        "Q0",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Q7",
+        "Q8",
+        "Q9"
+      ],
+      "properties": {
+        "Q0": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
           },
-          "evidence": {
-            "type": "string"
-          },
-          "active_effort": {
-            "type": [
-              "number",
-              "null"
-            ]
-          }
+          "additionalProperties": false
         },
-        "required": [
-          "status"
-        ]
+        "Q1": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q2": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q3": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q4": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q5": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q6": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q7": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q8": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q9": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
       }
     },
     "verification": {
@@ -307,7 +639,13 @@
       "required": [
         "capability_check",
         "correctness_check",
-        "verifier_validity"
+        "verifier_validity",
+        "verifier_version",
+        "checked_scope",
+        "unchecked_scope",
+        "verification_level",
+        "reconstruction",
+        "retention_epochs"
       ],
       "properties": {
         "capability_check": {
@@ -344,15 +682,6 @@
         "verifier_notes": {
           "type": "string"
         },
-        "independent_reproduction": {
-          "type": "string",
-          "enum": [
-            "pass",
-            "fail",
-            "pending",
-            "not_applicable"
-          ]
-        },
         "retention": {
           "type": "string",
           "enum": [
@@ -361,6 +690,115 @@
             "pending",
             "not_applicable"
           ]
+        },
+        "checked_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unchecked_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "verification_level": {
+          "type": "string",
+          "enum": [
+            "bounded",
+            "proof_level"
+          ]
+        },
+        "reconstruction": {
+          "type": "object",
+          "required": [
+            "task_id",
+            "context_bundle_id",
+            "context_removed",
+            "evaluator_id",
+            "result"
+          ],
+          "properties": {
+            "task_id": {
+              "type": "string"
+            },
+            "context_bundle_id": {
+              "type": "string"
+            },
+            "context_removed": {
+              "type": "boolean"
+            },
+            "evaluator_id": {
+              "type": "string"
+            },
+            "result": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "pending",
+                "not_applicable"
+              ]
+            },
+            "supplied_artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evaluator_notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "retention_epochs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "day",
+              "status"
+            ],
+            "properties": {
+              "day": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  7,
+                  30
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pass",
+                  "fail",
+                  "pending",
+                  "not_applicable"
+                ]
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fresh_task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
@@ -444,6 +882,45 @@
             "number",
             "null"
           ]
+        },
+        "assistance_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "actor",
+              "action",
+              "target",
+              "timestamp"
+            ],
+            "properties": {
+              "actor": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "active_effort": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": true
@@ -494,7 +971,14 @@
           ]
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ]
     },
     "epistemic_status": {
       "type": "string",
@@ -522,7 +1006,219 @@
     },
     "notes": {
       "type": "string"
+    },
+    "task_version": {
+      "type": "string"
+    },
+    "preregistration_id": {
+      "type": "string"
+    },
+    "verifier_version": {
+      "type": "string"
+    },
+    "analysis_version": {
+      "type": "string"
+    },
+    "resource_budget": {
+      "type": "object",
+      "required": [
+        "active_effort_limit"
+      ],
+      "properties": {
+        "active_effort_limit": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "tokens_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tool_calls_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "compute_limit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "stopping_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "contamination_controls": {
+      "type": "object",
+      "required": [
+        "held_out_tasks",
+        "reference_leakage_controls",
+        "model_context_restrictions"
+      ],
+      "properties": {
+        "held_out_tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reference_leakage_controls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_context_restrictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assistance_logging": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "role_separation": {
+      "type": "object",
+      "required": [
+        "investigator",
+        "learner",
+        "verifier",
+        "analyst"
+      ],
+      "properties": {
+        "investigator": {
+          "type": "string"
+        },
+        "learner": {
+          "type": "string"
+        },
+        "verifier": {
+          "type": "string"
+        },
+        "analyst": {
+          "type": "string"
+        },
+        "role_transition_log": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidence_firewall": {
+      "type": "object",
+      "required": [
+        "hidden_reference_solutions_blocked",
+        "investigator_only_context_blocked",
+        "post_hoc_revision_blocked",
+        "hidden_verifier_assumptions_blocked"
+      ],
+      "properties": {
+        "hidden_reference_solutions_blocked": {
+          "type": "boolean"
+        },
+        "investigator_only_context_blocked": {
+          "type": "boolean"
+        },
+        "post_hoc_revision_blocked": {
+          "type": "boolean"
+        },
+        "hidden_verifier_assumptions_blocked": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "condition_id": {
+      "type": "string"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "terrain_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "terrain"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "trajectory_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "capability"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "q2b_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "q_milestones"
+        ]
+      }
+    }
+  ]
 }
