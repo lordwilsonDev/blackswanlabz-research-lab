@@ -45,6 +45,14 @@ def checks(s: dict[str, object]) -> set[str]:
     if "assistance_log" not in r["required"]:  # type: ignore[index]
         failures.add("assistance_log")
 
+    transfer = v["properties"]["transfer"]  # type: ignore[index]
+    if transfer["properties"].get("solution_procedure_supplied", {}).get("const") is not False:
+        failures.add("transfer_isolation")
+
+    roles = s["properties"]["role_separation"]  # type: ignore[index]
+    if "shared_system" not in roles["required"] or "role_transition_log" not in roles["required"]:
+        failures.add("role_transition_logging")
+
     return failures
 
 
@@ -62,6 +70,8 @@ def main() -> int:
         "drop_verifier_version": lambda x: x["properties"]["verification"]["required"].remove("verifier_version"),
         "drop_assistance_log": lambda x: x["properties"]["resources"]["required"].remove("assistance_log"),
         "drop_task_ref": lambda x: x["properties"]["artifact_refs"]["required"].remove("task"),
+        "allow_supplied_transfer_solution": lambda x: x["properties"]["verification"]["properties"]["transfer"]["properties"]["solution_procedure_supplied"].update({"const": True}),
+        "drop_shared_system_flag": lambda x: x["properties"]["role_separation"]["required"].remove("shared_system"),
     }
 
     failures = 0
