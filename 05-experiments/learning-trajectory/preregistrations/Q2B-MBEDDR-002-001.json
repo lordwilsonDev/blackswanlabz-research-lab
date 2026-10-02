@@ -119,5 +119,7 @@
     "task": "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md",
     "verifier": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
     "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json"
-  }
+  },
+  "verifier_version": "q2b-mbeddr-002-verifier-0.1.4",
+  "analysis_version": "metric-contracts-v0.2"
 }
