@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -18,6 +20,7 @@ jobs:
       - run: python 05-experiments/learning-trajectory/check_instrument_conformance.py
       - run: python 05-experiments/learning-trajectory/test_conformance_mutations.py
       - run: python 05-experiments/learning-trajectory/verifiers/test_q2b_mbeddr_002_verifier.py
+      - run: python 05-experiments/learning-trajectory/test_replay_preflight.py
       - run: scripts/verify.sh
         env:
           GH_TOKEN: ${{ github.token }}
