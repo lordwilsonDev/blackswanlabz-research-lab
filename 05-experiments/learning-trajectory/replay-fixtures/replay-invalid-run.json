@@ -1,0 +1,255 @@
+{
+  "run_id": "REPLAY-FIXTURE-001",
+  "run_record_schema_version": "0.5-candidate",
+  "benchmark_version": "Q2B-LTB-1",
+  "protocol_version": "0.1",
+  "readiness_gate_version": "0.1",
+  "git_commit": "827c79dbd6f8c59e81c9c5aebd2e593663e5f852",
+  "task_version": "Q2B-MBEDDR-002-v1",
+  "preregistration_id": "Q2B-MBEDDR-002-001",
+  "verifier_version": "q2b-mbeddr-002-verifier-0.1.1",
+  "analysis_version": "metric-contracts-v0.2",
+  "learner": {
+    "id": "FIXTURE-LEARNER",
+    "kind": "model",
+    "model_id": "fixture",
+    "model_version": "fixture"
+  },
+  "condition": "capability_first",
+  "condition_id": "CAPABILITY-FIRST-001",
+  "problem": {
+    "id": "Q2B-MBEDDR-002",
+    "domain": "physical-unit semantics and event/guard state-machine semantics",
+    "required_output": "independently executable controller implementation",
+    "success_criteria": [
+      "registered task criteria"
+    ],
+    "public_documentation": [
+      "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md"
+    ],
+    "transfer_opportunities": [
+      "registered structural transfer task"
+    ],
+    "reference_effort": null,
+    "reference_effort_unit": null,
+    "reference_effort_evidence_tier": null,
+    "reference_effort_source": null,
+    "reference_effort_comparability": null
+  },
+  "artifact_refs": {
+    "protocol": "05-experiments/learning-trajectory/protocol-0.1.md",
+    "benchmark": "05-experiments/learning-trajectory/q2b-ltb-1.md",
+    "task": "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md",
+    "preregistration": "05-experiments/learning-trajectory/preregistration-template.md",
+    "verifier": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
+    "analysis": "05-experiments/learning-trajectory/metric-contracts.md",
+    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json"
+  },
+  "process": {
+    "terrain_status": "not_run",
+    "trajectory_status": "not_run",
+    "q2b_status": "not_run"
+  },
+  "timing": {
+    "start": "2026-10-02T00:00:00Z",
+    "active_effort": 0,
+    "active_effort_unit": "hour"
+  },
+  "verification": {
+    "capability_check": "pending",
+    "correctness_check": "pending",
+    "verifier_validity": "pending",
+    "verifier_version": "q2b-mbeddr-002-verifier-0.1.1",
+    "verifier_notes": "Replay fixture only",
+    "checked_scope": [],
+    "unchecked_scope": [
+      "all benchmark execution"
+    ],
+    "verification_level": "bounded",
+    "independence_basis": "INDEPENDENT_EXECUTION",
+    "transfer": {
+      "task_id": "not-run",
+      "solution_procedure_supplied": false,
+      "result": "not_applicable",
+      "evaluator_id": "not-run",
+      "evidence": null
+    },
+    "reconstruction": {
+      "task_id": "not-run",
+      "context_bundle_id": "not-run",
+      "context_removed": true,
+      "evaluator_id": "not-run",
+      "result": "not_applicable"
+    },
+    "retention_epochs": [
+      {
+        "day": 1,
+        "status": "not_applicable"
+      },
+      {
+        "day": 7,
+        "status": "not_applicable"
+      },
+      {
+        "day": 30,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  "failure_classification": {
+    "class": "none"
+  },
+  "resources": {
+    "active_effort": 0,
+    "assistance_log": [],
+    "external_references": 0
+  },
+  "terrain": {
+    "t1": null,
+    "t2": null,
+    "t3": null,
+    "t4": null,
+    "t5": null,
+    "terrain_arms": [
+      "CONSTRUCT"
+    ],
+    "t3_ladder": {
+      "ordering_method": "not-run",
+      "structural_manipulation": "not-run",
+      "justification": "not-run"
+    },
+    "t5_intervention": {
+      "retain": "not-run",
+      "remove": "not-run",
+      "restore": "not-run",
+      "evidence": null
+    },
+    "map_divergence_record": {
+      "independent_maps": [],
+      "overlap": [],
+      "unique_features": [],
+      "unresolved_features": []
+    },
+    "stability_epochs": []
+  },
+  "capability": {
+    "stable_level": null,
+    "provisional_level": null,
+    "level_evidence": {
+      "L1": {
+        "verification_a": null,
+        "verification_b": null,
+        "evidence": null
+      },
+      "L2": {
+        "verification_a": null,
+        "verification_b": null,
+        "evidence": null
+      },
+      "L3": {
+        "verification_a": null,
+        "verification_b": null,
+        "evidence": null
+      },
+      "L4": {
+        "verification_a": null,
+        "verification_b": null,
+        "evidence": null
+      },
+      "L5": {
+        "verification_a": null,
+        "verification_b": null,
+        "evidence": null
+      }
+    }
+  },
+  "q_milestones": {
+    "Q0": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q1": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q2": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q3": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q4": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q5": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q6": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q7": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q8": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    },
+    "Q9": {
+      "status": "not_started",
+      "evidence": null,
+      "active_effort": null
+    }
+  },
+  "resource_budget": {
+    "active_effort_limit": 1,
+    "active_effort_unit": "hour",
+    "tokens_limit": null,
+    "tool_calls_limit": null,
+    "compute_limit": null
+  },
+  "stopping_rules": [
+    "instrument replay fixture must not execute learner"
+  ],
+  "contamination_controls": {
+    "held_out_tasks": [],
+    "reference_leakage_controls": [
+      "none"
+    ],
+    "model_context_restrictions": [
+      "none"
+    ],
+    "assistance_logging": true
+  },
+  "role_separation": {
+    "investigator": "fixture",
+    "learner": "fixture",
+    "verifier": "fixture",
+    "analyst": "fixture",
+    "shared_system": false,
+    "role_transition_log": []
+  },
+  "evidence_firewall": {
+    "hidden_reference_solutions_blocked": true,
+    "investigator_only_context_blocked": true,
+    "post_hoc_revision_blocked": true,
+    "hidden_verifier_assumptions_blocked": true
+  },
+  "epistemic_status": "OBSERVED",
+  "status": "incomplete",
+  "notes": "Mechanical replay fixture; not an experimental run."
+}
