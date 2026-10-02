@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.2"
+VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.3"
 TASK_ID = "Q2B-MBEDDR-002"
 
 
@@ -53,17 +53,6 @@ def load_module(path: Path):
     return module
 
 
-def check(condition: bool, criterion_id: str, evidence: str, notes: str = "") -> Result:
-    return Result(
-        criterion_id=criterion_id,
-        verdict="PASS" if condition else "FAIL",
-        checked_scope=[criterion_id],
-        unchecked_scope=["formal proof beyond supplied executable probes"],
-        verification_level="bounded",
-        evidence_reference=evidence,
-        failure_classification=None if condition else "artifact_failure",
-        notes=notes or None,
-    )
 
 
 def verify(module_path: Path) -> dict[str, Any]:
