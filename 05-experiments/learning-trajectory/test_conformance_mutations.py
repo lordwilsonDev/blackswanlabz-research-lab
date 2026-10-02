@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "05-experiments" / "learning-trajectory" / "run-record.schema.conformance-candidate.json"
 
 
