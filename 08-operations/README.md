@@ -26,6 +26,8 @@ Prices in these documents are the offers as written at capture, not a current pr
 | [north-star-architecture.md](north-star-architecture.md) | The North Star and the four-layer architecture that serves it, with the measurement discipline | 5,461 |
 | [north-star-fde-cybernetic-loop.md](north-star-fde-cybernetic-loop.md) | How the North Star, the FDE protocol and a control-loop view fit together as one feedback loop | 1,085 |
 
+| [black-swan-labs-research-group.md](black-swan-labs-research-group.md) | Universal People-Centered Research Operating System: owner intent, research construction, skills/harnesses, governance, people operations, experiments, and continuous improvement | — |
+
 ## How these relate
 
 ```
@@ -34,6 +36,8 @@ Master-SOP ............... the standard (what BlackSwanLabz is + does, in full)
    |-- Complete-Client-Loop ...... the lifecycle map (frozen)
    |-- Operator-SOP .............. the runbook (do X then Y, per phase)
    `-- Day-to-Day-Operating-Manual  the daily driver (queues + orchestration)
+Black-Swan-Labs-Research-Group  the organization-level operating system
+                              for the Research Group itself
 Propulsion-Engine-SOP ....... a domain module the above call into when the
                               target is a safety-critical physical system
 FDE intake SOP + Research Manual + Research Service ... intake, research and offer
