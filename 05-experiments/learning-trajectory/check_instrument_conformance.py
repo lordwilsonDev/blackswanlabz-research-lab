@@ -8,10 +8,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LT = ROOT / "05-experiments" / "learning-trajectory"
-SCHEMA_PATH = LT / "run-record.schema.json"
+SCHEMA_PATH = LT / "run-record.schema.conformance-candidate.json"
 
 EXPECTED_ROOT = {
-    "run_id", "benchmark_version", "protocol_version", "readiness_gate_version",
+    "run_id", "run_record_schema_version", "benchmark_version", "protocol_version", "readiness_gate_version",
     "git_commit", "task_version", "preregistration_id", "verifier_version",
     "analysis_version", "learner", "condition", "condition_id", "problem",
     "process", "timing", "verification", "failure_classification", "resources",
@@ -34,7 +34,7 @@ def main() -> int:
     root_required = set(schema["required"])
 
     failures += report(
-        EXPECTED_ROOT <= root_required,
+        EXPECTED_ROOT <= root_required and "artifact_refs" in root_required,
         "root record enforces protocol registration and evidence-boundary fields",
         f"missing={sorted(EXPECTED_ROOT - root_required)}",
     )
