@@ -15,7 +15,7 @@ AI capability is getting cheaper and more interchangeable every month. When anyo
 
 ## Where it started
 
-In December 2025, [GITHUB_AI_PROJECTS_PACKAGE](01-cornerstone/README.md) went up: **32.5 million lines committed**, 35 categories of AI systems, from orchestration and memory to safety, protocols and small local models. About **5 million of those lines are source code** outside dependency and build folders ([breakdown](01-cornerstone/line-breakdown.md)).
+In December 2025, [GITHUB_AI_PROJECTS_PACKAGE](01-cornerstone/README.md) went up: **32.5 million lines committed**, 35 categories of AI systems, from orchestration and memory to safety, protocols and small local models. The author states the whole package was AI-generated (C-048, pending). About **5 million of those lines are source code** outside dependency and build folders ([breakdown](01-cornerstone/line-breakdown.md)).
 
 Over the following months the industry scaled up in the same areas — agent memory, the Model Context Protocol, LLM observability, small on-device models, self-improving agents. The [timeline](01-cornerstone/prediction-timeline.md) sets each category beside where the field went next.
 
