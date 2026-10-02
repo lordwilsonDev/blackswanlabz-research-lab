@@ -715,15 +715,15 @@ That is the experiment now underway.
 
 ## Sources for figures
 
-These figures are quoted as the author wrote them. None is link-verified yet; each is tracked as a pending claim.
+These figures are quoted as the author wrote them. Each is tracked in CLAIMS.md; seven were checked against primary sources on 2026-10-02 and three remain pending.
 
-- Epoch AI cost decline, 47%/quarter (13×/year) since 2023 — Epoch AI — [C-018](../CLAIMS.md), pending
-- Epoch AI cost decline, 66%/quarter (75×/year) for newly achieved SOTA — Epoch AI — [C-019](../CLAIMS.md), pending
+- Epoch AI cost decline, 47%/quarter (13×/year) since 2023 — Epoch AI — [C-018](../CLAIMS.md), verified 2026-10-02
+- Epoch AI cost decline, 66%/quarter (75×/year) for newly achieved SOTA — Epoch AI — [C-019](../CLAIMS.md), verified 2026-10-02
 - Stargate surpassing 10 GW of U.S. AI infrastructure by 2029 — OpenAI — [C-020](../CLAIMS.md), pending
-- Anthropic–Amazon agreement: up to 5 GW additional capacity, $100B+ AWS technology commitments over ten years — Anthropic — [C-021](../CLAIMS.md), pending
-- Anthropic run-rate revenue exceeding $47 billion, May 2026 — Anthropic — [C-022](../CLAIMS.md), pending
-- Anthropic run-rate revenue exceeding $30 billion (earlier in 2026) and 100,000+ customers running Claude through Amazon Bedrock — Anthropic — [C-023](../CLAIMS.md), pending
-- Claude Code run-rate revenue exceeding $2.5 billion, enterprise use >half — Anthropic — [C-024](../CLAIMS.md), pending
-- 1-GW AI data center: ~$38 billion upfront capex, ~$0.9 billion annual opex — Epoch AI — [C-025](../CLAIMS.md), pending
+- Anthropic–Amazon agreement: up to 5 GW additional capacity, $100B+ AWS technology commitments over ten years — Anthropic — [C-021](../CLAIMS.md), verified 2026-10-02
+- Anthropic run-rate revenue exceeding $47 billion, May 2026 — Anthropic — [C-022](../CLAIMS.md), verified 2026-10-02
+- Anthropic run-rate revenue exceeding $30 billion (earlier in 2026) and 100,000+ customers running Claude through Amazon Bedrock — Anthropic — [C-023](../CLAIMS.md), verified 2026-10-02
+- Claude Code run-rate revenue exceeding $2.5 billion, enterprise use >half — Anthropic — [C-024](../CLAIMS.md), verified 2026-10-02
+- 1-GW AI data center: ~$38 billion upfront capex, ~$0.9 billion annual opex — Epoch AI — [C-025](../CLAIMS.md), verified 2026-10-02
 - Residual-value guarantees supporting up to ~$300 billion of AI-related debt exposure — Financial Times — [C-026](../CLAIMS.md), pending
 - Apple trillion-parameter model demonstrations across multiple Mac Studios — Apple — [C-027](../CLAIMS.md), pending
