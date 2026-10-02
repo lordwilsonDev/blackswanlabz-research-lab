@@ -4,16 +4,16 @@
   "benchmark_version": "Q2B-LTB-1",
   "protocol_version": "0.1",
   "readiness_gate_version": "0.1",
-  "git_commit": "827c79dbd6f8c59e81c9c5aebd2e593663e5f852",
+  "git_commit": "77cb0f03cf98fafeec459c68e073a8501e0ac65a",
   "task_version": "Q2B-MBEDDR-002-v1",
   "preregistration_id": "Q2B-MBEDDR-002-001",
-  "verifier_version": "q2b-mbeddr-002-verifier-0.1.1",
+  "verifier_version": "q2b-mbeddr-002-verifier-0.1.4",
   "analysis_version": "metric-contracts-v0.2",
   "learner": {
     "id": "FIXTURE-LEARNER",
     "kind": "model",
-    "model_id": "fixture",
-    "model_version": "fixture"
+    "model_id": "GPT-5.6 Luna",
+    "model_version": "GPT-5.6 Luna"
   },
   "condition": "capability_first",
   "condition_id": "CAPABILITY-FIRST-001",
@@ -59,7 +59,7 @@
     "capability_check": "pending",
     "correctness_check": "pending",
     "verifier_validity": "pending",
-    "verifier_version": "q2b-mbeddr-002-verifier-0.1.1",
+    "verifier_version": "q2b-mbeddr-002-verifier-0.1.4",
     "verifier_notes": "Replay fixture only",
     "checked_scope": [],
     "unchecked_scope": [
