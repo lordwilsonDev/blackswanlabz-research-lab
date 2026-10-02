@@ -24,26 +24,25 @@ from __future__ import annotations
 import importlib.util
 import json
 import sys
-from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any
 
 
-VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.1"
+VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.2"
 TASK_ID = "Q2B-MBEDDR-002"
 
 
-@dataclass
-class Result:
-    criterion_id: str
-    verdict: str
-    checked_scope: list[str]
-    unchecked_scope: list[str]
-    verification_level: str
-    evidence_reference: str
-    failure_classification: str | None = None
-    notes: str | None = None
-
+def make_result(condition: bool, criterion_id: str, evidence: str, notes: str = "") -> dict[str, object]:
+    return {
+        "criterion_id": criterion_id,
+        "verdict": "PASS" if condition else "FAIL",
+        "checked_scope": [criterion_id],
+        "unchecked_scope": ["formal proof beyond supplied executable probes"],
+        "verification_level": "bounded",
+        "evidence_reference": evidence,
+        "failure_classification": None if condition else "artifact_failure",
+        "notes": notes or None,
+    }
 
 def load_module(path: Path):
     spec = importlib.util.spec_from_file_location("learner_artifact", path)
@@ -74,7 +73,7 @@ def verify(module_path: Path) -> dict[str, Any]:
     # Criterion C1: scaled compatible quantities.
     q36 = controller.quantity(36, "km/h")
     q10 = controller.quantity(10, "m/s")
-    c1 = check(
+    c1 = make_result(
         q36.dimension == q10.dimension and q36.to_si() == q10.to_si(),
         "C1-unit-normalization",
         "probe: 36 km/h == 10 m/s",
@@ -86,7 +85,7 @@ def verify(module_path: Path) -> dict[str, Any]:
         controller.compare(controller.quantity(1, "m/s"), controller.quantity(1, "m"))
     except Exception:
         incompatible_rejected = True
-    c2 = check(
+    c2 = make_result(
         incompatible_rejected,
         "C2-incompatible-units",
         "probe: m/s compared with m raises",
@@ -109,7 +108,7 @@ def verify(module_path: Path) -> dict[str, Any]:
     fast_ok = controller.current_state == "Fast"
     controller.dispatch("STOP")
     stop_ok = controller.current_state == "Idle"
-    c3 = check(start_ok and fast_ok and stop_ok, "C3-controller-semantics",
+    c3 = make_result(start_ok and fast_ok and stop_ok, "C3-controller-semantics",
                "probe: START -> Moving; 36 km/h TICK -> Fast; STOP -> Idle")
 
     # Criterion C4: bounded static checks expose the registered verifier hooks.
@@ -120,7 +119,7 @@ def verify(module_path: Path) -> dict[str, Any]:
         controller.quantity(35, "km/h"),
         controller.quantity(36, "km/h"),
     ])
-    c4 = check(
+    c4 = make_result(
         isinstance(reachability, dict) and isinstance(guard_report, dict),
         "C4-bounded-static-analysis",
         "probe: reachability and guard verification return structured reports",
@@ -128,15 +127,14 @@ def verify(module_path: Path) -> dict[str, Any]:
     )
 
     results = [c1, c2, c3, c4]
-    if any(r is None for r in results):
-        raise RuntimeError("internal verifier defect: criterion result was None")
-    result_dicts = [asdict(r) for r in results]
+    if any(not isinstance(r, dict) for r in results):
+        raise RuntimeError("internal verifier defect: criterion result was not a dictionary")
     return {
         "verifier_version": VERIFIER_VERSION,
         "task_id": TASK_ID,
         "verification_level": "bounded",
-        "results": result_dicts,
-        "overall_verdict": "PASS" if all(r["verdict"] == "PASS" for r in result_dicts) else "FAIL",
+        "results": results,
+        "overall_verdict": "PASS" if all(r["verdict"] == "PASS" for r in results) else "FAIL",
     }
 
 
