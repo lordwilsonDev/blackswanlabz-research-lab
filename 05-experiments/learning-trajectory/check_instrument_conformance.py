@@ -60,6 +60,11 @@ def main() -> int:
 
     terrain = schema["properties"]["terrain"]
     failures += report(
+        {"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"} <= set(terrain["required"]),
+        "terrain intervention, divergence, and stability structures are enforced",
+        f"missing={sorted({"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"} - set(terrain["required"]))}",
+    )
+    failures += report(
         set(EXPECTED_T) == set(terrain["properties"]) and
         set(EXPECTED_T) == set(terrain["required"]) and
         terrain["additionalProperties"] is False,
@@ -81,11 +86,22 @@ def main() -> int:
         f"missing_required={sorted(needed_ref - preq)}",
     )
 
+    capability = schema["properties"]["capability"]
+    failures += report(
+        "level_evidence" in capability.get("required", []) and set(capability["properties"]["level_evidence"]["required"]) == {f"L{i}" for i in range(1,6)},
+        "L1-L5 retain per-level A+B verification evidence",
+    )
+
     resources = schema["properties"]["resources"]
     rreq = set(resources["required"])
     failures += report(
         "assistance_log" in resources["properties"] and "assistance_log" in rreq,
         "assistance is traceable rather than count-only",
+    )
+
+    failures += report(
+        {"transfer", "independence_basis"} <= set(verification["required"]),
+        "transfer and verifier-independence evidence are structured",
     )
 
     reconstruction = verification["properties"]["reconstruction"]
