@@ -30,6 +30,8 @@ def main() -> int:
     code, report = run(PASS_ARTIFACT)
     ok = code == 0 and report["overall_verdict"] == "PASS"
     print(f"{'PASS' if ok else 'FAIL'} passing verifier fixture")
+    if not ok:
+        print("PASS_FIXTURE_REPORT=" + json.dumps(report, sort_keys=True))
     failures += not ok
 
     code, report = run(FAIL_ARTIFACT)
