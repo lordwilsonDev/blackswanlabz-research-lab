@@ -17,6 +17,7 @@ jobs:
       - run: python -m pytest tests -q
       - run: python 05-experiments/learning-trajectory/check_instrument_conformance.py
       - run: python 05-experiments/learning-trajectory/test_conformance_mutations.py
+      - run: python 05-experiments/learning-trajectory/verifiers/test_q2b_mbeddr_002_verifier.py
       - run: scripts/verify.sh
         env:
           GH_TOKEN: ${{ github.token }}
