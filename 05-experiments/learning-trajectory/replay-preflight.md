@@ -29,6 +29,10 @@ A result log is not a verifier artifact.
 
 A preregistration template is not a preregistration instance.
 
+## Registered-run fixture
+
+The repository includes a positive replay fixture under `replay-fixtures/replay-valid-run.json`. Its `git_commit` points to a commit that contains all referenced protocol, benchmark, task, preregistration, verifier, analysis, and schema artifacts. A negative fixture points to the preregistration template and must be rejected.
+
 ## Current finding
 
 The repository contains the protocol, benchmark, task, metric contracts, and historical run records.
