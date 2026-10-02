@@ -37,6 +37,12 @@ def main() -> int:
     print(f"{'PASS' if ok else 'FAIL'} failing verifier fixture")
     failures += not ok
 
+    malformed = HERE / "fixtures" / "malformed_controller.py"
+    code, report = run(malformed)
+    ok = code != 0 and report["overall_verdict"] == "VERIFIER_ERROR"
+    print(f"{'PASS' if ok else 'FAIL'} malformed-artifact verifier-error classification")
+    failures += not ok
+
     print("VERIFIER_TEST_RESULT=" + ("PASS" if failures == 0 else "FAIL"))
     return 1 if failures else 0
 
