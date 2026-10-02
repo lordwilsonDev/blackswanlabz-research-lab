@@ -44,6 +44,20 @@ def checks(s: dict[str, object]) -> set[str]:
     r = s["properties"]["resources"]  # type: ignore[index]
     if "assistance_log" not in r["required"]:  # type: ignore[index]
         failures.add("assistance_log")
+    t = s["properties"]["terrain"]  # type: ignore[index]
+    for field in {"terrain_arms", "t3_ladder", "t5_intervention", "map_divergence_record", "stability_epochs"}:
+        if field not in t["required"]:
+            failures.add(f"terrain_{field}")
+
+    cap = s["properties"]["capability"]  # type: ignore[index]
+    if "level_evidence" not in cap["required"]:
+        failures.add("level_evidence")
+
+    refs = s["properties"]["artifact_refs"]  # type: ignore[index]
+    for field in {"protocol", "benchmark", "task", "preregistration", "verifier", "analysis", "schema"}:
+        if field not in refs["required"]:
+            failures.add(f"artifact_ref_{field}")
+
 
     transfer = v["properties"]["transfer"]  # type: ignore[index]
     if transfer["properties"].get("solution_procedure_supplied", {}).get("const") is not False:
