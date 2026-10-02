@@ -838,7 +838,8 @@
     "resources": {
       "type": "object",
       "required": [
-        "active_effort"
+        "active_effort",
+        "assistance_log"
       ],
       "properties": {
         "active_effort": {
