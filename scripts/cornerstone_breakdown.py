@@ -39,24 +39,33 @@ def classify(path: str) -> str:
         return "data"
     return "other_text"
 
-lines = defaultdict(int); files = defaultdict(int); by_ext = defaultdict(int)
-binary_files = 0; top = defaultdict(int); dup_names = defaultdict(int)
-with tarfile.open(fileobj=sys.stdin.buffer, mode="r|gz") as tar:
-    for m in tar:
-        if not m.isfile():
-            continue
-        data = tar.extractfile(m).read()
-        if b"\x00" in data[:8192]:
-            binary_files += 1
-            continue
-        n = data.count(b"\n") + (1 if data and not data.endswith(b"\n") else 0)
-        c = classify(m.name)
-        lines[c] += n; files[c] += 1
-        if c == "source":
-            by_ext[PurePosixPath(m.name).suffix.lower() or PurePosixPath(m.name).name] += n
-        parts = PurePosixPath(m.name).parts
-        if len(parts) > 2:
-            top[parts[1]] += n
-json.dump({"lines": lines, "files": files, "source_lines_by_ext": dict(sorted(by_ext.items(), key=lambda kv: -kv[1])),
-           "binary_files_skipped": binary_files, "lines_by_category_folder": dict(sorted(top.items(), key=lambda kv: -kv[1])),
-           "total_text_lines": sum(lines.values())}, sys.stdout, indent=1)
+def main() -> int:
+    if "-h" in sys.argv[1:] or "--help" in sys.argv[1:] or sys.stdin.isatty():
+        print(__doc__)
+        return 0
+    lines = defaultdict(int); files = defaultdict(int); by_ext = defaultdict(int)
+    binary_files = 0; top = defaultdict(int); dup_names = defaultdict(int)
+    with tarfile.open(fileobj=sys.stdin.buffer, mode="r|gz") as tar:
+        for m in tar:
+            if not m.isfile():
+                continue
+            data = tar.extractfile(m).read()
+            if b"\x00" in data[:8192]:
+                binary_files += 1
+                continue
+            n = data.count(b"\n") + (1 if data and not data.endswith(b"\n") else 0)
+            c = classify(m.name)
+            lines[c] += n; files[c] += 1
+            if c == "source":
+                by_ext[PurePosixPath(m.name).suffix.lower() or PurePosixPath(m.name).name] += n
+            parts = PurePosixPath(m.name).parts
+            if len(parts) > 2:
+                top[parts[1]] += n
+    json.dump({"lines": lines, "files": files, "source_lines_by_ext": dict(sorted(by_ext.items(), key=lambda kv: -kv[1])),
+               "binary_files_skipped": binary_files, "lines_by_category_folder": dict(sorted(top.items(), key=lambda kv: -kv[1])),
+               "total_text_lines": sum(lines.values())}, sys.stdout, indent=1)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

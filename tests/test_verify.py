@@ -291,3 +291,49 @@ def test_run_records_validates_current_and_skips_legacy(tmp_path):
     write(tmp_path, f"{d}/runs/bad.json", '{"run_id": "b", "protocol_version": "0.1"}')
     errors = verify.check_run_records(tmp_path)
     assert len(errors) == 1 and "bad.json" in errors[0] and "status" in errors[0]
+
+
+class _Result:
+    def __init__(self, returncode: int, stdout: str = ""):
+        self.returncode, self.stdout = returncode, stdout
+
+
+def test_gh_commit_exists_true_without_fallback(monkeypatch):
+    calls = []
+    monkeypatch.setattr(verify.subprocess, "run", lambda cmd, **kw: calls.append(cmd) or _Result(0))
+    assert verify.gh_commit_exists("o/r", "abc1234") is True
+    assert len(calls) == 1 and calls[0][0] == "gh"
+
+
+def test_gh_commit_exists_falls_back_to_git(monkeypatch):
+    def fake_run(cmd, **kw):
+        return _Result(1) if cmd[0] == "gh" else _Result(0)
+    monkeypatch.setattr(verify.subprocess, "run", fake_run)
+    assert verify.gh_commit_exists("o/r", "abc1234") is True
+
+
+def test_commit_missing_when_gh_and_git_both_fail(monkeypatch):
+    monkeypatch.setattr(verify.subprocess, "run", lambda cmd, **kw: _Result(1))
+    assert verify.gh_commit_exists("o/r", "abc1234") is False
+
+
+def test_gh_code_frequency_retries_then_returns(monkeypatch):
+    results = iter([_Result(1), _Result(0, "[[1, 2, 3]]")])
+    monkeypatch.setattr(verify.subprocess, "run", lambda cmd, **kw: next(results))
+    monkeypatch.setattr(verify.time, "sleep", lambda s: None)
+    assert verify.gh_code_frequency("o/r") == [[1, 2, 3]]
+
+
+def test_cornerstone_breakdown_counts_a_tarball():
+    import io, json, subprocess, sys, tarfile
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w:gz") as tar:
+        for name, data in [("r/a.py", b"x\ny\n"), ("r/node_modules/b.js", b"1\n"), ("r/n.md", b"d\n")]:
+            info = tarfile.TarInfo(name)
+            info.size = len(data)
+            tar.addfile(info, io.BytesIO(data))
+    script = Path(verify.__file__).with_name("cornerstone_breakdown.py")
+    out = subprocess.run([sys.executable, str(script)], input=buf.getvalue(), capture_output=True, check=True)
+    result = json.loads(out.stdout)
+    assert result["lines"] == {"source": 2, "vendored_or_build": 1, "docs": 1}
+    assert result["total_text_lines"] == 4
