@@ -54,7 +54,7 @@ def checks(s: dict[str, object]) -> set[str]:
         failures.add("level_evidence")
 
     refs = s["properties"]["artifact_refs"]  # type: ignore[index]
-    for field in {"protocol", "benchmark", "task", "preregistration", "verifier", "analysis", "schema"}:
+    for field in {"protocol", "benchmark", "task", "preregistration", "verifier", "verifier_contract", "analysis", "schema"}:
         if field not in refs["required"]:
             failures.add(f"artifact_ref_{field}")
 
