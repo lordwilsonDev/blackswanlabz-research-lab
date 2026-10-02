@@ -1,10 +1,10 @@
 {
   "run_id": "REPLAY-FIXTURE-001",
-  "run_record_schema_version": "0.5-candidate",
+  "run_record_schema_version": "0.6-candidate",
   "benchmark_version": "Q2B-LTB-1",
   "protocol_version": "0.1",
   "readiness_gate_version": "0.1",
-  "git_commit": "b512dd5285291109cdf64ab3b132ffe02eb8af2f",
+  "git_commit": "b18885a5fac408592be75d0746dcc0b75dd9f779",
   "task_version": "Q2B-MBEDDR-002-v1",
   "preregistration_id": "Q2B-MBEDDR-002-001",
   "verifier_version": "q2b-mbeddr-002-verifier-9.9.9",
@@ -43,7 +43,8 @@
     "preregistration": "05-experiments/learning-trajectory/preregistrations/Q2B-MBEDDR-002-001.json",
     "verifier": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
     "analysis": "05-experiments/learning-trajectory/metric-contracts.md",
-    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json"
+    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json",
+    "verifier_contract": "05-experiments/learning-trajectory/verifier-artifact-contract.md"
   },
   "process": {
     "terrain_status": "not_run",
