@@ -24,12 +24,12 @@ from __future__ import annotations
 import importlib.util
 import json
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any
 
 
-VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1"
+VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.1"
 TASK_ID = "Q2B-MBEDDR-002"
 
 
@@ -128,12 +128,15 @@ def verify(module_path: Path) -> dict[str, Any]:
     )
 
     results = [c1, c2, c3, c4]
+    if any(r is None for r in results):
+        raise RuntimeError("internal verifier defect: criterion result was None")
+    result_dicts = [asdict(r) for r in results]
     return {
         "verifier_version": VERIFIER_VERSION,
         "task_id": TASK_ID,
         "verification_level": "bounded",
-        "results": [r.__dict__ for r in results],
-        "overall_verdict": "PASS" if all(r.verdict == "PASS" for r in results) else "FAIL",
+        "results": result_dicts,
+        "overall_verdict": "PASS" if all(r["verdict"] == "PASS" for r in result_dicts) else "FAIL",
     }
 
 
