@@ -40,6 +40,11 @@ Over the following months the industry scaled up in the same areas — agent mem
 - [**Experiments**](05-experiments/README.md) — reproductions, reference tests, FDE Kernel missions, and a pre-registered benchmark that tests AIL + MoIE against compute-matched baselines, with its falsification condition written down before it runs.
 - [**Proofs**](06-proofs/README.md) — FCVE's formal verification packages and upstream contributions.
 
+## Black Swan Labs Research Group
+
+[**Black Swan Labs Research Group**](08-operations/black-swan-labs-research-group.md) — the organization-level operating system: a universal research skeleton instantiated through owner intent, question engineering, reusable skills and harnesses, governed state, verification, people operations, experiments, and continuous improvement.
+
+
 ## How the lab runs
 
 The [North Star operating SOPs](08-operations/README.md) are the standards for running BlackSwanLabz as an evidence-first research and automation practice: intake, research, the client loop, daily operations, and the gates between *found*, *proven* and *improved*. They're published as written, including the offer and its prices.
