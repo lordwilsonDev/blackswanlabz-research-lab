@@ -45,6 +45,29 @@ Read in this order.
 - [Hermes12 benchmark](05-experiments/hermes12-benchmark.md): pre-registered replication package; harness validated, experiment not yet run.
 - [AIL research-loop reference tests](05-experiments/research-loop-reference-tests.md): the 8 unit tests for the reference implementation.
 
+## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
+- [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.
+- [Three-Process Learning Research Protocol v0.1](05-experiments/learning-trajectory/protocol-0.1.md): the frozen three-process workflow.
+- [Readiness Gate v0.1](05-experiments/learning-trajectory/readiness-gate.md): the conditions that must hold before a run.
+- [Readiness Audit 2026-10-02](05-experiments/learning-trajectory/readiness-audit-2026-10-02.md): audit of the gate and schema dry run.
+- [Metric Contracts v0.2](05-experiments/learning-trajectory/metric-contracts.md): definitions of each metric.
+- [Preregistration Template v0.2](05-experiments/learning-trajectory/preregistration-template.md): template to fix hypotheses and falsification before a run.
+- [Benchmark Change Control](05-experiments/learning-trajectory/change-control.md): how benchmark definitions may change.
+- [Research Context Bundle Specification](05-experiments/learning-trajectory/context-bundle-spec.md): what evidence a reconstructing model receives.
+- [Benchmark Project Selection](05-experiments/learning-trajectory/benchmark-selection.md): how projects are chosen.
+- [LTB-0.1](05-experiments/learning-trajectory/ltb-0.1.md): learner capability states.
+- [INV-LTB-1](05-experiments/learning-trajectory/inv-ltb-1.md): problem-resistance terrain benchmark.
+- [Q2B-LTB-1](05-experiments/learning-trajectory/q2b-ltb-1.md): integrated question-to-build benchmark.
+- [CRT-1](05-experiments/learning-trajectory/crt-1.md): context reconstruction test.
+- [Q2B-MBEDDR-001 selection](05-experiments/learning-trajectory/projects/q2b-mbeddr-001-selection.md): flagship project selection.
+- [Q2B-MBEDDR-002 task](05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md): unit-safe reactive controller task.
+- [Pilot 001: Python 2.0 slice](05-experiments/learning-trajectory/runs/q2b-ltb-pilot-001-python20.md): pilot run record; provisional.
+- [Pilot 001: L5 extension probe](05-experiments/learning-trajectory/runs/q2b-ltb-pilot-001-l5-extension.md): exploratory, provisional.
+- [MBEDDR-001 state-machine tranche](05-experiments/learning-trajectory/runs/q2b-mbeddr-001-state-machine.md): run record.
+- [MBEDDR-001 physical-units tranche](05-experiments/learning-trajectory/runs/q2b-mbeddr-001-units.md): run record.
+- [MBEDDR-001 transfer and generation update](05-experiments/learning-trajectory/runs/q2b-mbeddr-001-transfer-generation.md): run record.
+- [MBEDDR-002 unit-safe controller run](05-experiments/learning-trajectory/runs/q2b-mbeddr-002-unit-safe-controller.md): run record.
+
 ## Proofs
 - [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected at least once and superseded.
 
@@ -54,6 +77,7 @@ Read in this order.
 
 ## Operations (verbatim SOPs; some company names redacted)
 - [08 Operations](08-operations/README.md): the operating standards for running BlackSwanLabz; several describe the target system, not what runs today.
+- [Black Swan Labs Research Group](08-operations/black-swan-labs-research-group.md): the organization-level operating blueprint; a design, not evidence of operation.
 - [Complete Client Loop](08-operations/complete-client-loop.md): frozen single source of truth for the client lifecycle loop.
 - [Day-to-Day Operating Manual](08-operations/day-to-day-operating-manual.md): daily operations, the control-center queues and the day-to-day loop.
 - [FDE Customer Intake and Environment Discovery SOP v1.3](08-operations/fde-customer-intake-sop-v1.3.md): frozen research baseline plus North Star measurement overlay for all new FDE engagements.

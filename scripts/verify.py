@@ -132,6 +132,16 @@ def check_snapshot_headers(root: Path) -> list[str]:
     return errors
 
 
+def check_llms_coverage(root: Path) -> list[str]:
+    """Every snapshot-dir page must be linked from llms.txt, the AI readers' entry point."""
+    llms = root / "llms.txt"
+    if not llms.exists():
+        return []
+    linked = set(MD_LINK.findall(llms.read_text()))
+    return [f"llms.txt: missing link to {path.relative_to(root).as_posix()}"
+            for path in _snapshot_files(root) if path.relative_to(root).as_posix() not in linked]
+
+
 def collect_pins(root: Path) -> list[tuple[str, str, str]]:
     pins: list[tuple[str, str, str]] = []
     for path in _snapshot_files(root):
@@ -257,6 +267,7 @@ def run(root: Path, online: bool) -> list[str]:
     errors = check_claim_ids((root / "README.md").read_text(), claims)
     errors += check_links(root)
     errors += check_snapshot_headers(root)
+    errors += check_llms_coverage(root)
     errors += check_size(root)
     errors += check_secrets(root)
     if online:

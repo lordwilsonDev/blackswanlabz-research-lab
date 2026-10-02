@@ -271,3 +271,11 @@ def test_run_still_rejects_unknown_claim_ids_in_readme(tmp_path):
     write(tmp_path, "README.md", "See C-099.\n")
     errors = verify.run(tmp_path, online=False)
     assert errors == ["README.md:1: unknown claim C-099"]
+
+
+def test_llms_coverage_flags_unlinked_pages(tmp_path):
+    write(tmp_path, "03-systems/a.md", GOOD_HEADER)
+    write(tmp_path, "03-systems/b.md", GOOD_HEADER)
+    write(tmp_path, "llms.txt", "- [A](03-systems/a.md)\n")
+    errors = verify.check_llms_coverage(tmp_path)
+    assert errors == ["llms.txt: missing link to 03-systems/b.md"]
