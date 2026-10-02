@@ -715,7 +715,7 @@ That is the experiment now underway.
 
 ## Sources for figures
 
-These figures are quoted as the author wrote them. Each is tracked in CLAIMS.md; seven were checked against primary sources on 2026-10-02 and three remain pending.
+These figures are quoted as the author wrote them. Each is tracked in CLAIMS.md; eight were checked against primary sources on 2026-10-02 and two (C-020, C-026) are not counted because no primary source could be reached.
 
 - Epoch AI cost decline, 47%/quarter (13×/year) since 2023 — Epoch AI — [C-018](../CLAIMS.md), verified 2026-10-02
 - Epoch AI cost decline, 66%/quarter (75×/year) for newly achieved SOTA — Epoch AI — [C-019](../CLAIMS.md), verified 2026-10-02
@@ -726,4 +726,4 @@ These figures are quoted as the author wrote them. Each is tracked in CLAIMS.md;
 - Claude Code run-rate revenue exceeding $2.5 billion, enterprise use >half — Anthropic — [C-024](../CLAIMS.md), verified 2026-10-02
 - 1-GW AI data center: ~$38 billion upfront capex, ~$0.9 billion annual opex — Epoch AI — [C-025](../CLAIMS.md), verified 2026-10-02
 - Residual-value guarantees supporting up to ~$300 billion of AI-related debt exposure — Financial Times — [C-026](../CLAIMS.md), pending
-- Apple trillion-parameter model demonstrations across multiple Mac Studios — Apple — [C-027](../CLAIMS.md), pending
+- Apple trillion-parameter model demonstrations across multiple Mac Studios — Apple — [C-027](../CLAIMS.md), verified 2026-10-02
