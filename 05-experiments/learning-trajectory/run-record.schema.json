@@ -1,72 +1,528 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "q2b-ltb-run-record-0.1",
-  "title": "Q2B-LTB Run Record",
+  "$id": "q2b-ltb-run-record-0.2",
+  "title": "Three-Process Q2B-LTB Run Record",
   "type": "object",
-  "required": ["run_id", "benchmark_version", "learner", "condition", "problem", "timing", "verification", "status"],
+  "required": [
+    "run_id",
+    "benchmark_version",
+    "protocol_version",
+    "readiness_gate_version",
+    "learner",
+    "condition",
+    "problem",
+    "process",
+    "timing",
+    "verification",
+    "failure_classification",
+    "resources",
+    "status"
+  ],
   "properties": {
-    "run_id": {"type": "string"},
-    "benchmark_version": {"type": "string"},
+    "run_id": {
+      "type": "string"
+    },
+    "benchmark_version": {
+      "type": "string"
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "readiness_gate_version": {
+      "type": "string"
+    },
+    "git_commit": {
+      "type": "string"
+    },
     "learner": {
       "type": "object",
-      "required": ["id", "kind"],
+      "required": [
+        "id",
+        "kind"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "kind": {"type": "string", "enum": ["human", "model", "hybrid"]},
-        "model_id": {"type": ["string", "null"]},
-        "model_version": {"type": ["string", "null"]}
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "human",
+            "model",
+            "hybrid"
+          ]
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
-    "condition": {"type": "string"},
+    "condition": {
+      "type": "string"
+    },
     "problem": {
       "type": "object",
-      "required": ["id", "domain"],
+      "required": [
+        "id",
+        "domain"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "domain": {"type": "string"},
-        "reference_effort": {"type": ["number", "null"]},
-        "reference_effort_unit": {"type": ["string", "null"]}
+        "id": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "reference_effort": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "reference_effort_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_effort_evidence_tier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            null
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "process": {
+      "type": "object",
+      "required": [
+        "terrain_status",
+        "trajectory_status",
+        "q2b_status"
+      ],
+      "properties": {
+        "terrain_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "trajectory_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "q2b_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "terrain_profile_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trajectory_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "timing": {
       "type": "object",
-      "required": ["start", "active_effort", "active_effort_unit"],
+      "required": [
+        "start",
+        "active_effort",
+        "active_effort_unit"
+      ],
       "properties": {
-        "start": {"type": "string"},
-        "end": {"type": ["string", "null"]},
-        "active_effort": {"type": "number"},
-        "active_effort_unit": {"type": "string"},
-        "t_first_build": {"type": ["number", "null"]},
-        "t_verified": {"type": ["number", "null"]},
-        "t_transfer": {"type": ["number", "null"]}
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_effort": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "t_engage": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_model": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_architecture": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_first_build": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_functional": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_verified": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_transfer": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_retained": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "capability": {
       "type": "object",
       "properties": {
-        "stable_level": {"type": ["string", "null"], "enum": ["L1", "L2", "L3", "L4", "L5", null]},
-        "provisional_level": {"type": ["string", "null"], "enum": ["L1", "L2", "L3", "L4", "L5", null]}
+        "stable_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            null
+          ]
+        },
+        "provisional_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            null
+          ]
+        }
       },
       "additionalProperties": false
+    },
+    "q_milestones": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "in_progress",
+              "passed",
+              "failed",
+              "pending"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "active_effort": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
     },
     "verification": {
       "type": "object",
-      "required": ["capability_check", "correctness_check"],
+      "required": [
+        "capability_check",
+        "correctness_check",
+        "verifier_validity"
+      ],
       "properties": {
-        "capability_check": {"type": "string", "enum": ["pass", "fail", "pending"]},
-        "correctness_check": {"type": "string", "enum": ["pass", "fail", "pending"]},
-        "independent_reproduction": {"type": "string", "enum": ["pass", "fail", "pending"]},
-        "retention": {"type": "string", "enum": ["pass", "fail", "pending"]}
+        "capability_check": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending"
+          ]
+        },
+        "correctness_check": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending"
+          ]
+        },
+        "verifier_validity": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "defective",
+            "pending",
+            "not_applicable"
+          ]
+        },
+        "verifier_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verifier_notes": {
+          "type": "string"
+        },
+        "independent_reproduction": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending",
+            "not_applicable"
+          ]
+        },
+        "retention": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending",
+            "not_applicable"
+          ]
+        }
       },
       "additionalProperties": false
     },
-    "resources": {"type": "object", "additionalProperties": true},
-    "terrain": {"type": "object", "additionalProperties": true},
-    "status": {"type": "string", "enum": ["complete", "provisional", "incomplete", "failed", "unresolved"]},
-    "notes": {"type": "string"}
+    "failure_classification": {
+      "type": "object",
+      "required": [
+        "class"
+      ],
+      "properties": {
+        "class": {
+          "type": "string",
+          "enum": [
+            "learner_failure",
+            "artifact_failure",
+            "verifier_failure",
+            "protocol_failure",
+            "data_resource_failure",
+            "unresolved",
+            "none"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "adjudication_status": {
+          "type": "string",
+          "enum": [
+            "provisional",
+            "adjudicated",
+            "unresolved"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "resources": {
+      "type": "object",
+      "required": [
+        "active_effort"
+      ],
+      "properties": {
+        "active_effort": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "tokens": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tool_calls": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "human_interventions": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "external_references": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "compute": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "setup_time": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "terrain": {
+      "type": "object",
+      "properties": {
+        "t1": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t3": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t4": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t5": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "map_divergence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "REPRODUCED",
+        "OBSERVED",
+        "AUTHOR-REPORTED",
+        "HYPOTHESIS",
+        "INTERPRETATION",
+        "SUPERSEDED",
+        "RETRACTED",
+        "UNRESOLVED"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "provisional",
+        "incomplete",
+        "failed",
+        "unresolved"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
   },
   "additionalProperties": false
 }
