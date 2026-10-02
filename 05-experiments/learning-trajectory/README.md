@@ -20,6 +20,16 @@ These are research instruments, not claims that the instruments have already est
 
 The program distinguishes learner capability, problem terrain, artifact correctness, transfer and retention, historical reference effort, novelty/prior art, and context reconstruction.
 
+## Three-process operating protocol
+
+The core workflow is now frozen as:
+
+1. INV-LTB — terrain characterization.
+2. LTB — learner capability trajectory.
+3. Q2B-LTB — integrated question-to-build analysis.
+
+CRT-1 is the investigator reproducibility gate. See `protocol-0.1.md` and `readiness-gate.md`. The research program is currently HARD-STOPPED for new experimental runs until the remaining readiness items are resolved.
+
 No single metric is treated as a universal measure of intelligence.
 
 ## Current state

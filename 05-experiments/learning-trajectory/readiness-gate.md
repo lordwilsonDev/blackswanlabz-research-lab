@@ -25,7 +25,7 @@ No additional learning, terrain, transfer, reconstruction, retention, or cross-c
 | G15 | T3 structural ladder rule defined | PASS |
 | G16 | Change-control linkage defined | PASS |
 | G17 | Preregistration fields cover the protocol | PASS |
-| G18 | Run-record schema covers the protocol | INCOMPLETE |
+| G18 | Run-record schema covers the protocol | PASS |
 | G19 | CRT-1 can reconstruct the protocol from the evidence bundle | PENDING |
 | G20 | First future run can be reproduced from its registered record | PENDING |
 
@@ -33,11 +33,11 @@ No additional learning, terrain, transfer, reconstruction, retention, or cross-c
 
 ### D1 — Run-record schema
 
-The current schema is too thin for Q0–Q9 milestone evidence, explicit verifier audit, failure classification, resource normalization details, terrain feature records, contamination controls, epistemic status, and change-control linkage. This must be repaired before another registered run.
+RESOLVED in run-record schema v0.2. The schema now carries protocol linkage, Q-level milestone evidence, verifier validity, failure classification, resource normalization, terrain fields, and epistemic status.
 
 ### D2 — Preregistration linkage
 
-The preregistration template needs explicit protocol version, readiness-gate version, verifier version, three-process sequence, failure taxonomy, and process completion criteria.
+RESOLVED in preregistration template v0.2. The registration record now links the three-process sequence, readiness gate, verifier version, failure taxonomy, and process completion criteria.
 
 ### D3 — CRT-1 readiness
 
