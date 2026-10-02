@@ -74,7 +74,7 @@ def main() -> int:
 
     artifact_refs = schema["properties"]["artifact_refs"]
     failures += report(
-        set(["protocol", "benchmark", "task", "preregistration", "verifier", "analysis", "schema"]) <= set(artifact_refs["required"]),
+        set(["protocol", "benchmark", "task", "preregistration", "verifier", "verifier_contract", "analysis", "schema"]) <= set(artifact_refs["required"]),
         "replay artifact references include every required component",
     )
 
