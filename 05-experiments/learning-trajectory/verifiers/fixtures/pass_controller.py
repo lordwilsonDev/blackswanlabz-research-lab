@@ -1,0 +1,70 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass
+class Quantity:
+    value: float
+    unit: str
+
+    @property
+    def dimension(self):
+        return "L/T" if self.unit in {"m/s", "km/h"} else "L"
+
+    def to_si(self):
+        if self.unit == "m/s":
+            return self.value
+        if self.unit == "km/h":
+            return self.value / 3.6
+        return self.value
+
+
+class Controller:
+    def __init__(self):
+        self.states = {}
+        self.transitions = []
+        self.current_state = None
+        self.environment = {}
+
+    def add_state(self, name, initial=False):
+        self.states[name] = True
+        if initial:
+            self.current_state = name
+
+    def add_transition(self, source, event, destination, guard=None):
+        self.transitions.append((source, event, destination, guard))
+
+    def quantity(self, value, unit):
+        return Quantity(value, unit)
+
+    def compare(self, left, right):
+        if left.dimension != right.dimension:
+            raise ValueError("incompatible dimensions")
+        return left.to_si() - right.to_si()
+
+    def set_environment(self, **values):
+        self.environment.update(values)
+
+    def dispatch(self, event):
+        for source, ev, destination, guard in self.transitions:
+            if source != self.current_state or ev != event:
+                continue
+            if guard is None:
+                self.current_state = destination
+                return
+            name, op, threshold = guard
+            value = self.environment[name]
+            if op == ">=" and self.compare(value, threshold) >= 0:
+                self.current_state = destination
+                return
+
+    def verify_reachability(self):
+        return {"reachable": sorted(self.states)}
+
+    def verify_guards(self, probes):
+        return {"probes_checked": len(probes)}
+
+
+def create_controller():
+    return Controller()
