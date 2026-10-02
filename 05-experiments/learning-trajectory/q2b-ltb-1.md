@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # Q2B-LTB-1 — Final Learning Trajectory Benchmark
 
 ## Purpose

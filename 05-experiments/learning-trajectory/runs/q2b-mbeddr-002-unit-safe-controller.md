@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # Q2B-MBEDDR-002 — Unit-Safe Reactive Controller Run
 
 ## Status

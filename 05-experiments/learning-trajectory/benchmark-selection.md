@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # Benchmark Project Selection
 
 ## Objective

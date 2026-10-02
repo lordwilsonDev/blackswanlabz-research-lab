@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # INV-LTB-1 — Problem-Resistance Terrain Benchmark
 
 ## Purpose

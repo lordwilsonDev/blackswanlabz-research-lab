@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # CRT-1 — Context Reconstruction Test
 
 ## Purpose

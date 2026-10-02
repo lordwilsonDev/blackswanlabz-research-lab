@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab protocol (authored in this repo)
+captured: 2026-10-02
+status: pending
+---
+
 # Q2B-LTB Pilot Run 001 — Python 2.0 Core-Inspired Interpreter Slice
 
 ## Status
