@@ -27,7 +27,8 @@
     "role_separation",
     "evidence_firewall",
     "condition_id",
-    "epistemic_status"
+    "epistemic_status",
+    "git_commit"
   ],
   "properties": {
     "run_id": {
