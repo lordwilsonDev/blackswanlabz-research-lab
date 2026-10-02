@@ -95,6 +95,18 @@ def main() -> int:
                 failures.append("preregistration study_id does not match preregistration_id")
             if prereg.get("execution_status") != "NOT_STARTED":
                 failures.append("future preregistration must be explicitly marked NOT_STARTED")
+            project = prereg.get("project", {})
+            verification = prereg.get("verification", {})
+            condition = prereg.get("condition", {})
+            model = prereg.get("model", {})
+            if project.get("task_file") != refs.get("task"):
+                failures.append("preregistration task_file does not match task artifact ref")
+            if verification.get("verifier_version") != run.get("verifier_version"):
+                failures.append("nested preregistration verifier version does not match run")
+            if condition.get("condition_id") != run.get("condition_id"):
+                failures.append("preregistration condition_id does not match run")
+            if model.get("model_id") != run.get("learner", {}).get("model_id"):
+                failures.append("preregistration model_id does not match run learner")
 
     verifier_path = refs.get("verifier")
     if isinstance(verifier_path, str):
@@ -111,7 +123,7 @@ def main() -> int:
             )
 
     task_path = refs.get("task")
-    if isinstance(task_path, str) and "Q2B-MBEDDR-002" not in task_path:
+    if isinstance(task_path, str) and "q2b-mbeddr-002" not in task_path.lower():
         failures.append("task artifact is not the registered Q2B-MBEDDR-002 task")
 
     if "schema" in artifact_text:
