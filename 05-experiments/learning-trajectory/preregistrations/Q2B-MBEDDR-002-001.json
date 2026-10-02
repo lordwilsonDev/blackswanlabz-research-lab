@@ -45,20 +45,43 @@
   },
   "terrain": {
     "status": "PENDING",
-    "arms": ["CONSTRUCT"],
+    "arms": [
+      "CONSTRUCT"
+    ],
     "t3_ladder": "Must be structurally justified before use.",
     "t5_intervention": "Must be registered before any destruction claim."
   },
   "trajectory": {
     "baseline": "fresh in-domain task",
-    "levels": ["L1", "L2", "L3", "L4", "L5"],
+    "levels": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+    ],
     "verification": "Every claimed level requires Verification A and Verification B."
   },
   "q2b": {
-    "milestones": ["Q0","Q1","Q2","Q3","Q4","Q5","Q6","Q7","Q8","Q9"],
+    "milestones": [
+      "Q0",
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4",
+      "Q5",
+      "Q6",
+      "Q7",
+      "Q8",
+      "Q9"
+    ],
     "transfer_task": "Must be structurally different from the training/build task and must not supply its solution procedure.",
     "reconstruction_task": "Must use a stripped context bundle and a separately identified evaluator.",
-    "retention_epochs_days": [1,7,30]
+    "retention_epochs_days": [
+      1,
+      7,
+      30
+    ]
   },
   "verification": {
     "verifier_artifact": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
@@ -88,5 +111,7 @@
     "resource normalization invalidates the planned interpretation"
   ],
   "amendment_rule": "Any post-registration change is dated, justified, versioned, and linked to affected runs.",
-  "execution_status": "NOT_STARTED"
+  "execution_status": "NOT_STARTED",
+  "evidence_status": "NO_EXPERIMENTAL_EVIDENCE",
+  "notes": "Registration constrains a future run; this file is not itself a run result and must not be interpreted as experimental evidence."
 }
