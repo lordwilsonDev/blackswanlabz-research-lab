@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.3"
+VERIFIER_VERSION = "q2b-mbeddr-002-verifier-0.1.4"
 TASK_ID = "Q2B-MBEDDR-002"
 
 
@@ -49,7 +49,14 @@ def load_module(path: Path):
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load learner artifact: {path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    # Register before execution so module-level decorators that consult
+    # sys.modules (including dataclasses.dataclass) resolve correctly.
+    sys.modules[spec.name] = module
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        sys.modules.pop(spec.name, None)
+        raise
     return module
 
 
