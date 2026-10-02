@@ -110,6 +110,19 @@ def main() -> int:
         {"transfer", "independence_basis"} <= set(verification["required"]),
         "transfer and verifier-independence evidence are structured",
     )
+    transfer_schema = verification["properties"]["transfer"]
+    failures += report(
+        transfer_schema["properties"].get("solution_procedure_supplied", {}).get("const") is False,
+        "transfer gate forbids supplying the new solution procedure",
+    )
+
+    roles = schema["properties"]["role_separation"]
+    failures += report(
+        {"shared_system", "role_transition_log"} <= set(roles["required"]) and
+        roles["properties"].get("shared_system", {}).get("type") == "boolean",
+        "same-system multi-role use is explicitly represented",
+    )
+
 
     reconstruction = verification["properties"]["reconstruction"]
     failures += report(
