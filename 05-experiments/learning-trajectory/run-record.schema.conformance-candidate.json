@@ -1,0 +1,1263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "q2b-ltb-run-record-conformance-candidate-0.3",
+  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate",
+  "type": "object",
+  "required": [
+    "run_id",
+    "benchmark_version",
+    "protocol_version",
+    "readiness_gate_version",
+    "learner",
+    "condition",
+    "problem",
+    "process",
+    "timing",
+    "verification",
+    "failure_classification",
+    "resources",
+    "status",
+    "task_version",
+    "preregistration_id",
+    "verifier_version",
+    "analysis_version",
+    "resource_budget",
+    "stopping_rules",
+    "contamination_controls",
+    "role_separation",
+    "evidence_firewall",
+    "condition_id",
+    "epistemic_status",
+    "git_commit",
+    "run_record_schema_version",
+    "artifact_refs"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "benchmark_version": {
+      "type": "string"
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "readiness_gate_version": {
+      "type": "string"
+    },
+    "git_commit": {
+      "type": "string"
+    },
+    "learner": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "human",
+            "model",
+            "hybrid"
+          ]
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "type": "string"
+    },
+    "problem": {
+      "type": "object",
+      "required": [
+        "id",
+        "domain",
+        "reference_effort",
+        "reference_effort_unit",
+        "reference_effort_evidence_tier",
+        "reference_effort_source",
+        "reference_effort_comparability"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "reference_effort": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "reference_effort_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_effort_evidence_tier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            null
+          ]
+        },
+        "reference_effort_source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_effort_comparability": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "comparable",
+            "not_comparable",
+            "pending",
+            null
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "process": {
+      "type": "object",
+      "required": [
+        "terrain_status",
+        "trajectory_status",
+        "q2b_status"
+      ],
+      "properties": {
+        "terrain_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "trajectory_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "q2b_status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "provisional",
+            "complete",
+            "failed",
+            "unresolved"
+          ]
+        },
+        "terrain_profile_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trajectory_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "required": [
+        "start",
+        "active_effort",
+        "active_effort_unit"
+      ],
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_effort": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "t_engage": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_model": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_architecture": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_first_build": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_functional": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_verified": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_transfer": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "t_retained": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "capability": {
+      "type": "object",
+      "properties": {
+        "stable_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            null
+          ]
+        },
+        "provisional_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            null
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "q_milestones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Q0",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Q7",
+        "Q8",
+        "Q9"
+      ],
+      "properties": {
+        "Q0": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q1": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q2": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q3": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q4": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q5": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q6": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q7": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q8": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Q9": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "in_progress",
+                "passed",
+                "failed",
+                "pending"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "active_effort": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "capability_check",
+        "correctness_check",
+        "verifier_validity",
+        "verifier_version",
+        "checked_scope",
+        "unchecked_scope",
+        "verification_level",
+        "reconstruction",
+        "retention_epochs"
+      ],
+      "properties": {
+        "capability_check": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending"
+          ]
+        },
+        "correctness_check": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending"
+          ]
+        },
+        "verifier_validity": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "defective",
+            "pending",
+            "not_applicable"
+          ]
+        },
+        "verifier_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verifier_notes": {
+          "type": "string"
+        },
+        "retention": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "pending",
+            "not_applicable"
+          ]
+        },
+        "checked_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unchecked_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "verification_level": {
+          "type": "string",
+          "enum": [
+            "bounded",
+            "proof_level"
+          ]
+        },
+        "reconstruction": {
+          "type": "object",
+          "required": [
+            "task_id",
+            "context_bundle_id",
+            "context_removed",
+            "evaluator_id",
+            "result"
+          ],
+          "properties": {
+            "task_id": {
+              "type": "string"
+            },
+            "context_bundle_id": {
+              "type": "string"
+            },
+            "context_removed": {
+              "type": "boolean"
+            },
+            "evaluator_id": {
+              "type": "string"
+            },
+            "result": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "pending",
+                "not_applicable"
+              ]
+            },
+            "supplied_artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evaluator_notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "retention_epochs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "day",
+              "status"
+            ],
+            "properties": {
+              "day": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  7,
+                  30
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pass",
+                  "fail",
+                  "pending",
+                  "not_applicable"
+                ]
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fresh_task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "failure_classification": {
+      "type": "object",
+      "required": [
+        "class"
+      ],
+      "properties": {
+        "class": {
+          "type": "string",
+          "enum": [
+            "learner_failure",
+            "artifact_failure",
+            "verifier_failure",
+            "protocol_failure",
+            "data_resource_failure",
+            "unresolved",
+            "none"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "adjudication_status": {
+          "type": "string",
+          "enum": [
+            "provisional",
+            "adjudicated",
+            "unresolved"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "resources": {
+      "type": "object",
+      "required": [
+        "active_effort",
+        "assistance_log"
+      ],
+      "properties": {
+        "active_effort": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "tokens": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tool_calls": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "human_interventions": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "external_references": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "compute": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "setup_time": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "assistance_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "actor",
+              "action",
+              "target",
+              "timestamp"
+            ],
+            "properties": {
+              "actor": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "active_effort": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "terrain": {
+      "type": "object",
+      "properties": {
+        "t1": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t3": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t4": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "t5": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "map_divergence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ]
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "REPRODUCED",
+        "OBSERVED",
+        "AUTHOR-REPORTED",
+        "HYPOTHESIS",
+        "INTERPRETATION",
+        "SUPERSEDED",
+        "RETRACTED",
+        "UNRESOLVED"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "provisional",
+        "incomplete",
+        "failed",
+        "unresolved"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "task_version": {
+      "type": "string"
+    },
+    "preregistration_id": {
+      "type": "string"
+    },
+    "verifier_version": {
+      "type": "string"
+    },
+    "analysis_version": {
+      "type": "string"
+    },
+    "resource_budget": {
+      "type": "object",
+      "required": [
+        "active_effort_limit"
+      ],
+      "properties": {
+        "active_effort_limit": {
+          "type": "number"
+        },
+        "active_effort_unit": {
+          "type": "string"
+        },
+        "tokens_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tool_calls_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "compute_limit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "stopping_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "contamination_controls": {
+      "type": "object",
+      "required": [
+        "held_out_tasks",
+        "reference_leakage_controls",
+        "model_context_restrictions"
+      ],
+      "properties": {
+        "held_out_tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reference_leakage_controls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_context_restrictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assistance_logging": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "role_separation": {
+      "type": "object",
+      "required": [
+        "investigator",
+        "learner",
+        "verifier",
+        "analyst"
+      ],
+      "properties": {
+        "investigator": {
+          "type": "string"
+        },
+        "learner": {
+          "type": "string"
+        },
+        "verifier": {
+          "type": "string"
+        },
+        "analyst": {
+          "type": "string"
+        },
+        "role_transition_log": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidence_firewall": {
+      "type": "object",
+      "required": [
+        "hidden_reference_solutions_blocked",
+        "investigator_only_context_blocked",
+        "post_hoc_revision_blocked",
+        "hidden_verifier_assumptions_blocked"
+      ],
+      "properties": {
+        "hidden_reference_solutions_blocked": {
+          "type": "boolean"
+        },
+        "investigator_only_context_blocked": {
+          "type": "boolean"
+        },
+        "post_hoc_revision_blocked": {
+          "type": "boolean"
+        },
+        "hidden_verifier_assumptions_blocked": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "condition_id": {
+      "type": "string"
+    },
+    "run_record_schema_version": {
+      "type": "string"
+    },
+    "artifact_refs": {
+      "type": "object",
+      "required": [
+        "protocol",
+        "benchmark",
+        "task",
+        "preregistration",
+        "verifier",
+        "analysis"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "benchmark": {
+          "type": "string"
+        },
+        "task": {
+          "type": "string"
+        },
+        "preregistration": {
+          "type": "string"
+        },
+        "verifier": {
+          "type": "string"
+        },
+        "analysis": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "terrain_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "terrain"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "trajectory_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "capability"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "process": {
+            "properties": {
+              "q2b_status": {
+                "enum": [
+                  "provisional",
+                  "complete",
+                  "failed",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "q_milestones"
+        ]
+      }
+    }
+  ]
+}
