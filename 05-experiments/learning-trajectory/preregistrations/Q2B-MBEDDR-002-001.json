@@ -62,7 +62,7 @@
   },
   "verification": {
     "verifier_artifact": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
-    "verifier_version": "q2b-mbeddr-002-verifier-0.1.3",
+    "verifier_version": "q2b-mbeddr-002-verifier-0.1.4",
     "independence_basis": "INDEPENDENT_EXECUTION",
     "verification_level": "bounded"
   },
