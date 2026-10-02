@@ -44,6 +44,7 @@ Read in this order.
 - [FDE Kernel missions M005 to M008](05-experiments/fde-kernel-missions.md): mission outcomes read from a local repository; pending.
 - [Hermes12 benchmark](05-experiments/hermes12-benchmark.md): pre-registered replication package; harness validated, experiment not yet run.
 - [AIL research-loop reference tests](05-experiments/research-loop-reference-tests.md): the 8 unit tests for the reference implementation.
+- [CVT-1 run sheet](05-experiments/cvt-1/README.md): the pre-registered Colab test of verifier feedback versus resampling for a small model; not run, no result.
 
 ## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
 - [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.

@@ -6,7 +6,7 @@ status: pending
 
 # CVT-1: does cheap verification beat expensive generation? (proposal)
 
-**Not run.** This is a proposed experiment. No result exists, and nothing here is evidence.
+**Not run.** The runnable version is in [05-experiments/cvt-1](../05-experiments/cvt-1/README.md). This is a proposed experiment. No result exists, and nothing here is evidence.
 
 ## Why this test
 

@@ -337,3 +337,12 @@ def test_cornerstone_breakdown_counts_a_tarball():
     result = json.loads(out.stdout)
     assert result["lines"] == {"source": 2, "vendored_or_build": 1, "docs": 1}
     assert result["total_text_lines"] == 4
+
+
+def test_cvt1_tasks_selfcheck():
+    import importlib.util
+    path = Path(verify.__file__).parent.parent / "05-experiments" / "cvt-1" / "cvt1.py"
+    spec = importlib.util.spec_from_file_location("cvt1", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    mod.selfcheck()
