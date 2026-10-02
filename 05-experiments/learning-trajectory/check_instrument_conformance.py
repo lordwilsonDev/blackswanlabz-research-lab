@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 LT = ROOT / "05-experiments" / "learning-trajectory"
 SCHEMA_PATH = LT / "run-record.schema.conformance-candidate.json"
 
