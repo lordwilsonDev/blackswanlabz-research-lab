@@ -7,6 +7,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -220,10 +221,20 @@ def check_pins(pins: list[tuple[str, str, str]], commit_exists: Callable[[str, s
             for rel, repo, sha in pins if not commit_exists(repo, sha)]
 
 
+def git_commit_exists(repo: str, sha: str) -> bool:
+    """Fallback for hosts without an authenticated gh: fetch the commit over plain git."""
+    with tempfile.TemporaryDirectory() as tmp:
+        steps = (["git", "init", "-q"],
+                 ["git", "fetch", "-q", "--depth=1", "--filter=blob:none",
+                  f"https://github.com/{repo}.git", sha])
+        return all(subprocess.run(s, cwd=tmp, capture_output=True, text=True).returncode == 0
+                   for s in steps)
+
+
 def gh_commit_exists(repo: str, sha: str) -> bool:
     result = subprocess.run(["gh", "api", f"repos/{repo}/commits/{sha}", "--jq", ".sha"],
                             capture_output=True, text=True)
-    return result.returncode == 0
+    return result.returncode == 0 or git_commit_exists(repo, sha)
 
 
 def gh_code_frequency(repo: str) -> list[list[int]]:

@@ -50,6 +50,7 @@ Read in this order.
 
 ## Next (roadmap, not built)
 - [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.
+- [CVT-1 (proposal)](07-next/cheap-verification-test.md): a proposed experiment on whether cheap verification beats expensive generation; not run.
 
 ## Operations (verbatim SOPs; some company names redacted)
 - [08 Operations](08-operations/README.md): the operating standards for running BlackSwanLabz; several describe the target system, not what runs today.
