@@ -1,0 +1,92 @@
+{
+  "study_id": "Q2B-MBEDDR-002-001",
+  "registration_type": "future_registered_run",
+  "status": "PREREGISTERED_FOR_FUTURE_EXECUTION",
+  "protocol_version": "0.1",
+  "benchmark_version": "Q2B-LTB-1",
+  "run_record_schema_version": "0.5-candidate",
+  "registration_commit": "REPLACED_BY_COMMIT_AT_EXECUTION",
+  "research_question": {
+    "primary": "Can a model acquire the registered unit-safe reactive-controller capability and produce an independently verified artifact under a capability-first condition?",
+    "secondary": [
+      "Which L-levels can be independently verified?",
+      "Does structural transfer succeed on a fresh task?",
+      "Can the demonstrated capability be reconstructed from a stripped context bundle?"
+    ]
+  },
+  "project": {
+    "problem_id": "Q2B-MBEDDR-002",
+    "domain": "physical-unit semantics and event/guard state-machine semantics",
+    "task_file": "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md",
+    "required_output": "independently executable controller implementation satisfying the registered task semantics",
+    "success_criteria": [
+      "unit normalization: 36 km/h equals 10 m/s",
+      "incompatible dimensions are rejected",
+      "registered controller behavior executes correctly",
+      "bounded reachability and guard analysis produce valid reports",
+      "structural transfer succeeds on the registered transfer task",
+      "unsupplied extension preserves prior behavior and passes fresh tests"
+    ]
+  },
+  "model": {
+    "learner_id": "MODEL-001",
+    "kind": "model",
+    "model_id": "GPT-5.6 Luna",
+    "model_version": "GPT-5.6 Luna"
+  },
+  "condition": {
+    "condition_id": "CAPABILITY-FIRST-001",
+    "name": "capability-first",
+    "instruction_before_build": false,
+    "registered_resources": [
+      "registered task materials",
+      "permitted external references logged in resource ledger"
+    ]
+  },
+  "terrain": {
+    "status": "PENDING",
+    "arms": ["CONSTRUCT"],
+    "t3_ladder": "Must be structurally justified before use.",
+    "t5_intervention": "Must be registered before any destruction claim."
+  },
+  "trajectory": {
+    "baseline": "fresh in-domain task",
+    "levels": ["L1", "L2", "L3", "L4", "L5"],
+    "verification": "Every claimed level requires Verification A and Verification B."
+  },
+  "q2b": {
+    "milestones": ["Q0","Q1","Q2","Q3","Q4","Q5","Q6","Q7","Q8","Q9"],
+    "transfer_task": "Must be structurally different from the training/build task and must not supply its solution procedure.",
+    "reconstruction_task": "Must use a stripped context bundle and a separately identified evaluator.",
+    "retention_epochs_days": [1,7,30]
+  },
+  "verification": {
+    "verifier_artifact": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
+    "verifier_version": "q2b-mbeddr-002-verifier-0.1",
+    "independence_basis": "INDEPENDENT_EXECUTION",
+    "verification_level": "bounded"
+  },
+  "resources": {
+    "active_effort_unit": "hour",
+    "tokens": "recorded",
+    "tool_calls": "recorded",
+    "human_interventions": "recorded individually",
+    "external_references": "recorded",
+    "compute": "recorded"
+  },
+  "contamination_controls": {
+    "held_out_tasks": "registered separately before execution",
+    "reference_leakage_controls": "no hidden reference solution provided",
+    "model_context_restrictions": "no investigator-only context during learner phase",
+    "assistance_logging": true
+  },
+  "falsification": [
+    "independent verification fails after verifier validity is established",
+    "transfer fails under the registered structural-change rule",
+    "retention fails the registered stability rule",
+    "reconstruction fails under the registered stripped-context condition",
+    "resource normalization invalidates the planned interpretation"
+  ],
+  "amendment_rule": "Any post-registration change is dated, justified, versioned, and linked to affected runs.",
+  "execution_status": "NOT_STARTED"
+}
