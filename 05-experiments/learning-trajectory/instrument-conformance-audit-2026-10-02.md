@@ -52,9 +52,9 @@ Candidate enforcement adds:
 
 ## Test C — Negative-control / mutation suite
 
-A complete synthetic record passed the candidate contract.
+A complete synthetic record passed the current candidate contract.
 
-Seven deliberate regressions were injected:
+Direct negative-control tests across the repair iterations covered deliberate regressions including:
 
 1. remove Git commit requirement
 2. remove Q9
@@ -63,8 +63,12 @@ Seven deliberate regressions were injected:
 5. remove one retention epoch
 6. remove assistance log
 7. remove task artifact reference
+8. remove the T5 intervention structure
+9. remove per-level A+B capability evidence
+10. supply a transfer solution procedure
+11. claim shared-system roles without a transition log
 
-All seven were detected.
+All tested regressions were detected by the candidate constraints.
 
 This is a meta-test of the conformance gate itself: the gate detects the classes of omissions it claims to prevent.
 
