@@ -15,6 +15,7 @@ jobs:
           python-version: "3.12"
       - run: pip install pytest
       - run: python -m pytest tests -q
+      - run: python 05-experiments/learning-trajectory/check_instrument_conformance.py
       - run: scripts/verify.sh
         env:
           GH_TOKEN: ${{ github.token }}
