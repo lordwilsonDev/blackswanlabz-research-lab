@@ -25,7 +25,7 @@ REQUIRED_ROOT = {
     "artifact_refs",
 }
 
-REQUIRED_REF_KEYS = {"protocol", "benchmark", "task", "preregistration", "verifier", "analysis", "schema"}
+REQUIRED_REF_KEYS = {"protocol", "benchmark", "task", "preregistration", "verifier", "verifier_contract", "analysis", "schema"}
 VERIFIER_VERSION_RE = re.compile(r'VERIFIER_VERSION\s*=\s*"([^"]+)"')
 
 
@@ -113,6 +113,10 @@ def main() -> int:
         name = Path(verifier_path).name.lower()
         if "hidden-tests" in name or name.endswith(("-record.json", ".md")):
             failures.append("verifier ref appears to be a result/record document, not an executable verifier artifact")
+    if "verifier_contract" in artifact_text:
+        if "INDEPENDENT_EXECUTION" not in artifact_text["verifier_contract"]:
+            failures.append("verifier contract does not define the independent execution basis")
+
     if "verifier" in artifact_text:
         match = VERIFIER_VERSION_RE.search(artifact_text["verifier"])
         if not match:
@@ -129,7 +133,7 @@ def main() -> int:
     if "schema" in artifact_text:
         try:
             schema = json.loads(artifact_text["schema"])
-            if schema.get("$id") != "q2b-ltb-run-record-conformance-candidate-0.5":
+            if schema.get("$id") != "q2b-ltb-run-record-conformance-candidate-0.6":
                 failures.append("schema artifact is not the registered conformance-candidate-0.5 schema")
         except json.JSONDecodeError:
             failures.append("schema artifact is not valid JSON")
