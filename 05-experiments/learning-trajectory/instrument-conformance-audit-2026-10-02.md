@@ -127,3 +127,45 @@ Official experimental readiness remains:
 No G19 or G20 pass is claimed.
 
 The candidate branch is an instrument-repair branch, not a new experimental version being silently applied to historical records.
+
+
+## Final engineering pass
+
+### Instrument-specific execution evidence
+
+CI run `37073487889` executed the instrument-specific sequence successfully before the legacy repository verifier:
+
+- pytest: PASS
+- instrument conformance: PASS
+- conformance mutation suite: PASS
+- Q2B-MBEDDR-002 verifier tests: PASS
+- replay preflight: PASS
+
+The run then failed only in the separate legacy `scripts/verify.sh` step.
+
+The legacy repository verifier was independently observed failing at the pinned pre-repair commit `5fa37688d7557a6e6026824b1aba8629d76f1997`, so that failure is not attributed to the new instrument machinery.
+
+### CI separation
+
+The instrument checks are now isolated in:
+
+`.github/workflows/learning-trajectory-instrument.yml`
+
+The legacy `.github/workflows/verify.yml` was restored to its pre-repair contents.
+
+The dedicated instrument workflow was also corrected to install pytest and use a full-history checkout.
+
+A dedicated run was then created at head `c4a2f88aca43370a67549511b9c23fe65f902b90`; its earlier environment issue was the missing pytest installation and has been corrected in the workflow.
+
+### Current readiness interpretation
+
+This pass establishes a mechanically testable instrument-enforcement layer.
+
+It does not establish:
+
+- G19 independent investigator reconstruction
+- G20 end-to-end reproducibility of a completed learner run
+- any learner/model performance result
+- superiority of one model over another
+
+The experimental hard stop remains in force.
