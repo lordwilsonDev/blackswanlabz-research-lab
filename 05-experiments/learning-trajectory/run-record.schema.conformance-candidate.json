@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "q2b-ltb-run-record-conformance-candidate-0.3",
-  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate",
+  "$id": "q2b-ltb-run-record-conformance-candidate-0.4",
+  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate 0.4",
   "type": "object",
   "required": [
     "run_id",
@@ -93,7 +93,11 @@
         "reference_effort_unit",
         "reference_effort_evidence_tier",
         "reference_effort_source",
-        "reference_effort_comparability"
+        "reference_effort_comparability",
+        "required_output",
+        "success_criteria",
+        "public_documentation",
+        "transfer_opportunities"
       ],
       "properties": {
         "id": {
@@ -144,6 +148,27 @@
             "pending",
             null
           ]
+        },
+        "required_output": {
+          "type": "string"
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "public_documentation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transfer_opportunities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "additionalProperties": false
@@ -305,9 +330,165 @@
             "L5",
             null
           ]
+        },
+        "level_evidence": {
+          "type": "object",
+          "required": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5"
+          ],
+          "properties": {
+            "L1": {
+              "type": "object",
+              "required": [
+                "verification_a",
+                "verification_b"
+              ],
+              "properties": {
+                "verification_a": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "verification_b": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "L2": {
+              "type": "object",
+              "required": [
+                "verification_a",
+                "verification_b"
+              ],
+              "properties": {
+                "verification_a": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "verification_b": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "L3": {
+              "type": "object",
+              "required": [
+                "verification_a",
+                "verification_b"
+              ],
+              "properties": {
+                "verification_a": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "verification_b": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "L4": {
+              "type": "object",
+              "required": [
+                "verification_a",
+                "verification_b"
+              ],
+              "properties": {
+                "verification_a": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "verification_b": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "L5": {
+              "type": "object",
+              "required": [
+                "verification_a",
+                "verification_b"
+              ],
+              "properties": {
+                "verification_a": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "verification_b": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "level_evidence"
+      ]
     },
     "q_milestones": {
       "type": "object",
@@ -328,7 +509,9 @@
         "Q0": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -359,7 +542,9 @@
         "Q1": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -390,7 +575,9 @@
         "Q2": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -421,7 +608,9 @@
         "Q3": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -452,7 +641,9 @@
         "Q4": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -483,7 +674,9 @@
         "Q5": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -514,7 +707,9 @@
         "Q6": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -545,7 +740,9 @@
         "Q7": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -576,7 +773,9 @@
         "Q8": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -607,7 +806,9 @@
         "Q9": {
           "type": "object",
           "required": [
-            "status"
+            "status",
+            "evidence",
+            "active_effort"
           ],
           "properties": {
             "status": {
@@ -648,7 +849,9 @@
         "unchecked_scope",
         "verification_level",
         "reconstruction",
-        "retention_epochs"
+        "retention_epochs",
+        "transfer",
+        "independence_basis"
       ],
       "properties": {
         "capability_check": {
@@ -802,6 +1005,46 @@
             },
             "additionalProperties": false
           }
+        },
+        "transfer": {
+          "type": "object",
+          "required": [
+            "task_id",
+            "solution_procedure_supplied",
+            "result",
+            "evaluator_id"
+          ],
+          "properties": {
+            "task_id": {
+              "type": "string"
+            },
+            "solution_procedure_supplied": {
+              "type": "boolean",
+              "const": false
+            },
+            "result": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "pending",
+                "not_applicable"
+              ]
+            },
+            "evaluator_id": {
+              "type": "string"
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "independence_basis": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -973,6 +1216,136 @@
             "string",
             "null"
           ]
+        },
+        "terrain_arms": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "DESTROY",
+              "CONSTRUCT",
+              "TERRAIN-INHERIT"
+            ]
+          }
+        },
+        "t3_ladder": {
+          "type": "object",
+          "required": [
+            "ordering_method",
+            "structural_manipulation",
+            "justification"
+          ],
+          "properties": {
+            "ordering_method": {
+              "type": "string"
+            },
+            "structural_manipulation": {
+              "type": "string"
+            },
+            "justification": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "t5_intervention": {
+          "type": "object",
+          "required": [
+            "retain",
+            "remove",
+            "restore"
+          ],
+          "properties": {
+            "retain": {
+              "type": "string"
+            },
+            "remove": {
+              "type": "string"
+            },
+            "restore": {
+              "type": "string"
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "map_divergence_record": {
+          "type": "object",
+          "required": [
+            "independent_maps",
+            "overlap",
+            "unique_features",
+            "unresolved_features"
+          ],
+          "properties": {
+            "independent_maps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "overlap": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "unique_features": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "unresolved_features": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "stability_epochs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "epoch",
+              "feature_stability",
+              "divergence_stability",
+              "transfer_stability"
+            ],
+            "properties": {
+              "epoch": {
+                "type": "string"
+              },
+              "feature_stability": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "divergence_stability": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "transfer_stability": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false,
@@ -981,7 +1354,12 @@
         "t2",
         "t3",
         "t4",
-        "t5"
+        "t5",
+        "terrain_arms",
+        "t3_ladder",
+        "t5_intervention",
+        "map_divergence_record",
+        "stability_epochs"
       ]
     },
     "epistemic_status": {
@@ -1163,7 +1541,8 @@
         "task",
         "preregistration",
         "verifier",
-        "analysis"
+        "analysis",
+        "schema"
       ],
       "properties": {
         "protocol": {
@@ -1182,6 +1561,9 @@
           "type": "string"
         },
         "analysis": {
+          "type": "string"
+        },
+        "schema": {
           "type": "string"
         }
       },
