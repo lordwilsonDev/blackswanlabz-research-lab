@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "q2b-ltb-run-record-conformance-candidate-0.5",
-  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate 0.5",
+  "$id": "q2b-ltb-run-record-conformance-candidate-0.6",
+  "title": "Three-Process Q2B-LTB Run Record — Conformance Candidate 0.6",
   "type": "object",
   "required": [
     "run_id",
@@ -1565,7 +1565,8 @@
         "preregistration",
         "verifier",
         "analysis",
-        "schema"
+        "schema",
+        "verifier_contract"
       ],
       "properties": {
         "protocol": {
@@ -1587,6 +1588,9 @@
           "type": "string"
         },
         "schema": {
+          "type": "string"
+        },
+        "verifier_contract": {
           "type": "string"
         }
       },
