@@ -1,0 +1,20 @@
+{
+  "run_id": "q2b-ltb-pilot-001",
+  "benchmark_version": "Q2B-LTB-1",
+  "learner": {"id": "MODEL-SELF-01", "kind": "model", "model_id": "GPT-5.6 Luna", "model_version": "GPT-5.6 Luna"},
+  "condition": "model_assisted_capability_first",
+  "problem": {
+    "id": "python20-core-inspired-slice",
+    "domain": "programming-language implementation",
+    "reference_effort": 8,
+    "reference_effort_unit": "person-years",
+    "reference_effort_scope": "historical Python 2.0 development statement; not equivalent to this bounded slice"
+  },
+  "timing": {"start": "2026-10-02", "end": null, "active_effort": null, "active_effort_unit": "not measured", "t_first_build": null, "t_verified": null, "t_transfer": null},
+  "capability": {"stable_level": null, "provisional_level": "L5"},
+  "verification": {"capability_check": "pass", "correctness_check": "pass", "independent_reproduction": "pending", "retention": "pending"},
+  "resources": {"timing_note": "Tool wall-clock latency is not a valid proxy for model active learning effort and is excluded from TCR."},
+  "terrain": {"population_size": 1, "status": "not_estimable", "candidate_features": ["expression-grammar composition", "recursive binding", "control-flow propagation"]},
+  "status": "provisional",
+  "notes": "L5 denotes a project-extension probe, not generalized stable L5 capability."
+}
