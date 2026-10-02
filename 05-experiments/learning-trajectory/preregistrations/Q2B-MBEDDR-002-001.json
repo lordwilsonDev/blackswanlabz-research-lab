@@ -113,5 +113,11 @@
   "amendment_rule": "Any post-registration change is dated, justified, versioned, and linked to affected runs.",
   "execution_status": "NOT_STARTED",
   "evidence_status": "NO_EXPERIMENTAL_EVIDENCE",
-  "notes": "Registration constrains a future run; this file is not itself a run result and must not be interpreted as experimental evidence."
+  "notes": "Registration constrains a future run; it is not experimental evidence. Task/version and artifact references are explicit for replay.",
+  "task_version": "Q2B-MBEDDR-002-v1",
+  "artifact_refs": {
+    "task": "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md",
+    "verifier": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
+    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json"
+  }
 }
