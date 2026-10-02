@@ -4,7 +4,7 @@
   "status": "PREREGISTERED_FOR_FUTURE_EXECUTION",
   "protocol_version": "0.1",
   "benchmark_version": "Q2B-LTB-1",
-  "run_record_schema_version": "0.5-candidate",
+  "run_record_schema_version": "0.6-candidate",
   "registration_commit": "REPLACED_BY_COMMIT_AT_EXECUTION",
   "research_question": {
     "primary": "Can a model acquire the registered unit-safe reactive-controller capability and produce an independently verified artifact under a capability-first condition?",
@@ -118,7 +118,8 @@
   "artifact_refs": {
     "task": "05-experiments/learning-trajectory/tasks/q2b-mbeddr-002.md",
     "verifier": "05-experiments/learning-trajectory/verifiers/q2b_mbeddr_002_verifier.py",
-    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json"
+    "schema": "05-experiments/learning-trajectory/run-record.schema.conformance-candidate.json",
+    "verifier_contract": "05-experiments/learning-trajectory/verifier-artifact-contract.md"
   },
   "verifier_version": "q2b-mbeddr-002-verifier-0.1.4",
   "analysis_version": "metric-contracts-v0.2"
