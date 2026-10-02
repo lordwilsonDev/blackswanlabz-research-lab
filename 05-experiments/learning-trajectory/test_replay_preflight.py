@@ -11,6 +11,7 @@ HERE = Path(__file__).resolve().parent
 CHECKER = HERE / "check_replay_preflight.py"
 VALID = HERE / "replay-fixtures" / "replay-valid-run.json"
 INVALID = HERE / "replay-fixtures" / "replay-invalid-run.json"
+INVALID_VERIFIER = HERE / "replay-fixtures" / "replay-invalid-verifier-version.json"
 
 
 def run(record: Path) -> int:
@@ -37,6 +38,11 @@ def main() -> int:
     code = run(INVALID)
     ok = code != 0
     print(f"{'PASS' if ok else 'FAIL'} replay-negative fixture")
+    failures += not ok
+
+    code = run(INVALID_VERIFIER)
+    ok = code != 0
+    print(f"{'PASS' if ok else 'FAIL'} replay-verifier-version mismatch fixture")
     failures += not ok
 
     print("REPLAY_PREFLIGHT_TEST_RESULT=" + ("PASS" if failures == 0 else "FAIL"))
