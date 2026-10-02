@@ -1,0 +1,51 @@
+{
+  "run_id": "DRYRUN-READINESS-001",
+  "benchmark_version": "Q2B-LTB-1",
+  "protocol_version": "0.1",
+  "readiness_gate_version": "0.1",
+  "git_commit": "READINESS-DRYRUN",
+  "learner": {
+    "id": "SMOKE",
+    "kind": "model",
+    "model_id": "none",
+    "model_version": "none"
+  },
+  "condition": "capability_first",
+  "problem": {
+    "id": "dryrun",
+    "domain": "readiness",
+    "reference_effort": null,
+    "reference_effort_unit": null,
+    "reference_effort_evidence_tier": null
+  },
+  "process": {
+    "terrain_status": "not_run",
+    "trajectory_status": "not_run",
+    "q2b_status": "not_run"
+  },
+  "timing": {
+    "start": "2026-10-02",
+    "end": null,
+    "active_effort": 0,
+    "active_effort_unit": "minutes"
+  },
+  "verification": {
+    "capability_check": "pending",
+    "correctness_check": "pending",
+    "verifier_validity": "not_applicable",
+    "verifier_version": null,
+    "verifier_notes": "Readiness-only dry run",
+    "independent_reproduction": "not_applicable",
+    "retention": "not_applicable"
+  },
+  "failure_classification": {
+    "class": "none",
+    "evidence": "No experiment executed",
+    "adjudication_status": "adjudicated"
+  },
+  "resources": {
+    "active_effort": 0,
+    "active_effort_unit": "minutes"
+  },
+  "status": "incomplete"
+}
