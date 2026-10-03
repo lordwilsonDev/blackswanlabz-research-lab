@@ -346,3 +346,10 @@ def test_cvt1_tasks_selfcheck():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     mod.selfcheck()
+
+
+def test_snapshot_files_skip_nested_cache_dirs(tmp_path):
+    write(tmp_path, "05-experiments/x/.pytest_cache/README.md", "cache")
+    write(tmp_path, "05-experiments/x/page.md", GOOD_HEADER)
+    names = [p.name for p in verify._snapshot_files(tmp_path)]
+    assert names == ["page.md"]

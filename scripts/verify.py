@@ -105,7 +105,8 @@ def _snapshot_files(root: Path) -> list[Path]:
     files: list[Path] = []
     for d in SNAPSHOT_DIRS:
         if (root / d).is_dir():
-            files.extend(sorted((root / d).rglob("*.md")))
+            files.extend(f for f in sorted((root / d).rglob("*.md"))
+                         if not any(part in IGNORED_DIRS for part in f.relative_to(root).parts))
     return files
 
 
