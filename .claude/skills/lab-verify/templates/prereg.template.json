@@ -1,0 +1,22 @@
+{
+  "question": "FILL: one sentence, answerable by running code",
+  "standard_level": "executable",
+  "hypothesis": "FILL: what you expect, stated so that it can fail",
+  "arms": [
+    {"id": "B", "kind": "single"},
+    {"id": "B-n", "kind": "resample"},
+    {"id": "C", "kind": "feedback"}
+  ],
+  "comparison": {"a": "C", "b": "B-n"},
+  "metric": "hidden_pass",
+  "margin": 0.10,
+  "ci_level": 0.95,
+  "bootstrap_resamples": 5000,
+  "attempts": 4,
+  "seeds": [0, 1, 2],
+  "test_timeout_s": 5,
+  "falsification": "FILL: the result that would make you say it did not work. A tie counts as failure.",
+  "limits": ["FILL: at least one honest limit, for example who wrote the tests and how many tasks"],
+  "stopping_rule": "FILL: one revision pass after the self-check passes, then freeze",
+  "instrument_version": "lab-harness-0.1"
+}

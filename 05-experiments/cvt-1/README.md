@@ -1,62 +1,70 @@
 ---
-source: pre-registration written in this repo during research session 2026-10-02
-captured: 2026-10-02
+source: pre-registration written in this repo during research session 2026-10-03
+captured: 2026-10-03
 status: pending
 ---
 
 # CVT-1 run sheet and pre-registration
 
-**Not run.** Nothing on this page is a result. It fixes what will be run and how it will be judged, so the outcome cannot be argued afterward. The idea behind it is in [the proposal](../../07-next/cheap-verification-test.md).
+**Not run.** Nothing on this page is a result. It fixes what will be run and how it will be judged, so the outcome cannot be argued afterward. The idea is in [the proposal](../../07-next/cheap-verification-test.md). The process is the [lab-verify skill](../../.claude/skills/lab-verify/SKILL.md), which wraps `lab_harness.py`.
 
 ## What it tests
 
-Whether a small free model, checked by running tests and shown the failure message, solves more held-out problems than the same model that is only re-sampled from scratch, at the same attempt limit. This separates two things that are easy to confuse: the effect of a verifier (an oracle that says pass or fail) and the effect of feedback (telling the model why it failed).
+Whether a small local model that sees the failure message of a failed attempt (arm C) solves more hidden tests than the same model re-sampled from scratch with the same attempt limit (arm B-n). This separates two effects that are easy to confuse: having a verifier that says pass or fail, and giving the model feedback about why it failed.
 
-## Exactly what to do
+## Run it on the Mac mini (local, no cloud)
 
-1. Open Google Colab and create a notebook, or upload [cvt1.ipynb](cvt1.ipynb) (File, Upload notebook).
-2. Runtime, Change runtime type, choose **T4 GPU**.
-3. Run the cells top to bottom. The `selfcheck()` call runs first; if it fails, stop and send me the message.
-4. Optional cloud arms A and D: add `ANTHROPIC_API_KEY` under the key icon (Secrets) and set it in the environment before the last cell, `import os; os.environ["ANTHROPIC_API_KEY"] = "..."`. Edit `cloud_price_per_mtok` in the config cell to the current price **before** running. Without a key, only the loop-versus-resample question is tested and no cost comparison is made.
-5. Do not edit the config after the first real run. If you must change something, change it, delete `cvt1_results.jsonl`, and note the change.
-6. Bring back: the printed summary table, the "REGISTERED DECISION" line, the file `cvt1_results.jsonl`, the Colab GPU type shown in the notebook, and the commit hash of this folder you used.
+Hardware to record in the run note: Mac mini M4, 16 GB unified memory (as the captured environment file in msb-v3 and the owner's readout both indicate; the owner should confirm with `system_profiler SPHardwareDataType`).
 
-Expect roughly 30 to 90 minutes on a free T4 for the local arms. Free sessions can disconnect; results are appended to `cvt1_results.jsonl` as they finish, so download it if the session dies, and say so.
+```bash
+ollama pull qwen3:8b
+H=.claude/skills/lab-verify/scripts
+python3 $H/lab_harness.py lock      05-experiments/cvt-1     # freezes prereg.json and tasks.json
+python3 $H/lab_harness.py selfcheck 05-experiments/cvt-1     # must say SELF-CHECK OK
+OLLAMA_MODEL=qwen3:8b python3 $H/lab_harness.py run 05-experiments/cvt-1 \
+  --adapter "python3 $H/ollama_adapter.py" --note "Mac mini M4 16GB, qwen3:8b via Ollama"
+python3 $H/lab_harness.py analyze 05-experiments/cvt-1
+python3 $H/lab_harness.py report  05-experiments/cvt-1
+```
+
+Or in Claude Code or claude.ai, say: **use the lab-verify skill and run CVT-1 on `05-experiments/cvt-1`**.
+
+Edit `prereg.json` (margin, seeds, limits) before `lock` if you want to; after `lock` the harness refuses to run if either file changed. Expect roughly 30 to 100 minutes on a 16 GB machine (an estimate, not a measurement); results are written as they finish. Bring back the printed table, the registered-decision line, `results.jsonl`, `RUN.json` and `REPORT.md`.
+
+A run with `--adapter fake:0.5` tests the harness only. It is labelled NOT EVIDENCE in the output and report. Do not quote its numbers.
 
 ## Design
 
 | Item | Value |
 |---|---|
-| Tasks | 24 small Python functions, each with 3 visible and 3 to 7 hidden tests, plus a reference solution used only by the self-check |
+| Tasks | 24 small Python functions in `tasks.json`, each with 3 visible and 3 to 7 hidden tests and a reference solution used only by the self-check |
 | Seeds | 0, 1, 2 (72 task-runs per arm) |
 | Attempts | up to 4 per task-run |
-| Local model | Qwen/Qwen2.5-Coder-1.5B-Instruct, sampled at temperature 0.7, top-p 0.95, 384 new tokens |
-| Cloud model (optional) | claude-haiku-4-5-20251001 |
+| Metric | hidden-test pass rate; false passes (visible pass, hidden fail) are counted too |
+| Cost | tokens and seconds on one machine; no dollar or energy figure |
 
-Arms, with attempt 1 shared per task and seed so the comparison is paired:
+Attempt 1 is generated once per task and seed and shared by every arm, which pairs the comparison.
 
 | Arm | What it does |
 |---|---|
 | B | attempt 1 only |
 | B-n | attempt 1, then fresh independent samples until one passes the visible tests |
 | C | attempt 1, then fixes that see the failure message, until one passes the visible tests |
-| A, D | the same as B and C using the cloud model (only if a key is set) |
 
-The loop sees only the visible tests. The hidden tests judge the final answer. A **false pass** is a final answer that passes the visible tests and fails the hidden ones.
+The self-check proves, per task, that the reference passes, a stub fails, and a lookup of the visible answers (the auto-cheat) is rejected by the hidden tests.
 
 ## Registered decision
 
-Using the mean hidden-test pass rate per task (averaged over the three seeds):
-
-- **Supported** only if C beats B-n by at least **0.10** AND the 95% bootstrap interval (5,000 resamples over tasks) of the difference has a lower bound above 0.
-- Otherwise **not supported**. A tie is not supported.
-
-All other numbers (visible pass, false-pass rate, attempts, tokens, seconds, cloud cost) are descriptive and support no claim by themselves.
+Using the mean hidden-test pass rate per task, averaged over seeds: **supported** only if C beats B-n by at least **0.10** and the 95% bootstrap interval (5,000 resamples over tasks) of the difference has a lower bound above 0. Otherwise **not supported**. A tie is not supported. All other numbers are descriptive.
 
 ## Limits, stated now
 
-- The tasks are small and the same author wrote the visible and hidden tests, so the result says little about real software work. It measures the effect of feedback on a small model under this oracle, nothing wider.
-- Local cost on free Colab is recorded as 0 dollars, which is not an energy or capacity cost. Compare tokens and seconds before drawing a cost conclusion.
+- The same author wrote the visible and hidden tests, and 24 small tasks says little about real software work.
+- Local cost is tokens and seconds on one machine, not dollars or energy.
 - 24 tasks is a small sample. A supported result is a direction, not an established effect.
-- The hypothesis in the proposal compares a small model in a loop with a large model's single attempt (arm C against arm A). That needs the cloud arms and a price check, and it is not part of the registered decision above.
+- The comparison in the proposal of a small model in a loop against a large model's single attempt is a separate experiment: run the harness again with a different adapter in a new directory.
 - No claim is added to [CLAIMS.md](../../CLAIMS.md) until results exist and have been checked.
+
+## Superseded
+
+`cvt1.py` and `cvt1.ipynb` in this folder are the earlier Colab version, built on a mistaken assumption about where the test would run. They are kept for the record. Use the harness above for local runs.

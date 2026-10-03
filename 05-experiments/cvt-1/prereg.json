@@ -1,0 +1,43 @@
+{
+ "question": "On 24 small Python tasks, does a small local model that sees the failure message of a failed attempt (arm C) solve more hidden tests than the same model re-sampled from scratch with the same attempt limit (arm B-n)?",
+ "standard_level": "executable",
+ "hypothesis": "Arm C beats arm B-n on hidden-test pass rate by at least the registered margin, because feedback carries information that resampling does not.",
+ "arms": [
+  {
+   "id": "B",
+   "kind": "single"
+  },
+  {
+   "id": "B-n",
+   "kind": "resample"
+  },
+  {
+   "id": "C",
+   "kind": "feedback"
+  }
+ ],
+ "comparison": {
+  "a": "C",
+  "b": "B-n"
+ },
+ "metric": "hidden_pass",
+ "margin": 0.1,
+ "ci_level": 0.95,
+ "bootstrap_resamples": 5000,
+ "attempts": 4,
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "test_timeout_s": 5,
+ "falsification": "The mean per-task difference (C minus B-n) is below 0.10, or its 95% bootstrap interval includes 0. A tie counts as failure.",
+ "limits": [
+  "The same author wrote the visible and hidden tests, and 24 small tasks says little about real software work.",
+  "Local cost is measured as tokens and seconds on one machine; there is no dollar or energy figure.",
+  "24 tasks is a small sample: a supported result is a direction, not an established effect.",
+  "The model's sampling seed is controlled only if the adapter honours HARNESS_SEED."
+ ],
+ "stopping_rule": "One revision pass to the tasks or prompts after the self-check passes, then lock. No edits after lock; a change means a new experiment directory.",
+ "instrument_version": "lab-harness-0.1"
+}
