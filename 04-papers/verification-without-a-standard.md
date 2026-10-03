@@ -10,7 +10,7 @@ BlackSwanLabz Research Lab. Drafted by an AI model (Claude) at the lab owner's d
 
 ## Abstract
 
-Generating code, analyses and agent behavior is now cheap. Knowing whether the output is correct, safe and useful is not. For many new artifacts there is no accepted benchmark or reviewing body, and a small lab cannot buy outside review. This paper describes the method the BlackSwanLabz Research Lab uses in that position: the lab writes its own standard before it tests, fixes it in a hash-locked pre-registration, tests the measuring instrument itself, runs once, and reports against a status ledger that separates verified, pending and retracted claims. The components are not new. Execution feedback for code [1][2][3], verifier-based selection [6][7][8], insufficient-test critiques [9], preregistration [12][13], estimands [14] and assurance cases [15] all exist. The contribution is their combination into a procedure that runs on a 16 GB desktop with a local model, and an honest account of what it cannot show. The lab has not yet produced a headline result. The first planned experiment (CVT-1) is specified and not run, and its closest prior work [3] found modest and inconsistent gains from feedback once cost is counted.
+Generating code, analyses and agent behavior is now cheap. Knowing whether the output is correct, safe and useful is not. For many new artifacts there is no accepted benchmark or reviewing body, and a small lab cannot buy outside review. This paper describes the method the BlackSwanLabz Research Lab uses in that position: the lab writes its own standard before it tests, fixes it in a hash-locked pre-registration, tests the measuring instrument itself, runs once, and reports against a status ledger that separates verified, pending and retracted claims. The paper makes two separate claims and treats them differently. The first is a **system** claim: the method integrates seven controls in one procedure that runs on a 16 GB desktop with a local model. Individual controls exist elsewhere (execution feedback [1][2][3], verifier-based selection [6][7][8], stronger tests [9], preregistration [12][13], estimands [14], assurance cases [15]), and integrated evaluation systems exist too (HELM [16], Inspect [17]; recent work that combines some controls [19][20]). In the sources read for this paper, none covers more than two of the seven (Section 3.1). Whether the full integration is novel beyond those sources is not established, because the survey was small. Whether it works better than its parts has not been tested. The second is an **experiment** claim: CVT-1, the first planned experiment, is specified and not run, and it is compared with the single experiment closest to it [3], which found modest and inconsistent gains from feedback once cost is counted. The lab has not yet produced a headline result.
 
 ## 1. The problem
 
@@ -29,6 +29,8 @@ The lab's thesis is that intelligence is becoming abundant and verification is b
 
 **Agent safety.** CaMeL separates control flow from data flow to defend agents against prompt injection and reports solving 77% of AgentDojo tasks with provable security against 84% with no defense [11]. The lab's governed-runtime gate keys on action severity and on whether inputs came from untrusted content, a related idea implemented independently; this paper makes no claim about its effectiveness.
 
+**Integrated evaluation systems.** The fair comparison for a system is with other systems. HELM defines standardized scenarios and metrics so that models are compared under the same conditions and releases raw prompts and completions [16]. Inspect, from the UK AI Security Institute and Meridian Labs, provides tasks, datasets, solvers and scorers, tool use and sandboxed execution, with over 200 pre-built evaluations [17]; the documentation page I read describes no pre-registration, hash-locking or hidden-test feature, which is a limit of what I read, not proof of absence. The EleutherAI lm-evaluation-harness unifies many few-shot tasks behind one configuration format [18]. Two 2026 papers combine some controls with these ideas: Zhang's diagnostic protocol combines "locked pre-registrations, fresh sessions between stages, dual-LLM judging, and a human-audit pathway" [19], and Singh's preregistered audit proposes declaring an equivalence margin in advance, paired testing and releasing per-item outputs [20]. These are the closest comparators to the system described here.
+
 **Methods borrowed from other fields.** Preregistration fixes the questions and analysis plan before outcomes are seen, to separate prediction from postdiction [12]. A commentary argues that preregistering a theoretical prediction and preregistering an analysis plan serve different purposes and should not be conflated [13]. The ICH E9(R1) addendum defines an estimand as "a precise description of the treatment effect" and requires that the targets of estimation "be defined in advance" [14]. Assurance-case practice, formalised in the GSN community standard, breaks a top claim into sub-claims supported by evidence [15].
 
 ## 3. Method
@@ -45,6 +47,23 @@ The method is implemented as a stdlib Python harness and a Claude skill (`lab-ve
 
 The status ledger gives every claim one of three states with a way to re-check it. A claim counts only when its row says verified, and a claim no automated checker can reach does not count.
 
+### 3.1 Coverage of the seven elements
+
+The table records, for each source I read, which of the method's seven elements it states. ● = stated in the abstract or page I read; ◐ = partly stated; · = not stated in what I read (this is not evidence the source lacks it). Sources [15] and [18] were not opened (Appendix A), so they are marked from search-result descriptions only. The reading is the author's and is unreviewed.
+
+| Element | [3] | [9] | [12] | [14] | [15] | [16] | [17] | [19] | [20] | This system |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 Declares which standard level applies | · | · | · | · | · | · | · | · | · | ● |
+| 2 Locked pre-registration | · | · | ● | ● | · | · | · | ● | ● | ● |
+| 3 Hidden tests with false-pass count | · | ◐ | · | · | · | · | · | · | · | ● |
+| 4 Instrument self-check (reference, stub, cheat) | · | · | · | · | · | · | · | · | · | ● |
+| 5 Run-once enforcement after lock | · | · | · | · | · | · | · | · | · | ● |
+| 6 Claim, evidence and status ledger | · | · | · | · | ◐ | · | · | · | · | ● |
+| 7 Independence ladder or non-self judging | · | · | · | · | · | · | · | ◐ | · | ● |
+
+No source I read covers more than two elements. That supports one narrow statement: the integration of all seven goes beyond any single source read. It does not show the integration is novel to the field, because the survey was small and framework documentation was read at page level only. It does not show the integration works better than its parts, which has to be tested by results. A novelty claim for the integration would need a systematic survey of evaluation frameworks and preregistration tooling, which this paper does not do.
+
+
 ## 4. What the lab has and has not shown
 
 Verified and mechanically re-checkable (see [CLAIMS.md](../CLAIMS.md)): three Adaptive Infrastructure reproductions and hand recomputations of small calculations (C-005, C-006, C-046); the research-loop reference passes its eight unit tests (C-036); the runtime's test collection (3,942 tests collected at a pinned commit, C-030). These are small, deterministic checks. They show reproducibility, not usefulness.
@@ -59,13 +78,14 @@ The lab's own audit of a small synthetic experiment, run in a Freebuff session a
 
 **Registered decision.** Supported only if the mean per-task difference is at least 0.10 and the 95% bootstrap interval over tasks has a lower bound above 0. Otherwise not supported.
 
-**Prior work.** This is closest to [3], which compared repair with sampling and found modest, inconsistent gains once cost is counted. In the limited search done for this paper (a handful of queries on 2026-10-03), I did not find a pre-registered test of this comparison with a small locally run model, but the search was shallow and this is not a claim of novelty. Related small-model work [4][5] suggests the effect may be weak for small non-reasoning models, so a "not supported" result is plausible and would be informative.
+**Prior work.** CVT-1 is a single experiment, so the right comparison is with the single experiment closest to it. That is [3], which compared repair with sampling and found modest, inconsistent gains once cost is counted. In the limited search done for this paper (a handful of queries on 2026-10-03), I did not find a pre-registered test of this comparison with a small locally run model, but the search was shallow and this is not a claim of novelty. Related small-model work [4][5] suggests the effect may be weak for small non-reasoning models, so a "not supported" result is plausible and would be informative.
 
 **Differences from [3] that bound what CVT-1 can show.** CVT-1 matches the attempt limit, not total tokens, and feedback prompts are longer than resampling prompts. It records tokens and seconds but does not decide on them. It uses 24 author-written tasks and one model.
 
 ## 6. Limits
 
 - The lab has produced no headline result. This paper describes a procedure and its checks, not a finding.
+- Integration is a different kind of claim from effectiveness. Combining controls shows the pieces fit together and that the mechanisms work (for example, the cheat is rejected on 24 of 24 tasks); it does not show that results produced this way are more trustworthy than results produced another way.
 - The same author writes visible and hidden tests, so false passes are caught only for cases the author thought of.
 - Passing tests demonstrate that artifacts match their specifications (verification). They do not show the specification is right or useful (validation). Most of the lab's current evidence is of the first kind.
 - AI wrote most of the code and the tests, so they can share blind spots [10].
@@ -93,14 +113,20 @@ Run CVT-1 once and publish the registered decision whichever way it falls. Re-ru
 13. Ledgerwood, A. *The preregistration revolution needs to distinguish between predictions and analyses.* Proceedings of the National Academy of Sciences (2018). https://www.pnas.org/doi/10.1073/pnas.1812592115
 14. International Council for Harmonisation. *ICH Harmonised Guideline E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the Guideline on Statistical Principles for Clinical Trials.* Final version, adopted 20 November 2019. https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf
 15. GSN Community. *GSN Community Standard Version 1.* https://www.faa.gov/about/office_org/headquarters_offices/ang/redac/redac-sas-201503-gsn-community-standard-v1.pdf
+16. Liang, P., Bommasani, R., Lee, T., Tsipras, D., et al. *Holistic Evaluation of Language Models.* Transactions on Machine Learning Research (2023). arXiv:2211.09110. https://arxiv.org/abs/2211.09110
+17. UK AI Security Institute and Meridian Labs. *Inspect: an open-source framework for large language model evaluations.* https://inspect.aisi.org.uk/
+18. EleutherAI. *lm-evaluation-harness: a framework for few-shot evaluation of language models.* https://github.com/EleutherAI/lm-evaluation-harness
+19. Zhang, D. *Testing Frontier Large Language Models' Physics Literacy in Parallel Physical Worlds.* arXiv:2607.00276 (2026). https://arxiv.org/abs/2607.00276
+20. Singh, A. *Certifying Compressed Language Models: An Audit and a Statistical Toolkit.* arXiv:2608.15046 (2026). https://arxiv.org/abs/2608.15046
 
 ## Appendix A. How each source was checked (2026-10-03)
 
 | Level | Sources | Meaning |
 |---|---|---|
-| Abstract page opened and read | [1] [3] [4] [5] [6] [7] [8] [9] [10] [11] | Title, authors, year and the quoted or paraphrased findings above were taken from the arXiv abstract page. Findings are as the authors state them; the lab did not reproduce them. |
+| Abstract page opened and read | [1] [3] [4] [5] [6] [7] [8] [9] [10] [11] [16] [19] [20] | Title, authors, year and the quoted or paraphrased findings above were taken from the arXiv abstract page. Findings are as the authors state them; the lab did not reproduce them. |
 | Full document opened | [14] | The PDF text was extracted and the quoted definition and "defined in advance" statement read directly. |
 | Related page opened | [13] | The commentary text was read through the PubMed Central copy. |
-| Details from search results only | [2] [12] [15] | The existence and bibliographic details came from search results. The pages themselves were not opened, so the reported figures for [2] and the bibliographic details for [12] and [15] are unconfirmed here. |
+| Project page opened | [17] | The Inspect home page was read at page level; statements about features it does not mention are limits of that page. |
+| Details from search results only | [2] [12] [15] [18] | The existence and bibliographic details came from search results. The pages themselves were not opened, so the reported figures for [2] and the bibliographic details for [12], [15] and [18] are unconfirmed here. |
 
 None of the external numbers in this paper were reproduced by the lab. They are attributed to their sources. A reader who relies on a figure should open the source.
