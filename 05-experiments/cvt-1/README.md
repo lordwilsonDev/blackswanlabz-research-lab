@@ -67,4 +67,4 @@ Using the mean hidden-test pass rate per task, averaged over seeds: **supported*
 
 ## Superseded
 
-`cvt1.py` and `cvt1.ipynb` in this folder are the earlier Colab version, built on a mistaken assumption about where the test would run. They are kept for the record. Use the harness above for local runs.
+An earlier Colab version of this test (`cvt1.py` and `cvt1.ipynb`), built on a mistaken assumption about where the test would run, was removed on 2026-10-03 and remains in the git history. The harness pack above replaced it; the 24 tasks were carried over unchanged.

@@ -1,0 +1,8 @@
+{
+  "treatment_1": "FILL stage 1 of the treatment method. Question: {q}",
+  "treatment_2": "FILL stage 2. Question: {q}\n\nWork so far:\n{prev}\n\nEnd your answer with a line that reads FINAL HYPOTHESIS: followed by one paragraph of at most {mw} words.",
+  "baseline_direct": "Question: {q}\n\nEnd your answer with a line that reads FINAL HYPOTHESIS: followed by one paragraph of at most {mw} words.",
+  "baseline_think": "Question: {q}\n\nThink step by step, then end with a line that reads FINAL HYPOTHESIS: followed by one paragraph of at most {mw} words.",
+  "selector": "Question: {q}\n\nCandidates:\n{candidates}\n\nPick the single candidate that is best on the registered quality. Reply with only its letter.",
+  "judge": "You are rating one answer. Question: {q}\n\nAnswer: {h}\n\nRate on 1 to 7 scales, judging only the answer text and ignoring length and style.\n\nNOVELTY: FILL anchors for 1, 4 and 7.\nCOHERENCE: FILL anchors for 1, 4 and 7.\n\nReply with only JSON in this form: {{\"novelty\": <1-7>, \"coherence\": <1-7>}}"
+}

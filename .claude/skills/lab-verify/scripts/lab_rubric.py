@@ -64,8 +64,20 @@ def validate(p: dict, qs: list, prompts: dict) -> list[str]:
         errs.append("at least one judge must be registered")
     if len(qs) < 8:
         errs.append("fewer than 8 questions: a result would be an anecdote")
-    for k in ("fewshot", "cot", "tot_branch", "tot_evaluate", "tot_final", "moie_1", "moie_2", "moie_3", "moie_4", "moie_5",
-              "selector", "judge"):
+    need = {"selector", "judge"}
+    builtin = {"fewshot": {"fewshot"}, "cot": {"cot"}, "tot": {"tot_branch", "tot_evaluate", "tot_final"},
+               "ail_moie": {f"moie_{i}" for i in range(1, 6)}}
+    for arm in p.get("arms", []):
+        kind = arm.get("kind")
+        if kind in builtin:
+            need |= builtin[kind]
+        elif kind == "prompt" and arm.get("prompt"):
+            need.add(arm["prompt"])
+        elif kind == "chain" and arm.get("stages"):
+            need |= set(arm["stages"])
+        else:
+            errs.append(f"arm {arm.get('id')}: unknown kind or missing prompt/stages (kinds: {sorted(builtin) + ['prompt', 'chain']})")
+    for k in sorted(need):
         if k not in prompts:
             errs.append(f"prompts.json missing '{k}'")
     return errs
@@ -133,14 +145,22 @@ def extract_final(text: str, max_words: int):
     return " ".join(words[:max_words]), ok, truncated
 
 
-def run_pipeline(kind: str, q: dict, prompts: dict, adapter: str, tag: str, mw: int):
-    """Returns (final_text, calls). calls = list of (tin, tout, seconds)."""
+def run_pipeline(arm: dict, q: dict, prompts: dict, adapter: str, tag: str, mw: int):
+    """Returns (final_text, calls). calls = list of (tin, tout, seconds). arm is the registered arm dict."""
+    kind = arm["kind"]
     calls, ctx = [], {"q": q["text"], "mw": mw}
 
     def step(tpl_key, i=0, **extra):
         prompt = fmt(prompts[tpl_key], **ctx, **extra)
         out, ti, to, sec = call(adapter, prompt, seed_for(tag, kind, tpl_key, i))
         calls.append((ti, to, sec))
+        return out
+
+    def chain(keys):
+        prev, out = "", ""
+        for i, key in enumerate(keys, 1):
+            out = step(key, prev=prev)
+            prev = (prev + f"\n\n--- Stage {i} output ---\n" + out).strip()
         return out
 
     if kind == "fewshot":
@@ -152,11 +172,11 @@ def run_pipeline(kind: str, q: dict, prompts: dict, adapter: str, tag: str, mw: 
         evaluation = step("tot_evaluate", branches=branches)
         out = step("tot_final", branches=branches, evaluation=evaluation)
     elif kind == "ail_moie":
-        prev = ""
-        for i in range(1, 6):
-            prev_out = step(f"moie_{i}", prev=prev)
-            prev = (prev + f"\n\n--- Stage {i} output ---\n" + prev_out).strip()
-        out = prev_out
+        out = chain([f"moie_{i}" for i in range(1, 6)])
+    elif kind == "prompt":
+        out = step(arm["prompt"])
+    elif kind == "chain":
+        out = chain(arm["stages"])
     else:
         raise SystemExit(f"unknown arm kind {kind}")
     return out, calls
@@ -175,7 +195,7 @@ def cmd_run(a):
         sys.exit("REFUSING TO RUN:\n  " + "\n  ".join(errs))
     p, qs, prompts = load(d / "prereg.json"), load(d / "questions.json"), load(d / "prompts.json")
     mw, reps = p["max_words"], p["reps"]
-    kinds = {x["id"]: x["kind"] for x in p["arms"]}
+    arms_by_id = {x["id"]: x for x in p["arms"]}
     meta = {"adapter": a.adapter, "note": a.note, "started": now(), "instrument": VERSION, "evidence": a.adapter != "fakegen"}
     (d / "RUN.json").write_text(json.dumps(meta, indent=1) + "\n")
     rows = []
@@ -188,7 +208,7 @@ def cmd_run(a):
         for q in qs:  # phase A: every registered arm, single pass
             for rep in range(reps):
                 for arm in p["arms"]:
-                    text, calls = run_pipeline(arm["kind"], q, prompts, a.adapter, f"{q['id']}|{rep}", mw)
+                    text, calls = run_pipeline(arm, q, prompts, a.adapter, f"{q['id']}|{rep}", mw)
                     final, ok, trunc = extract_final(text, mw)
                     emit({"q": q["id"], "rep": rep, "arm": arm["id"], "final": final, "extracted": ok, "truncated": trunc,
                           "tokens": total(calls), "calls": len(calls), "seconds": round(sum(c[2] for c in calls), 2)}, f)
@@ -211,7 +231,7 @@ def cmd_run(a):
                     n = plan[f"{q['id']}|{base}"]["n"]
                     cands, calls = [], []
                     for j in range(n):
-                        text, c = run_pipeline(kinds[base], q, prompts, a.adapter, f"{q['id']}|{rep}|bon{j}", mw)
+                        text, c = run_pipeline(arms_by_id[base], q, prompts, a.adapter, f"{q['id']}|{rep}|bon{j}", mw)
                         cands.append(extract_final(text, mw)[0]); calls += c
                     letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     listing = "\n\n".join(f"({letters[i]}) {t}" for i, t in enumerate(cands))

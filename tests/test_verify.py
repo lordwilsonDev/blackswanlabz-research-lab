@@ -341,13 +341,15 @@ def test_cornerstone_breakdown_counts_a_tarball():
     assert result["total_text_lines"] == 4
 
 
-def test_cvt1_tasks_selfcheck():
+def test_cvt1_pack_selfcheck():
     import importlib.util
-    path = Path(verify.__file__).parent.parent / "05-experiments" / "cvt-1" / "cvt1.py"
-    spec = importlib.util.spec_from_file_location("cvt1", path)
+    root = Path(verify.__file__).parent.parent
+    spec = importlib.util.spec_from_file_location("lh_for_cvt1", root / ".claude" / "skills" / "lab-verify" / "scripts" / "lab_harness.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    mod.selfcheck()
+    errs, _ = mod.selfcheck(root / "05-experiments" / "cvt-1")
+    assert errs == []
+
 
 
 def test_snapshot_files_skip_nested_cache_dirs(tmp_path):

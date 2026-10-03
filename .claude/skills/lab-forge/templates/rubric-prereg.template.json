@@ -1,0 +1,26 @@
+{
+  "question": "FILL: one sentence comparing a treatment method with compute-matched baselines on a quality a judge can rate",
+  "standard_level": "rubric_other_model",
+  "hypothesis": "FILL: what you expect, stated so that it can fail",
+  "arms": [
+    {"id": "T", "kind": "chain", "stages": ["treatment_1", "treatment_2"]},
+    {"id": "B1", "kind": "prompt", "prompt": "baseline_direct"},
+    {"id": "B2", "kind": "prompt", "prompt": "baseline_think"}
+  ],
+  "bon_of": ["B1", "B2"],
+  "comparison": {"treatment": "T", "controls": ["B1-bon", "B2-bon"]},
+  "matching": "Per question, budget B is the mean total tokens of the treatment. Each baseline's n is the largest integer such that n single passes plus one selector call fit within B; the selector call is charged to the baseline.",
+  "reps": 2,
+  "max_words": 200,
+  "judges": [
+    {"id": "J1", "description": "a model of a different family from the generator"},
+    {"id": "J2", "description": "a second judge: a human rater or a model of a third family"}
+  ],
+  "primary": {"metric": "novelty", "alpha": 0.05, "min_g": 0.5, "adjust": "holm", "test": "one-sided paired sign-flip permutation across questions; Hedges g from per-question differences"},
+  "coherence_margin": 0.5,
+  "min_alpha": 0.4,
+  "falsification": "FILL: the result that would make you say it did not work. A tie counts as failure. Judge agreement below min_alpha is inconclusive.",
+  "limits": ["FILL: at least one honest limit, for example who wrote the questions and how many there are"],
+  "stopping_rule": "One revision pass to prompts and questions after the controls pass, then lock. No edits after lock; a change means a new experiment directory.",
+  "instrument_version": "lab-rubric-0.1"
+}
