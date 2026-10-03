@@ -1,0 +1,71 @@
+{
+ "question": "On 12 open research questions, does the AIL+MoIE five-stage procedure (C4) produce hypotheses rated more novel by a blind judge than compute-matched best-of-n versions of few-shot (C1-bon), chain-of-thought (C2-bon) and tree-of-thoughts (C3-bon) prompting, using the same model and the same total token budget?",
+ "standard_level": "rubric_other_model",
+ "hypothesis": "H1c: the AIL+MoIE procedure rates more novel than each compute-matched best-of-n baseline. This is the primary hypothesis of the Hermes12 pre-registration, re-instantiated in a new instrument; the original Hermes12 package (local to the owner's machine) is a different instrument.",
+ "arms": [
+  {
+   "id": "C1",
+   "kind": "fewshot"
+  },
+  {
+   "id": "C2",
+   "kind": "cot"
+  },
+  {
+   "id": "C3",
+   "kind": "tot"
+  },
+  {
+   "id": "C4",
+   "kind": "ail_moie"
+  }
+ ],
+ "bon_of": [
+  "C1",
+  "C2",
+  "C3"
+ ],
+ "comparison": {
+  "treatment": "C4",
+  "controls": [
+   "C1-bon",
+   "C2-bon",
+   "C3-bon"
+  ]
+ },
+ "matching": "Per question, budget B is the mean total tokens (input plus output) of C4 over its repetitions. For each baseline, n is the largest integer such that n single passes plus one selector call fit within B; the selector call is charged to the baseline. The report states the achieved cost ratio.",
+ "reps": 2,
+ "max_words": 200,
+ "judges": [
+  {
+   "id": "J1",
+   "description": "a model of a different family from the generator"
+  },
+  {
+   "id": "J2",
+   "description": "a second judge: a human rater or a second model of a different family"
+  }
+ ],
+ "primary": {
+  "metric": "novelty",
+  "alpha": 0.05,
+  "min_g": 0.5,
+  "adjust": "holm",
+  "test": "one-sided paired sign-flip permutation across questions; Hedges g from per-question differences"
+ },
+ "coherence_margin": 0.5,
+ "min_alpha": 0.4,
+ "falsification": "H1c is NOT supported if any of the three contrasts has Holm-adjusted p of 0.05 or more, or Hedges g of 0.5 or less. If judge agreement (Krippendorff alpha for novelty) is below 0.4, the result is inconclusive, not supported. A tie is not supported. Inherited from the Hermes12 pre-registration: if H1c fails across two independent replications the integration claim is reported as false; the lab decides whether this run counts as one of the two.",
+ "limits": [
+  "The standard is a rubric applied by a model judge. It is weaker than an executable check and measures what a judge rates as novel, which is not the same as what is novel or true.",
+  "If a judge is the same model or family as the generator, self-preference bias can inflate ratings; the analysis flags a judge that used the same adapter, and the registered requirement is a different family.",
+  "12 author-written questions and 2 repetitions per question is a small sample. With 12 questions the registered rule has limited power to detect a modest effect (see controls.json).",
+  "C5 (the retrieval-backed MoIE arm) and hypotheses H2 and H3 of the original package are not tested here; coherence non-inferiority is reported as a secondary check only.",
+  "The Positive Deviant Scout uses the model's own knowledge, so cited anomalies are not verified and may be invented; the scout prompt asks the model not to invent cases.",
+  "One generator model is tested. A result says nothing about other models.",
+  "Blinding hides arm labels but not writing style; a judge may be able to guess which arm produced a text.",
+  "The generator's context window must be large enough that MoIE's accumulated stage context is not truncated; the Ollama adapter is run with OLLAMA_NUM_CTX=8192 and fails closed if a prompt fills the window."
+ ],
+ "stopping_rule": "One revision pass to prompts and questions after the controls pass, then lock. No edits after lock; a change means a new experiment directory.",
+ "instrument_version": "lab-rubric-0.1"
+}

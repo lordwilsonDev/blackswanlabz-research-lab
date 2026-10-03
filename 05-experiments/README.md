@@ -16,3 +16,4 @@ status: active
 | [Learning Trajectory Benchmark family](learning-trajectory/README.md) | Protocol suite registered; no outcome claimed yet. | Research instrument; results pending execution |
 | [Commit activity, 90 days](activity-window-90d.md) | 1,753 unique commits across 20 public repositories (re-runnable script) | [C-049](../CLAIMS.md); cost and background pending: [C-050](../CLAIMS.md), [C-051](../CLAIMS.md) |
 | [MSB v3 governance evaluation, independent re-run](msb-gov-eval-001-rerun-2026-10-03.md) | Published counts reproduced (373 false allows baseline, 0 governed); latency not reproduced | [C-052](../CLAIMS.md) |
+| [AIL-H1c-001: AIL+MoIE against compute-matched best-of-n](ail-moie-h1c-001/README.md) | Instrument built and its decision rule validated on synthetic data; experiment not run, no result | [C-053](../CLAIMS.md) pending; [C-054](../CLAIMS.md) verified |

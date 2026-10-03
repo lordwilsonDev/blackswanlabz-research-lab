@@ -37,6 +37,18 @@ A short report: what was run, which commands and their output, the registered de
 
 You can scaffold, pre-register, lock, self-check, analyze and report, but you cannot run a model on the user's own computer. Have the user run the `run` step on their machine with their adapter, then upload `results.jsonl` and `RUN.json` so you can run `analyze` and `report`. Say that this split happened.
 
+## Rubric-judged experiments (`scripts/lab_rubric.py`)
+
+Use this engine when the claim is about a quality code cannot check (for example, "this method produces more novel hypotheses") and the standard is therefore a rubric applied blind by a judge that is not the generator. Say in every report that this is a weaker standard than an executable check. The worked example is `05-experiments/ail-moie-h1c-001`.
+
+1. The pack holds `prereg.json`, `questions.json` and `prompts.json`. `lock DIR` hashes all three. The prompts are part of the registration: editing a prompt after the lock makes `run` refuse.
+2. `run DIR --adapter "..."` generates every arm, sets each best-of-n baseline's size so its total tokens (including the selector call) match the treatment's budget, and writes `gen.jsonl` and `plan.json`.
+3. `blind DIR` shuffles the final texts into `blind_items.json` and `blind_items.csv` and writes a private `blind_key.json`. Never show a judge the key or any arm label.
+4. `judge DIR --adapter "..." --judge-id J1`, with a model of a different family from the generator. Add a second judge (another family, or a human via `import-ratings`) so agreement can be computed. If a judge shares the generator's adapter, the report says the result is not independent.
+5. `analyze DIR`, then `report DIR`. The decision is registered in advance (paired sign-flip test, Holm correction, Hedges g, Krippendorff alpha). Judge agreement below the registered minimum makes the result INCONCLUSIVE, not supported.
+6. `controls` runs the decision rule on synthetic null and planted-effect data. Run it before you trust any real result, and record what it shows about the rule's power.
+7. Use an adapter that fails closed when a prompt would overflow the model's context window; a silently truncated prompt corrupts the arm that depends on long context.
+
 ## No executable oracle
 
 Use the next standard available and label it weaker, never as equivalent: a rubric fixed in advance and applied by a different model, a cross-model reconstruction (a fresh model rebuilds the result from the evidence alone), an adversarial replay, or a dated prediction with a check date. The harness does not run these; write the same pre-registration by hand and keep the same rules.
