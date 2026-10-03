@@ -81,6 +81,7 @@ Read in this order.
 
 ## Proofs
 - [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected at least once and superseded.
+- [VCE-002 re-run](06-proofs/vce-002-rerun-2026-10-03.md): FCVE setup, smoke test and the audit of the VCE-002 theorem re-run on Linux; PROVISIONAL verdict, the failed first attempt and what it showed.
 
 ## Next (roadmap, not built)
 - [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.

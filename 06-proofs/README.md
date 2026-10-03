@@ -42,3 +42,7 @@ FCVE's independent-check gate needed two small patches to upstream Lean tooling 
 - `ammkrn/nanoda_lib#36` ("Parse huge decimal nat literals in sub-quadratic time") — **closed and merged**.
 
 Both patches are disclosed on every verdict that used them: FCVE's README states each such verdict names the upstream commit, patch hash, build result, equivalence-test result, negative-control result, export validation, and output hashes. See [C-033](../CLAIMS.md).
+
+## Re-run on a different platform
+
+FCVE's setup, smoke test and the audit of the VCE-002 theorem were re-run on Linux on 2026-10-03: see [vce-002-rerun-2026-10-03.md](vce-002-rerun-2026-10-03.md) ([C-060](../CLAIMS.md), [C-061](../CLAIMS.md)).

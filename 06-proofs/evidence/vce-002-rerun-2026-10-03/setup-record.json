@@ -1,0 +1,40 @@
+{
+  "generated_utc": "2026-10-03T18:23:44Z",
+  "fcve_commit": "c3704cdb7333bfaa5bc5be7b20f8a9ca0a4c2624",
+  "fcve_tree_modified_tracked_files": 0,
+  "host": {
+    "model": "",
+    "chip": "",
+    "arch": "x86_64",
+    "macos": "",
+    "ram_bytes": ""
+  },
+  "tools": {
+    "git": "git version 2.43.0",
+    "python3": "Python 3.11.15",
+    "elan": "elan 4.2.4 (227caca13 2026-08-25)",
+    "rustc": "rustc 1.97.0 (2d8144b78 2026-07-07)",
+    "cargo": "cargo 1.97.0 (c980f4866 2026-06-30)",
+    "tectonic": ""
+  },
+  "patch_validation": "PASS",
+  "patches": {
+    "lean4export-fast-natval.diff": "11f0d0fcd591eaf29d754fe45fb17aea153c9b0339d44d0735b311f68d0f6c60",
+    "nanoda-fast-decimal-parse.diff": "5f9469927cb14ec17e5d7f36ace5c1f2093fe5e9fd07e450f2e8c70a63e1bf92"
+  },
+  "tags": {
+    "v4.34.0": {
+      "lean_toolchain": "leanprover/lean4:v4.34.0",
+      "upstream_commit": "076e8e57707e813375e8f9da8bf989799ace9680",
+      "upstream_binary_sha256": "cbf95bb18e3fc19bbe39ad2a250d9cfce4ca01315b2acf8f630d1e315498bf60",
+      "patched_binary_sha256": "c0f1bf6c38545d3d3d2e1f153ef76fad7d294b531cf8ad215f10ebbfea75b8c3",
+      "adopted_by_symlink": false
+    }
+  },
+  "nanoda_lib": {
+    "upstream_commit": "4c544ed4099c8227f07d5de77ad1e69fb0740a27",
+    "upstream_binary_sha256": "ea1d0c3e87afbcd035ad4dcd2619682ec3fdc55808ba4fa4b83a0ed6c08f0815",
+    "patched_binary_sha256": "a5e3230a6a4001b31406bed0b3fa4a9352cb9e417c3db54435999114ff3e244e",
+    "adopted_by_symlink": false
+  }
+}

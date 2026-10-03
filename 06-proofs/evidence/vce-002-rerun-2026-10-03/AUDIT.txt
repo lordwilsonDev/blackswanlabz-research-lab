@@ -1,0 +1,61 @@
+# Proof audit: icocopy
+
+## Verdict: PROVISIONAL (no active failure among the automated rows; unresolved rows keep it below TRUSTED)
+
+**This automated audit cannot produce TRUSTED.** Row 7 (semantic correspondence) needs a named human; row 9 (kernel-vulnerability review) needs the web. Rows keeping the verdict below TRUSTED: 3, 7, 9.
+
+### At a glance
+
+| | |
+|---|---|
+| Target | `/tmp/claude-0/icocopy` |
+| Module / declarations | `IcoCollatzVerification.PowersOfTwoReachOne` / powers_of_two_reach_one |
+| Repository commit | `409c4c3b6f0179ae9131ac2450998e59a7fb1132` (remote: https://github.com/lordwilsonDev/ico-collatz-verification.git) |
+| Toolchain / Lean | leanprover/lean4:v4.34.0 / Lean (version 4.34.0, x86_64-unknown-linux-gnu, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release) |
+| Mathlib revision | 5ed2965256430c3649e86755f9576b54eca72435 |
+| Environment | Linux x86_64  model= ram_gib=0.0; elan=4.2.4 rustc=1.97.0 cargo=1.97.0 git=2.43.0 |
+| Row results | NEEDS HUMAN: 1, PARTIAL: 1, PASS: 7, UNRESOLVED: 1 |
+| Patched tools | no -- upstream tools only |
+| Independent checker (row 10) | **PASS** -- upstream (unpatched); 1/1 declarations PASS |
+| Axiom audit (row 6) | **PASS** -- see axioms.tsv |
+| Semantic review (row 7) | **NEEDS HUMAN** -- not done by this script; a named human must do it |
+| Web / kernel review (row 9) | **UNRESOLVED** -- not done by this script; needs live web access |
+| Free disk at start | 12.83 GiB |
+
+### Rows
+
+| # | Gate | Status | Evidence / note |
+|---|---|---|---|
+| 1 | Source pinned | **PASS** | commit 409c4c3b6f0179ae9131ac2450998e59a7fb1132, remote https://github.com/lordwilsonDev/ico-collatz-verification.git, working tree clean |
+| 2 | Toolchain pinned | **PASS** | lean-toolchain=leanprover/lean4:v4.34.0; mathlib rev=5ed2965256430c3649e86755f9576b54eca72435; drift vs your control environment NOT compared (do that by hand) |
+| 3 | Clean rebuild | **PARTIAL** | lake build succeeded, but against an existing .lake cache (not from-empty): reproducibility from a clean clone NOT shown |
+| 4 | No sorry/admit | **PASS** | 0 sorry, 0 admit (text scan; row 6 is the authoritative check) |
+| 5 | No native_decide | **PASS** | 0 native_decide |
+| 6 | Axiom footprint | **PASS** | every declaration's axioms within {propext,Classical.choice,Quot.sound} (axioms.tsv). Classical.choice, if listed, means the proof is classical |
+| 7 | Semantic correspondence | **NEEDS HUMAN** | read the source claim (paper/spec) against each Lean statement side by side; write the comparison. Print statements: 'lake env lean' with #check / delaborated statements. MATCH/PARTIAL/MISMATCH/UNCLEAR is a human verdict (a model may draft, not certify). |
+| 8 | Self-description not stale | **PASS** | no root-level .md file is older than HEAD (still: cite only what this audit re-checked) |
+| 9 | Kernel vulnerability exposure | **UNRESOLVED** | needs live web access: compare leanprover/lean4:v4.34.0 against release notes for kernel soundness fixes. Starting list: LESSONS.md D22 (lean4lean bugs-found). Marked UNRESOLVED, not skipped. |
+| 10 | Independent check | **PASS** | PASS 1/1 with upstream (unpatched); raw checker output in independent-check*/; still compare its axiom set with row 6 |
+
+### Status meanings
+
+PASS = check ran and holds. FAIL = check ran and rejected the proof/evidence. BLOCKED / TOOL_ERROR = the check could not complete or the tool never ran properly: **no verdict on the proof, not a rejection**. UNRESOLVED / NEEDS HUMAN / NOT RUN = not established, **never a pass**. PARTIAL = passes on a stated weaker basis.
+
+## Timing (wall clock, seconds)
+
+| step | s |
+|---|---|
+| rows1-2 | 1 |
+| row3-build | 1 |
+| rows4-5 | 0 |
+| row6-axioms | 6 |
+| row8-stale | 0 |
+| setup-pristine | 0 |
+| independent-check-pristine | 22 |
+| row10-independent | 22 |
+| **total** | **52** |
+
+## Files
+`rows.tsv`, `facts.tsv`, `audit.log`, `build.log`, `sorry-audit.txt`, `axioms.tsv`, `axioms-all.txt`, `independent-check*/`, `row10-results.tsv`, `row10-tools.tsv`, `setup*.log`.
+
+Provenance: automated pass. Never write "proved" as a bare verdict; state the verdict above and list what keeps it from TRUSTED. The model can propose; the experiment decides.
