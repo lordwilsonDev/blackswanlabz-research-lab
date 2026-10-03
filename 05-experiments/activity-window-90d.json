@@ -1,0 +1,60 @@
+{
+ "window": [
+  "2026-07-05",
+  "2026-10-03"
+ ],
+ "repos_requested": 20,
+ "repos_failed": [],
+ "repos_with_commits_in_window": 20,
+ "unique_commits": 1753,
+ "owner_commits": 1470,
+ "authors": {
+  "lordwilson": 1358,
+  "MSB Orca Adapter": 251,
+  "lord wilson": 112,
+  "Claude": 26,
+  "BlackSwan": 3,
+  "Manus": 2,
+  "dependabot[bot]": 1
+ },
+ "commits_present_in_more_than_one_repo": 529,
+ "owner_active_days": 62,
+ "owner_longest_gap_days": 5,
+ "owner_busiest_days": [
+  [
+   "2026-08-10",
+   169
+  ],
+  [
+   "2026-08-09",
+   97
+  ],
+  [
+   "2026-10-02",
+   93
+  ],
+  [
+   "2026-07-18",
+   86
+  ],
+  [
+   "2026-07-19",
+   83
+  ]
+ ],
+ "owner_commits_by_week": {
+  "wk0": 0,
+  "wk1": 152,
+  "wk2": 152,
+  "wk3": 41,
+  "wk4": 51,
+  "wk5": 432,
+  "wk6": 134,
+  "wk7": 106,
+  "wk8": 38,
+  "wk9": 51,
+  "wk10": 76,
+  "wk11": 74,
+  "wk12": 163
+ }
+}

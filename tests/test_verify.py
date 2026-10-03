@@ -1,3 +1,5 @@
+import os
+import sys
 import pytest
 from pathlib import Path
 
@@ -353,3 +355,28 @@ def test_snapshot_files_skip_nested_cache_dirs(tmp_path):
     write(tmp_path, "05-experiments/x/page.md", GOOD_HEADER)
     names = [p.name for p in verify._snapshot_files(tmp_path)]
     assert names == ["page.md"]
+
+
+def test_activity_window_dedupes_mirrors_and_counts_owner(tmp_path):
+    import json as _json
+    import subprocess as sp
+    base = tmp_path / "git" / "u"
+    base.mkdir(parents=True)
+    work = tmp_path / "work"
+    env = {**os.environ, "GIT_AUTHOR_NAME": "Owner", "GIT_COMMITTER_NAME": "Owner",
+           "GIT_AUTHOR_EMAIL": "o@example.invalid", "GIT_COMMITTER_EMAIL": "o@example.invalid"}
+    sp.run(["git", "init", "-q", str(work)], check=True)
+    for i, day in enumerate(["2026-07-06", "2026-07-07"]):
+        (work / "f").write_text(str(i))
+        d = {**env, "GIT_AUTHOR_DATE": f"{day}T12:00:00", "GIT_COMMITTER_DATE": f"{day}T12:00:00"}
+        sp.run(["git", "-C", str(work), "add", "."], check=True, env=d)
+        sp.run(["git", "-C", str(work), "commit", "-q", "-m", f"c{i}"], check=True, env=d)
+    for name in ("a", "b"):  # b mirrors a: identical hashes
+        sp.run(["git", "clone", "-q", "--bare", str(work), str(base / f"{name}.git")], check=True)
+    script = Path(verify.__file__).with_name("activity_window.py")
+    out = sp.run([sys.executable, str(script), "--start", "2026-07-05", "--end", "2026-07-31", "--owner", "owner",
+                  "--repos", "a,b", "--github-user", "u", "--base-url", f"file://{tmp_path / 'git'}"],
+                 capture_output=True, text=True)
+    res = _json.loads(out.stdout)
+    assert res["unique_commits"] == 2 and res["owner_commits"] == 2
+    assert res["commits_present_in_more_than_one_repo"] == 2 and res["owner_active_days"] == 2
