@@ -48,6 +48,7 @@ Read in this order.
 - [Hermes12 benchmark](05-experiments/hermes12-benchmark.md): pre-registered replication package; harness validated, experiment not yet run.
 - [AIL research-loop reference tests](05-experiments/research-loop-reference-tests.md): the 8 unit tests for the reference implementation.
 - [MSB v3 governance evaluation re-run](05-experiments/msb-gov-eval-001-rerun-2026-10-03.md): an independent re-run reproducing the published violation-prevention counts; latency is hardware-dependent and was not reproduced.
+- [MSB v3 and FCVE re-run](05-experiments/msb-fcve-rerun-2026-10-03.md): re-running both systems' own checks; what reproduced (audit tamper detection, FCVE manifests and ledgers) and what did not, with diagnoses.
 - [Commit activity, 90 days](05-experiments/activity-window-90d.md): a re-runnable count of the owner's public-repository commits 2026-07-05 to 2026-10-03, with limits; cost and background claims are pending.
 - [AIL-H1c-001 run sheet](05-experiments/ail-moie-h1c-001/README.md): a pre-registered, compute-matched, blind-judged test of AIL+MoIE against best-of-n baselines (the primary Hermes12 hypothesis, new instrument); built and validated on synthetic data, not run, no result.
 - [CVT-1 run sheet](05-experiments/cvt-1/README.md): the pre-registered local test of verifier feedback versus resampling for a small model; not run, no result.

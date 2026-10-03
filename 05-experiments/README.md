@@ -18,3 +18,4 @@ status: active
 | [MSB v3 governance evaluation, independent re-run](msb-gov-eval-001-rerun-2026-10-03.md) | Published counts reproduced (373 false allows baseline, 0 governed); latency not reproduced | [C-052](../CLAIMS.md) |
 | [AIL-H1c-001: AIL+MoIE against compute-matched best-of-n](ail-moie-h1c-001/README.md) | Instrument built and its decision rule validated on synthetic data; experiment not run, no result | [C-053](../CLAIMS.md) pending; [C-054](../CLAIMS.md) verified |
 | [ail-moie-h1c-002](ail-moie-h1c-002/README.md) | Scaffolded; not run, no result | | [C-056](../CLAIMS.md) pending |
+| [MSB v3 and FCVE: re-running their own checks](msb-fcve-rerun-2026-10-03.md) | Audit-tamper results and FCVE integrity checks reproduce; two MSB v3 harnesses do not reproduce as published (diagnosed) | [C-057](../CLAIMS.md), [C-058](../CLAIMS.md), [C-059](../CLAIMS.md) |
