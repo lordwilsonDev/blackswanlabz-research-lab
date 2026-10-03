@@ -1,0 +1,84 @@
+{
+ "question": "On 12 open research questions, does the AIL+MoIE five-stage procedure (C4) produce hypotheses rated more novel by a blind judge than compute-matched best-of-n versions of few-shot (C1-bon), chain-of-thought (C2-bon) and tree-of-thoughts (C3-bon) prompting, using the same generator model (Claude Haiku) and the same total token budget, judged by Claude Sonnet and Claude Opus?",
+ "standard_level": "rubric_other_model",
+ "hypothesis": "H1c: the AIL+MoIE procedure rates more novel than each compute-matched best-of-n baseline. Primary hypothesis of the Hermes12 pre-registration, in the lab's second instrument (ail-moie-h1c-001), configured here with a Claude Haiku generator and Claude Sonnet and Opus judges.",
+ "arms": [
+  {
+   "id": "C1",
+   "kind": "fewshot"
+  },
+  {
+   "id": "C2",
+   "kind": "cot"
+  },
+  {
+   "id": "C3",
+   "kind": "tot"
+  },
+  {
+   "id": "C4",
+   "kind": "ail_moie"
+  }
+ ],
+ "bon_of": [
+  "C1",
+  "C2",
+  "C3"
+ ],
+ "comparison": {
+  "treatment": "C4",
+  "controls": [
+   "C1-bon",
+   "C2-bon",
+   "C3-bon"
+  ]
+ },
+ "matching": "Per question, budget B is the mean total tokens of C4 over its repetitions, where input tokens are estimated as characters divided by 4 of the experiment prompt (excluding the CLI's fixed per-call scaffolding, about 850 tokens measured) and output tokens are as reported by the API. For each baseline, n is the largest integer such that n single passes plus one selector call fit within B; the selector call is charged to the baseline. The report states the achieved cost ratio.",
+ "reps": 2,
+ "max_words": 200,
+ "judges": [
+  {
+   "id": "J1",
+   "description": "claude sonnet via the claude CLI, same adapter as the generator"
+  },
+  {
+   "id": "J2",
+   "description": "claude opus via the claude CLI, same adapter as the generator"
+  }
+ ],
+ "primary": {
+  "metric": "novelty",
+  "alpha": 0.05,
+  "min_g": 0.5,
+  "adjust": "holm",
+  "test": "one-sided paired sign-flip permutation across questions; Hedges g from per-question differences"
+ },
+ "coherence_margin": 0.5,
+ "min_alpha": 0.4,
+ "falsification": "H1c is NOT supported if any of the three contrasts has Holm-adjusted p of 0.05 or more, or Hedges g of 0.5 or less. If judge agreement (Krippendorff alpha for novelty) is below 0.4, the result is inconclusive, not supported. A tie is not supported. Inherited from the Hermes12 pre-registration: if H1c fails across two independent replications the integration claim is reported as false; the lab decides whether this run counts as one of the two. Independence is NOT met in this configuration (generator and both judges are Claude models). A NOT SUPPORTED result stands. A SUPPORTED result does not establish the claim and requires replication with judges from another family or with human raters.",
+ "limits": [
+  "The standard is a rubric applied by a model judge. It is weaker than an executable check and measures what a judge rates as novel, which is not the same as what is novel or true.",
+  "If a judge is the same model or family as the generator, self-preference bias can inflate ratings; the analysis flags a judge that used the same adapter, and the registered requirement is a different family.",
+  "12 author-written questions and 2 repetitions per question is a small sample. With 12 questions the registered rule has limited power to detect a modest effect (see controls.json).",
+  "C5 (the retrieval-backed MoIE arm) and hypotheses H2 and H3 of the original package are not tested here; coherence non-inferiority is reported as a secondary check only.",
+  "The Positive Deviant Scout uses the model's own knowledge, so cited anomalies are not verified and may be invented; the scout prompt asks the model not to invent cases.",
+  "One generator model is tested. A result says nothing about other models.",
+  "Blinding hides arm labels but not writing style; a judge may be able to guess which arm produced a text.",
+  "The generator's context window must be large enough that MoIE's accumulated stage context is not truncated; the Ollama adapter is run with OLLAMA_NUM_CTX=8192 and fails closed if a prompt fills the window.",
+  "Independence requirement not met: the generator and both judges are Claude models from one vendor, so shared training lineage and self-preference can inflate or distort ratings in an unknown direction.",
+  "The claude CLI exposes no seed or temperature. Outputs are not exactly reproducible, and results come from one run.",
+  "Token accounting excludes the CLI's fixed per-call scaffolding and estimates input tokens from characters; compute matching is therefore approximate.",
+  "The run was executed and judged by an AI assistant in a cloud session at the owner's instruction, with generation and judging calls made automatically; the owner did not supervise individual calls.",
+  "One generator model (Haiku) is tested. The result says nothing about other models, including the owner's local models.",
+  "If interrupted, the run may be resumed with the same adapter; every resume is recorded in RUN.json."
+ ],
+ "stopping_rule": "One revision pass to prompts and questions after the controls pass, then lock. No edits after lock; a change means a new experiment directory. The pre-registration was locked and committed before any generation call.",
+ "instrument_version": "lab-rubric-0.2",
+ "generator": {
+  "model": "claude haiku via the claude CLI (alias haiku; the adapter log records the resolved model id)",
+  "adapter": "claude_adapter.py",
+  "extended_thinking": "disabled (MAX_THINKING_TOKENS=0)",
+  "temperature_and_seed": "not controllable through the CLI; the CLI default applies and runs are not exactly reproducible",
+  "working_directory": "an empty temporary directory, tools disabled, so no project instructions are loaded"
+ }
+}

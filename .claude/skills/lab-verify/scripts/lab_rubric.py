@@ -23,7 +23,7 @@ from __future__ import annotations
 import argparse, csv, datetime, hashlib, itertools, json, math, os, random, re, shlex, statistics, subprocess, sys, time, zlib
 from pathlib import Path
 
-VERSION = "lab-rubric-0.1"
+VERSION = "lab-rubric-0.2"
 FILES = ("prereg.json", "questions.json", "prompts.json")
 REQUIRED = ("question", "standard_level", "hypothesis", "arms", "bon_of", "comparison", "reps", "max_words", "judges",
             "primary", "coherence_margin", "min_alpha", "falsification", "limits", "stopping_rule", "instrument_version")
@@ -189,45 +189,61 @@ def total(calls):
 def cmd_run(a):
     d = Path(a.dir)
     errs = lock_errors(d)
-    if (d / "gen.jsonl").exists():
-        errs.append("gen.jsonl already exists: runs are registered once; move it aside and note why")
+    exists = (d / "gen.jsonl").exists()
+    if exists and not a.resume:
+        errs.append("gen.jsonl already exists: runs are registered once; use --resume to continue an interrupted run, or move it aside and note why")
+    if a.resume and not exists:
+        errs.append("--resume given but there is no gen.jsonl to resume")
     if errs:
         sys.exit("REFUSING TO RUN:\n  " + "\n  ".join(errs))
     p, qs, prompts = load(d / "prereg.json"), load(d / "questions.json"), load(d / "prompts.json")
     mw, reps = p["max_words"], p["reps"]
     arms_by_id = {x["id"]: x for x in p["arms"]}
-    meta = {"adapter": a.adapter, "note": a.note, "started": now(), "instrument": VERSION, "evidence": a.adapter != "fakegen"}
+    if a.resume:
+        meta = load(d / "RUN.json")
+        if meta["adapter"] != a.adapter:
+            sys.exit("REFUSING TO RESUME: the adapter differs from the original run's; outputs from two different models must not be mixed")
+        meta.setdefault("resumes", []).append(now())
+        rows = [json.loads(l) for l in (d / "gen.jsonl").read_text().splitlines() if l.strip()]
+    else:
+        meta = {"adapter": a.adapter, "note": a.note, "started": now(), "instrument": VERSION, "evidence": a.adapter != "fakegen"}
+        rows = []
+    done = {(r["q"], r["rep"], r["arm"]) for r in rows}
     (d / "RUN.json").write_text(json.dumps(meta, indent=1) + "\n")
-    rows = []
 
     def emit(row, f):
         rows.append(row)
         f.write(json.dumps(row) + "\n"); f.flush()
 
-    with open(d / "gen.jsonl", "w") as f:
+    with open(d / "gen.jsonl", "a" if a.resume else "w") as f:
         for q in qs:  # phase A: every registered arm, single pass
             for rep in range(reps):
                 for arm in p["arms"]:
+                    if (q["id"], rep, arm["id"]) in done:
+                        continue
                     text, calls = run_pipeline(arm, q, prompts, a.adapter, f"{q['id']}|{rep}", mw)
                     final, ok, trunc = extract_final(text, mw)
                     emit({"q": q["id"], "rep": rep, "arm": arm["id"], "final": final, "extracted": ok, "truncated": trunc,
                           "tokens": total(calls), "calls": len(calls), "seconds": round(sum(c[2] for c in calls), 2)}, f)
             print("generated", q["id"], flush=True)
-        plan = {}  # phase B: compute matching
+        plan = {}  # phase B: compute matching, from the single-pass rows
         treat = p["comparison"]["treatment"]
+        single = [r for r in rows if not r["arm"].endswith("-bon")]
         for q in qs:
-            B = statistics.fmean(r["tokens"] for r in rows if r["q"] == q["id"] and r["arm"] == treat)
+            B = statistics.fmean(r["tokens"] for r in single if r["q"] == q["id"] and r["arm"] == treat)
             qtok = est_tokens(q["text"])
             for base in p["bon_of"]:
-                mine = [r for r in rows if r["q"] == q["id"] and r["arm"] == base]
-                s = statistics.fmean(r["tokens"] for r in mine)
+                mine = [r for r in single if r["q"] == q["id"] and r["arm"] == base]
+                s_ = statistics.fmean(r["tokens"] for r in mine)
                 h = statistics.fmean(est_tokens(r["final"]) for r in mine)
-                n = max(1, math.floor((B - qtok - 40) / (s + h)))
-                plan[f"{q['id']}|{base}"] = {"budget": round(B), "single_pass_tokens": round(s), "final_tokens": round(h), "n": n}
+                n = max(1, math.floor((B - qtok - 40) / (s_ + h)))
+                plan[f"{q['id']}|{base}"] = {"budget": round(B), "single_pass_tokens": round(s_), "final_tokens": round(h), "n": n}
         (d / "plan.json").write_text(json.dumps(plan, indent=1) + "\n")
         for q in qs:  # phase C: best-of-n baselines, selector charged to the baseline's own budget
             for rep in range(reps):
                 for base in p["bon_of"]:
+                    if (q["id"], rep, base + "-bon") in done:
+                        continue
                     n = plan[f"{q['id']}|{base}"]["n"]
                     cands, calls = [], []
                     for j in range(n):
@@ -554,7 +570,7 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     for n, f in (("lock", cmd_lock), ("blind", cmd_blind), ("analyze", cmd_analyze), ("report", cmd_report)):
         s = sub.add_parser(n); s.add_argument("dir"); s.set_defaults(f=f)
-    s = sub.add_parser("run"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--note", default=""); s.set_defaults(f=cmd_run)
+    s = sub.add_parser("run"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--note", default=""); s.add_argument("--resume", action="store_true", help="continue an interrupted run with the same adapter, keeping finished outputs"); s.set_defaults(f=cmd_run)
     s = sub.add_parser("judge"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--judge-id", required=True); s.set_defaults(f=cmd_judge)
     s = sub.add_parser("import-ratings"); s.add_argument("dir"); s.add_argument("file"); s.add_argument("--judge-id", required=True); s.set_defaults(f=cmd_import)
     s = sub.add_parser("controls"); s.add_argument("--sims", type=int, default=300); s.add_argument("--questions", type=int, default=12); s.add_argument("--out"); s.set_defaults(f=cmd_controls)

@@ -35,7 +35,7 @@ def pack(tmp_path):
 
 def run_to_judged(d, effect=1.5, noise=1.0, judges=("J1", "J2"), gen="fakegen"):
     lr.cmd_lock(ns(dir=str(d)))
-    lr.cmd_run(ns(dir=str(d), adapter=gen, note="t"))
+    lr.cmd_run(ns(dir=str(d), adapter=gen, note="t", resume=False))
     lr.cmd_blind(ns(dir=str(d)))
     for j in judges:
         lr.cmd_judge(ns(dir=str(d), adapter=f"fakejudge:effect={effect}:noise={noise}", judge_id=j))
@@ -94,7 +94,7 @@ def test_pipeline_end_to_end_with_fakes_is_not_evidence(pack, capsys):
 
 def test_compute_matching_plan_has_positive_n(pack):
     lr.cmd_lock(ns(dir=str(pack)))
-    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
     plan = json.loads((pack / "plan.json").read_text())
     assert plan and all(v["n"] >= 1 for v in plan.values())
 
@@ -106,16 +106,16 @@ def test_run_refuses_after_edit_and_second_run(pack):
     q[0]["text"] += " (edited)"
     (pack / "questions.json").write_text(json.dumps(q))
     with pytest.raises(SystemExit, match="goalposts moved"):
-        lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+        lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
     (pack / "questions.json").write_text(original)  # byte-exact restore passes the lock again
-    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
     with pytest.raises(SystemExit, match="already exists"):
-        lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+        lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
 
 
 def test_analyze_refuses_incomplete_ratings(pack):
     lr.cmd_lock(ns(dir=str(pack)))
-    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
     lr.cmd_blind(ns(dir=str(pack)))
     (pack / "ratings.jsonl").write_text("")
     with pytest.raises(SystemExit, match="INCOMPLETE RATINGS"):
@@ -146,7 +146,7 @@ def test_decide_planted_effect_vs_null():
 
 def test_import_ratings_from_csv(pack, tmp_path):
     lr.cmd_lock(ns(dir=str(pack)))
-    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note=""))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
     lr.cmd_blind(ns(dir=str(pack)))
     import csv
     src = tmp_path / "h.csv"
@@ -174,3 +174,54 @@ def test_ollama_adapter_fails_closed_on_context_overflow():
     r = subprocess.run([sys.executable, str(SKILL / "scripts" / "ollama_adapter.py")], input="hi", capture_output=True, text=True, env=env, timeout=30)
     srv.shutdown()
     assert r.returncode != 0 and "context overflow" in r.stderr
+
+
+def test_resume_completes_an_interrupted_run_and_records_it(pack):
+    lr.cmd_lock(ns(dir=str(pack)))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="n", resume=False))
+    lines = (pack / "gen.jsonl").read_text().splitlines()
+    (pack / "gen.jsonl").write_text("\n".join(lines[:60]) + "\n")  # simulate an interruption partway
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="n", resume=True))
+    rows = [json.loads(l) for l in (pack / "gen.jsonl").read_text().splitlines()]
+    assert len(rows) == 12 * 2 * 7
+    assert len({(r["q"], r["rep"], r["arm"]) for r in rows}) == len(rows)  # no duplicates
+    assert len(json.loads((pack / "RUN.json").read_text())["resumes"]) == 1
+
+
+def test_resume_refuses_a_different_adapter_and_a_missing_run(pack):
+    lr.cmd_lock(ns(dir=str(pack)))
+    with pytest.raises(SystemExit, match="no gen.jsonl"):
+        lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=True))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
+    with pytest.raises(SystemExit, match="adapter differs"):
+        lr.cmd_run(ns(dir=str(pack), adapter="other", note="", resume=True))
+
+
+def test_claude_adapter_with_fake_cli(tmp_path):
+    bindir = tmp_path / "bin"
+    bindir.mkdir()
+    fake = bindir / "claude"
+    fake.write_text('#!/bin/sh\ncat >/dev/null\nprintf \'{"result":"thinking=%s","usage":{"output_tokens":5,"output_tokens_details":{"thinking_tokens":0}},"modelUsage":{"fake-model":{}},"total_cost_usd":0.0}\' "$MAX_THINKING_TOKENS"\n')
+    fake.chmod(0o755)
+    log = tmp_path / "adp.log"
+    env = {**os.environ, "PATH": f"{bindir}:{os.environ['PATH']}", "CLAUDE_ADAPTER_LOG": str(log), "CLAUDE_MODEL": "haiku"}
+    r = subprocess.run([sys.executable, str(SKILL / "scripts" / "claude_adapter.py")], input="a prompt of some length", capture_output=True,
+                       text=True, env=env, timeout=30)
+    assert r.returncode == 0
+    assert r.stdout.strip() == "thinking=0"          # extended thinking is disabled
+    assert "MODEL=fake-model" in r.stderr and r.stderr.strip().endswith("TOKENS_OUT=5")
+    assert json.loads(log.read_text())["models"] == ["fake-model"]
+
+
+def test_claude_adapter_fails_closed_when_the_cli_keeps_failing(tmp_path, monkeypatch):
+    bindir = tmp_path / "bin"
+    bindir.mkdir()
+    fake = bindir / "claude"
+    fake.write_text("#!/bin/sh\ncat >/dev/null\necho boom >&2\nexit 1\n")
+    fake.chmod(0o755)
+    src = (SKILL / "scripts" / "claude_adapter.py").read_text().replace("time.sleep(2 * (attempt + 1))", "pass")
+    script = tmp_path / "adapter.py"
+    script.write_text(src)
+    env = {**os.environ, "PATH": f"{bindir}:{os.environ['PATH']}"}
+    r = subprocess.run([sys.executable, str(script)], input="x", capture_output=True, text=True, env=env, timeout=60)
+    assert r.returncode != 0 and "failed after retries" in r.stderr

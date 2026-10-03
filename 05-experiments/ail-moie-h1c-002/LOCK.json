@@ -1,0 +1,10 @@
+{
+ "locked_at": "2026-10-03T17:53:33+00:00",
+ "git_commit": "d0aa71e48f897a0ddb815e768dc8072e0fdfc26c",
+ "instrument": "lab-rubric-0.2",
+ "files": {
+  "prereg.json": "e55797d27be41df4cc69f32f70c085776342fef679af8f00ff56e3564350076a",
+  "questions.json": "adc721eeb080533cf8c4d2434d6d75793f6cefc0f4596471a6009b217a907633",
+  "prompts.json": "2e1aec34a22d013d49dd2af5f57245e06fbbbc77018b633672d8555c1d350c9d"
+ }
+}

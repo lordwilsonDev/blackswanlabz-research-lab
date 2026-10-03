@@ -116,7 +116,7 @@ def test_generalized_rubric_arms_run_end_to_end(tmp_path):
     import argparse
     ns = lambda **kw: argparse.Namespace(**kw)
     lr.cmd_lock(ns(dir=str(d)))
-    lr.cmd_run(ns(dir=str(d), adapter="fakegen", note=""))
+    lr.cmd_run(ns(dir=str(d), adapter="fakegen", note="", resume=False))
     lr.cmd_blind(ns(dir=str(d)))
     for j in ("J1", "J2"):
         lr.cmd_judge(ns(dir=str(d), adapter="fakejudge:effect=1:noise=1", judge_id=j))

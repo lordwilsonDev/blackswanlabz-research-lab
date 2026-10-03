@@ -49,15 +49,17 @@ def next_claim_id(claims: str) -> str:
     return f"C-{max(ids, default=0) + 1:03d}"
 
 
-def run_sheet_commands(name: str, rel: str, kind: str) -> str:
+def run_sheet_commands(name: str, rel: str, kind: str, adapter: str = "ollama") -> str:
     h = ".claude/skills/lab-verify/scripts"
+    gen_env, judge_env = ("OLLAMA_MODEL=GENERATOR", "OLLAMA_MODEL=JUDGE") if adapter == "ollama" else ("CLAUDE_MODEL=haiku", "CLAUDE_MODEL=sonnet")
+    script = "ollama_adapter.py" if adapter == "ollama" else "claude_adapter.py"
     if kind == "executable":
         return f"""```bash
 H={h}
 python3 $H/lab_harness.py selfcheck {rel}      # after you lock; must say SELF-CHECK OK
 python3 $H/lab_harness.py lock      {rel}      # freezes prereg.json and tasks.json (the owner does this)
 python3 $H/lab_harness.py selfcheck {rel}
-python3 $H/lab_harness.py run {rel} --adapter "python3 $H/ollama_adapter.py" --note "HARDWARE and MODEL"
+{gen_env} python3 $H/lab_harness.py run {rel} --adapter "python3 $H/{script}" --note "HARDWARE and MODEL"
 python3 $H/lab_harness.py analyze {rel}
 python3 $H/lab_harness.py report  {rel}
 ```
@@ -67,17 +69,17 @@ H={h}
 D={rel}
 python3 $H/lab_rubric.py controls --out $D/controls.json   # validates the decision rule on synthetic data
 python3 $H/lab_rubric.py lock  $D                            # freezes prereg.json, questions.json, prompts.json (the owner does this)
-OLLAMA_MODEL=GENERATOR python3 $H/lab_rubric.py run $D --adapter "python3 $H/ollama_adapter.py" --note "HARDWARE and GENERATOR"
+{gen_env} python3 $H/lab_rubric.py run $D --adapter "python3 $H/{script}" --note "HARDWARE and GENERATOR"   # add --resume to continue an interrupted run
 python3 $H/lab_rubric.py blind $D                            # never show judges blind_key.json
-OLLAMA_MODEL=JUDGE python3 $H/lab_rubric.py judge $D --adapter "python3 $H/ollama_adapter.py" --judge-id J1   # a different family
+{judge_env} python3 $H/lab_rubric.py judge $D --adapter "python3 $H/{script}" --judge-id J1   # a different family if you can
 # second judge J2: another family, or a human via: lab_rubric.py import-ratings $D filled.csv --judge-id J2
 python3 $H/lab_rubric.py analyze $D
 python3 $H/lab_rubric.py report  $D
 ```
-Set `OLLAMA_SYSTEM`, `OLLAMA_NUM_PREDICT` and `OLLAMA_NUM_CTX` for the experiment; the adapter fails closed if a prompt would overflow the context window."""
+{'Set `OLLAMA_SYSTEM`, `OLLAMA_NUM_PREDICT` and `OLLAMA_NUM_CTX` for the experiment; the adapter fails closed if a prompt would overflow the context window.' if adapter == 'ollama' else 'The claude adapter disables extended thinking, runs in an empty directory, and cannot set a seed or temperature; register those facts as limits.'}"""
 
 
-def write_readme(d: Path, name: str, rel: str, kind: str, claim: str):
+def write_readme(d: Path, name: str, rel: str, kind: str, claim: str, adapter: str = "ollama"):
     text = f"""---
 source: pre-registration and run sheet scaffolded by lab-forge on {datetime.date.today()}
 captured: {datetime.date.today()}
@@ -94,7 +96,7 @@ status: pending
 
 ## Run it
 
-{run_sheet_commands(name, rel, kind)}
+{run_sheet_commands(name, rel, kind, adapter)}
 
 Or in Claude Code or claude.ai, say: **use the run-{name} skill**.
 
@@ -109,7 +111,7 @@ Pending until a real run exists and someone other than its author has reproduced
     (d / "README.md").write_text(text)
 
 
-def write_skill(repo: Path, name: str, rel: str, kind: str, claim: str):
+def write_skill(repo: Path, name: str, rel: str, kind: str, claim: str, adapter: str = "ollama"):
     sk = repo / ".claude" / "skills" / f"run-{name}"
     sk.mkdir(parents=True, exist_ok=True)
     one = " ".join(claim.split()).rstrip(".").replace('"', "'")
@@ -133,12 +135,12 @@ This skill runs one registered experiment, `{rel}`. First read `.claude/skills/l
 
 ## Ask the user first
 
-1. The adapter command for the model under test (for Ollama: `python3 .claude/skills/lab-verify/scripts/ollama_adapter.py` with `OLLAMA_MODEL`).
+1. The adapter command for the model under test (`ollama_adapter.py` with `OLLAMA_MODEL`, or `claude_adapter.py` with `CLAUDE_MODEL`).
 {'2. A judge model of a different family from the generator, and a second judge (another family or a human).' + chr(10) + '3. A run note: the hardware and the models. Do not guess them.' if kind == 'rubric' else '2. A run note: the hardware and the model. Do not guess them.'}
 
 ## Steps
 
-{run_sheet_commands(name, rel, kind)}
+{run_sheet_commands(name, rel, kind, adapter)}
 
 ## Return to the user
 
@@ -187,8 +189,8 @@ def cmd_new(a):
         claim_id = next_claim_id(t)
         row = f"| {claim_id} | {a.claim.strip()} (experiment {a.name}, not run) | [{a.name}/README.md]({rel}/README.md) | the run commands in that page | pending | {datetime.date.today()} |"
         cl.write_text(t.rstrip("\n") + "\n" + row + "\n")
-    write_readme(d, a.name, rel, a.type, a.claim)
-    skill = write_skill(repo, a.name, rel, a.type, a.claim)
+    write_readme(d, a.name, rel, a.type, a.claim, a.adapter)
+    skill = write_skill(repo, a.name, rel, a.type, a.claim, a.adapter)
     if not a.no_index:
         add_index(repo, a.root, a.name, a.claim, claim_id)
     print(f"created {d}\nrun-skill {skill}\nledger row {claim_id or '(skipped)'}")
@@ -198,7 +200,7 @@ def cmd_new(a):
 def cmd_skill(a):
     repo, d = Path(a.repo), Path(a.repo) / a.root / a.name
     claim = read(d / "prereg.json").get("question", a.name)
-    print("wrote", write_skill(repo, a.name, f"{a.root}/{a.name}", kind_of(d), claim))
+    print("wrote", write_skill(repo, a.name, f"{a.root}/{a.name}", kind_of(d), claim, a.adapter))
 
 
 def cmd_check(a):
@@ -258,10 +260,13 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     common = lambda s: (s.add_argument("--root", default="05-experiments"), s.add_argument("--repo", default="."))
     s = sub.add_parser("new"); s.add_argument("name"); s.add_argument("--type", required=True, choices=["executable", "rubric"])
-    s.add_argument("--claim", required=True); s.add_argument("--no-index", action="store_true"); s.add_argument("--no-ledger", action="store_true")
+    s.add_argument("--claim", required=True); s.add_argument("--adapter", default="ollama", choices=["ollama", "claude"]); s.add_argument("--no-index", action="store_true"); s.add_argument("--no-ledger", action="store_true")
     common(s); s.set_defaults(f=cmd_new)
     for n, f in (("skill", cmd_skill), ("check", cmd_check)):
-        s = sub.add_parser(n); s.add_argument("name"); common(s); s.set_defaults(f=f)
+        s = sub.add_parser(n); s.add_argument("name"); common(s)
+        if n == "skill":
+            s.add_argument("--adapter", default="ollama", choices=["ollama", "claude"])
+        s.set_defaults(f=f)
     s = sub.add_parser("process"); s.set_defaults(f=cmd_process)
     args = ap.parse_args(argv)
     return args.f(args) or 0

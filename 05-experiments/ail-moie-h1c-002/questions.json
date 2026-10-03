@@ -1,0 +1,50 @@
+[
+ {
+  "id": "Q01",
+  "text": "Why do forecasts of how fast people will adopt a new product usually overestimate the speed?"
+ },
+ {
+  "id": "Q02",
+  "text": "What limits how fast a small team can verify AI-generated code?"
+ },
+ {
+  "id": "Q03",
+  "text": "Why do antibiotic-resistance genes persist in bacterial populations long after the antibiotic is withdrawn?"
+ },
+ {
+  "id": "Q04",
+  "text": "Why do temperatures differ between neighborhoods of the same city by more than city-wide heat models predict?"
+ },
+ {
+  "id": "Q05",
+  "text": "Why do sleep-tracking interventions improve measured sleep less than their designers expect?"
+ },
+ {
+  "id": "Q06",
+  "text": "Why does retrieval-augmented generation sometimes make a language model's answers less accurate?"
+ },
+ {
+  "id": "Q07",
+  "text": "Why does public-transit ridership recover more slowly than other activity after a major disruption?"
+ },
+ {
+  "id": "Q08",
+  "text": "What limits how well programming skill transfers from one language to another for new developers?"
+ },
+ {
+  "id": "Q09",
+  "text": "Why do some open-source projects stay healthy with a single maintainer while others collapse?"
+ },
+ {
+  "id": "Q10",
+  "text": "Why do field trials of soil carbon storage show such large variation from site to site?"
+ },
+ {
+  "id": "Q11",
+  "text": "Why do some high-income countries keep using cash heavily when cheaper digital payment is available?"
+ },
+ {
+  "id": "Q12",
+  "text": "Why do small language models fail on long multi-step tasks even when each individual step is within their ability?"
+ }
+]

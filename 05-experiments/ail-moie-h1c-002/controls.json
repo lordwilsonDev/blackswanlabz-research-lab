@@ -1,0 +1,25 @@
+{
+ "null": {
+  "effect_in_rating_points": 0.0,
+  "sims": 500,
+  "questions": 12,
+  "supported": 0,
+  "rate": 0.0
+ },
+ "planted_effect_1.0": {
+  "effect_in_rating_points": 1.0,
+  "sims": 500,
+  "questions": 12,
+  "supported": 216,
+  "rate": 0.432
+ },
+ "planted_effect_2.0": {
+  "effect_in_rating_points": 2.0,
+  "sims": 500,
+  "questions": 12,
+  "supported": 498,
+  "rate": 0.996
+ },
+ "alpha_perfect": 1.0,
+ "alpha_independent": 0.045
+}

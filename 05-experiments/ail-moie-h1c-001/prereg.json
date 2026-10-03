@@ -67,5 +67,5 @@
   "The generator's context window must be large enough that MoIE's accumulated stage context is not truncated; the Ollama adapter is run with OLLAMA_NUM_CTX=8192 and fails closed if a prompt fills the window."
  ],
  "stopping_rule": "One revision pass to prompts and questions after the controls pass, then lock. No edits after lock; a change means a new experiment directory.",
- "instrument_version": "lab-rubric-0.1"
+ "instrument_version": "lab-rubric-0.2"
 }
