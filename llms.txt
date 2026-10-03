@@ -23,6 +23,7 @@ Read in this order.
 - [Axiom Inversion Logic (AIL)](02-frameworks/axiom-inversion-logic.md): invert an assumption a field treats as settled and ask what would have to be true.
 - [Mixture of Inversion Experts (MoIE)](02-frameworks/moie.md): a five-agent sequence that turns an AIL inversion into a falsifiable hypothesis.
 - [North Star](02-frameworks/north-star.md): the one-sentence goal and the five parts of the architecture that serve it.
+- [Operating prompt](02-frameworks/model-operating-prompt.md): a prompt that briefs another model on how to work in this lab without outside peer review; untested.
 
 ## Systems
 - [FCVE, Formal Claim Verification Engine](03-systems/fcve.md): archived 2026-09-19; turned a mathematical claim into an auditable evidence package.
