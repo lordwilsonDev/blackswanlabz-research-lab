@@ -225,3 +225,23 @@ def test_claude_adapter_fails_closed_when_the_cli_keeps_failing(tmp_path, monkey
     env = {**os.environ, "PATH": f"{bindir}:{os.environ['PATH']}"}
     r = subprocess.run([sys.executable, str(script)], input="x", capture_output=True, text=True, env=env, timeout=60)
     assert r.returncode != 0 and "failed after retries" in r.stderr
+
+
+def test_candidate_labels_go_beyond_26_and_parse_back():
+    labels = lr.candidate_labels(80)
+    assert labels[0] == "A" and labels[25] == "Z" and labels[26] == "AA" and labels[27] == "AB" and len(set(labels)) == 80
+    assert lr.parse_choice("The best is AB.", labels) == 27
+    assert lr.parse_choice("(C)", labels) == 2
+    assert lr.parse_choice("no label here", labels) == 0
+
+
+def test_resume_survives_a_crash_in_the_baseline_phase(pack):
+    """A real run crashed after all single-pass arms were done; --resume must reuse them and finish the baselines."""
+    lr.cmd_lock(ns(dir=str(pack)))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False))
+    lines = (pack / "gen.jsonl").read_text().splitlines()
+    single = [l for l in lines if not json.loads(l)["arm"].endswith("-bon")]
+    (pack / "gen.jsonl").write_text("\n".join(single) + "\n")
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=True))
+    rows = [json.loads(l) for l in (pack / "gen.jsonl").read_text().splitlines()]
+    assert len(rows) == 12 * 2 * 7 and sum(r["arm"].endswith("-bon") for r in rows) == 12 * 2 * 3

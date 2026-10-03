@@ -186,6 +186,30 @@ def total(calls):
     return sum(c[0] + c[1] for c in calls)
 
 
+def candidate_labels(n: int) -> list[str]:
+    """A, B, ... Z, AA, AB, ...: enough labels for any number of candidates (the first version stopped at 26)."""
+    import string
+    out, letters = [], string.ascii_uppercase
+    for i in range(n):
+        k, label = i, ""
+        while True:
+            label = letters[k % 26] + label
+            k = k // 26 - 1
+            if k < 0:
+                break
+        out.append(label)
+    return out
+
+
+def parse_choice(reply: str, labels: list[str]) -> int:
+    """Index of the first whole-word label found in the reply; 0 if none (recorded as the first candidate)."""
+    pos = {lab: i for i, lab in enumerate(labels)}
+    for m in re.finditer(r"\b([A-Z]{1,2})\b", reply.strip().upper()):
+        if m.group(1) in pos:
+            return pos[m.group(1)]
+    return 0
+
+
 def cmd_run(a):
     d = Path(a.dir)
     errs = lock_errors(d)
@@ -249,13 +273,12 @@ def cmd_run(a):
                     for j in range(n):
                         text, c = run_pipeline(arms_by_id[base], q, prompts, a.adapter, f"{q['id']}|{rep}|bon{j}", mw)
                         cands.append(extract_final(text, mw)[0]); calls += c
-                    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    listing = "\n\n".join(f"({letters[i]}) {t}" for i, t in enumerate(cands))
+                    labels = candidate_labels(len(cands))
+                    listing = "\n\n".join(f"({labels[i]}) {t}" for i, t in enumerate(cands))
                     pick, ti, to, sec = call(a.adapter, fmt(prompts["selector"], q=q["text"], candidates=listing),
                                              seed_for(q["id"], rep, base, "sel"))
                     calls.append((ti, to, sec))
-                    m = re.search(r"\b([A-Z])\b", pick.strip().upper())
-                    idx = letters.index(m.group(1)) if m and letters.index(m.group(1)) < len(cands) else 0
+                    idx = parse_choice(pick, labels)
                     emit({"q": q["id"], "rep": rep, "arm": base + "-bon", "final": cands[idx], "extracted": True, "truncated": False,
                           "tokens": total(calls), "calls": len(calls), "n": n, "seconds": round(sum(c[2] for c in calls), 2)}, f)
             print("bon", q["id"], flush=True)
