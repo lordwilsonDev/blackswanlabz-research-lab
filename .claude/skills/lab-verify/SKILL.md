@@ -60,3 +60,17 @@ Use the next standard available and label it weaker, never as equivalent: a rubr
 - The auto-cheat is a lookup of the visible asserts. It proves the hidden tests add something, not that they are good.
 - Token counts come from the adapter. Without them the harness uses length divided by four.
 - Seeds are only honoured if the adapter reads `HARNESS_SEED` (the Ollama adapter does).
+
+## What needs a human operator
+
+The skills scaffold, lock, self-check, run, analyze and report. They do not decide. A person has to make these calls, and an agent that makes them after seeing results has made an unregistered deviation:
+
+1. **Every FILL marker**: question, hypothesis, falsification, limits, stopping rule. `forge.py check` reports NOT READY until they are done.
+2. **The tasks or questions**, and who writes the hidden tests (not the model under test).
+3. **The margin**, fixed before the run.
+4. **The budget.** Compute matching can cost thousands of calls (the AIL+MoIE Haiku run: about 3,000). Raising or capping samples is a registered, outcome-independent deviation, never a mid-run edit.
+5. **Approvals** for anything outside the sandbox (writes outside the repo, toolchain installs).
+6. **Resuming** an interrupted run (`--resume` for the rubric engine; the executable engine refuses a second run).
+7. **Reading the report**: whether a failure is a harness gap, a test-setup limit or model behaviour.
+
+Evidence: [operator smoke test, 2026-10-03](../../../06-proofs/operator-smoke-test-2026-10-03.md).
