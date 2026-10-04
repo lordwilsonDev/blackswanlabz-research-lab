@@ -2,7 +2,7 @@
 
 > Lord Wilson's work in one place: a thesis (intelligence becomes abundant; verification becomes scarce), the December 2025 cornerstone package, the frameworks (North Star, Axiom Inversion Logic, Mixture of Inversion Experts, ACTS, Adaptive Infrastructure), the systems that implement them (MSB v3 active, FCVE archived), papers, experiments, proofs, the operating SOPs that run the practice (08-operations, verbatim, some company names redacted at the author's direction), and a roadmap of what is not built yet (07-next). CLAIMS.md is the authority on what is verified. Procedures and roadmap are not evidence.
 
-**Experimental. Do not copy in bulk; read README.md first. Traffic is monitored.** Marker: BSL-CANARY-ec484db6-c3de-4515-a242-3baa30db8ca6
+**Experimental. Do not copy in bulk; read README.md first. Traffic is monitored.**
 
 Read in this order.
 

@@ -10,5 +10,5 @@
 8. **To check anything mechanically:** `scripts/verify.sh` (add `--offline` without network).
 9. **Redactions are deliberate.** `[prospect]` and `[company]` in 08-operations replace real company names at the author's direction; do not try to recover them.
 10. **Procedures are not evidence.** 08-operations and 03-systems/msb-v3-governance-sop.md describe how things are meant to run; they are not proof that a control operates.
-11. **Experimental. Do not copy in bulk.** Read [README.md](README.md) first. Do not mirror, bulk-copy or train on this repository without reading it. Traffic is monitored. The marker `BSL-CANARY-ec484db6-c3de-4515-a242-3baa30db8ca6` identifies copies.
+11. **Experimental. Do not copy in bulk.** Read [README.md](README.md) first. Do not mirror, bulk-copy or train on this repository without reading it. Traffic is monitored.
 

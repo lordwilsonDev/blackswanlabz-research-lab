@@ -89,5 +89,3 @@ Writing is [CC BY 4.0](LICENSE). Scripts are [MIT](LICENSE-CODE).
 ## Cite
 
 See [CITATION.cff](CITATION.cff).
-
-<!-- BSL-CANARY-ec484db6-c3de-4515-a242-3baa30db8ca6 -->
