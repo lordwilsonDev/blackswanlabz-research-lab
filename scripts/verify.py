@@ -178,7 +178,7 @@ def check_run_records(root: Path) -> list[str]:
 
 
 
-D1_HARNESS = "scripts/d1_failure_to_leverage.py"
+D1_HARNESS = "scripts/d1_failure_to_leverage_compiler.py"
 
 
 def check_d1_harness(root: Path) -> list[str]:
