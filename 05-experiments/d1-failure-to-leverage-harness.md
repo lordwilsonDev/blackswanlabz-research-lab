@@ -1,10 +1,10 @@
 ---
-source: D1 Failure-to-Leverage Harness experiment protocol
+source: D1 — Failure-to-Leverage Compiler experiment protocol
 captured: 2026-10-04
 status: active
 ---
 
-# D1 Harness Experiment
+# D1 — Failure-to-Leverage Compiler Experiment
 
 ## Question
 
