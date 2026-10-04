@@ -68,6 +68,9 @@ Read in this order.
 ## Claims
 - [CLAIMS](CLAIMS.md): every number or factual claim with status (verified, pending, retracted), evidence, and how to check.
 
+## Skills
+- [skill-forge](skills/skill-forge/SKILL.md): meta-skill for encoding a body of knowledge as an attributed, validated skill. Pending: not evaluated against a baseline.
+
 ## Third-party (not lab work)
 - [building-an-exo](third-party/building-an-exo/README.md): a Claude skill by Kent Langley based on Salim Ismail's The Organizational Singularity; kept unmodified with attribution. Not a lab claim.
 

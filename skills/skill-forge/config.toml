@@ -1,0 +1,19 @@
+[metadata]
+name = "skill-forge"
+version = "0.1.0"
+author = "BlackSwanLabz (Lord Wilson)"
+license = "MIT"
+created = "2026-10-04"
+updated = "2026-10-04"
+review_by = "2027-01-04"
+
+[source]
+title = "Structure derived from the building-an-exo skill package v1.5.0 and the skill-creator skill"
+authors = ["Kent Langley (building-an-exo skill author)", "Salim Ismail and contributors (The Organizational Singularity, encoded by that package)", "Anthropic (skill-creator)"]
+publisher = ""
+url = ""
+accessed = "2026-10-04"
+source_license = "building-an-exo declares MIT in its config.toml without license text; skill-creator terms not recorded"
+redistribution = "unknown"
+permission_note = "Skill Forge encodes the packaging pattern and observations about it, not the domain content of either source. Confirm terms with the building-an-exo authors and Anthropic before publishing outside the lab."
+required_credit = "Pattern studied from building-an-exo (Kent Langley; Salim Ismail and contributors) and skill-creator (Anthropic)."

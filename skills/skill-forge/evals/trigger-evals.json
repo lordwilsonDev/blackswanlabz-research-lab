@@ -1,0 +1,11 @@
+[
+  {"query": "i've got this 60 page methodology doc from a consultant we hired about how to run quarterly planning, can you turn it into a skill so claude follows it every time? she wants credit in there too", "should_trigger": true},
+  {"query": "I downloaded someone's framework skill (a .skill file) and I want to make a tool that generates more skills like it from other books I own. where do I start", "should_trigger": true},
+  {"query": "update my existing 'sop-runner' skill to match v3 of our SOP, keep the same name and tell me what changed between versions", "should_trigger": true},
+  {"query": "package our company's incident response playbook as something Claude can apply, and make sure every rule points back to the section it came from", "should_trigger": true},
+  {"query": "we just spent the last hour doing a code review workflow together, turn what we did into a skill", "should_trigger": false},
+  {"query": "summarize chapter 4 of this PDF for me", "should_trigger": false},
+  {"query": "my skill's description isn't triggering, can you rewrite it to be better and test it", "should_trigger": false},
+  {"query": "write a SKILL.md for a skill that formats SQL queries consistently", "should_trigger": false},
+  {"query": "is it legal for me to publish a summary of a copyrighted book as a skill?", "should_trigger": false}
+]
