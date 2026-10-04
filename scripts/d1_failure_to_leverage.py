@@ -219,7 +219,7 @@ def analyze(dossier: dict[str, Any]) -> dict[str, Any]:
 
     return {
         "schema_version": SCHEMA_VERSION,
-        "harness": "D1 Failure-to-Leverage Harness",
+        "harness": "D1 — Failure-to-Leverage Compiler",
         "research_id": dossier.get("research_id"),
         "verdict": verdict,
         "publication_state": publication_state,
@@ -404,7 +404,7 @@ def run_self_test() -> dict[str, Any]:
     suite.run(result)
     failures = [str(x[1]) for x in result.failures + result.errors]
     return {
-        "harness": "D1 Failure-to-Leverage Harness",
+        "harness": "D1 — Failure-to-Leverage Compiler",
         "status": "PASS" if result.wasSuccessful() else "FAIL",
         "tests": result.testsRun,
         "failures": failures,
