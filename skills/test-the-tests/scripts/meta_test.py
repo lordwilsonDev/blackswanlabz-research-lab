@@ -40,6 +40,17 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 COPY_IGNORE = shutil.ignore_patterns(".git", "__pycache__", ".pytest_cache", ".meta-test", "node_modules")
+
+
+def copy_ignore(scratch: Path):
+    """COPY_IGNORE plus the scratch directory itself, in case it sits inside the project."""
+    scratch = scratch.resolve()
+
+    def ignore(directory: str, names: list[str]) -> set[str]:
+        skip = set(COPY_IGNORE(directory, names))
+        skip |= {n for n in names if (Path(directory) / n).resolve() == scratch}
+        return skip
+    return ignore
 CMP_SWAP = {ast.Eq: ast.NotEq, ast.NotEq: ast.Eq, ast.Lt: ast.GtE, ast.GtE: ast.Lt, ast.Gt: ast.LtE,
             ast.LtE: ast.Gt, ast.Is: ast.IsNot, ast.IsNot: ast.Is, ast.In: ast.NotIn, ast.NotIn: ast.In}
 
@@ -294,7 +305,7 @@ def run_suite(root: Path, s: Suite, max_mutants: int, seed: int, jobs: int, scra
     pool: queue.Queue[Path] = queue.Queue()
     for i in range(jobs):
         d = scratch / f"{s.name}-w{i}"
-        shutil.copytree(root, d, ignore=COPY_IGNORE)
+        shutil.copytree(root, d, ignore=copy_ignore(scratch))
         pool.put(d)
 
     def one(site) -> MutantResult:

@@ -352,3 +352,193 @@ def test_index_text_drift_with_matching_ids_is_caught(ws):
     idx = ws.root / "42_PERMANENT_MEMORY" / "INDEX.md"
     idx.write_text(idx.read_text().replace("2026-11-03", "2099-01-01"))   # same IDs, stale content
     assert any(f["check"] == "index" and "out of date" in f["message"] for f in ws.run()["failures"])
+
+
+# ---- gaps found by the meta-test ----------------------------------------------------
+import re as _re
+DEMOTION = ("demotion:\n  reason: wrong\n  decided_at: 2026-10-03\n  decided_by: bob\n"
+            "  destination: 03_COMPLETED/{c}.md\n")
+
+
+def msgs(ws):
+    return [f["message"] for f in ws.run()["failures"]]
+
+
+def edit(path, old, new):
+    path.write_text(path.read_text().replace(old, new, 1))
+
+
+def test_parser_quotes_comments_blank_lines_and_indentation():
+    meta, _ = mv.parse_frontmatter('---\n# comment\n\na: "x y"\nb: \'q\'\nc:\nd: 1\n---\n')
+    assert meta == {"a": "x y", "b": "q", "c": None, "d": 1}
+    for text, expect in (("---\na: 1\n   b: 2\n---\n", "unexpected indentation"),
+                         ("a: 1\n---\n", "no opening"), ('---\na: "x\n---\n', "unterminated quote"),
+                         ("---\na: 1\n", "no closing")):
+        with pytest.raises(mv.FrontmatterError, match=expect):
+            mv.parse_frontmatter(text)
+
+
+def test_completed_status_and_bad_dates_are_structure_failures_not_crashes(ws):
+    ws.completed(C1, "KEEP_COMPLETED")
+    ws.finish()
+    p = ws.root / "03_COMPLETED" / f"{C1}.md"
+    edit(p, "status: COMPLETED", "status: DONE")
+    assert any("status must be COMPLETED" in m for m in msgs(ws))
+    edit(p, "status: DONE", "status: COMPLETED")
+    edit(p, "decided_at: 2026-10-03", "decided_at: 2026-13-45")
+    r = ws.run()
+    assert r["exit_code"] == 1 and any("not an ISO date" in f["message"] for f in r["failures"])
+
+
+def test_memory_bad_date_or_interval_or_sources_or_lists_never_crash(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.memory("MEM-0001", last_verified="2026-13-45")
+    ws.finish()
+    r = ws.run()
+    assert r["exit_code"] == 1 and any("not an ISO date" in f["message"] for f in r["failures"])
+    for bad in ("0", "-5", "abc", "true"):
+        ws.memory("MEM-0001")
+        edit(ws.root / "42_PERMANENT_MEMORY" / "MEM-0001.md", "verify_interval_days: 31", f"verify_interval_days: {bad}")
+        assert any("positive integer" in m for m in msgs(ws)), bad
+    ws.memory("MEM-0001")
+    p = ws.root / "42_PERMANENT_MEMORY" / "MEM-0001.md"
+    p.write_text(_re.sub(r"\n    commit: \w+", "", p.read_text()))
+    assert any("needs id, commit, content_hash" in m for m in msgs(ws))
+    ws.memory("MEM-0001", extra="supersedes: x\n")
+    assert any("supersedes must be a list" in m for m in msgs(ws))
+
+
+def test_valid_demotion_is_clean_and_missing_destination_is_a_reference_failure(ws):
+    ws.completed(C1, "KEEP_COMPLETED")
+    ws.memory("MEM-0001", status="DEMOTED", extra=DEMOTION.format(c=C1))
+    ws.finish()
+    r = ws.run()
+    assert r["exit_code"] == 0, r["failures"]            # demoted memory's source need not be PROMOTE
+    ws.memory("MEM-0001", status="DEMOTED", extra=DEMOTION.format(c="CAND-nope"))
+    assert any("demotion.destination" in m for m in msgs(ws))
+
+
+def test_ledger_comments_blank_lines_and_unallocated_ids(ws):
+    ws.completed(C1)
+    ws.finish()
+    ledger = ws.root / "state" / "ids.lock"
+    ledger.write_text(f"# header\n\n\n{C1}\n# {C1}\n")
+    r = ws.run()
+    assert not any(f["check"] == "ids" for f in r["failures"]), r["failures"]
+    ledger.write_text("# only a comment\n")
+    assert any("never allocated" in m for m in msgs(ws))
+
+
+def test_merge_requires_target_and_supersede_must_match_memory_sources(ws):
+    ws.completed(C1, "MERGE")
+    assert any("MERGE requires merged_into" in m for m in msgs(ws))
+    ws.completed(C1, "SUPERSEDED", extra="superseded_by:\n  - MEM-0001\n")
+    ws.memory("MEM-0001")
+    ws.finish()
+    assert ws.run()["exit_code"] == 0
+    ws.completed(C1, "SUPERSEDED", extra="superseded_by:\n  - MEM-0002\n")
+    ws.memory("MEM-0002", sources=(C1,))
+    ws.memory("MEM-0001")
+    assert any("silent promotion" in m and "MEM-0001" in m for m in msgs(ws))
+
+
+def test_reject_log_must_match_candidate_and_disposition(ws):
+    ws.completed(C1, "REJECT")
+    ws.finish()
+    log = ws.root / "DISPOSITION_LOG.md"
+    for entry in ({"candidate_id": C2, "disposition": "REJECT"}, {"candidate_id": C1, "disposition": "KEEP_COMPLETED"}):
+        log.write_text(json.dumps(entry) + "\n")
+        assert any("REJECT is not recorded" in m for m in msgs(ws))
+    log.write_text(json.dumps({"candidate_id": C1, "new_disposition": "REJECT"}) + "\n")
+    assert not any("REJECT is not recorded" in m for m in msgs(ws))
+
+
+def test_source_path_outside_root_or_missing_fails_provenance(ws):
+    ws.completed(C1)
+    ws.finish()
+    (ws.root.parent / "outside.txt").write_text("evidence\n")
+    p = ws.root / "03_COMPLETED" / f"{C1}.md"
+    for path in ("../outside.txt", "nope.txt"):
+        edit(p, "path: src.txt", f"path: {path}")
+        assert any("does not resolve inside root" in m for m in msgs(ws)), path
+        edit(p, f"path: {path}", "path: src.txt")
+
+
+def test_dangling_supersession_references_fail_cleanly_without_crashing(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.memory("MEM-0001", status="SUPERSEDED", extra="superseded_by:\n  - MEM-0099\n")
+    ws.memory("MEM-0002", extra="supersedes:\n  - MEM-0098\n")
+    ws.finish()
+    r = ws.run()                                          # must return a result, not raise
+    assert r["exit_code"] == 6 and sum("does not resolve" in f["message"] for f in r["failures"]) == 2
+
+
+def test_supersedes_side_asymmetry_and_valid_join_and_three_cycle(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.memory("MEM-0001", status="SUPERSEDED", extra="superseded_by:\n  - MEM-0003\n")
+    ws.memory("MEM-0002", status="SUPERSEDED", extra="superseded_by:\n  - MEM-0003\n")
+    ws.memory("MEM-0003", extra="supersedes:\n  - MEM-0001\n  - MEM-0002\n")
+    ws.finish()
+    assert ws.run()["exit_code"] == 0, ws.run()["failures"]         # two predecessors, one head: fine
+    ws.memory("MEM-0003", extra="supersedes:\n  - MEM-0001\n")       # MEM-0002 now claims a head that does not list it
+    assert any("MEM-0003.supersedes does not list MEM-0002" in m for m in msgs(ws))
+    ws.memory("MEM-0002", status="ACTIVE", extra="supersedes:\n  - MEM-0001\n")   # MEM-0001.superseded_by lacks 0002
+    assert any("supersedes MEM-0001, but MEM-0001.superseded_by does not list MEM-0002" in m for m in msgs(ws))
+    for i, (a, b) in enumerate([("1", "2"), ("2", "3"), ("3", "1")]):
+        ws.memory(f"MEM-000{a}", status="SUPERSEDED", extra=f"superseded_by:\n  - MEM-000{b}\nsupersedes:\n  - MEM-000{(int(a) + 1) % 3 + 1}\n")
+    cyc = [m for m in msgs(ws) if "CYCLE" in m]
+    assert len(cyc) == 1 and cyc[0].count("MEM-000") >= 4             # one report, full path
+
+
+def test_merge_provenance_must_not_vanish_and_demoted_target_is_rejected(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.completed(C2, "MERGE", extra="merged_into:\n  - MEM-0001\n")
+    ws.memory("MEM-0001", sources=(C1,), extra=f"merged_from:\n  - {C2}\n")
+    ws.finish()
+    ms = msgs(ws)
+    assert any("vanished from MEM-0001 provenance" in m for m in ms)
+    assert any(f"merged_from {C2} missing from sources" in m for m in ms)
+    ws.memory("MEM-0001", sources=(C1, C2), status="DEMOTED", extra=f"merged_from:\n  - {C2}\n" + DEMOTION.format(c=C1))
+    assert any("merge target MEM-0001 is DEMOTED" in m for m in msgs(ws))
+
+
+def test_counts_checks_and_stale_index_are_reported_exactly(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.completed(C2, "SUPERSEDED", extra="superseded_by:\n  - MEM-0002\n")
+    ws.memory("MEM-0001", status="SUPERSEDED", extra="superseded_by:\n  - MEM-0002\n")
+    ws.memory("MEM-0002", sources=(C1, C2), extra="supersedes:\n  - MEM-0001\n")
+    ws.memory("MEM-0003", sources=(C1,), status="DEMOTED", extra=DEMOTION.format(c=C1))
+    ws.finish()
+    r = ws.run()
+    assert r["counts"]["completed"] == 2 and r["counts"]["memory"] == {"ACTIVE": 1, "SUPERSEDED": 1, "DEMOTED": 1}
+    assert r["counts"]["dispositions"]["PROMOTE"] == 1 and r["counts"]["dispositions"]["SUPERSEDED"] == 1
+    (ws.root / "state" / "ids.lock").write_text("")
+    r = ws.run()
+    assert r["checks"]["ids"] == "FAIL" and r["checks"]["provenance"] == "PASS" and r["checks"]["structure"] == "PASS"
+
+
+def test_index_drift_still_reported_when_other_failures_exist(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.memory("MEM-0001", last_verified="2026-08-01", verify_by="2026-09-01")      # stale (code 10)
+    ws.finish()
+    idx = ws.root / "42_PERMANENT_MEMORY" / "INDEX.md"
+    edit(idx, "2026-09-01", "2099-01-01")
+    assert any("out of date" in m for m in msgs(ws))
+
+
+def test_cli_alloc_id_fresh_root_requires_subcommand_and_prints_verdict(tmp_path, capsys):
+    assert mv.main(["alloc-id", "mem", "--root", str(tmp_path), "--today", "2026-10-03"]) == 0
+    assert capsys.readouterr().out.strip() == "MEM-0001" and (tmp_path / "state" / "ids.lock").exists()
+    assert mv.main(["alloc-id", "cand", "--root", str(tmp_path), "--today", "2026-10-03"]) == 0
+    assert capsys.readouterr().out.strip() == "CAND-2026-10-03-001"
+    with pytest.raises(SystemExit) as e:
+        mv.main([])
+    assert e.value.code == 2
+
+
+def test_cli_prints_pass_or_fail_with_exit_code(ws, capsys):
+    ws.finish()
+    base = ["validate", "--root", str(ws.root), "--today", "2026-10-03"]
+    assert mv.main(base) == 0 and capsys.readouterr().out.strip().endswith("PASS")
+    (ws.root / "STATS.md").unlink()
+    assert mv.main(base) == 9 and "FAIL (exit 9)" in capsys.readouterr().out

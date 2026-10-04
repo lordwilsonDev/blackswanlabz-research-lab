@@ -97,9 +97,10 @@ TARGET = textwrap.dedent('''\
 
     def spin(n):
         i = 0
-        while i < n:
+        while True:
+            if i >= n:
+                return i
             i += 1
-        return i
 
     def never_called(v):
         if v == 7:
@@ -125,64 +126,76 @@ WEAK = textwrap.dedent('''\
 ''')
 
 
-def project(tmp_path, tests):
-    (tmp_path / "target.py").write_text(TARGET)
-    (tmp_path / "test_target.py").write_text(tests)
-    (tmp_path / "meta-test.toml").write_text(
-        '[[suite]]\nname = "tiny"\ntargets = ["target.py"]\ntests = ["test_target.py"]\ntimeout = 20\n')
-    return tmp_path
+NEVER = TARGET.splitlines().index("def never_called(v):") + 1       # 1-based line of that def
+CLAMP = range(1, TARGET.splitlines().index("def spin(n):") + 1)
 
 
-def run(root, tmp_path, **kw):
+def project(base, name, tests):
+    root = base / name
+    root.mkdir()
+    (root / "target.py").write_text(TARGET)
+    (root / "test_target.py").write_text(tests)
+    (root / "meta-test.toml").write_text(
+        '[[suite]]\nname = "tiny"\ntargets = ["target.py"]\ntests = ["test_target.py"]\ntimeout = 4\n')
+    return root
+
+
+def run(root, scratch=None, **kw):
     s = mt.load_suites(root, root / "meta-test.toml")[0]
-    scratch = tmp_path / "scratch"
-    scratch.mkdir()
+    scratch = scratch or (root.parent / f"scratch-{root.name}")
+    scratch.mkdir(exist_ok=True)
     return mt.run_suite(root, s, kw.get("max", 0), 1, 2, scratch)
 
 
-def test_strong_suite_scores_high_and_weak_suite_leaves_survivors(tmp_path):
-    strong = run(project(tmp_path / "a", STRONG) if (tmp_path / "a").mkdir() is None else None, tmp_path / "a", max=0)
-    weak = run(project(tmp_path / "b", WEAK) if (tmp_path / "b").mkdir() is None else None, tmp_path / "b", max=0)
+@pytest.fixture(scope="module")
+def reports(tmp_path_factory):
+    base = tmp_path_factory.mktemp("meta")
+    return {"strong": run(project(base, "strong", STRONG)), "weak": run(project(base, "weak", WEAK))}
+
+
+def test_strong_suite_scores_high_and_weak_suite_leaves_survivors(reports):
+    strong, weak = reports["strong"], reports["weak"]
     assert strong.baseline_ok and weak.baseline_ok
     assert strong.score == 1.0, [r for r in strong.results if r.outcome == "SURVIVED"]
     assert weak.score < strong.score
     surv = [r for r in weak.results if r.outcome == "SURVIVED"]
-    assert surv and all(r.line in (2, 3, 4) for r in surv)      # all in clamp()
+    assert surv and all(r.line in CLAMP for r in surv)      # all in clamp()
 
 
-def test_unexercised_code_is_reported_separately_not_scored(tmp_path):
-    (tmp_path / "x").mkdir()
-    rep = run(project(tmp_path / "x", STRONG), tmp_path / "x")
+def test_unexercised_code_is_reported_separately_not_scored(reports):
+    rep = reports["strong"]
     not_run = [r for r in rep.results if r.outcome == "NOT_EXERCISED"]
-    assert not_run and all(r.line in (12, 13, 14) for r in not_run)   # never_called()
+    assert not_run and all(r.line > NEVER for r in not_run)   # only inside never_called()
     executed, total = rep.coverage["target.py"]
     assert executed < total
 
 
-def test_infinite_loop_mutant_counts_as_caught_by_timeout(tmp_path):
-    (tmp_path / "y").mkdir()
-    rep = run(project(tmp_path / "y", STRONG), tmp_path / "y")
-    assert any(r.outcome == "TIMEOUT" and "Lt -> GtE" in r.desc for r in rep.results)
+def test_infinite_loop_mutant_counts_as_caught_by_timeout(reports):
+    rep = reports["strong"]
+    assert any(r.outcome == "TIMEOUT" and "branch removed" in r.desc for r in rep.results)
+    assert rep.score == 1.0                                       # a hang is caught, not a survivor
 
 
 def test_run_never_modifies_the_working_tree(tmp_path):
-    (tmp_path / "z").mkdir()
-    root = project(tmp_path / "z", WEAK)
+    root = project(tmp_path, "z", WEAK)
     before = {p.name: p.read_text() for p in root.glob("*.py")}
-    run(root, tmp_path / "z")
+    run(root)
     assert {p.name: p.read_text() for p in root.glob("*.py")} == before
 
 
+def test_scratch_directory_inside_the_project_is_not_copied_into_itself(tmp_path):
+    root = project(tmp_path, "inside", STRONG)
+    rep = run(root, scratch=root / "scratch")                     # would recurse forever without the guard
+    assert rep.baseline_ok and rep.score == 1.0
+
+
 def test_red_baseline_stops_everything(tmp_path):
-    (tmp_path / "r").mkdir()
-    root = project(tmp_path / "r", STRONG.replace("== 3\n    ", "== 99\n    ", 1))
-    rep = run(root, tmp_path / "r")
+    rep = run(project(tmp_path, "r", STRONG.replace("== 3\n    ", "== 99\n    ", 1)))
     assert not rep.baseline_ok and rep.results == []
 
 
 def test_cli_exit_codes_and_report_files(tmp_path):
-    (tmp_path / "c").mkdir()
-    root = project(tmp_path / "c", WEAK)
+    root = project(tmp_path, "c", WEAK)
     out = tmp_path / "out"
     assert mt.main(["audit", "--root", str(root)]) == 1                         # assert True
     assert mt.main(["run", "--root", str(root), "--jobs", "2", "--out", str(out), "--min-score", "0.99"]) == 1

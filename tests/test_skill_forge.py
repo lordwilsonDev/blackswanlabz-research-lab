@@ -224,3 +224,134 @@ def test_cli_exit_codes(tmp_path, capsys):
     (d / "source-map.md").unlink()
     assert vs.main([str(d)]) == 1
     assert vs.main([str(d), "--draft", "--release"]) == 2
+
+
+# ---- gaps found by the meta-test ----------------------------------------------------
+def pad_to(d, n_lines):
+    t = (d / "SKILL.md").read_text()
+    (d / "SKILL.md").write_text(t + "\n" * (n_lines - len(t.splitlines())))
+
+
+def test_frontmatter_parser_details():
+    fm = vs.parse_frontmatter("---\nname: a\nmetadata:\n  version: 1.0.0\ndescription: long text here\n---\nb")
+    assert fm == {"name": "a", "metadata": {"version": "1.0.0"}, "description": "long text here"}
+    assert vs.parse_frontmatter('---\nk: "abc"\nj: \'x\'\nq: "\nm: "a\'\n---\nb') == {"k": "abc", "j": "x", "q": '"', "m": "\"a'"}
+    with pytest.raises(ValueError, match="no frontmatter"):
+        vs.parse_frontmatter("just text")
+    with pytest.raises(ValueError, match="unparseable"):
+        vs.parse_frontmatter("---\nnot a key value\n---\nb")
+    with pytest.raises(ValueError, match="single-line"):
+        vs.parse_frontmatter("---\ndescription: >\n  folded\n---\nb")
+
+
+def test_missing_frontmatter_and_empty_description_are_errors(tmp_path):
+    d = make(tmp_path)
+    t = (d / "SKILL.md").read_text()
+    (d / "SKILL.md").write_text(t.split("---\n", 2)[2])
+    assert any("frontmatter: no frontmatter" in e for e in errors(d))
+    d2 = make(tmp_path, "acme-two")
+    (d2 / "SKILL.md").write_text((d2 / "SKILL.md").read_text().replace(f"description: {DESC}", "description:"))
+    assert any("description is empty" in e for e in errors(d2))
+
+
+def test_name_rules_and_exact_length_boundaries(tmp_path):
+    d = make(tmp_path, "a" * 64)
+    assert not any("kebab-case" in e for e in errors(d))                       # 64 is allowed
+    d65 = make(tmp_path, "b" * 65)
+    assert any("kebab-case" in e for e in errors(d65))                         # 65 is not
+    dbad = make(tmp_path, "Bad_Name")
+    assert any("kebab-case" in e for e in errors(dbad))
+    ok = make(tmp_path)
+    t = (ok / "SKILL.md").read_text()
+    (ok / "SKILL.md").write_text(t.replace(DESC, "x" * 1024))
+    assert not any("limit is 1024" in e for e in errors(ok))                  # exactly 1024 is allowed
+    (ok / "SKILL.md").write_text(t.replace(DESC, "x" * 1025))
+    assert any("limit is 1024" in e for e in errors(ok))
+
+
+def test_line_limit_boundaries_and_clean_skill_has_no_warnings(tmp_path):
+    d = make(tmp_path)
+    r = vs.validate(d, release=True)
+    assert r.errors == [] and r.warnings == []
+    pad_to(d, 500)
+    assert vs.validate(d).warnings == []                                        # exactly the soft limit: quiet
+    pad_to(d, 501)
+    assert any("target 500" in w for w in vs.validate(d).warnings)
+    pad_to(d, 800)
+    assert not any("hard limit" in e for e in errors(d))                        # exactly the hard limit passes
+    pad_to(d, 801)
+    assert any("hard limit" in e for e in errors(d))
+
+
+def test_todo_placeholders_ignored_in_evals_and_flagged_elsewhere(tmp_path):
+    d = make(tmp_path)
+    (d / "evals" / "trigger-evals.json").write_text('[{"query": "TODO(write me)", "should_trigger": true}]')
+    assert errors(d) == []
+    (d / "references" / "cadence.md").write_text("# Cadence\nTODO(fill in)\n")
+    assert any("TODO(" in e for e in errors(d))
+    assert errors(d, draft=True) == [] and any("TODO(" in w for w in vs.validate(d, draft=True).warnings)
+
+
+def test_directives_need_ids_and_map_rows_need_locators(tmp_path):
+    d = make(tmp_path)
+    (d / "SKILL.md").write_text((d / "SKILL.md").read_text().replace("**D-01 Plan quarterly.**", "Plan quarterly.").replace("**D-02 Review weekly.**", "Review weekly."))
+    assert any("no IDs" in e for e in errors(d))
+    d2 = make(tmp_path, "acme-two")
+    m = (d2 / "source-map.md").read_text()
+    (d2 / "source-map.md").write_text(m.replace("| D-01 | ch. 2 |", "| D-01 |  |"))
+    assert any("D-01 has no source locator" in e for e in errors(d2)) and errors(d2, draft=True) == []
+    (d2 / "source-map.md").write_text(m.replace("| D-01 | ch. 2 |", "| D-01 | TODO(find it) |"))
+    assert any("D-01 has no source locator" in e for e in errors(d2))
+    (d2 / "source-map.md").write_text(m.replace("| D-01 | ch. 2 | SOURCE-CLAIM | |", "| D-01 | | UNSOURCED | note |"))
+    assert not any("no source locator" in e for e in errors(d2))              # UNSOURCED rows are handled by ack rules
+
+
+def test_config_source_fields_and_changelog_forms(tmp_path):
+    d = make(tmp_path)
+    for key, line in (("title", 'title = "Acme Handbook"\n'), ("authors", 'authors = ["A. Author"]\n'),
+                      ("redistribution", 'redistribution = "permitted"\n')):
+        c = (d / "config.toml").read_text()
+        (d / "config.toml").write_text(c.replace(line, ""))
+        assert any(f"[source].{key} is missing" in e for e in errors(d)), key
+        (d / "config.toml").write_text(c)
+    (d / "SKILL.md").write_text((d / "SKILL.md").read_text().replace("**v1.0.0 (2026-10-04)**", "**1.0.0 (2026-10-04)**"))
+    assert not any("Changelog" in e for e in errors(d))                        # a bare version number also counts
+
+
+def test_results_file_is_a_warning_outside_release_and_an_error_in_release(tmp_path):
+    d = make(tmp_path)
+    (d / "evals" / "results.md").unlink()
+    r = vs.validate(d)
+    assert [w for w in r.warnings if "results.md" in w] and r.errors == []
+    r = vs.validate(d, release=True)
+    assert any("results.md" in e for e in r.errors) and not any("results.md" in w for w in r.warnings)
+
+
+def test_only_jsonl_traces_are_parsed_and_clean_traces_pass(tmp_path):
+    d = make(tmp_path)
+    (d / "examples").mkdir()
+    (d / "examples" / "story.md").write_text("plain prose, not json\nsecond line\n")
+    (d / "traces").mkdir()
+    (d / "traces" / "ok.jsonl").write_text('{"summary": "clean"}\n\n{"n": 2}\n')
+    assert errors(d) == []
+
+
+def test_scaffold_placeholders_and_default_date(tmp_path):
+    with pytest.raises(KeyError):
+        sc.render("{{missing}}", {})
+    out = sc.scaffold(tmp_path, "dated-skill", "T", "M", "Book", "Auth")                  # no explicit date
+    from datetime import date as _d
+    assert f'created = "{_d.today().isoformat()}"' in (out / "config.toml").read_text()
+    out2 = sc.scaffold(tmp_path, "fixed-skill", "T", "M", "Book", "Auth", today="2001-02-03")
+    assert 'created = "2001-02-03"' in (out2 / "config.toml").read_text()
+
+
+def test_cli_json_and_text_output(tmp_path, capsys):
+    d = make(tmp_path)
+    assert vs.main([str(d), "--release", "--json"]) == 0
+    assert json.loads(capsys.readouterr().out) == {"errors": [], "warnings": [], "pass": True}
+    assert vs.main([str(d), "--release"]) == 0 and capsys.readouterr().out.strip() == "PASS"
+    (d / "source-map.md").unlink()
+    assert vs.main([str(d)]) == 1
+    out = capsys.readouterr().out
+    assert "ERROR" in out and out.strip().splitlines()[-1].startswith("FAIL (")

@@ -271,3 +271,57 @@ def test_run_still_rejects_unknown_claim_ids_in_readme(tmp_path):
     write(tmp_path, "README.md", "See C-099.\n")
     errors = verify.run(tmp_path, online=False)
     assert errors == ["README.md:1: unknown claim C-099"]
+
+
+# ---- gaps found by the meta-test ----------------------------------------------------
+def test_parse_front_matter_edge_cases():
+    assert verify.parse_front_matter("no header") is None
+    assert verify.parse_front_matter("---\nsource: x\n") is None                      # never closed
+    assert verify.parse_front_matter("---\n\n---\nbody") == {}                         # empty header
+    assert verify.parse_front_matter("---\nplain line\nsource: x\n---\nb") == {"source": "x"}
+
+
+def _lab(tmp_path, header, folder="00-thesis"):
+    (tmp_path / folder).mkdir(parents=True, exist_ok=True)
+    (tmp_path / folder / "a.md").write_text(header + "\nbody\n")
+    return tmp_path
+
+
+def test_snapshot_header_requires_every_key(tmp_path):
+    root = _lab(tmp_path, "---\nsource: x\nstatus: active\n---")
+    assert any("header missing 'captured'" in e for e in verify.check_snapshot_headers(root))
+    root = _lab(tmp_path, "---\ncaptured: 2026-01-01\nstatus: active\n---")
+    assert any("header missing 'source'" in e for e in verify.check_snapshot_headers(root))
+
+
+def test_snapshot_commit_must_be_hex_and_needs_repo(tmp_path):
+    base = "source: x\ncaptured: 2026-01-01\nstatus: active\n"
+    root = _lab(tmp_path, f"---\n{base}repo: o/r\ncommit: zzz\n---")
+    assert any("not a hex SHA" in e for e in verify.check_snapshot_headers(root))
+    root = _lab(tmp_path, f"---\n{base}commit: 0123456789abcdef0123456789abcdef01234567\n---")
+    assert any("'commit' requires 'repo'" in e for e in verify.check_snapshot_headers(root))
+    root = _lab(tmp_path, f"---\n{base}repo: o/r\n---")                                  # repo alone is fine
+    assert verify.check_snapshot_headers(root) == []
+
+
+def test_collect_pins_needs_both_repo_and_commit(tmp_path):
+    base = "source: x\ncaptured: 2026-01-01\nstatus: active\n"
+    sha = "0123456789abcdef0123456789abcdef01234567"
+    assert verify.collect_pins(_lab(tmp_path, f"---\n{base}repo: o/r\n---")) == []
+    assert verify.collect_pins(_lab(tmp_path, f"---\n{base}commit: {sha}\n---")) == []
+    assert verify.collect_pins(_lab(tmp_path, f"---\n{base}repo: o/r\ncommit: {sha}\n---")) == [("00-thesis/a.md", "o/r", sha)]
+
+
+def test_run_only_touches_the_network_when_online(tmp_path, monkeypatch):
+    (tmp_path / "CLAIMS.md").write_text(CLAIMS_MD)
+    (tmp_path / "README.md").write_text("Nothing numeric here.\n")
+    sha = "0123456789abcdef0123456789abcdef01234567"
+    _lab(tmp_path, f"---\nsource: x\ncaptured: 2026-01-01\nstatus: active\nrepo: o/r\ncommit: {sha}\n---")
+    calls = []
+    monkeypatch.setattr(verify, "gh_commit_exists", lambda *a, **k: calls.append("commit") or True)
+    monkeypatch.setattr(verify, "gh_code_frequency", lambda repo: calls.append("freq") or [])
+    monkeypatch.setattr(verify, "check_code_frequency", lambda data: [])
+    assert verify.run(tmp_path, online=False) == [] and calls == []
+    assert verify.run(tmp_path, online=True) == [] and sorted(calls) == ["commit", "freq"]
+    monkeypatch.setattr(verify, "gh_code_frequency", lambda repo: (_ for _ in ()).throw(RuntimeError("down")))
+    assert "C-001: down" in verify.run(tmp_path, online=True)

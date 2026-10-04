@@ -23,3 +23,9 @@ name = "skill_forge"
 targets = ["skills/skill-forge/scripts/validate_skill.py", "skills/skill-forge/scripts/scaffold_skill.py"]
 tests = ["tests/test_skill_forge.py"]
 timeout = 60
+
+[[suite]]
+name = "meta_test"
+targets = ["skills/test-the-tests/scripts/meta_test.py"]
+tests = ["tests/test_meta_test.py"]
+timeout = 120
