@@ -15,4 +15,4 @@ status: active
 | [FDE Kernel missions M005-M008](fde-kernel-missions.md) | Gate: `make check` passes (231 tests), 1 intermittent failure in 3 runs. Mission outcomes read from local files, not yet public. | pending: [C-037](../CLAIMS.md), [C-038](../CLAIMS.md) to [C-044](../CLAIMS.md) |
 | [Learning Trajectory Benchmark family](learning-trajectory/README.md) | Protocol suite registered; no outcome claimed yet. | Research instrument; results pending execution |
 | [FreeBuff run records, 2026-10-03](freebuff-runs/README.md) | Five run records copied (links aside) unchanged from the FreeBuff notebook; no outcome claimed. | pending: no claim row |
-| [D1 — Failure-to-Leverage Compiler](d1-failure-to-leverage-compiler.md) | Harness self-test specification for converting discovered failures into reusable controls and next questions. | Research instrument; no outcome claim |
+| [D1 — Failure-to-Leverage Compiler](d1-failure-to-leverage-compiler.md) | Compiler self-test specification for converting discovered failures into reusable controls and next questions. | Research instrument; no outcome claim |
