@@ -178,12 +178,12 @@ def check_run_records(root: Path) -> list[str]:
 
 
 
-D1_HARNESS = "scripts/d1_failure_to_leverage_compiler.py"
+D1_COMPILER = "scripts/d1_failure_to_leverage_compiler.py"
 
 
-def check_d1_harness(root: Path) -> list[str]:
+def check_d1_compiler(root: Path) -> list[str]:
     """Run D1's deterministic self-test as part of the lab's structural verification."""
-    path = root / D1_HARNESS
+    path = root / D1_COMPILER
     if not path.exists():
         return []
     result = subprocess.run([sys.executable, str(path), "self-test"],
@@ -321,7 +321,7 @@ def run(root: Path, online: bool) -> list[str]:
     errors += check_snapshot_headers(root)
     errors += check_llms_coverage(root)
     errors += check_run_records(root)
-    errors += check_d1_harness(root)
+    errors += check_d1_compiler(root)
     errors += check_size(root)
     errors += check_secrets(root)
     if online:
