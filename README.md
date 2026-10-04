@@ -2,6 +2,8 @@
 
 [![verify](https://github.com/lordwilsonDev/blackswanlabz-research-lab/actions/workflows/verify.yml/badge.svg)](https://github.com/lordwilsonDev/blackswanlabz-research-lab/actions/workflows/verify.yml)
 
+> **Traffic notice (2026-10-04).** Clone and view traffic on this repository is monitored and recorded from now on, because clone volume has been far higher than human readership. What is recorded is counts and dates; GitHub does not reveal who cloned, and nothing in this repository phones home or runs when you clone it. Bulk or automated cloning is unwelcome. If you read, run or build on this work, you are welcome to say so with the ["I cloned or replicated this" form](https://github.com/lordwilsonDev/blackswanlabz-research-lab/issues/new?template=cloned-or-replicated.yml) so your use can be counted and credited. Licenses are below.
+
 > **Intelligence is becoming abundant. Verification isn't. This lab is what one builder made of that idea.**
 
 This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonDev)) in one place: the thesis, the methods, the systems, the experiments, the papers and the operating standards behind BlackSwanLabz. Read it in any order. Everything below links to the full piece.
@@ -73,10 +75,6 @@ PYTHON=python3.12 scripts/verify.sh --offline  # skip the network checks
 ## Third-party material
 
 [**building-an-exo**](third-party/building-an-exo/README.md) — a Claude skill by Kent Langley encoding Salim Ismail's *The Organizational Singularity* (ExO 3.0), stored unmodified with attribution. Not lab work; the lab's licenses do not apply to it.
-
-## Clones and traffic
-
-GitHub shows the owner aggregate clone and view counts, not who cloned. Nothing in this repository phones home or runs on clone, and there is no tracker in it. If you read, run or build on it, saying so is optional: open an issue with the "I cloned or replicated this" form so your use can be counted and credited.
 
 ## For AI readers
 
