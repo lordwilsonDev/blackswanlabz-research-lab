@@ -191,7 +191,7 @@ def check_d1_compiler(root: Path) -> list[str]:
     if result.returncode == 0:
         return []
     detail = (result.stdout + result.stderr).strip().replace("\n", " | ")
-    return [f"{D1_HARNESS}: self-test failed: {detail[-600:]}"]
+    return [f"{D1_COMPILER}: self-test failed: {detail[-600:]}"]
 
 
 def collect_pins(root: Path) -> list[tuple[str, str, str]]:
