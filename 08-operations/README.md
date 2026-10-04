@@ -27,6 +27,7 @@ Prices in these documents are the offers as written at capture, not a current pr
 | [north-star-fde-cybernetic-loop.md](north-star-fde-cybernetic-loop.md) | How the North Star, the FDE protocol and a control-loop view fit together as one feedback loop | 1,085 |
 
 | [black-swan-labs-research-group.md](black-swan-labs-research-group.md) | Universal People-Centered Research Operating System: owner intent, research construction, skills/harnesses, governance, people operations, experiments, and continuous improvement | — |
+| [competitive-architecture-absorption-v1.md](competitive-architecture-absorption-v1.md) | Attributed competitive architecture register: OneManCompany, OPOS, Robin, and PHOBOS primitives mapped into the BlackSwanLabz substrate | — |
 
 ## How these relate
 

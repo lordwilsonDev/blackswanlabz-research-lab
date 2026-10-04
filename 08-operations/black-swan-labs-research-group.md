@@ -1759,3 +1759,156 @@ and
 > **The next question starts from a better place.**
 
 That is Black Swan Labs Research Group.
+
+
+---
+
+# 62. COMPETITIVE ARCHITECTURE ABSORPTION
+
+The research group continuously studies public architectures that address adjacent problems.
+
+The rule is:
+
+**observe -> abstract -> attribute -> re-implement -> test -> integrate -> improve**
+
+The objective is not feature imitation. It is to reduce rediscovery cost while preserving independent verification.
+
+## Organizational primitives absorbed
+
+### Vessel / Talent separation
+Inspired by public architecture described by OneManCompany.
+
+Separate:
+- execution substrate
+- worker identity
+- role
+- skill
+- task assignment
+
+The model is replaceable; the institutional role persists.
+
+### Persistent coaching
+A coaching event must become a testable behavior change rather than a conversational note:
+
+**COACHING -> BEHAVIOR CHANGE -> NEXT-TASK TEST -> RETAINED / PENDING**
+
+### Agent performance review
+Review execution quality using evidence, not self-report:
+
+- verified work
+- defect rate
+- rework
+- transfer performance
+- policy adherence
+- reusable capability created
+- unresolved limitations
+
+### Structured multi-agent meetings
+Meetings preserve purpose, participants, claims, disagreements, decisions, owners, evidence, and unresolved questions.
+
+### Task-level cost accounting
+Research and business work record model/tool use, human intervention, elapsed time, setup, and direct spend where measurable.
+
+### Retrospective-to-workflow extraction
+Repeated successful work can become a reusable skill or harness only after testing.
+
+**REPEATED WORK -> RETROSPECTIVE -> PATTERN -> SKILL/HARNESS -> TEST -> REUSE**
+
+## Git-native organization primitives
+
+### Organization as versioned artifact
+Mission, values, policies, roles, departments, work, and decisions remain inspectable in version control.
+
+### Department charter
+Every organizational module can define mission, authority, inputs, outputs, owner, tools, skills, permissions, KPIs, failure modes, and escalation.
+
+### Workstream steward
+A chief-of-staff-style coordination layer may register active workstreams, resolve ownership ambiguity, track blocked/paused/resumed state, and preserve the next action.
+
+### Graduated permissions
+Use:
+
+**AUTO -> NOTICE -> CONFIRM -> EXPLICIT APPROVAL -> HARD REFUSE**
+
+and map consequential actions to the appropriate rung.
+
+### Parallel workstream registry
+Concurrent work receives explicit identity, objective, owner, task reference, state, dependencies, next action, and blocking authority.
+
+### Core / starter separation
+Reusable institutional primitives remain separate from organization-specific configuration so the architecture can be instantiated repeatedly.
+
+## Research-agent primitives
+
+### Specialized research lanes
+Use role-specific research interfaces for literature discovery, deep synthesis, evidence extraction, data analysis, experiment interpretation, hypothesis generation, and adversarial critique.
+
+### Continuous research feedback
+Support:
+
+**QUESTION -> LITERATURE -> HYPOTHESIS -> EXPERIMENT -> DATA -> ANALYSIS -> UPDATED HYPOTHESIS**
+
+### Agent ablation
+When a specialist is consequential, compare the full system against an ablated or replaced version under a prespecified metric.
+
+### Blinded evaluation
+Where practical, separate evaluator identity from system identity and source identity.
+
+### Statistical comparison
+Where the data justify it, freeze the metric and null hypothesis and use appropriate randomization/permutation procedures with preserved raw observations.
+
+## Multimodal/local routing primitive
+
+Use a capability registry that describes:
+
+- modality
+- capability
+- local/remote execution
+- prerequisites
+- cost
+- data boundary
+- verification
+- failure class
+- owner
+
+Route work by required capability rather than model brand.
+
+## Attribution and licensing
+
+The detailed provenance record is maintained in:
+
+**08-operations/competitive-architecture-absorption-v1.md**
+
+Public architectural sources currently informing this layer include:
+
+- OneManCompany — Apache-2.0 repository
+- OPOS — MIT repository
+- Robin / FutureHouse — Apache-2.0 repository
+- PHOBOS — no standard open-source license identified in public repository metadata; architecture is independently re-derived and no source code is copied
+
+A source project's documentation or paper may have different terms from its code repository. The applicable license governs any direct reuse.
+
+## Institutional absorption gate
+
+No imported architectural idea becomes institutional policy merely because a competitor uses it.
+
+Every absorbed primitive follows:
+
+**PROPOSED -> IMPLEMENTED -> TESTED -> VERIFIED -> REUSABLE -> PROMOTED**
+
+Competitor documentation establishes a public claim about the competitor's system.
+
+It does not establish that the same primitive works here.
+
+## Controlling principle
+
+BlackSwanLabz may learn from the ecosystem without surrendering its substrate.
+
+**Evidence remains the authority.**
+
+**Governance remains the boundary.**
+
+**Human judgment remains the decision point.**
+
+**Reusable capability remains the compounding asset.**
+
