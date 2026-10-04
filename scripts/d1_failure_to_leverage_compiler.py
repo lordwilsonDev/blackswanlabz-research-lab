@@ -90,12 +90,13 @@ def validate(dossier: dict[str, Any]) -> list[Finding]:
     boundary = dossier.get("boundary")
     if not isinstance(boundary, dict):
         errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary must be an object"))
-    elif not boundary.get("declared"):
-        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.declared is required"))
-    elif "actual" not in boundary:
-        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.actual is required"))
-    elif not isinstance(boundary.get("violations", []), list):
-        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.violations must be a list"))
+    else:
+        if not boundary.get("declared"):
+            errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.declared is required"))
+        if not boundary.get("actual"):
+            errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.actual is required"))
+        if not isinstance(boundary.get("violations", []), list):
+            errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.violations must be a list"))
 
     environment = dossier.get("environment")
     if not isinstance(environment, dict):
@@ -478,6 +479,38 @@ def template() -> dict[str, Any]:
 
 def run_self_test() -> dict[str, Any]:
     class D1Tests(unittest.TestCase):
+        def test_canonical_multimodal_fixture_triggers_steel(self) -> None:
+            fixture = (
+                Path(__file__).resolve().parent.parent
+                / "05-experiments"
+                / "d1-fixtures"
+                / "cascade-multimodal-verification.json"
+            )
+            if not fixture.exists():
+                self.fail(f"canonical fixture missing: {fixture}")
+            d = load(fixture)
+            out = analyze(d)
+            self.assertEqual(out["verdict"], "CASCADE_DETECTED")
+            self.assertTrue(out["steel"]["protected_interpretation"])
+            self.assertIn("INDEPENDENCE_NOT_ESTABLISHED", out["steel"]["flags"])
+            self.assertIn("BOUNDARY_VIOLATION", out["steel"]["flags"])
+
+        def test_msb_environment_fixture_triggers_observer_steel(self) -> None:
+            fixture = (
+                Path(__file__).resolve().parent.parent
+                / "05-experiments"
+                / "d1-fixtures"
+                / "msb-environment-cascade.json"
+            )
+            if not fixture.exists():
+                self.fail(f"MSB fixture missing: {fixture}")
+            d = load(fixture)
+            out = analyze(d)
+            self.assertTrue(out["steel"]["protected_interpretation"])
+            self.assertIn("MEASUREMENT_CONTEXT_DRIFT", out["steel"]["flags"])
+            self.assertIn("OBSERVER_INTERVENTION_CONTAMINATION", out["steel"]["flags"])
+            self.assertIn("BOUNDARY_VIOLATION", out["steel"]["flags"])
+
         def test_steel_catches_environment_observer_and_measurement_drift(self) -> None:
             d = template()
             d["research_id"] = "SELF-STEEL"
