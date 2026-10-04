@@ -68,6 +68,9 @@ Read in this order.
 ## Claims
 - [CLAIMS](CLAIMS.md): every number or factual claim with status (verified, pending, retracted), evidence, and how to check.
 
+## Third-party (not lab work)
+- [building-an-exo](third-party/building-an-exo/README.md): a Claude skill by Kent Langley based on Salim Ismail's The Organizational Singularity; kept unmodified with attribution. Not a lab claim.
+
 ## Optional
 - [Design spec](docs/specs/2026-09-28-research-lab-design.md): how and why the lab is built.
 - [Implementation plan](docs/plans/2026-09-28-research-lab-v1.md): the build steps.

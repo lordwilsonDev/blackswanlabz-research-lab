@@ -66,6 +66,10 @@ PYTHON=python3.12 scripts/verify.sh            # all checks, uses the GitHub API
 PYTHON=python3.12 scripts/verify.sh --offline  # skip the network checks
 ```
 
+## Third-party material
+
+[**building-an-exo**](third-party/building-an-exo/README.md) — a Claude skill by Kent Langley encoding Salim Ismail's *The Organizational Singularity* (ExO 3.0), stored unmodified with attribution. Not lab work; the lab's licenses do not apply to it.
+
 ## For AI readers
 
 Start with [llms.txt](llms.txt). Rules: [AGENTS.md](AGENTS.md).
