@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed aefac70)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-LTB Pilot 001 — L5 Extension Probe
 
 Status: exploratory/provisional.

@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 5fa3768)
+captured: 2026-10-02
+status: active
+---
+
 # Three-Process Readiness Audit — 2026-10-02
 
 ## Scope

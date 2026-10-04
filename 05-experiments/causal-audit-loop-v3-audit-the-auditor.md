@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 2fcb5f3)
+captured: 2026-10-03
+status: active
+---
+
 # FREEBUF CAUSAL-AUDIT LOOP v3
 ## Audit the Auditor — Independence, Retraction, Weighting, and Stop/Freeze
 

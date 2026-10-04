@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 42504be)
+captured: 2026-10-02
+status: active
+---
+
 # Three-Process Learning Research Protocol v0.1
 
 ## Purpose

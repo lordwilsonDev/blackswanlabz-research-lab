@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed b64da52)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-MBEDDR-001 — State-Machine Capability Tranche
 
 ## Source basis

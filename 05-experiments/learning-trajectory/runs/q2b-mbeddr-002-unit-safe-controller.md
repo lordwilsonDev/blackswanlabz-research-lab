@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 56f4653)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-MBEDDR-002 — Unit-Safe Reactive Controller Run
 
 ## Status

@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 8d2ae6d)
+captured: 2026-10-02
+status: active
+---
+
 # Metric Contracts — Three-Process Learning Research Program v0.2
 
 Every metric has a definition, unit, evidence requirement, and prohibited inference.

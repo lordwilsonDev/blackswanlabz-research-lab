@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 42504be)
+captured: 2026-10-02
+status: active
+---
+
 # Three-Process Readiness Gate v0.1
 
 This gate is administrative and methodological. It does not generate experimental evidence.

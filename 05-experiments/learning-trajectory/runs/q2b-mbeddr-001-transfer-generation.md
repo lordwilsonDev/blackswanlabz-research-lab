@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed a5ae6b5)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-MBEDDR-001 — Transfer and Generation Update
 
 ## Trajectory

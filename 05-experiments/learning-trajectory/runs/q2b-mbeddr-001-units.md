@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 52de004)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-MBEDDR-001 — Physical-Units Capability Tranche
 
 ## Starting question

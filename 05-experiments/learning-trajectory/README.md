@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 8d2ae6d)
+captured: 2026-10-02
+status: active
+---
+
 # Learning Trajectory Research Program
 
 This directory contains the versioned benchmark family for measuring learning as a trajectory from question to capability to build to verification.

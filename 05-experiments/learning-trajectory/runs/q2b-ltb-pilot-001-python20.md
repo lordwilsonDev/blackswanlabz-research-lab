@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 85f3340)
+captured: 2026-10-02
+status: active
+---
+
 # Q2B-LTB Pilot Run 001 — Python 2.0 Core-Inspired Interpreter Slice
 
 ## Status

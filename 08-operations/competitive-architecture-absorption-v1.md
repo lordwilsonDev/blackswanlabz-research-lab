@@ -1,4 +1,6 @@
 ---
+source: authored in this lab (competitive architecture absorption register; attributions listed in the file)
+captured: 2026-10-03
 status: active
 version: 1.0
 purpose: competitive architecture absorption and attribution

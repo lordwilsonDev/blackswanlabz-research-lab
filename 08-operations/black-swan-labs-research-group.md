@@ -1,6 +1,7 @@
 ---
-source: BlackSwanLabz Research Lab operating architecture
-status: active design / implementation blueprint
+source: BlackSwanLabz Research Lab operating architecture (design and implementation blueprint; not evidence that the described processes run)
+captured: 2026-10-03
+status: active
 version: 1.0
 ---
 

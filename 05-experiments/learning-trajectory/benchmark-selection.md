@@ -1,3 +1,9 @@
+---
+source: authored in this lab (first committed 8d2ae6d)
+captured: 2026-10-02
+status: active
+---
+
 # Benchmark Project Selection
 
 ## Objective
