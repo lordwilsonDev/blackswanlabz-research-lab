@@ -1,5 +1,5 @@
 {
-  "schema_version": "d1-1.0",
+  "schema_version": "d1-1.1",
   "research_id": "D1-MVMI-2026-10-04-001",
   "problem": {
     "statement": "Determine whether multi-model multimodal verification establishes independent verification of a visual claim.",
@@ -136,5 +136,60 @@
     "Which evidence pathways are genuinely independent?",
     "What changes when shared multimodal preprocessing is disabled?",
     "How many downstream claims inherited the original attribution?"
-  ]
+  ],
+  "claim": {
+    "statement": "Multi-model multimodal verification establishes independent verification of a visual claim.",
+    "requires_independent_verification": true
+  },
+  "boundary": {
+    "declared": "raw image → target model → independent verifier → judge",
+    "actual": "image → environment multimodal processing → target model → verifier → judge",
+    "violations": [
+      {
+        "component": "shared_multimodal_preprocessor",
+        "phase": "INPUT",
+        "effect": "may transform evidence before model access"
+      }
+    ]
+  },
+  "environment": {
+    "capabilities": [
+      {
+        "name": "shared_multimodal_preprocessor",
+        "status": "UNKNOWN",
+        "influence": "MATERIAL",
+        "provenance": "not inventoried before original run",
+        "shared": true
+      },
+      {
+        "name": "verification_judge_context",
+        "status": "PRE_EXISTING",
+        "influence": "POTENTIAL",
+        "provenance": "known but not ablated",
+        "shared": true
+      }
+    ]
+  },
+  "measurements": {
+    "baseline": {
+      "environment_inventory": "not recorded"
+    },
+    "execution": {
+      "verifiers": 2
+    },
+    "result": {
+      "observed": "all verification stages passed"
+    },
+    "context_drift": false,
+    "drift_evidence": []
+  },
+  "interventions": [],
+  "independence": {
+    "model": false,
+    "evidence": false,
+    "capability": false,
+    "environment": false,
+    "temporal": true,
+    "provenance": false
+  }
 }
