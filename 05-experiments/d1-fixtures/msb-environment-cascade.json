@@ -1,0 +1,173 @@
+{
+  "schema_version": "d1-1.1",
+  "research_id": "D1-MSB-ENV-2026-10-04-001",
+  "claim": {
+    "statement": "The observed CI, runtime, and backup results are properties of the target repository/system rather than environment and investigation state.",
+    "requires_independent_verification": false
+  },
+  "problem": {
+    "statement": "Determine why verification results differ across local, clean-main, CI, self-hosted, and restored environments.",
+    "domain": "software engineering / AI infrastructure verification",
+    "stakes": "high"
+  },
+  "boundary": {
+    "declared": "msb-v3 code and tests under evaluation",
+    "actual": "code + git checkout state + optional dependencies + environment variables + supervisor topology + repository config + backup semantics + investigation actions",
+    "violations": [
+      {"component":"MSB_RUN_TIERS","phase":"MEASUREMENT","effect":"changed test collection semantics"},
+      {"component":"git checkout depth","phase":"MEASUREMENT","effect":"changed history-dependent doc-record results"},
+      {"component":"launchd/tmux supervisor pair","phase":"EXECUTION","effect":"competing processes changed listener ownership"},
+      {"component":"repository config","phase":"ANALYSIS","effect":"scratch configuration crossed worktree expectations"},
+      {"component":"backup exclusion rule","phase":"RESTORE","effect":"tracked artifacts were omitted from restored copy"}
+    ]
+  },
+  "environment": {
+    "capabilities": [
+      {"name":"MSB_RUN_TIERS environment variable","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"CI runtime configuration","shared":true},
+      {"name":"shallow git checkout","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"CI workflow definition","shared":true},
+      {"name":"launchd supervisor","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"machine service","shared":false},
+      {"name":"tmux supervisor","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"machine process","shared":false},
+      {"name":"repository-level git config","status":"PRE_EXISTING","influence":"POTENTIAL","provenance":"shared repository config","shared":true},
+      {"name":"backup exclusion semantics","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"backup script","shared":false}
+    ]
+  },
+  "measurements": {
+    "baseline": {
+      "root_worktree": "dirty and diverged",
+      "clean_main": "tested separately"
+    },
+    "execution": {
+      "ci_checkout": "shallow",
+      "ci_environment": "optional packages plus MSB_RUN_TIERS",
+      "self_hosted": "launchd plus redundant tmux supervisor"
+    },
+    "result": {
+      "observed": "different tests, collections, endpoint states, and restore results across environments"
+    },
+    "context_drift": true,
+    "drift_evidence": [
+      "CI MSB_RUN_TIERS altered doc-record collection",
+      "scratch testing changed repository-wide commit.gpgsign",
+      "server ownership changed during supervisor conflict",
+      "backup restore semantics differed from live tracked tree"
+    ]
+  },
+  "interventions": [
+    {
+      "actor": "investigator",
+      "target": "repository_configuration",
+      "phase": "ANALYSIS",
+      "authorized": false,
+      "reversible": true,
+      "changes_environment": true,
+      "isolated": false
+    },
+    {
+      "actor": "investigator",
+      "target": "process_topology",
+      "phase": "EXECUTION",
+      "authorized": true,
+      "reversible": true,
+      "changes_environment": true,
+      "isolated": true
+    }
+  ],
+  "independence": {
+    "model": true,
+    "evidence": false,
+    "capability": false,
+    "environment": false,
+    "temporal": false,
+    "provenance": false
+  },
+  "assumptions": [
+    {
+      "id":"A1",
+      "statement":"A clean local test result and a CI test result are directly comparable.",
+      "verified":false,
+      "critical":true
+    },
+    {
+      "id":"A2",
+      "statement":"The investigation can use scratch worktrees without affecting repository-wide state.",
+      "verified":false,
+      "critical":true
+    }
+  ],
+  "variables": [
+    {"name":"MSB_RUN_TIERS","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"CI configuration","shared":true,"controlled":false},
+    {"name":"checkout_history_depth","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"workflow checkout settings","shared":true,"controlled":false},
+    {"name":"supervisor_topology","status":"PRE_EXISTING","influence":"MATERIAL","provenance":"runtime process graph","shared":false,"controlled":false},
+    {"name":"investigator_mutation","status":"INTRODUCED","influence":"MATERIAL","provenance":"recorded investigation action","shared":false,"controlled":false}
+  ],
+  "failure": {
+    "description":"The investigation initially treated environment-dependent verification differences as properties of the software under test.",
+    "evidence":"Changing checkout history, optional dependency availability, environment variables, supervisor topology, repository configuration, and restore semantics changed observed outcomes.",
+    "failure_type":"MISATTRIBUTION",
+    "new_failure_classes":[
+      "environment-dependent measurement",
+      "observer-intervention contamination",
+      "configuration-scope leakage",
+      "supervisor-topology cascade",
+      "restore-semantics divergence"
+    ]
+  },
+  "inversion": {
+    "apparent_axiom":"A failing test identifies a defect in the target system.",
+    "inverted_axiom":"A failing test may identify an environment, measurement, or investigation defect instead.",
+    "competing_explanations":[
+      "The target implementation is wrong.",
+      "The test environment changes the measurement.",
+      "The verifier inherits configuration from the execution environment.",
+      "The investigation itself changes the state being measured."
+    ]
+  },
+  "leverage": {
+    "candidate_controls":[
+      {
+        "name":"environment provenance preflight",
+        "impact":5,
+        "recurrence":5,
+        "generality":5,
+        "cost":2,
+        "reusable_test":"capture checkout depth, environment variables, optional package set, process topology, repository config scope, and restore semantics before measurement"
+      },
+      {
+        "name":"observer mutation firewall",
+        "impact":5,
+        "recurrence":4,
+        "generality":5,
+        "cost":2,
+        "reusable_test":"disallow investigation-side mutation of measured environments unless isolated, authorized, and recorded"
+      },
+      {
+        "name":"measurement-context lock",
+        "impact":5,
+        "recurrence":4,
+        "generality":4,
+        "cost":1,
+        "reusable_test":"freeze and fingerprint measurement-affecting environment state before baseline and before verdict"
+      }
+    ]
+  },
+  "downstream": [
+    {"artifact":"CI failure conclusion","depends_on":["MSB_RUN_TIERS","checkout_history_depth"],"decision":"reassess"},
+    {"artifact":"runtime stability conclusion","depends_on":["supervisor_topology"],"decision":"reassess"},
+    {"artifact":"repository configuration conclusion","depends_on":["investigator_mutation"],"decision":"reassess"},
+    {"artifact":"backup integrity conclusion","depends_on":["backup exclusion semantics"],"decision":"reassess"}
+  ],
+  "tests": [
+    {"name":"clean-main-lint","result":"PASS","evidence":"clean environment lint"},
+    {"name":"CI-like-collection","result":"PASS","evidence":"4,047 collected after environment correction"},
+    {"name":"runtime-endpoint","result":"PASS","evidence":"stabilized single launchd supervisor"},
+    {"name":"backup-restore","result":"PASS","evidence":"restored snapshot integrity succeeded"}
+  ],
+  "new_questions":[
+    "Which environment variables can change the semantics of the measurement itself?",
+    "Which repository-scoped settings cross worktree boundaries?",
+    "Can the observer mutate the system under test during investigation?",
+    "What process topology can alter availability or ownership independently of code?",
+    "Which restore operations preserve tracked semantics rather than merely file presence?",
+    "What other variables are not represented in the current verification taxonomy?"
+  ]
+}
