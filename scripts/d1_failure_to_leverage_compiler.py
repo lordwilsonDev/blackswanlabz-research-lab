@@ -20,7 +20,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = "d1-1.0"
+SCHEMA_VERSION = "d1-1.1"
+INDEPENDENCE_AXES = ("model", "evidence", "capability", "environment", "temporal", "provenance")
 STATUSES = {"PASS", "FAIL", "BLOCKED", "UNRESOLVED", "TOOL_ERROR"}
 VARIABLE_STATUSES = {"KNOWN_PRESENT", "KNOWN_ABSENT", "INTRODUCED", "PRE_EXISTING",
                      "SHARED", "ISOLATED", "UNKNOWN"}
@@ -54,8 +55,8 @@ def validate(dossier: dict[str, Any]) -> list[Finding]:
         errors.append(Finding("D1-SCHEMA", "BLOCK", "schema_version must be d1-1.0"))
 
     for key in ("research_id", "problem", "observed_event", "assumptions",
-                "variables", "failure", "inversion", "leverage", "downstream",
-                "tests"):
+                "variables", "failure", "inversion", "leverage", "downstream", "tests", "boundary", "environment",
+                "measurements", "interventions", "independence"):
         if key not in dossier:
             errors.append(Finding("D1-MISSING", "BLOCK", f"missing required section: {key}"))
 
@@ -86,6 +87,49 @@ def validate(dossier: dict[str, Any]) -> list[Finding]:
             if not isinstance(value, (int, float)) or value < 0:
                 errors.append(Finding("D1-LEVERAGE-SCALE", "BLOCK",
                                       f"candidate_controls[{idx}].{field} must be >= 0"))
+    boundary = dossier.get("boundary")
+    if not isinstance(boundary, dict):
+        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary must be an object"))
+    elif not boundary.get("declared"):
+        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.declared is required"))
+    elif "actual" not in boundary:
+        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.actual is required"))
+    elif not isinstance(boundary.get("violations", []), list):
+        errors.append(Finding("D1-BOUNDARY", "BLOCK", "boundary.violations must be a list"))
+
+    environment = dossier.get("environment")
+    if not isinstance(environment, dict):
+        errors.append(Finding("D1-ENV", "BLOCK", "environment must be an object"))
+    elif not isinstance(environment.get("capabilities", []), list):
+        errors.append(Finding("D1-ENV", "BLOCK", "environment.capabilities must be a list"))
+
+    measurements = dossier.get("measurements")
+    if not isinstance(measurements, dict):
+        errors.append(Finding("D1-MEASURE", "BLOCK", "measurements must be an object"))
+    else:
+        for field in ("baseline", "execution", "result"):
+            if field not in measurements:
+                errors.append(Finding("D1-MEASURE", "BLOCK", f"measurements.{field} is required"))
+
+    for idx, intervention in enumerate(_as_list(dossier.get("interventions"))):
+        if not isinstance(intervention, dict):
+            errors.append(Finding("D1-INTERVENTION", "BLOCK",
+                                  f"interventions[{idx}] must be an object"))
+            continue
+        for field in ("actor", "target", "phase", "authorized", "reversible"):
+            if field not in intervention:
+                errors.append(Finding("D1-INTERVENTION", "BLOCK",
+                                      f"interventions[{idx}].{field} is required"))
+
+    independence = dossier.get("independence")
+    if not isinstance(independence, dict):
+        errors.append(Finding("D1-INDEPENDENCE", "BLOCK", "independence must be an object"))
+    else:
+        for axis in INDEPENDENCE_AXES:
+            if axis not in independence:
+                errors.append(Finding("D1-INDEPENDENCE", "BLOCK",
+                                      f"independence.{axis} is required"))
+
     return errors
 
 
@@ -113,6 +157,56 @@ def analyze(dossier: dict[str, Any]) -> dict[str, Any]:
         and a.get("critical", False)
         and a.get("verified") is not True
     ]
+
+    boundary = dossier.get("boundary", {})
+    boundary_violations = _as_list(boundary.get("violations"))
+
+    environment = dossier.get("environment", {})
+    environment_capabilities = _as_list(environment.get("capabilities"))
+    environment_unknown = [
+        cap for cap in environment_capabilities
+        if isinstance(cap, dict)
+        and cap.get("status") == "UNKNOWN"
+        and cap.get("influence") in {"POTENTIAL", "MATERIAL", "UNKNOWN"}
+    ]
+
+    measurements = dossier.get("measurements", {})
+    measurement_drift = measurements.get("context_drift") is True
+    measurement_drift_evidence = measurements.get("drift_evidence", [])
+
+    observer_interventions = [
+        item for item in _as_list(dossier.get("interventions"))
+        if isinstance(item, dict)
+        and item.get("phase") in {"BASELINE_AFTER", "EXECUTION", "VERIFICATION", "ANALYSIS"}
+        and item.get("changes_environment") is True
+    ]
+    unsafe_observer_interventions = [
+        item for item in observer_interventions
+        if item.get("authorized") is not True or item.get("isolated") is not True
+    ]
+
+    independence = dossier.get("independence", {})
+    independence_gaps = {
+        axis: independence.get(axis)
+        for axis in INDEPENDENCE_AXES
+        if independence.get(axis) is not True
+    }
+
+    claim_requires_independence = bool(
+        dossier.get("claim", {}).get("requires_independent_verification")
+    )
+
+    steel_flags = []
+    if boundary_violations:
+        steel_flags.append("BOUNDARY_VIOLATION")
+    if environment_unknown:
+        steel_flags.append("UNKNOWN_INFLUENTIAL_ENVIRONMENT_CAPABILITY")
+    if measurement_drift:
+        steel_flags.append("MEASUREMENT_CONTEXT_DRIFT")
+    if unsafe_observer_interventions:
+        steel_flags.append("OBSERVER_INTERVENTION_CONTAMINATION")
+    if claim_requires_independence and independence_gaps:
+        steel_flags.append("INDEPENDENCE_NOT_ESTABLISHED")
 
     tests = _as_list(dossier.get("tests"))
     failed_tests = [t for t in tests if isinstance(t, dict) and t.get("result") == "FAIL"]
@@ -192,8 +286,18 @@ def analyze(dossier: dict[str, Any]) -> dict[str, Any]:
         or blocked_tests
     )
     leverage_captured = bool(controls and deduped_questions)
-    attribution_blocked = bool(unknown_influential or unverified_critical or shared_influential)
-    cascade_detected = cascade_depth > 0 or bool(shared_influential and len(tests) > 1)
+    attribution_blocked = bool(
+        unknown_influential
+        or unverified_critical
+        or shared_influential
+        or boundary_violations
+        or measurement_drift
+        or unsafe_observer_interventions
+        or (claim_requires_independence and independence_gaps)
+    )
+    cascade_detected = cascade_depth > 0 or bool(
+        shared_influential and len(tests) > 1
+    ) or bool(boundary_violations and cascade_depth > 0)
 
     if findings:
         verdict = "HARNESS_INPUT_INVALID"
@@ -227,6 +331,16 @@ def analyze(dossier: dict[str, Any]) -> dict[str, Any]:
             "failure": dossier.get("failure"),
             "candidate_discovery": candidate_discovery,
             "new_failure_classes": _as_list(dossier.get("failure", {}).get("new_failure_classes")),
+        },
+        "steel": {
+            "flags": steel_flags,
+            "boundary_violations": boundary_violations,
+            "unknown_influential_environment_capabilities": environment_unknown,
+            "measurement_context_drift": measurement_drift,
+            "measurement_drift_evidence": measurement_drift_evidence,
+            "observer_intervention_contamination": unsafe_observer_interventions,
+            "independence_gaps": independence_gaps,
+            "protected_interpretation": bool(steel_flags),
         },
         "attribution": {
             "unknown_influential_variables": unknown_influential,
@@ -266,6 +380,10 @@ def template() -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "research_id": "D1-YYYY-MM-DD-001",
+        "claim": {
+            "statement": "",
+            "requires_independent_verification": False,
+        },
         "problem": {
             "statement": "",
             "domain": "",
@@ -283,6 +401,30 @@ def template() -> dict[str, Any]:
                 "critical": True,
             }
         ],
+        "boundary": {
+            "declared": "",
+            "actual": "",
+            "violations": [],
+        },
+        "environment": {
+            "capabilities": [],
+        },
+        "measurements": {
+            "baseline": {},
+            "execution": {},
+            "result": {},
+            "context_drift": False,
+            "drift_evidence": [],
+        },
+        "interventions": [],
+        "independence": {
+            "model": True,
+            "evidence": True,
+            "capability": True,
+            "environment": True,
+            "temporal": True,
+            "provenance": True,
+        },
         "variables": [
             {
                 "name": "example_unknown_variable",
@@ -336,6 +478,39 @@ def template() -> dict[str, Any]:
 
 def run_self_test() -> dict[str, Any]:
     class D1Tests(unittest.TestCase):
+        def test_steel_catches_environment_observer_and_measurement_drift(self) -> None:
+            d = template()
+            d["research_id"] = "SELF-STEEL"
+            d["claim"]["requires_independent_verification"] = True
+            d["environment"]["capabilities"] = [
+                {"name": "repo_config", "status": "PRE_EXISTING",
+                 "influence": "MATERIAL", "provenance": "known"}
+            ]
+            d["measurements"]["context_drift"] = True
+            d["measurements"]["drift_evidence"] = ["environment variable changed after baseline"]
+            d["interventions"] = [
+                {"actor": "investigator", "target": "repo_config", "phase": "VERIFICATION",
+                 "authorized": False, "reversible": True,
+                 "changes_environment": True, "isolated": False}
+            ]
+            d["independence"]["environment"] = False
+            out = analyze(d)
+            self.assertIn("MEASUREMENT_CONTEXT_DRIFT", out["steel"]["flags"])
+            self.assertIn("OBSERVER_INTERVENTION_CONTAMINATION", out["steel"]["flags"])
+            self.assertIn("INDEPENDENCE_NOT_ESTABLISHED", out["steel"]["flags"])
+            self.assertTrue(out["attribution"]["blocked"])
+
+        def test_steel_catches_boundary_violation(self) -> None:
+            d = template()
+            d["research_id"] = "SELF-BOUNDARY"
+            d["boundary"]["violations"] = [
+                {"component": "shared-supervisor", "phase": "EXECUTION",
+                 "effect": "changed listener ownership"}
+            ]
+            out = analyze(d)
+            self.assertIn("BOUNDARY_VIOLATION", out["steel"]["flags"])
+            self.assertTrue(out["attribution"]["blocked"])
+
         def test_hidden_shared_capability_blocks(self) -> None:
             d = template()
             d["research_id"] = "SELF-HIDDEN"
