@@ -178,8 +178,18 @@ def _text_files(root: Path, skip_dirs: tuple[str, ...] = IGNORED_DIRS) -> list[P
     return out
 
 
+CODE_SUFFIXES = {".py", ".sh"}
+CODE_DIRS = ("tests",)
+
+
+def _is_code(path: Path, root: Path) -> bool:
+    return path.suffix in CODE_SUFFIXES or path.relative_to(root).parts[0] in CODE_DIRS
+
+
 def text_token_estimate(root: Path) -> int:
-    return sum(len(p.read_text(errors="replace")) for p in _text_files(root)) // 4
+    """Size of the lab as evidence to read: code and tests are not counted (owner decision, 2026-10-04).
+    Secrets and link checks still cover everything via _text_files."""
+    return sum(len(p.read_text(errors="replace")) for p in _text_files(root) if not _is_code(p, root)) // 4
 
 
 def check_size(root: Path, budget: int = TOKEN_BUDGET) -> list[str]:

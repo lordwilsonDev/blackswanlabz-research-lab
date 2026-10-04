@@ -325,3 +325,21 @@ def test_run_only_touches_the_network_when_online(tmp_path, monkeypatch):
     assert verify.run(tmp_path, online=True) == [] and sorted(calls) == ["commit", "freq"]
     monkeypatch.setattr(verify, "gh_code_frequency", lambda repo: (_ for _ in ()).throw(RuntimeError("down")))
     assert "C-001: down" in verify.run(tmp_path, online=True)
+
+
+def test_size_counts_evidence_not_code(tmp_path):
+    write(tmp_path, "README.md", "a" * 400)                                 # 100 tokens of evidence
+    write(tmp_path, "docs/spec.md", "b" * 400)                              # docs count
+    write(tmp_path, "skills/x/SKILL.md", "c" * 400)                         # skill prose counts
+    write(tmp_path, "scripts/tool.py", "d" * 40_000)                        # code does not
+    write(tmp_path, "scripts/run.sh", "e" * 40_000)
+    write(tmp_path, "tests/test_tool.py", "f" * 40_000)                     # tests do not
+    write(tmp_path, "tests/notes.md", "g" * 40_000)                         # nothing under tests/ counts
+    assert verify.text_token_estimate(tmp_path) == 300
+
+
+def test_secrets_still_scan_code_but_not_tests(tmp_path):
+    write(tmp_path, "scripts/tool.py", "key = 'ghp_" + "A" * 36 + "'\n")
+    write(tmp_path, "tests/test_x.py", "key = 'ghp_" + "B" * 36 + "'\n")
+    errors = verify.check_secrets(tmp_path)
+    assert len(errors) == 1 and "scripts/tool.py" in errors[0]
