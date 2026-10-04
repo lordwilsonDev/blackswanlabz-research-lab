@@ -1,5 +1,5 @@
 ---
-source: D1 Failure-to-Leverage Harness
+source: D1 — Failure-to-Leverage Compiler
 captured: 2026-10-04
 status: active
 ---
