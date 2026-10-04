@@ -74,6 +74,10 @@ PYTHON=python3.12 scripts/verify.sh --offline  # skip the network checks
 
 [**building-an-exo**](third-party/building-an-exo/README.md) — a Claude skill by Kent Langley encoding Salim Ismail's *The Organizational Singularity* (ExO 3.0), stored unmodified with attribution. Not lab work; the lab's licenses do not apply to it.
 
+## Clones and traffic
+
+GitHub shows the owner aggregate clone and view counts, not who cloned. Nothing in this repository phones home or runs on clone, and there is no tracker in it. If you read, run or build on it, saying so is optional: open an issue with the "I cloned or replicated this" form so your use can be counted and credited.
+
 ## For AI readers
 
 Start with [llms.txt](llms.txt). Rules: [AGENTS.md](AGENTS.md).

@@ -1,0 +1,47 @@
+name: archive-traffic
+# GitHub keeps clone and view statistics for only 14 days and shows the owner aggregate counts,
+# never who cloned. This job snapshots them weekly onto a separate branch so the history is kept.
+# It needs a token with push access (repo secret TRAFFIC_TOKEN); without it the job skips cleanly.
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # weekly, Monday 06:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snapshot traffic to the traffic-data branch
+        env:
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TRAFFIC_TOKEN:-}" ]; then
+            echo "TRAFFIC_TOKEN is not set; skipping. Add a token with push access to archive traffic."
+            exit 0
+          fi
+          stamp=$(date -u +%Y-%m-%d)
+          mkdir -p /tmp/snap
+          for kind in clones views popular/paths popular/referrers; do
+            out="/tmp/snap/${stamp}-$(echo "$kind" | tr / -).json"
+            curl -fsS -H "Authorization: Bearer $TRAFFIC_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${REPO}/traffic/${kind}" -o "$out"
+          done
+          git config user.name "traffic-archive"
+          git config user.email "traffic-archive@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin traffic-data >/dev/null 2>&1; then
+            git fetch origin traffic-data
+            git checkout traffic-data
+          else
+            git checkout --orphan traffic-data
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+          mkdir -p snapshots
+          cp /tmp/snap/*.json snapshots/
+          git add snapshots
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "Traffic snapshot ${stamp}"
+          git push origin traffic-data

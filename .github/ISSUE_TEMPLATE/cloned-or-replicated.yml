@@ -1,0 +1,37 @@
+name: I cloned or replicated this
+description: Optional. Tell the lab you used this repository, so your use can be counted and cited.
+title: "Used this: "
+labels: ["clone-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is voluntary and public. Nothing is collected unless you submit this form.
+        Do not include private information. A GitHub username is enough to be credited.
+  - type: dropdown
+    id: use
+    attributes:
+      label: What did you do?
+      options:
+        - Read it
+        - Ran the verification script
+        - Ran or reproduced an experiment
+        - Built on it or forked it
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit you used
+      description: Output of `git rev-parse HEAD`
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      description: Include what you ran, your environment, and whether the result matched what the repository states. Attach output files if you have them.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Credit
+      options:
+        - label: You may name me (my GitHub username) as someone who used this repository.
