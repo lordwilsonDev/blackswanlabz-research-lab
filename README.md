@@ -2,6 +2,8 @@
 
 [![verify](https://github.com/lordwilsonDev/blackswanlabz-research-lab/actions/workflows/verify.yml/badge.svg)](https://github.com/lordwilsonDev/blackswanlabz-research-lab/actions/workflows/verify.yml)
 
+> **EXPERIMENTAL. Do not copy this repository in bulk, and do not copy it without reading this README first.** See [READ_THIS_FIRST](READ_THIS_FIRST.md).
+
 > **Traffic notice (2026-10-04).** Clone and view traffic on this repository is monitored and recorded from now on, because clone volume has been far higher than human readership. What is recorded is counts and dates; GitHub does not reveal who cloned, and nothing in this repository phones home or runs when you clone it. Bulk or automated cloning is unwelcome. If you read, run or build on this work, you are welcome to say so with the ["I cloned or replicated this" form](https://github.com/lordwilsonDev/blackswanlabz-research-lab/issues/new?template=cloned-or-replicated.yml) so your use can be counted and credited. Licenses are below.
 
 > **Intelligence is becoming abundant. Verification isn't. This lab is what one builder made of that idea.**
@@ -87,3 +89,5 @@ Writing is [CC BY 4.0](LICENSE). Scripts are [MIT](LICENSE-CODE).
 ## Cite
 
 See [CITATION.cff](CITATION.cff).
+
+<!-- BSL-CANARY-ec484db6-c3de-4515-a242-3baa30db8ca6 -->
