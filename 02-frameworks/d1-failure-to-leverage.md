@@ -121,6 +121,73 @@ python scripts/d1_failure_to_leverage_compiler.py self-test
 
 The compiler is standard-library only.
 
+
+## Steel layer
+
+The D1 compiler includes a hardening layer for a class of failures exposed by live
+AI/software investigations: the investigator may change the environment, the
+measurement context may drift, a declared system boundary may be false, or
+"independent verification" may share an upstream capability.
+
+Steel therefore treats these as first-class gates:
+
+- **BOUNDARY_VIOLATION**
+- **UNKNOWN_INFLUENTIAL_ENVIRONMENT_CAPABILITY**
+- **MEASUREMENT_CONTEXT_DRIFT**
+- **OBSERVER_INTERVENTION_CONTAMINATION**
+- **INDEPENDENCE_NOT_ESTABLISHED**
+
+The compiler now requires explicit records for:
+
+- declared and actual experiment boundary;
+- environment capabilities;
+- measurement baseline/execution/result context;
+- investigator interventions;
+- model/evidence/capability/environment/temporal/provenance independence.
+
+A steel finding protects the interpretation from being promoted while the
+measurement apparatus itself is changing or incompletely characterized.
+
+### Steel doctrine
+
+> **The investigator is part of the experimental environment whenever the investigation can change a variable that can affect the result.**
+
+Therefore:
+
+```
+observe
+  ↓
+intervene?
+  ↓ yes
+environment changed
+  ↓
+measurement provenance re-established
+  ↓
+only then interpret
+```
+
+A D1 run must distinguish:
+
+**target failure**
+
+from
+
+**environment failure**
+
+from
+
+**measurement failure**
+
+from
+
+**observer-induced failure**
+
+from
+
+**attribution failure**.
+
+That distinction is the "steel" around the failure-to-leverage loop.
+
 ## The meta loop
 
 D1 is recursive.
