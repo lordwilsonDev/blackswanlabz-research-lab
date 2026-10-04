@@ -161,7 +161,7 @@ report** — no repair-and-rerun, and no result treated as progress.
 
 ## Related
 
-- [v4.2 verification-of-verification record](v4-2-verification-of-verification-record.md)
-- [v4.1 instrumentation record](v4-1-instrumentation-integrity-record.md)
+- v4.2 verification-of-verification record (FreeBuff notebook file `v4-2-verification-of-verification-record.md`)
+- v4.1 instrumentation record (FreeBuff notebook file `v4-1-instrumentation-integrity-record.md`)
 - Series runner (FreeBuff notebook file `../state/repair/series-runner.mjs`) ·
   Raw series output (FreeBuff notebook file `../state/repair/SERIES_v5_0.txt`)

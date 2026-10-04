@@ -12,13 +12,10 @@ Records of runs made by the FreeBuff agent on 2026-10-03, copied from its PZS no
 
 | Record | What it is | Date |
 |---|---|---|
-| [v4-0-repair-rebaseline-record](v4-0-repair-rebaseline-record.md) | v4.0 repair and rebaseline: record and terminal state | 2026-10-03 |
-| [v4-1-instrumentation-integrity-record](v4-1-instrumentation-integrity-record.md) | v4.1 instrumentation integrity: record and terminal state | 2026-10-03 |
-| [v4-2-verification-of-verification-record](v4-2-verification-of-verification-record.md) | v4.2 verification of verification: record and terminal state | 2026-10-03 |
 | [v5-0-production-series-record](v5-0-production-series-record.md) | v5.0 production series PTS-2026-10-03-001 | 2026-10-03 |
 | [v7-0-question-engineering-application](v7-0-question-engineering-application.md) | v7.0 question engineering applied to itself | 2026-10-03 |
 | [v8-0-pbr-cycle-001-record](v8-0-pbr-cycle-001-record.md) | PBR-2026-10-03-001 cycle 001 record | 2026-10-03 |
 | [production-test-pt-2026-10-03-001](production-test-pt-2026-10-03-001.md) | PT-2026-10-03-001: T0 baseline and hold | 2026-10-03 |
 | [skill-validator-adversarial-audit-2026-10-03](skill-validator-adversarial-audit-2026-10-03.md) | skill validator adversarial audit; findings open | 2026-10-03 |
 
-Not included: one 8-line completion note (rag-stale-memory-publication-2026-10-04) that contains an SSH key fingerprint, and the benchmark definition `domain-crossing-depth-benchmark-v1-0` (a method, not yet run).
+Not included: the three earlier v4.x records (v4.0, v4.1, v4.2), held back to keep this repository under its 250,000-token size budget (they remain in the FreeBuff notebook), and one 8-line completion note (rag-stale-memory-publication-2026-10-04) that contains an SSH key fingerprint, and the benchmark definition `domain-crossing-depth-benchmark-v1-0` (a method, not yet run).
