@@ -109,15 +109,15 @@ A D1 dossier records:
 
 Run:
 
-python scripts/d1_failure_to_leverage.py init <dossier.json>
+python scripts/d1_failure_to_leverage_compiler.py init <dossier.json>
 
 then:
 
-python scripts/d1_failure_to_leverage.py analyze <dossier.json>
+python scripts/d1_failure_to_leverage_compiler.py analyze <dossier.json>
 
 and:
 
-python scripts/d1_failure_to_leverage.py self-test
+python scripts/d1_failure_to_leverage_compiler.py self-test
 
 The compiler is standard-library only.
 
