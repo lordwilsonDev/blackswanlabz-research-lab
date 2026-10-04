@@ -4,7 +4,7 @@ captured: 2026-10-04
 status: active
 ---
 
-# D1 — Failure-to-Leverage Harness
+# D1 — Failure-to-Leverage Compiler
 
 ## Purpose
 
@@ -12,7 +12,7 @@ D1 captures the Black Swan Labs principle:
 
 > **Turn every discovered problem into the highest-leverage reusable capability available from that discovery.**
 
-The harness does not treat a discovered failure as the terminal state.
+The compiler does not treat a discovered failure as the terminal state.
 
 It asks:
 
@@ -80,7 +80,7 @@ This score is a prioritization heuristic, not a scientific law.
 
 The highest-value output of D1 may be a question that did not exist before the failure.
 
-The harness therefore persists generated questions.
+The compiler therefore persists generated questions.
 
 ## Status model
 
@@ -119,7 +119,7 @@ and:
 
 python scripts/d1_failure_to_leverage.py self-test
 
-The harness is standard-library only.
+The compiler is standard-library only.
 
 ## The meta loop
 
@@ -185,4 +185,4 @@ New Question
   ↓
 Next Experiment
 
-The harness exists to make that loop executable rather than rhetorical.
+The compiler exists to make that loop executable rather than rhetorical.
