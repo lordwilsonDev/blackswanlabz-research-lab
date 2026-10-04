@@ -33,6 +33,7 @@ Over the following months the industry scaled up in the same areas — agent mem
 - [**Axiom Inversion Logic (AIL)**](02-frameworks/axiom-inversion-logic.md) — find the assumption a field treats as settled, invert it, and name where the inversion should fail.
 - [**Mixture of Inversion Experts (MoIE)**](02-frameworks/moie.md) — five agents that turn an inversion into a falsifiable hypothesis.
 - [**ACTS**](02-frameworks/acts-5-act-research.md) — a five-act research method that ends at a human decision, never an automatic next step.
+- [**D1 — Failure-to-Leverage Compiler**](02-frameworks/d1-failure-to-leverage.md) — compiles discovered failures into reusable controls, tests, and the next research question, with steel gates for environment drift and observer contamination.
 
 ## Papers and experiments
 
