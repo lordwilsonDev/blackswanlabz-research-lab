@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Three-Process Readiness Audit — 2026-10-02
+captured: 2026-10-02
+status: pending
+---
+
 # Three-Process Readiness Audit — 2026-10-02
 
 ## Scope

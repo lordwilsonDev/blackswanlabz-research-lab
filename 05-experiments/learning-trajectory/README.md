@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Learning Trajectory Research Program
+captured: 2026-10-02
+status: pending
+---
+
 # Learning Trajectory Research Program
 
 This directory contains the versioned benchmark family for measuring learning as a trajectory from question to capability to build to verification.

@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Q2B-MBEDDR-001 — Physical-Units Capability Tranche
+captured: 2026-10-02
+status: pending
+---
+
 # Q2B-MBEDDR-001 — Physical-Units Capability Tranche
 
 ## Starting question

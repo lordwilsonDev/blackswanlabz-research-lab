@@ -1,6 +1,8 @@
 ---
 source: BlackSwanLabz Research Lab operating architecture
-status: active design / implementation blueprint
+captured: 2026-10-02
+status: pending
+status_note: active design / implementation blueprint
 version: 1.0
 ---
 

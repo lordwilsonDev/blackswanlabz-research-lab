@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - LTB-0.1 — Learning Trajectory Benchmark
+captured: 2026-10-02
+status: pending
+---
+
 # LTB-0.1 — Learning Trajectory Benchmark
 
 ## Purpose

@@ -1,0 +1,19 @@
+[metadata]
+name = "test-the-tests"
+version = "0.1.0"
+author = "BlackSwanLabz (Lord Wilson)"
+license = "MIT"
+created = "2026-10-04"
+updated = "2026-10-04"
+review_by = "2027-01-04"
+
+[source]
+title = "FreeBuff question blueprint v1.1, Part M (verifying the verifier), plus the testing practice developed in the lab"
+authors = ["BlackSwanLabz (Lord Wilson)"]
+publisher = "BlackSwanLabz Research Lab"
+url = "docs/specs/2026-10-03-freebuff-question-blueprint-v1.1.md"
+accessed = "2026-10-04"
+source_license = "lab-owned; mutation testing as a general technique is not claimed as new"
+redistribution = "permitted"
+permission_note = "Source is the lab owner's own blueprint and session practice. Mutation testing is established prior art and is not claimed as original."
+required_credit = "BlackSwanLabz Research Lab"

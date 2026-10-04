@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Q2B-LTB Pilot 001 — L5 Extension Probe
+captured: 2026-10-02
+status: pending
+---
+
 # Q2B-LTB Pilot 001 — L5 Extension Probe
 
 Status: exploratory/provisional.

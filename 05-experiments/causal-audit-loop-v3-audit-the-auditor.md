@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - FREEBUF CAUSAL-AUDIT LOOP v3
+captured: 2026-10-03
+status: pending
+---
+
 # FREEBUF CAUSAL-AUDIT LOOP v3
 ## Audit the Auditor — Independence, Retraction, Weighting, and Stop/Freeze
 

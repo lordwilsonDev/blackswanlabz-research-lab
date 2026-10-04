@@ -1,0 +1,11 @@
+[
+  {"query": "my pytest suite is all green but i don't trust it. can you break the code on purpose and see which bugs my tests miss?", "should_trigger": true},
+  {"query": "do a mutation test on src/billing/invoice.py and tell me the survivors, then write tests for the ones that matter", "should_trigger": true},
+  {"query": "i want a meta test that checks all my tests actually test something, flag any that have no asserts", "should_trigger": true},
+  {"query": "our coverage is 94% but we still shipped a bug in the discount logic. how do i know which tests are fake?", "should_trigger": true},
+  {"query": "write unit tests for this new parse_date function", "should_trigger": false},
+  {"query": "test_login keeps failing on CI with a timeout, help me debug it", "should_trigger": false},
+  {"query": "set up pytest and a github action for my new python project", "should_trigger": false},
+  {"query": "what's the difference between unit tests and integration tests?", "should_trigger": false},
+  {"query": "run my tests and tell me if they pass", "should_trigger": false}
+]

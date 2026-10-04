@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Research Context Bundle Specification
+captured: 2026-10-02
+status: pending
+---
+
 # Research Context Bundle Specification
 
 ## Purpose

@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - CRT-1 — Context Reconstruction Test
+captured: 2026-10-02
+status: pending
+---
+
 # CRT-1 — Context Reconstruction Test
 
 ## Purpose

@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Three-Process Learning Research Protocol v0.1
+captured: 2026-10-02
+status: pending
+---
+
 # Three-Process Learning Research Protocol v0.1
 
 ## Purpose

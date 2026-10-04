@@ -1,3 +1,9 @@
+---
+source: BlackSwanLabz Research Lab record - Benchmark Change Control
+captured: 2026-10-02
+status: pending
+---
+
 # Benchmark Change Control
 
 ## Principle

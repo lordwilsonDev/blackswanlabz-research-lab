@@ -1,0 +1,25 @@
+# Suites for the meta-test (skills/test-the-tests). Each suite: the code under test and the tests that must guard it.
+
+[[suite]]
+name = "verify"
+targets = ["scripts/verify.py"]
+tests = ["tests/test_verify.py"]
+timeout = 60
+
+[[suite]]
+name = "memory_validator"
+targets = ["scripts/memory_validator.py"]
+tests = ["tests/test_memory_validator.py"]
+timeout = 60
+
+[[suite]]
+name = "local_agent_memory"
+targets = ["scripts/local_agent_memory.py"]
+tests = ["tests/test_local_agent_memory.py"]
+timeout = 90
+
+[[suite]]
+name = "skill_forge"
+targets = ["skills/skill-forge/scripts/validate_skill.py", "skills/skill-forge/scripts/scaffold_skill.py"]
+tests = ["tests/test_skill_forge.py"]
+timeout = 60
