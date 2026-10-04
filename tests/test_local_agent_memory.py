@@ -211,3 +211,24 @@ def test_cli_ping_wake_approve(env, capsys):
     cand = json.loads(capsys.readouterr().out.split("\n", 1)[1])["processed"][0]["candidate_id"]
     assert lam.main([*base, "approve", cand, "--by", "model:m", "--title", "t", "--text", "x"]) == 2
     assert lam.main([*base, "approve", cand, "--by", "wilson", "--title", "t", "--text", "x"]) == 0
+
+
+def test_provenance_failure_blocks_memory_injection(env):
+    root, ollama = env
+    _, s = run_cycle(root, ollama)
+    promote(root, s["processed"][0]["candidate_id"])
+    # tamper with the recorded run file: source content_hash no longer matches (code 5)
+    run = next((root / "state" / "runs").glob("RUN-*.json"))
+    run.write_text(run.read_text() + " ")
+    items, st = lam.load_memory(root, TODAY)
+    assert items == [] and st["degraded"]
+    assert any(f["code"] == 5 for f in st["blocking"])
+
+
+def test_listed_model_identity_still_cannot_approve(env):
+    root, ollama = env
+    _, s = run_cycle(root, ollama)
+    with open(root / "state" / "approvers.txt", "a") as f:
+        f.write("model:test-model\n")           # misconfiguration must not grant a model approval
+    with pytest.raises(lam.MemoryError_):
+        lam.approve(root, s["processed"][0]["candidate_id"], "model:test-model", "t", "x", "workflow", 60, TODAY)

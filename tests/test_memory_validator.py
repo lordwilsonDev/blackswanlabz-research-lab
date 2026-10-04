@@ -343,3 +343,12 @@ def test_cli_exit_codes_and_generate(ws, capsys):
     assert mv.main(["validate", *args]) == 0
     assert mv.main(["retrieve", *args]) == 0
     assert "MEM-0001" in capsys.readouterr().out
+
+
+def test_index_text_drift_with_matching_ids_is_caught(ws):
+    ws.completed(C1, "PROMOTE")
+    ws.memory("MEM-0001")
+    ws.finish()
+    idx = ws.root / "42_PERMANENT_MEMORY" / "INDEX.md"
+    idx.write_text(idx.read_text().replace("2026-11-03", "2099-01-01"))   # same IDs, stale content
+    assert any(f["check"] == "index" and "out of date" in f["message"] for f in ws.run()["failures"])
