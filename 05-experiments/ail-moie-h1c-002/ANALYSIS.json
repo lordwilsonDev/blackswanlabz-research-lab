@@ -1,0 +1,117 @@
+{
+ "decision": "SUPPORTED",
+ "flags": [
+  "JUDGE NOT INDEPENDENT: a judge used the same adapter as the generator (self-preference risk)",
+  "DEVIATION: best-of-n capped at 20 samples (registered compute matching needs about 40-70 samples per question-rep for the cheaper baselines (about 3,000 calls); capped at 20 for cost, chosen before any baseline output existed); baselines get less compute than registered, which favours the treatment",
+  "COMPUTE MATCH OUTSIDE 0.85-1.15 of the treatment's budget",
+  "LENGTH DIFFERS MORE THAN 30 PERCENT between treatment and a control"
+ ],
+ "alpha_novelty": 0.782,
+ "judges": [
+  "J1",
+  "J2"
+ ],
+ "n_ratings": 336,
+ "arms": {
+  "C1": {
+   "tokens": 714,
+   "words": 76.6,
+   "extraction_failures": 0
+  },
+  "C1-bon": {
+   "tokens": 17488,
+   "words": 74.5,
+   "extraction_failures": 0
+  },
+  "C2": {
+   "tokens": 645,
+   "words": 95.2,
+   "extraction_failures": 0
+  },
+  "C2-bon": {
+   "tokens": 16489,
+   "words": 97.9,
+   "extraction_failures": 0
+  },
+  "C3": {
+   "tokens": 3781,
+   "words": 106.6,
+   "extraction_failures": 0
+  },
+  "C3-bon": {
+   "tokens": 43333,
+   "words": 109.7,
+   "extraction_failures": 0
+  },
+  "C4": {
+   "tokens": 46652,
+   "words": 145.3,
+   "extraction_failures": 0
+  }
+ },
+ "cost_ratio_vs_treatment": {
+  "C1-bon": 0.375,
+  "C2-bon": 0.353,
+  "C3-bon": 0.929
+ },
+ "contrasts": {
+  "C1-bon": {
+   "mean_novelty_diff": 0.6042,
+   "p_raw": 0.01171875,
+   "hedges_g": 0.7907,
+   "coherence_diff": -0.125,
+   "coherence_ci90": [
+    -0.4167,
+    0.1458
+   ],
+   "coherence_noninferior": true,
+   "p_holm": 0.01171875
+  },
+  "C2-bon": {
+   "mean_novelty_diff": 1.2083,
+   "p_raw": 0.000244140625,
+   "hedges_g": 1.7374,
+   "coherence_diff": -0.1875,
+   "coherence_ci90": [
+    -0.4583,
+    0.0833
+   ],
+   "coherence_noninferior": true,
+   "p_holm": 0.000732421875
+  },
+  "C3-bon": {
+   "mean_novelty_diff": 0.7917,
+   "p_raw": 0.001220703125,
+   "hedges_g": 1.0681,
+   "coherence_diff": -0.4583,
+   "coherence_ci90": [
+    -0.5625,
+    -0.3542
+   ],
+   "coherence_noninferior": false,
+   "p_holm": 0.00244140625
+  }
+ },
+ "h1c_supported": true,
+ "n_questions": 12,
+ "run": {
+  "adapter": "python3 /home/user/blackswanlabz-research-lab/.claude/skills/lab-verify/scripts/claude_adapter.py",
+  "note": "cloud sandbox, claude CLI 2.1.288, generator claude-haiku-4-5-20251001, thinking disabled, run 1",
+  "started": "2026-10-03T17:54:08+00:00",
+  "instrument": "lab-rubric-0.2",
+  "evidence": true,
+  "resumes": [
+   "2026-10-05T01:31:39+00:00",
+   "2026-10-05T02:47:31+00:00",
+   "2026-10-05T03:50:27+00:00",
+   "2026-10-05T10:20:46+00:00"
+  ],
+  "deviation": {
+   "max_n": 20,
+   "reason": "registered compute matching needs about 40-70 samples per question-rep for the cheaper baselines (about 3,000 calls); capped at 20 for cost, chosen before any baseline output existed",
+   "declared": "2026-10-05T01:31:39+00:00",
+   "note": "declared before any baseline output existed; outcome-independent (declared timestamp restored to the first --resume; later resumes had overwritten it, fixed in code afterwards)"
+  },
+  "finished": "2026-10-05T14:39:19+00:00"
+ }
+}

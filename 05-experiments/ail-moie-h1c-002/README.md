@@ -35,4 +35,25 @@ python3 $H/lab_rubric.py analyze $D && python3 $H/lab_rubric.py report $D
 
 ## Status
 
-Locked; run in progress. Results, if any, are recorded below by the assistant exactly as the harness reports them, whichever way they fall. Status stays **pending** until someone other than the run's author has reproduced it.
+Locked; run complete 2026-10-05. Results are recorded below by the assistant exactly as the harness reports them, whichever way they fall. Status stays **pending** until someone other than the run's author has reproduced it.
+
+## Results (2026-10-05)
+
+**Registered decision (H1c): SUPPORTED**, with the registered caveat that independence is not met, so this does not establish the claim and needs replication with judges from another family or human raters. Full numbers: [REPORT.md](REPORT.md), [ANALYSIS.json](ANALYSIS.json).
+
+| contrast | novelty difference | Hedges g | Holm p | coherence difference | coherence non-inferior |
+|---|---|---|---|---|---|
+| C4 vs C1-bon | +0.604 | +0.79 | 0.0117 | -0.125 | yes |
+| C4 vs C2-bon | +1.208 | +1.74 | 0.0007 | -0.188 | yes |
+| C4 vs C3-bon | +0.792 | +1.07 | 0.0024 | -0.458 | **no** |
+
+Judge agreement (Krippendorff alpha, novelty) 0.782; 336 ratings from J1 (Sonnet) and J2 (Opus); generator Haiku.
+
+What weakens it, from the report's own flags:
+
+- **Declared deviation.** Best-of-n was capped at 20 samples (the registered matching needed about 40 to 70 for C1 and C2). C1-bon and C2-bon therefore got 0.375 and 0.353 of the treatment's tokens, not 1.0. The cap was chosen before any baseline output existed and favours the treatment. C3-bon, where the cap rarely bound, got 0.93 of the budget and is the fairest contrast: g +1.07, but its coherence is not non-inferior.
+- **Length.** C4's mean answer is 145 words against 74 to 110 for the controls. A judge may rate longer, richer text as more novel.
+- **Judges are Claude models** (same vendor as the generator). The report flags possible self-preference.
+- 12 questions, one generator, one run, and the CLI gives no seed.
+
+The run was interrupted twice by sandbox restarts and resumed with `--resume`; each resume is in `RUN.json`. Its deviation timestamp was overwritten by the second resume and restored by hand to the first (noted in `RUN.json`); the code now keeps the first declaration. Status stays **pending** until someone other than the run's author has reproduced it.

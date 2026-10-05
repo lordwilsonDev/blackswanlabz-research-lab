@@ -1,0 +1,254 @@
+{
+ "Q01|C1": {
+  "budget": 60586,
+  "single_pass_tokens": 699,
+  "final_tokens": 140,
+  "n": 20,
+  "n_uncapped": 72
+ },
+ "Q01|C2": {
+  "budget": 60586,
+  "single_pass_tokens": 697,
+  "final_tokens": 192,
+  "n": 20,
+  "n_uncapped": 68
+ },
+ "Q01|C3": {
+  "budget": 60586,
+  "single_pass_tokens": 3318,
+  "final_tokens": 186,
+  "n": 17,
+  "n_uncapped": 17
+ },
+ "Q02|C1": {
+  "budget": 34892,
+  "single_pass_tokens": 692,
+  "final_tokens": 129,
+  "n": 20,
+  "n_uncapped": 42
+ },
+ "Q02|C2": {
+  "budget": 34892,
+  "single_pass_tokens": 665,
+  "final_tokens": 184,
+  "n": 20,
+  "n_uncapped": 41
+ },
+ "Q02|C3": {
+  "budget": 34892,
+  "single_pass_tokens": 3541,
+  "final_tokens": 212,
+  "n": 9,
+  "n_uncapped": 9
+ },
+ "Q03|C1": {
+  "budget": 58466,
+  "single_pass_tokens": 688,
+  "final_tokens": 140,
+  "n": 20,
+  "n_uncapped": 70
+ },
+ "Q03|C2": {
+  "budget": 58466,
+  "single_pass_tokens": 662,
+  "final_tokens": 208,
+  "n": 20,
+  "n_uncapped": 67
+ },
+ "Q03|C3": {
+  "budget": 58466,
+  "single_pass_tokens": 4244,
+  "final_tokens": 272,
+  "n": 12,
+  "n_uncapped": 12
+ },
+ "Q04|C1": {
+  "budget": 52855,
+  "single_pass_tokens": 686,
+  "final_tokens": 152,
+  "n": 20,
+  "n_uncapped": 63
+ },
+ "Q04|C2": {
+  "budget": 52855,
+  "single_pass_tokens": 693,
+  "final_tokens": 186,
+  "n": 20,
+  "n_uncapped": 60
+ },
+ "Q04|C3": {
+  "budget": 52855,
+  "single_pass_tokens": 3989,
+  "final_tokens": 245,
+  "n": 12,
+  "n_uncapped": 12
+ },
+ "Q05|C1": {
+  "budget": 46192,
+  "single_pass_tokens": 742,
+  "final_tokens": 178,
+  "n": 20,
+  "n_uncapped": 50
+ },
+ "Q05|C2": {
+  "budget": 46192,
+  "single_pass_tokens": 614,
+  "final_tokens": 166,
+  "n": 20,
+  "n_uncapped": 59
+ },
+ "Q05|C3": {
+  "budget": 46192,
+  "single_pass_tokens": 4102,
+  "final_tokens": 204,
+  "n": 10,
+  "n_uncapped": 10
+ },
+ "Q06|C1": {
+  "budget": 42554,
+  "single_pass_tokens": 710,
+  "final_tokens": 126,
+  "n": 20,
+  "n_uncapped": 50
+ },
+ "Q06|C2": {
+  "budget": 42554,
+  "single_pass_tokens": 622,
+  "final_tokens": 182,
+  "n": 20,
+  "n_uncapped": 52
+ },
+ "Q06|C3": {
+  "budget": 42554,
+  "single_pass_tokens": 2904,
+  "final_tokens": 164,
+  "n": 13,
+  "n_uncapped": 13
+ },
+ "Q07|C1": {
+  "budget": 37828,
+  "single_pass_tokens": 720,
+  "final_tokens": 138,
+  "n": 20,
+  "n_uncapped": 44
+ },
+ "Q07|C2": {
+  "budget": 37828,
+  "single_pass_tokens": 696,
+  "final_tokens": 214,
+  "n": 20,
+  "n_uncapped": 41
+ },
+ "Q07|C3": {
+  "budget": 37828,
+  "single_pass_tokens": 3759,
+  "final_tokens": 179,
+  "n": 9,
+  "n_uncapped": 9
+ },
+ "Q08|C1": {
+  "budget": 45570,
+  "single_pass_tokens": 700,
+  "final_tokens": 144,
+  "n": 20,
+  "n_uncapped": 53
+ },
+ "Q08|C2": {
+  "budget": 45570,
+  "single_pass_tokens": 664,
+  "final_tokens": 188,
+  "n": 20,
+  "n_uncapped": 53
+ },
+ "Q08|C3": {
+  "budget": 45570,
+  "single_pass_tokens": 4040,
+  "final_tokens": 177,
+  "n": 10,
+  "n_uncapped": 10
+ },
+ "Q09|C1": {
+  "budget": 43158,
+  "single_pass_tokens": 728,
+  "final_tokens": 145,
+  "n": 20,
+  "n_uncapped": 49
+ },
+ "Q09|C2": {
+  "budget": 43158,
+  "single_pass_tokens": 610,
+  "final_tokens": 176,
+  "n": 20,
+  "n_uncapped": 54
+ },
+ "Q09|C3": {
+  "budget": 43158,
+  "single_pass_tokens": 4109,
+  "final_tokens": 222,
+  "n": 9,
+  "n_uncapped": 9
+ },
+ "Q10|C1": {
+  "budget": 52283,
+  "single_pass_tokens": 778,
+  "final_tokens": 175,
+  "n": 20,
+  "n_uncapped": 54
+ },
+ "Q10|C2": {
+  "budget": 52283,
+  "single_pass_tokens": 608,
+  "final_tokens": 170,
+  "n": 20,
+  "n_uncapped": 67
+ },
+ "Q10|C3": {
+  "budget": 52283,
+  "single_pass_tokens": 3864,
+  "final_tokens": 194,
+  "n": 12,
+  "n_uncapped": 12
+ },
+ "Q11|C1": {
+  "budget": 42282,
+  "single_pass_tokens": 712,
+  "final_tokens": 138,
+  "n": 20,
+  "n_uncapped": 49
+ },
+ "Q11|C2": {
+  "budget": 42282,
+  "single_pass_tokens": 595,
+  "final_tokens": 166,
+  "n": 20,
+  "n_uncapped": 55
+ },
+ "Q11|C3": {
+  "budget": 42282,
+  "single_pass_tokens": 3508,
+  "final_tokens": 233,
+  "n": 11,
+  "n_uncapped": 11
+ },
+ "Q12|C1": {
+  "budget": 43155,
+  "single_pass_tokens": 721,
+  "final_tokens": 150,
+  "n": 20,
+  "n_uncapped": 49
+ },
+ "Q12|C2": {
+  "budget": 43155,
+  "single_pass_tokens": 612,
+  "final_tokens": 180,
+  "n": 20,
+  "n_uncapped": 54
+ },
+ "Q12|C3": {
+  "budget": 43155,
+  "single_pass_tokens": 3996,
+  "final_tokens": 206,
+  "n": 10,
+  "n_uncapped": 10
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "adapter": "python3 /home/user/blackswanlabz-research-lab/.claude/skills/lab-verify/scripts/claude_adapter.py",
+ "note": "cloud sandbox, claude CLI 2.1.288, generator claude-haiku-4-5-20251001, thinking disabled, run 1",
+ "started": "2026-10-03T17:54:08+00:00",
+ "instrument": "lab-rubric-0.2",
+ "evidence": true,
+ "resumes": [
+  "2026-10-05T01:31:39+00:00",
+  "2026-10-05T02:47:31+00:00",
+  "2026-10-05T03:50:27+00:00",
+  "2026-10-05T10:20:46+00:00"
+ ],
+ "deviation": {
+  "max_n": 20,
+  "reason": "registered compute matching needs about 40-70 samples per question-rep for the cheaper baselines (about 3,000 calls); capped at 20 for cost, chosen before any baseline output existed",
+  "declared": "2026-10-05T01:31:39+00:00",
+  "note": "declared before any baseline output existed; outcome-independent (declared timestamp restored to the first --resume; later resumes had overwritten it, fixed in code afterwards)"
+ },
+ "finished": "2026-10-05T14:39:19+00:00"
+}
