@@ -1,0 +1,93 @@
+benchmark:
+  id: IRF-DOMAIN-001
+  version: "1.0"
+  start_date: null
+  cutoff_date: null
+  status: DRAFT
+  notes: "Candidate registry only. Levels must be assigned by evidence audit."
+
+candidate_domains:
+  - domain_id: D-001
+    domain_name: ai_agent_systems
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-002
+    domain_name: software_engineering
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-003
+    domain_name: formal_mathematics_verification
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-004
+    domain_name: aerospace_orbital_mechanics
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-005
+    domain_name: antitrust_industrial_organization
+    taxonomy_class: social_science_regulatory_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-006
+    domain_name: logistics_freight
+    taxonomy_class: applied_economic_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-007
+    domain_name: voice_speech_systems
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-008
+    domain_name: cybersecurity_security_engineering
+    taxonomy_class: technical_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-009
+    domain_name: ai_economics_infrastructure_economics
+    taxonomy_class: economic_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-010
+    domain_name: astronomy_exoplanet_analysis
+    taxonomy_class: physical_science_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-011
+    domain_name: ecology
+    taxonomy_class: life_science_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-012
+    domain_name: epidemiology_network_science
+    taxonomy_class: life_science_computational_domain
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-013
+    domain_name: linguistics
+    taxonomy_class: foundational_discipline
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-014
+    domain_name: communication_theory
+    taxonomy_class: foundational_discipline
+    initial_status: CANDIDATE
+    max_level: 0
+  - domain_id: D-015
+    domain_name: cybernetics
+    taxonomy_class: foundational_discipline
+    initial_status: CANDIDATE
+    max_level: 0
+
+rules:
+  breadth_threshold: 2
+  level_range: [0, 10]
+  require_monotonic_levels: true
+  require_evidence_for_claimed_level: true
+  allow_level_zero: true
+  l10_requires_non_synthetic_public_records: true
+  public_record_empirical_test_is_not_automatically_causal: true

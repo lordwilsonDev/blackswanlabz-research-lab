@@ -1,0 +1,38 @@
+{
+  "benchmark_id": "IRF-DOMAIN-001-EXAMPLE",
+  "domains": [
+    {
+      "domain_id": "D-001",
+      "domain_name": "example_domain_deep",
+      "status": "VERIFIED",
+      "max_level": 10,
+      "level_evidence": [
+        {"level": 1, "evidence_ids": ["E-1"], "verdict": "SUPPORTED"},
+        {"level": 2, "evidence_ids": ["E-2"], "verdict": "SUPPORTED"},
+        {"level": 3, "evidence_ids": ["E-3"], "verdict": "SUPPORTED"},
+        {"level": 4, "evidence_ids": ["E-4"], "verdict": "SUPPORTED"},
+        {"level": 5, "evidence_ids": ["E-5"], "verdict": "SUPPORTED"},
+        {"level": 6, "evidence_ids": ["E-6"], "verdict": "SUPPORTED"},
+        {"level": 7, "evidence_ids": ["E-7"], "verdict": "SUPPORTED"},
+        {"level": 8, "evidence_ids": ["E-8"], "verdict": "SUPPORTED"},
+        {"level": 9, "evidence_ids": ["E-9"], "verdict": "SUPPORTED"},
+        {"level": 10, "evidence_ids": ["PUBLIC-RECORD-E-10"], "verdict": "SUPPORTED"}
+      ]
+    },
+    {
+      "domain_id": "D-002",
+      "domain_name": "example_domain_medium",
+      "status": "VERIFIED",
+      "max_level": 7,
+      "level_evidence": [
+        {"level": 1, "evidence_ids": ["E-11"], "verdict": "SUPPORTED"},
+        {"level": 2, "evidence_ids": ["E-12"], "verdict": "SUPPORTED"},
+        {"level": 3, "evidence_ids": ["E-13"], "verdict": "SUPPORTED"},
+        {"level": 4, "evidence_ids": ["E-14"], "verdict": "SUPPORTED"},
+        {"level": 5, "evidence_ids": ["E-15"], "verdict": "SUPPORTED"},
+        {"level": 6, "evidence_ids": ["E-16"], "verdict": "SUPPORTED"},
+        {"level": 7, "evidence_ids": ["E-17"], "verdict": "SUPPORTED"}
+      ]
+    }
+  ]
+}
