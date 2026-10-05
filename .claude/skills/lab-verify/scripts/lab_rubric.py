@@ -229,12 +229,12 @@ def cmd_run(a):
             sys.exit("REFUSING TO RESUME: the adapter differs from the original run's; outputs from two different models must not be mixed")
         meta.setdefault("resumes", []).append(now())
         if getattr(a, "max_n", 0):
-            meta["deviation"] = {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"}
+            meta.setdefault("deviation", {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"})
         rows = [json.loads(l) for l in (d / "gen.jsonl").read_text().splitlines() if l.strip()]
     else:
         meta = {"adapter": a.adapter, "note": a.note, "started": now(), "instrument": VERSION, "evidence": a.adapter != "fakegen"}
         if getattr(a, "max_n", 0):
-            meta["deviation"] = {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"}
+            meta.setdefault("deviation", {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"})
         rows = []
     done = {(r["q"], r["rep"], r["arm"]) for r in rows}
     (d / "RUN.json").write_text(json.dumps(meta, indent=1) + "\n")
