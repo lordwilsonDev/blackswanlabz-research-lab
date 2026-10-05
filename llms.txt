@@ -87,6 +87,7 @@ Read in this order.
 - [Domain-crossing and domain-depth benchmark](05-experiments/domain-benchmark/DOMAIN_BENCHMARK.md): owner-supplied instrument (10-level ladder, validator, 15 candidate domains, all unscored); [package readme](05-experiments/domain-benchmark/README.md), [provenance and checks](05-experiments/domain-benchmark/PROVENANCE.md).
 - [Integrated assessment IA-1](06-proofs/integrated-assessment-ia-1.md): pre-registered combination of four tests (domain depth, clean-room rebuild, operator pipeline, AIL+MoIE comparison) with a weakest-part rule; results not yet in.
 - [Domain benchmark part 1 result](05-experiments/domain-benchmark/runs/2026-10-05/RESULT.md): two blind scorers agreed on 4 of 15 domains; registered decision INCONCLUSIVE.
+- [Domain benchmark adjudication draft](05-experiments/domain-benchmark/ADJUDICATION-DRAFT.md): proposed evidence classes (artifact, execution, reconstruction) and one-run-one-domain rule for human scoring; not frozen.
 
 ## Next (roadmap, not built)
 - [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.
