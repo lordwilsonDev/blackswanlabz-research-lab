@@ -1,0 +1,97 @@
+version: "1.0"
+purpose: "Internal preflight rubric for employer-led workforce grant readiness"
+scoring:
+  total_points: 100
+  categories:
+    project_need: 10
+    economic_impact: 10
+    training_objectives_outcomes: 20
+    training_design_cost_implementation: 20
+    capacity_building: 20
+    equity_economic_opportunity: 20
+mandatory_gates:
+  - eligible_applicant
+  - eligible_employer
+  - documented_employer_need
+  - eligible_trainees
+  - occupational_mapping
+  - required_match
+  - customized_occupational_training
+  - measurable_outcomes
+  - required_employer_commitments
+evidence_states:
+  - VERIFIED
+  - SUPPORTED
+  - PROVISIONAL
+  - INFERRED
+  - UNKNOWN
+  - CONTRADICTED
+decision:
+  mandatory_failure: BLOCKED
+  minimum_score_for_internal_review: 70
+  grant_ready_requires: "all mandatory gates true and score >= minimum_score_for_internal_review"
+anti_consulting:
+  required_fields:
+    - competency
+    - assessment
+    - worker
+    - occupational_application
+  rule: "Do not count consulting activity as training unless workers acquire and demonstrate an occupational competency."
+rubric:
+  project_need:
+    points: 10
+    evidence:
+      - state_or_regional_demand
+      - employer_specific_skills_gap
+      - quantified_operational_consequence
+  economic_impact:
+    points: 10
+    evidence:
+      - jobs_created_or_retained
+      - wage_impact
+      - productivity_or_expansion
+      - regional_impact
+  training_objectives_outcomes:
+    points: 20
+    evidence:
+      - trainee_count
+      - occupational_targets
+      - competency_targets
+      - completion_target
+      - placement_target
+      - wage_target
+      - credential_target_if_applicable
+      - employer_commitment
+  training_design_cost_implementation:
+    points: 20
+    evidence:
+      - customized_curriculum
+      - technical_hard_skills
+      - hours_and_schedule
+      - assessment
+      - employer_task
+      - instructor_capacity
+      - implementation_plan
+      - recruitment_and_selection
+      - reasonable_cost_per_trainee
+  capacity_building:
+    points: 20
+    evidence:
+      - reusable_curriculum
+      - competency_framework
+      - assessment_assets
+      - skill_library
+      - harness_library
+      - employer_workflows
+      - train_the_trainer
+      - post_grant_sustainability
+  equity_economic_opportunity:
+    points: 20
+    evidence:
+      - accessible_entry
+      - transferable_skills
+      - career_advancement
+      - wage_progression
+      - incumbent_worker_pathway
+      - unemployed_or_underemployed_pathway
+      - evidence_based_special_population_strategy
