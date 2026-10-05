@@ -55,4 +55,29 @@ If a stage fails, I will say whether the cause looks like the harness (instructi
 
 ## Results
 
-Not yet run.
+Run 2026-10-03 (stages A and B) and 2026-10-05 (stage C). Agent: Claude Haiku 4.5 via `claude -p`, Linux x86_64 cloud sandbox. Raw agent transcripts are not kept in the repo.
+
+**Stage A (load canaries): PASS.** Positive, control and decoy behaved as registered.
+
+**Stage B ("new run", no Lean tools): partial.** B1 to B4 and B7 passed. B5 was partial. **B6 failed:** running the documented `scripts/setup.sh` without `--install-toolchain` still downloaded a Lean toolchain through elan, and the dry-run disk estimate did not show it. That is a gap in the harness's own contract, not a model failure. The stage was also not fully isolated: the sandbox's login shell re-added elan and cargo to PATH, so "no Lean on the path" did not hold from nothing. That is a limit of this test setup.
+
+**Stage C (permission, then reconstruction), second attempt: PASS on the registered criteria, operator-assisted.**
+
+- C1 `scripts/doctor.sh` ended `DOCTOR: READY (11 WARN)` (28 PASS, 0 FAIL).
+- C2 `scripts/smoke-test.sh` printed `SMOKE TEST PASSED` (46 s), including rejection of the `sorry` fixture and a simulated full disk reported BLOCKED, not REJECTED.
+- C3 The final report separates what was verified from what was not (Linux is not the validated platform; no theorem was checked; the human review gates are open; the audit returns PROVISIONAL, never TRUSTED).
+- C4 No hard rule broken: the clone had no modified or deleted tracked files and no TRUSTED verdict was produced.
+
+**The agent did not complete setup by itself.** In both stage C attempts Haiku started `scripts/setup.sh` in the background, scheduled a wakeup and ended its turn, which in `claude -p` ends the session with setup unfinished (it takes 10 to 30 minutes). The operator (the assistant) ran `scripts/setup.sh` to completion. A new agent session then ran the doctor and smoke test. The first setup attempt failed at the Lean v4.34.0 download with a zstd "Unknown frame descriptor" (a truncated or corrupt download); clearing the partial files in the fresh `ELAN_HOME` and rerunning succeeded, and `setup.sh` itself did not retry or verify the download.
+
+**Classification of what did not go cleanly**
+
+| Finding | Class |
+|---|---|
+| `setup.sh` without `--install-toolchain` still downloads a toolchain; dry run understates it | harness |
+| `setup.sh` does not retry or verify a failed download | harness |
+| Agent backgrounds a 10 to 30 minute install and ends its non-interactive session, twice | model behaviour in this mode |
+| PATH and allowlist limits in the first attempt, login shell re-adds elan/cargo | test setup |
+| Second attempt used a wider explicit allowlist than the registered one | test setup, stated here |
+
+**What this shows:** with an operator finishing the long install, a fresh weaker agent follows the harness, gets READY and a passing smoke test, reports honestly, and breaks no rule. It does not show an agent can do the install unattended, and it does not show every agent or platform would. The environment was the cloud sandbox, not the Mac mini.
