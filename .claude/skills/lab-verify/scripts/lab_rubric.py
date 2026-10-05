@@ -228,9 +228,13 @@ def cmd_run(a):
         if meta["adapter"] != a.adapter:
             sys.exit("REFUSING TO RESUME: the adapter differs from the original run's; outputs from two different models must not be mixed")
         meta.setdefault("resumes", []).append(now())
+        if getattr(a, "max_n", 0):
+            meta["deviation"] = {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"}
         rows = [json.loads(l) for l in (d / "gen.jsonl").read_text().splitlines() if l.strip()]
     else:
         meta = {"adapter": a.adapter, "note": a.note, "started": now(), "instrument": VERSION, "evidence": a.adapter != "fakegen"}
+        if getattr(a, "max_n", 0):
+            meta["deviation"] = {"max_n": a.max_n, "reason": getattr(a, "deviation_reason", ""), "declared": now(), "note": "declared before any baseline output existed; outcome-independent"}
         rows = []
     done = {(r["q"], r["rep"], r["arm"]) for r in rows}
     (d / "RUN.json").write_text(json.dumps(meta, indent=1) + "\n")
@@ -260,8 +264,9 @@ def cmd_run(a):
                 mine = [r for r in single if r["q"] == q["id"] and r["arm"] == base]
                 s_ = statistics.fmean(r["tokens"] for r in mine)
                 h = statistics.fmean(est_tokens(r["final"]) for r in mine)
-                n = max(1, math.floor((B - qtok - 40) / (s_ + h)))
-                plan[f"{q['id']}|{base}"] = {"budget": round(B), "single_pass_tokens": round(s_), "final_tokens": round(h), "n": n}
+                n_full = max(1, math.floor((B - qtok - 40) / (s_ + h)))
+                n = min(n_full, a.max_n) if getattr(a, "max_n", 0) else n_full
+                plan[f"{q['id']}|{base}"] = {"budget": round(B), "single_pass_tokens": round(s_), "final_tokens": round(h), "n": n, "n_uncapped": n_full}
         (d / "plan.json").write_text(json.dumps(plan, indent=1) + "\n")
         for q in qs:  # phase C: best-of-n baselines, selector charged to the baseline's own budget
             for rep in range(reps):
@@ -485,6 +490,8 @@ def cmd_analyze(a):
         flags.append("JUDGE NOT INDEPENDENT: a judge used the same adapter as the generator (self-preference risk)")
     if len(judges) < 2:
         flags.append("ONE JUDGE: inter-rater reliability cannot be computed")
+    if meta.get("deviation"):
+        flags.append(f"DEVIATION: best-of-n capped at {meta['deviation']['max_n']} samples ({meta['deviation']['reason']}); baselines get less compute than registered, which favours the treatment")
     if any(not (0.85 <= v <= 1.15) for v in ratio.values()):
         flags.append("COMPUTE MATCH OUTSIDE 0.85-1.15 of the treatment's budget")
     t_words = desc[p["comparison"]["treatment"]]["words"]
@@ -593,7 +600,7 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     for n, f in (("lock", cmd_lock), ("blind", cmd_blind), ("analyze", cmd_analyze), ("report", cmd_report)):
         s = sub.add_parser(n); s.add_argument("dir"); s.set_defaults(f=f)
-    s = sub.add_parser("run"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--note", default=""); s.add_argument("--resume", action="store_true", help="continue an interrupted run with the same adapter, keeping finished outputs"); s.set_defaults(f=cmd_run)
+    s = sub.add_parser("run"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--note", default=""); s.add_argument("--resume", action="store_true", help="continue an interrupted run with the same adapter, keeping finished outputs"); s.add_argument("--max-n", type=int, default=0, help="cap best-of-n samples per baseline (a declared deviation from compute matching; recorded in RUN.json and flagged in the report)"); s.add_argument("--deviation-reason", default=""); s.set_defaults(f=cmd_run)
     s = sub.add_parser("judge"); s.add_argument("dir"); s.add_argument("--adapter", required=True); s.add_argument("--judge-id", required=True); s.set_defaults(f=cmd_judge)
     s = sub.add_parser("import-ratings"); s.add_argument("dir"); s.add_argument("file"); s.add_argument("--judge-id", required=True); s.set_defaults(f=cmd_import)
     s = sub.add_parser("controls"); s.add_argument("--sims", type=int, default=300); s.add_argument("--questions", type=int, default=12); s.add_argument("--out"); s.set_defaults(f=cmd_controls)

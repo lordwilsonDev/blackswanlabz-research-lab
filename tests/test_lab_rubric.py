@@ -245,3 +245,12 @@ def test_resume_survives_a_crash_in_the_baseline_phase(pack):
     lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=True))
     rows = [json.loads(l) for l in (pack / "gen.jsonl").read_text().splitlines()]
     assert len(rows) == 12 * 2 * 7 and sum(r["arm"].endswith("-bon") for r in rows) == 12 * 2 * 3
+
+
+def test_max_n_caps_baselines_and_records_the_deviation(pack):
+    lr.cmd_lock(ns(dir=str(pack)))
+    lr.cmd_run(ns(dir=str(pack), adapter="fakegen", note="", resume=False, max_n=1, deviation_reason="test"))
+    plan = json.loads((pack / "plan.json").read_text())
+    assert all(v["n"] == 1 and v["n_uncapped"] >= 1 for v in plan.values())
+    meta = json.loads((pack / "RUN.json").read_text())
+    assert meta["deviation"]["max_n"] == 1 and meta["deviation"]["reason"] == "test"
