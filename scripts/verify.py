@@ -202,7 +202,7 @@ def check_links(root: Path) -> list[str]:
     return errors
 
 
-TOKEN_BUDGET = 275_000  # raised from 250_000 on 2026-10-03: two engines, two packs and a skill were added
+TOKEN_BUDGET = 300_000  # raised from 275_000 on 2026-10-05 (from 250_000 on 2026-10-03): domain-benchmark package, two scorer ledgers and IA-1 were added
 TEXT_SUFFIXES = {".md", ".txt", ".json", ".cff", ".sh", ".py", ".yml", ".yaml", ".csv"}
 SECRET_PATTERNS = {
     "GitHub token": re.compile(r"\b(?:ghp|gho|ghu|ghs)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{20,}"),

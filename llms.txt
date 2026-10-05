@@ -86,6 +86,7 @@ Read in this order.
 - [Operator smoke test](06-proofs/operator-smoke-test-2026-10-03.md): forge + lab-verify run end to end with an operator in the loop on 5 trivial tasks and Haiku; plumbing check, not evidence about any method.
 - [Domain-crossing and domain-depth benchmark](05-experiments/domain-benchmark/DOMAIN_BENCHMARK.md): owner-supplied instrument (10-level ladder, validator, 15 candidate domains, all unscored); [package readme](05-experiments/domain-benchmark/README.md), [provenance and checks](05-experiments/domain-benchmark/PROVENANCE.md).
 - [Integrated assessment IA-1](06-proofs/integrated-assessment-ia-1.md): pre-registered combination of four tests (domain depth, clean-room rebuild, operator pipeline, AIL+MoIE comparison) with a weakest-part rule; results not yet in.
+- [Domain benchmark part 1 result](05-experiments/domain-benchmark/runs/2026-10-05/RESULT.md): two blind scorers agreed on 4 of 15 domains; registered decision INCONCLUSIVE.
 
 ## Next (roadmap, not built)
 - [BlackSwanLabz OS (roadmap)](07-next/blackswanlabz-os.md): a plan only; no image, installer, or repository exists.

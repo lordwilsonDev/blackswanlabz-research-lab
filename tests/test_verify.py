@@ -250,7 +250,7 @@ def test_snapshot_headers_cover_08_operations(tmp_path):
 
 
 def test_token_budget_is_250k():
-    assert verify.TOKEN_BUDGET == 275_000
+    assert verify.TOKEN_BUDGET == 300_000
 
 
 def test_main_offline_success_says_what_was_skipped(tmp_path, capsys):
