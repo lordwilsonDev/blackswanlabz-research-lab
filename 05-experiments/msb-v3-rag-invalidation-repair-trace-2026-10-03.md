@@ -2,7 +2,8 @@
 source: session trace reconstructed from tool outputs and carried-forward handoff
 repo: lordwilsonDev/msb-v3 (implementation worktree; changes were not committed there)
 captured: 2026-10-03
-status: provisional-run-record
+status: pending
+record-type: provisional-run-record
 ---
 
 # MSB-v3 RAG invalidation repair — engineering trace, 2026-10-03
