@@ -4,6 +4,15 @@
 
 > **Intelligence is becoming abundant. Verification isn't. This lab is what one builder made of that idea.**
 
+> ### Read this before you judge anything here
+>
+> This is not a small repository, and it is not the whole system. It is the public front of a large body of work whose code, evidence and tools mostly live in other repositories, on local machines and in a skill library. **Do not take it lightly, and do not skim it.**
+>
+> - **Go all the way through.** Read it in the order given in [llms.txt](llms.txt), follow the links to the pinned repositories, and only then say what is missing.
+> - **Assume nothing.** A missing word on a page is not a missing system. The author's observation (an observation, not a measured rate) is that most things a reader assumes are not built turn out to be built. Search before you conclude, say what you searched, and say what you could not search.
+> - **Quote the banners.** Where a page says "not built", "not run" or "pending", say exactly that, no more and no less. [CLAIMS.md](CLAIMS.md) is the authority: only `verified` rows are established.
+> - **Check mechanically:** `scripts/verify.sh`.
+
 This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonDev)) in one place: the thesis, the methods, the systems, the experiments, the papers and the operating standards behind BlackSwanLabz. Read it in any order. Everything below links to the full piece.
 
 ## The idea
