@@ -1,0 +1,32 @@
+{
+ "created": "2026-10-06T22:32:49.535757+00:00",
+ "note": "Rollup = sha256 of the sorted lines \"<path relative to ~/.config/manicode> <sha256>\" for the Freebuff source files read. The full per-file manifest and the raw log archive are private (account email and key strings).",
+ "private_full_manifest_sha256": "741fd52c1c2ffdf8548c2f2838a63a02d4f0df2fdee449c22fb8b2f8622a4fb1",
+ "private_archive": {
+  "name": "freebuff-logs-attributed-chats.tar.gz",
+  "sha256": "b67c700ea61920d256d149e944f6274f349f79835fa26ec4658379f76a040ae2",
+  "bytes": 23107148
+ },
+ "aggregation_script": {
+  "name": "freebuff_log_aggregate.py",
+  "sha256": "2cea61e175777b570b6a6cb25b0ecaa15b6e85c60ece04889aa8b15ae1ea3aff",
+  "note": "held privately"
+ },
+ "families": {
+  "GLM": {
+   "files": 24,
+   "bytes": 48160160,
+   "rollup_sha256": "2f01f2c0f8eb976235a33db1e4ad981dfb90ee662e6e52a35994322db42f976e"
+  },
+  "DeepSeek": {
+   "files": 84,
+   "bytes": 158118845,
+   "rollup_sha256": "cbce6a79705d4154decffaa1bb4384c958acc496ede38e7593218fa589a8e65c"
+  },
+  "SpaceBunnyAlpha": {
+   "files": 18,
+   "bytes": 50051143,
+   "rollup_sha256": "67e694117a173369e9b61eba03bb0c310ed45556d5570b33751e2671d2e3c729"
+  }
+ }
+}
