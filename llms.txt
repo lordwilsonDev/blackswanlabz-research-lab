@@ -21,6 +21,7 @@ Read in this order.
 
 ## Frameworks
 - [ACTS, the 5-Act research method](02-frameworks/acts-5-act-research.md): the outer operating shell for running research as a continuous, stateful process.
+- [D1, Failure-to-Leverage Compiler](02-frameworks/d1-failure-to-leverage.md): turns discovered failures into reusable controls and the next question, with steel gates for environment drift and observer contamination; a research instrument, no outcome claim.
 - [Adaptive Infrastructure](02-frameworks/adaptive-infrastructure.md): the system owns the workflow; the model is a swappable worker.
 - [Axiom Inversion Logic (AIL)](02-frameworks/axiom-inversion-logic.md): invert an assumption a field treats as settled and ask what would have to be true.
 - [Mixture of Inversion Experts (MoIE)](02-frameworks/moie.md): a five-agent sequence that turns an AIL inversion into a falsifiable hypothesis.
@@ -53,6 +54,7 @@ Read in this order.
 
 ## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
 - [MSB-v3 RAG invalidation repair trace, 2026-10-03](05-experiments/msb-v3-rag-invalidation-repair-trace-2026-10-03.md): provisional engineering session record of a repair; not an independent review or a production migration receipt; pending.
+- [D1 compiler experiment protocol](05-experiments/d1-failure-to-leverage-compiler.md): the self-test specification and fixtures for the D1 compiler; no outcome claim.
 - [Doctoral Artifact Battery, artifact A02](05-experiments/doctoral-artifact-battery-a02.md): a tamper-evident run ledger built and checked in a documented loop; closed with limits stated, author-side verification only, repository not yet public.
 - [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.
 - [Three-Process Learning Research Protocol v0.1](05-experiments/learning-trajectory/protocol-0.1.md): the frozen three-process workflow.

@@ -547,6 +547,9 @@ def run_self_test() -> dict[str, Any]:
         def test_hidden_shared_capability_blocks(self) -> None:
             d = template()
             d["research_id"] = "SELF-HIDDEN"
+            d["boundary"] = {"declared": "single-process analysis of the stated dossier",
+                             "actual": "single-process analysis of the stated dossier",
+                             "violations": []}
             d["variables"] = [
                 {"name": "shared_vision_preprocessor", "status": "UNKNOWN",
                  "influence": "MATERIAL", "provenance": "unverified",
@@ -573,6 +576,9 @@ def run_self_test() -> dict[str, Any]:
         def test_false_failure_is_attribution_problem(self) -> None:
             d = template()
             d["research_id"] = "SELF-FALSE-FAILURE"
+            d["boundary"] = {"declared": "single-process analysis of the stated dossier",
+                             "actual": "single-process analysis of the stated dossier",
+                             "violations": []}
             d["variables"] = [
                 {"name": "image_resolution", "status": "PRE_EXISTING",
                  "influence": "MATERIAL", "provenance": "known",
@@ -588,6 +594,9 @@ def run_self_test() -> dict[str, Any]:
         def test_clean_leverage_capture(self) -> None:
             d = template()
             d["research_id"] = "SELF-CLEAN"
+            d["boundary"] = {"declared": "single-process analysis of the stated dossier",
+                             "actual": "single-process analysis of the stated dossier",
+                             "violations": []}
             d["variables"] = [
                 {"name": "controlled_input", "status": "ISOLATED",
                  "influence": "NONE", "provenance": "measured",
@@ -606,6 +615,39 @@ def run_self_test() -> dict[str, Any]:
             out = analyze(d)
             self.assertEqual(out["verdict"], "LEVERAGE_CAPTURED")
             self.assertEqual(out["leverage"]["top_control"]["score"], 125.0)
+
+        def _valid_dossier(self) -> dict[str, Any]:
+            d = template()
+            d["boundary"] = {"declared": "single-process analysis of the stated dossier",
+                             "actual": "single-process analysis of the stated dossier",
+                             "violations": []}
+            return d
+
+        def test_valid_baseline_has_no_findings(self) -> None:
+            self.assertEqual(validate(self._valid_dossier()), [])
+
+        def test_missing_declared_boundary_is_rejected(self) -> None:
+            # One check per test: dropping the check must fail exactly this test.
+            d = self._valid_dossier()
+            d["boundary"]["declared"] = ""
+            findings = validate(d)
+            self.assertEqual([f.code for f in findings], ["D1-BOUNDARY"])
+            self.assertIn("declared", findings[0].message)
+            self.assertEqual(analyze(d)["verdict"], "HARNESS_INPUT_INVALID")
+
+        def test_missing_actual_boundary_is_rejected(self) -> None:
+            d = self._valid_dossier()
+            d["boundary"]["actual"] = ""
+            findings = validate(d)
+            self.assertEqual([f.code for f in findings], ["D1-BOUNDARY"])
+            self.assertIn("actual", findings[0].message)
+            self.assertEqual(analyze(d)["verdict"], "HARNESS_INPUT_INVALID")
+
+        def test_wrong_schema_version_is_rejected(self) -> None:
+            d = self._valid_dossier()
+            d["schema_version"] = "d1-0.9"
+            self.assertEqual([f.code for f in validate(d)], ["D1-SCHEMA"])
+            self.assertEqual(analyze(d)["verdict"], "HARNESS_INPUT_INVALID")
 
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(D1Tests)
     result = unittest.TestResult()
