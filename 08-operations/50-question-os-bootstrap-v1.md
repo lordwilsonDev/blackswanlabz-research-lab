@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit c7e0484, 2026-10-05): 50-question OS bootstrap interface; original working location not recorded
+captured: 2026-10-05
+status: pending
+---
+
 # 50-Question OS Bootstrap
 
 **Status:** Core bootstrap interface

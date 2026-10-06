@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit 1016347, 2026-10-05): optional trainer introduction; original working location not recorded
+captured: 2026-10-05
+status: pending
+---
+
 # Optional Trainer Introduction: How to Ask AI the Right Questions v1
 
 ## Status

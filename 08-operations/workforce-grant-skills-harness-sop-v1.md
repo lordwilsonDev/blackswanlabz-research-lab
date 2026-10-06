@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit 94cc928, 2026-10-05): workforce grant skills and harness SOP; original working location not recorded
+captured: 2026-10-05
+status: pending
+---
+
 # Workforce Grant Skills and Harness SOP v1
 
 ## Skill SOP

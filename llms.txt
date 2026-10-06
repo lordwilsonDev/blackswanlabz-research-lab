@@ -58,6 +58,7 @@ Read in this order.
 ## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
 - [MSB-v3 RAG invalidation repair trace, 2026-10-03](05-experiments/msb-v3-rag-invalidation-repair-trace-2026-10-03.md): provisional engineering session record of a repair; not an independent review or a production migration receipt; pending.
 - [D1 compiler experiment protocol](05-experiments/d1-failure-to-leverage-compiler.md): the self-test specification and fixtures for the D1 compiler; no outcome claim.
+- [FreeBuff causal-audit loop v3](05-experiments/causal-audit-loop-v3-audit-the-auditor.md): the audit-the-auditor blueprint on independence, retraction, weighting and stop or freeze; the page says its prior claim is narrow and pending closure.
 - [Doctoral Artifact Battery, artifact A02](05-experiments/doctoral-artifact-battery-a02.md): a tamper-evident run ledger built and checked in a documented loop; closed with limits stated, author-side verification only, repository not yet public.
 - [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.
 - [Three-Process Learning Research Protocol v0.1](05-experiments/learning-trajectory/protocol-0.1.md): the frozen three-process workflow.
@@ -106,6 +107,12 @@ Read in this order.
 - [North Star x FDE Protocol x Cybernetic Loop](08-operations/north-star-fde-cybernetic-loop.md): the claim that these are one feedback loop seen from different sides.
 - [Operator SOP](08-operations/operator-sop.md): execution runbook, what an operator or agent does per phase.
 - [Propulsion Engine SOP](08-operations/propulsion-engine-sop.md): UAC domain module for safety-critical physical systems.
+- [50-Question OS Bootstrap](08-operations/50-question-os-bootstrap-v1.md): the initial ignition sequence for the capability and SOP compiler; a core bootstrap interface.
+- [Competitive Architecture Absorption Register](08-operations/competitive-architecture-absorption-v1.md): an attributed register of architecture ideas absorbed from others, with its operating rule.
+- [Optional Trainer Introduction](08-operations/optional-trainer-introduction-how-to-ask-ai-v1.md): optional orientation for trainers teaching people to ask AI governed questions.
+- [Workforce Grant OS](08-operations/workforce-grant-os-v1.md): treats workforce grants as outputs of an evidence system, from employer need to wage and retention outcome.
+- [Workforce Grant Readiness Meta-SOP](08-operations/workforce-grant-readiness-meta-sop-v1.md): running the meta-skill, the grant skill and the harness as one governed system.
+- [Workforce Grant Skills and Harness SOP](08-operations/workforce-grant-skills-harness-sop-v1.md): how to create or modify a workforce skill and its harness.
 - [Research Manual v1](08-operations/research-manual-v1.md): company intelligence and operational opportunity research manual.
 - [Research Service](08-operations/research-service.md): the BlackSwanLabz research service offer.
 
