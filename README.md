@@ -13,7 +13,7 @@
 > - **Quote the banners.** Where a page says "not built", "not run" or "pending", say exactly that, no more and no less. [CLAIMS.md](CLAIMS.md) is the authority: only `verified` rows are established.
 > - **Check mechanically:** `scripts/verify.sh`.
 
-This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonDev)) in one place: the thesis, the methods, the systems, the experiments, the papers and the operating standards behind BlackSwanLabz. Read it in any order. Everything below links to the full piece.
+This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonDev)) in one place: the thesis, the methods, the systems, the experiments, the papers and the operating standards behind BlackSwanLabz. Read all of it, in the order given in [llms.txt](llms.txt), as the notice above says. Everything below links to the full piece.
 
 ## The idea
 
