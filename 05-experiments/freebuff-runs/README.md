@@ -19,3 +19,16 @@ Records of runs made by the FreeBuff agent on 2026-10-03, copied from its PZS no
 | [skill-validator-adversarial-audit-2026-10-03](skill-validator-adversarial-audit-2026-10-03.md) | skill validator adversarial audit; findings open | 2026-10-03 |
 
 Not included: the three earlier v4.x records (v4.0, v4.1, v4.2), held back to keep this repository under its 250,000-token size budget (they remain in the FreeBuff notebook), and one 8-line completion note (rag-stale-memory-publication-2026-10-04) that contains an SSH key fingerprint, and the benchmark definition `domain-crossing-depth-benchmark-v1-0` (a method, not yet run).
+
+## FreeBuff worker runs recovered from logs, 2026-10-06
+
+Recovered by Claude from Freebuff's local logs on 2026-10-06 (not from the notebook). Evidence level `OBSERVED`, not independently verified; unrecoverable fields are marked `UNRESOLVED`.
+
+| Record | What it is |
+|---|---|
+| [model-runs-recovery-2026-10-06](model-runs-recovery-2026-10-06.md) | How the three worker runs were found, what was searched, limits, and where this differs from the earlier summary |
+| [model-run-glm](model-run-glm.md) | GLM worker, 2026-08-14 to 2026-09-12 |
+| [model-run-deepseek](model-run-deepseek.md) | DeepSeek worker, 2026-08-08 to 2026-09-30 |
+| [model-run-space-bunny-alpha](model-run-space-bunny-alpha.md) | Alpha Space Bunny worker, 2026-09-24 to 2026-10-01 |
+| [model-runs-manifest.json](model-runs-manifest.json) | rollup hashes of the source logs and of the private archive |
+
