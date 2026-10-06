@@ -177,6 +177,23 @@ def check_run_records(root: Path) -> list[str]:
     return errors
 
 
+
+D1_COMPILER = "scripts/d1_failure_to_leverage_compiler.py"
+
+
+def check_d1_compiler(root: Path) -> list[str]:
+    """Run D1's deterministic self-test as part of the lab's structural verification."""
+    path = root / D1_COMPILER
+    if not path.exists():
+        return []
+    result = subprocess.run([sys.executable, str(path), "self-test"],
+                            cwd=root, capture_output=True, text=True)
+    if result.returncode == 0:
+        return []
+    detail = (result.stdout + result.stderr).strip().replace("\n", " | ")
+    return [f"{D1_COMPILER}: self-test failed: {detail[-600:]}"]
+
+
 def collect_pins(root: Path) -> list[tuple[str, str, str]]:
     pins: list[tuple[str, str, str]] = []
     for path in _snapshot_files(root):
@@ -304,6 +321,7 @@ def run(root: Path, online: bool) -> list[str]:
     errors += check_snapshot_headers(root)
     errors += check_llms_coverage(root)
     errors += check_run_records(root)
+    errors += check_d1_compiler(root)
     errors += check_size(root)
     errors += check_secrets(root)
     if online:

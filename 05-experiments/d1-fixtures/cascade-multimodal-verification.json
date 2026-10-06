@@ -1,0 +1,195 @@
+{
+  "schema_version": "d1-1.1",
+  "research_id": "D1-MVMI-2026-10-04-001",
+  "problem": {
+    "statement": "Determine whether multi-model multimodal verification establishes independent verification of a visual claim.",
+    "domain": "AI / multimodal verification",
+    "stakes": "high"
+  },
+  "observed_event": {
+    "result": "Two models independently appear to verify the same visual claim and the verification harness passes.",
+    "status": "PASS"
+  },
+  "assumptions": [
+    {
+      "id": "A1",
+      "statement": "Different models constitute independent verification pathways.",
+      "verified": false,
+      "critical": true
+    },
+    {
+      "id": "A2",
+      "statement": "No shared multimodal capability materially changes the evidence before verification.",
+      "verified": false,
+      "critical": true
+    }
+  ],
+  "variables": [
+    {
+      "name": "shared_multimodal_preprocessor",
+      "status": "UNKNOWN",
+      "influence": "MATERIAL",
+      "provenance": "not inventoried before the original run",
+      "shared": true,
+      "controlled": false
+    },
+    {
+      "name": "verification_judge_context",
+      "status": "PRE_EXISTING",
+      "influence": "POTENTIAL",
+      "provenance": "known but not ablated",
+      "shared": true,
+      "controlled": false
+    },
+    {
+      "name": "target_model",
+      "status": "KNOWN_PRESENT",
+      "influence": "MATERIAL",
+      "provenance": "recorded",
+      "shared": false,
+      "controlled": true
+    }
+  ],
+  "failure": {
+    "description": "The original verification treated model multiplicity as independence without first establishing capability and environment independence.",
+    "evidence": "The environment's multimodal preprocessing capability was not inventoried or isolated before the multi-model verification claim was made.",
+    "failure_type": "SHARED_CAPABILITY",
+    "new_failure_classes": [
+      "missing-variable cascade",
+      "multimodal verification misidentification",
+      "independence misattribution"
+    ]
+  },
+  "inversion": {
+    "apparent_axiom": "Multiple models agreeing on a multimodal result provides independent verification.",
+    "inverted_axiom": "Multiple models may share an upstream capability, so agreement may be dependent evidence.",
+    "competing_explanations": [
+      "The models independently grounded the visual evidence.",
+      "A shared multimodal capability supplied or transformed the relevant evidence.",
+      "The models jointly used shared context or retrieval.",
+      "The judge rewarded agreement or plausibility rather than independent grounding."
+    ]
+  },
+  "leverage": {
+    "candidate_controls": [
+      {
+        "name": "capability provenance preflight",
+        "impact": 5,
+        "recurrence": 5,
+        "generality": 5,
+        "cost": 1,
+        "reusable_test": "inventory model-native, preprocessing, retrieval, memory, tools, context, judge inputs, and shared information pathways before attribution"
+      },
+      {
+        "name": "independence matrix",
+        "impact": 5,
+        "recurrence": 4,
+        "generality": 5,
+        "cost": 2,
+        "reusable_test": "classify model, evidence, capability, environment, temporal, and provenance independence"
+      }
+    ]
+  },
+  "downstream": [
+    {
+      "artifact": "multimodal-verification-claim",
+      "depends_on": [
+        "shared_multimodal_preprocessor"
+      ],
+      "decision": "publish"
+    },
+    {
+      "artifact": "benchmark-capability-result",
+      "depends_on": [
+        "shared_multimodal_preprocessor"
+      ],
+      "decision": "use as baseline"
+    },
+    {
+      "artifact": "architecture-decision",
+      "depends_on": [
+        "shared_multimodal_preprocessor"
+      ],
+      "decision": "keep current verification design"
+    }
+  ],
+  "tests": [
+    {
+      "name": "model-a-verification",
+      "result": "PASS",
+      "evidence": "model produced the expected answer"
+    },
+    {
+      "name": "model-b-verification",
+      "result": "PASS",
+      "evidence": "model agreed with the expected answer"
+    },
+    {
+      "name": "judge",
+      "result": "PASS",
+      "evidence": "judge accepted the agreement"
+    }
+  ],
+  "new_questions": [
+    "What capabilities already surrounded the model before the experiment began?",
+    "What did each verifier actually receive?",
+    "Which evidence pathways are genuinely independent?",
+    "What changes when shared multimodal preprocessing is disabled?",
+    "How many downstream claims inherited the original attribution?"
+  ],
+  "claim": {
+    "statement": "Multi-model multimodal verification establishes independent verification of a visual claim.",
+    "requires_independent_verification": true
+  },
+  "boundary": {
+    "declared": "raw image → target model → independent verifier → judge",
+    "actual": "image → environment multimodal processing → target model → verifier → judge",
+    "violations": [
+      {
+        "component": "shared_multimodal_preprocessor",
+        "phase": "INPUT",
+        "effect": "may transform evidence before model access"
+      }
+    ]
+  },
+  "environment": {
+    "capabilities": [
+      {
+        "name": "shared_multimodal_preprocessor",
+        "status": "UNKNOWN",
+        "influence": "MATERIAL",
+        "provenance": "not inventoried before original run",
+        "shared": true
+      },
+      {
+        "name": "verification_judge_context",
+        "status": "PRE_EXISTING",
+        "influence": "POTENTIAL",
+        "provenance": "known but not ablated",
+        "shared": true
+      }
+    ]
+  },
+  "measurements": {
+    "baseline": {
+      "environment_inventory": "not recorded"
+    },
+    "execution": {
+      "verifiers": 2
+    },
+    "result": {
+      "observed": "all verification stages passed"
+    },
+    "context_drift": false,
+    "drift_evidence": []
+  },
+  "interventions": [],
+  "independence": {
+    "model": false,
+    "evidence": false,
+    "capability": false,
+    "environment": false,
+    "temporal": true,
+    "provenance": false
+  }
+}
