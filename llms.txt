@@ -22,6 +22,9 @@ Read in this order.
 ## Frameworks
 - [ACTS, the 5-Act research method](02-frameworks/acts-5-act-research.md): the outer operating shell for running research as a continuous, stateful process.
 - [D1, Failure-to-Leverage Compiler](02-frameworks/d1-failure-to-leverage.md): turns discovered failures into reusable controls and the next question, with steel gates for environment drift and observer contamination; a research instrument, no outcome claim.
+- [Software Factory Harness](02-frameworks/software-factory-harness.md): author-supplied design for a governed three-loop harness (inner, outer, meta) for autonomous software production; a design, not a result.
+- [META-HARNESS](02-frameworks/meta-harness.md): author-supplied meta-skill design for building and improving such a harness from evidence; a design, not a result.
+- [META-HARNESS skill registry](02-frameworks/meta-harness-skill-registry.md): author-supplied registry of the skills the meta-harness would need, plus an unverified mapping to counterparts found on the author's machine.
 - [Adaptive Infrastructure](02-frameworks/adaptive-infrastructure.md): the system owns the workflow; the model is a swappable worker.
 - [Axiom Inversion Logic (AIL)](02-frameworks/axiom-inversion-logic.md): invert an assumption a field treats as settled and ask what would have to be true.
 - [Mixture of Inversion Experts (MoIE)](02-frameworks/moie.md): a five-agent sequence that turns an AIL inversion into a falsifiable hypothesis.
