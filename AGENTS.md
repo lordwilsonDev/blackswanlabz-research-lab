@@ -10,3 +10,4 @@
 8. **To check anything mechanically:** `scripts/verify.sh` (add `--offline` without network).
 9. **Redactions are deliberate.** `[prospect]` and `[company]` in 08-operations replace real company names at the author's direction; do not try to recover them.
 10. **Procedures are not evidence.** 08-operations and 03-systems/msb-v3-governance-sop.md describe how things are meant to run; they are not proof that a control operates.
+11. **Do not assume absence.** Before you state that something is not built, missing, not run or unproven, read everything in the `llms.txt` order, search this repository and the linked repositories, and name the scope of your search. A missing term is not a missing mechanism: judge the function, not the word. State absence only for the scope you actually searched. The author's observation (not a measured rate) is that most things assumed to be absent turn out to exist.
