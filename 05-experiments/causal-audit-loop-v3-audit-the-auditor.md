@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit 2fcb5f3, 2026-10-03): FreeBuff causal-audit loop v3 blueprint; original working location not recorded
+captured: 2026-10-03
+status: pending
+---
+
 # FREEBUF CAUSAL-AUDIT LOOP v3
 ## Audit the Auditor — Independence, Retraction, Weighting, and Stop/Freeze
 

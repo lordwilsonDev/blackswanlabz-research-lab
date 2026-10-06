@@ -44,3 +44,5 @@ Propulsion-Engine-SOP ....... a domain module the above call into when the
 FDE intake SOP + Research Manual + Research Service ... intake, research and offer
 North Star Architecture + Cybernetic Loop ............. why, and how the loop closes
 ```
+
+**Held back for size (2026-10-06):** the Master SOP, the Operator SOP, the Research Manual and the FDE Customer Intake SOP v1.3 are archived stubs here, so the repository stays inside its size budget. Each stub says where the full text is (this repository's git history at commit b1cf99c, and the author's vault). Nothing was deleted.

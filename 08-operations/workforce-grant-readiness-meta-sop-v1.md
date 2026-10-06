@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit 40a33d2, 2026-10-05): workforce grant readiness meta-SOP; original working location not recorded
+captured: 2026-10-05
+status: pending
+---
+
 # Workforce Grant Readiness Meta-SOP v1
 
 ## Purpose

@@ -1,4 +1,6 @@
 ---
+source: authored in this repository (commit f93c653, 2026-10-03): attributed competitive architecture absorption register; original working location not recorded
+captured: 2026-10-03
 status: active
 version: 1.0
 purpose: competitive architecture absorption and attribution

@@ -1,3 +1,9 @@
+---
+source: authored in this repository (commit efc3934, 2026-10-05): workforce grant OS; original working location not recorded
+captured: 2026-10-05
+status: pending
+---
+
 # BlackSwanLabz Workforce Grant OS v1
 
 ## Purpose
