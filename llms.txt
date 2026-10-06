@@ -50,6 +50,7 @@ Read in this order.
 - [lab-verify skill](.claude/skills/lab-verify/SKILL.md): the Claude skill and harness that run the lab's verification process (pre-register, lock, self-check, run, report).
 
 ## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
+- [Doctoral Artifact Battery, artifact A02](05-experiments/doctoral-artifact-battery-a02.md): a tamper-evident run ledger built and checked in a documented loop; closed with limits stated, author-side verification only, repository not yet public.
 - [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.
 - [Three-Process Learning Research Protocol v0.1](05-experiments/learning-trajectory/protocol-0.1.md): the frozen three-process workflow.
 - [Readiness Gate v0.1](05-experiments/learning-trajectory/readiness-gate.md): the conditions that must hold before a run.
