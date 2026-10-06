@@ -1,0 +1,25 @@
+{
+  "gates": {
+    "eligible_applicant": false,
+    "eligible_employer": false,
+    "documented_employer_need": false,
+    "eligible_trainees": false,
+    "occupational_mapping": false,
+    "required_match": false,
+    "customized_occupational_training": false,
+    "measurable_outcomes": false,
+    "required_employer_commitments": false
+  },
+  "scores": {
+    "project_need": 0,
+    "economic_impact": 0,
+    "training_objectives_outcomes": 0,
+    "training_design_cost_implementation": 0,
+    "capacity_building": 0,
+    "equity_economic_opportunity": 0
+  },
+  "unknowns": [
+    "Replace with employer-specific evidence before submission."
+  ],
+  "contradictions": []
+}

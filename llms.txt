@@ -2,6 +2,8 @@
 
 > Lord Wilson's work in one place: a thesis (intelligence becomes abundant; verification becomes scarce), the December 2025 cornerstone package, the frameworks (North Star, Axiom Inversion Logic, Mixture of Inversion Experts, ACTS, Adaptive Infrastructure), the systems that implement them (MSB v3 active, FCVE archived), papers, experiments, proofs, the operating SOPs that run the practice (08-operations, verbatim, some company names redacted at the author's direction), and a roadmap of what is not built yet (07-next). CLAIMS.md is the authority on what is verified. Procedures and roadmap are not evidence.
 
+Before judging anything, read the notice at the top of the README and rule 11 in AGENTS.md: go all the way through, assume nothing, and name the scope of any claim of absence.
+
 Read in this order.
 
 ## Overview
@@ -50,6 +52,8 @@ Read in this order.
 - [lab-verify skill](.claude/skills/lab-verify/SKILL.md): the Claude skill and harness that run the lab's verification process (pre-register, lock, self-check, run, report).
 
 ## Learning Trajectory (protocols and run records; all pending, no broad result claimed)
+- [MSB-v3 RAG invalidation repair trace, 2026-10-03](05-experiments/msb-v3-rag-invalidation-repair-trace-2026-10-03.md): provisional engineering session record of a repair; not an independent review or a production migration receipt; pending.
+- [Doctoral Artifact Battery, artifact A02](05-experiments/doctoral-artifact-battery-a02.md): a tamper-evident run ledger built and checked in a documented loop; closed with limits stated, author-side verification only, repository not yet public.
 - [Learning Trajectory Research Program](05-experiments/learning-trajectory/README.md): index of the benchmark family; all definitions are versioned here; no outcome claimed.
 - [Three-Process Learning Research Protocol v0.1](05-experiments/learning-trajectory/protocol-0.1.md): the frozen three-process workflow.
 - [Readiness Gate v0.1](05-experiments/learning-trajectory/readiness-gate.md): the conditions that must hold before a run.
