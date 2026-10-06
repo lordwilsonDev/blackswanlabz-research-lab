@@ -11,9 +11,35 @@
 > - **Go all the way through.** Read it in the order given in [llms.txt](llms.txt), follow the links to the pinned repositories, and only then say what is missing.
 > - **Assume nothing.** A missing word on a page is not a missing system. The author's observation (an observation, not a measured rate) is that most things a reader assumes are not built turn out to be built. Search before you conclude, say what you searched, and say what you could not search.
 > - **Quote the banners.** Where a page says "not built", "not run" or "pending", say exactly that, no more and no less. [CLAIMS.md](CLAIMS.md) is the authority: only `verified` rows are established.
+> - **Start with [What exists](#what-exists)**: a map of what is designed, built, run and reproduced, and where it lives.
 > - **Check mechanically:** `scripts/verify.sh`.
 
 This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonDev)) in one place: the thesis, the methods, the systems, the experiments, the papers and the operating standards behind BlackSwanLabz. Read all of it, in the order given in [llms.txt](llms.txt), as the notice above says. Everything below links to the full piece.
+
+## What exists
+
+Read this table before you say that something is missing. Stages: **Designed** (written down, nothing built), **Built** (code or an artifact exists), **Run** (executed, results exist), **Reproduced** (a re-run reproduced the result). Independent reproduction is not claimed for any row. **Where:** *Public* is a repository anyone can read, *Private* is a private repository, *Local only* is on the author's machines and not yet published. A stage changes only when a page banner or a row in [CLAIMS.md](CLAIMS.md) changes. Last reviewed 2026-10-06.
+
+| System | Stage | Where | What the repo says |
+|---|---|---|---|
+| [MSB v3](03-systems/msb-v3.md), a local-first governed agent runtime | Built; test collection verified | Public | The pinned commit's test collection is verified ([C-030](CLAIMS.md)). Pass counts and the MVP closeout are the author's own report, pending ([C-031](CLAIMS.md), [C-032](CLAIMS.md)). |
+| [Ethos System](03-systems/ethos-system.md) | Built and tested; nothing is connected to it yet | Private vault repo | The 2026-09-30 run is the author's report, pending ([C-047](CLAIMS.md)). The page defines what "trusted" does and does not mean. |
+| [FCVE](03-systems/fcve.md), a formal claim-verification engine | Run; marked archived in this lab on 2026-09-19 (the GitHub repository itself is not flagged archived) | Public | Issued packages, test files and two upstream patch pull requests are verified ([C-033](CLAIMS.md), [C-034](CLAIMS.md), [C-035](CLAIMS.md)). |
+| [Adaptive Infrastructure](02-frameworks/adaptive-infrastructure.md) | Run; reproduced by the author | Private | The byte-for-byte reproduction and the recomputed numbers are verified in this repo's run record ([C-005](CLAIMS.md), [C-006](CLAIMS.md), [C-046](CLAIMS.md)). Because the repository is private, an outside reader cannot re-run them. |
+| [FDE Kernel](03-systems/fde-kernel.md), a mission harness | Built; missions run | Local only, no remote | Mission results are the author's report from local files, pending ([C-037](CLAIMS.md) to [C-044](CLAIMS.md)). |
+| [ACTS](02-frameworks/acts-5-act-research.md), a five-act research method | Designed; one worked example documented | Local only | The page walks through one cited run. There is no claim row. |
+| [Axiom Inversion Logic](02-frameworks/axiom-inversion-logic.md) | Designed; the reference implementation passes its unit tests | Method here; implementation private | Tests verified ([C-036](CLAIMS.md)). The page says the success-rate and domain-count claims in its source document are not evidenced. |
+| [Mixture of Inversion Experts](02-frameworks/moie.md) and its [benchmark](05-experiments/hermes12-benchmark.md) | Designed; the benchmark harness is validated on synthetic data only; **not run** | Local package | Whether it beats compute-matched baselines is untested, pending ([C-004](CLAIMS.md)). |
+| [Question Engineering](04-papers/epistemic-state-transition-question-engineering.md) | Designed (white paper) | Public paper; a working harness (question gate, intent-reality check, skill router) is Local only | The paper is not a result. The harness was found on the author's machine on 2026-10-06 and is not in this repository; no claim row. |
+| [Learning Trajectory program](05-experiments/learning-trajectory/README.md) | Designed; pilot runs recorded; **hard stop** on new runs | Public | Pilot records are provisional. See the [readiness gate](05-experiments/learning-trajectory/readiness-gate.md). |
+| [CVT-1](05-experiments/cvt-1/README.md) | Designed and pre-registered; **not run** | Public | The page says nothing on it is a result. |
+| [Doctoral Artifact Battery, artifact A02](05-experiments/doctoral-artifact-battery-a02.md) | Run; closed with limits stated; checked by the author's side only | Local only | Pending ([C-049](CLAIMS.md) to [C-054](CLAIMS.md)). |
+| [Workforce grant readiness](skills/workforce-grant-readiness/SKILL.md) skills and [harness](scripts/workforce-grant-harness.md) | Built | Public | A preflight script with an example case. No run record in this repo, no claim row. |
+| [Lab verifier](scripts/verify.py) | Built; runs; **currently reports failures on the default branch** | Public | Missing page headers, missing `llms.txt` links and the size budget, as of 2026-10-06. It is a working gate that is not yet green. |
+| [BlackSwanLabz OS](07-next/blackswanlabz-os.md) | Designed; **not built** | None | The page says it is a plan and that nothing has been tested. |
+| [Operating standards](08-operations/README.md) | Designed | Public | Several describe the target system, not what runs today. Read each page's own banner. |
+| [Cornerstone package](01-cornerstone/README.md) | Built; committed | Public | Commit totals and the source-line share are verified ([C-001](CLAIMS.md), [C-002](CLAIMS.md)). That the lines were AI-generated is the author's statement, pending ([C-048](CLAIMS.md)); an earlier claim about who wrote the source lines is retracted ([C-045](CLAIMS.md)). |
+| Skill library and harness | Built; in daily use by the author | Local only | Found on the author's machine on 2026-10-06 by listing directories; not independently checkable; no claim row. Stated here so a reader does not conclude it is absent. |
 
 ## The idea
 
