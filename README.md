@@ -43,6 +43,27 @@ Read this table before you say that something is missing. Stages: **Designed** (
 | [Cornerstone package](01-cornerstone/README.md) | Built; committed | Public | Commit totals and the source-line share are verified ([C-001](CLAIMS.md), [C-002](CLAIMS.md)). That the lines were AI-generated is the author's statement, pending ([C-048](CLAIMS.md)); an earlier claim about who wrote the source lines is retracted ([C-045](CLAIMS.md)). |
 | Skill library and harness | Built; in daily use by the author | Local only | Found on the author's machine on 2026-10-06 by listing directories; not independently checkable; no claim row. Stated here so a reader does not conclude it is absent. |
 
+## Repository map
+
+Everything in this repository, so nothing is hidden. [What exists](#what-exists) gives the stage and evidence for each system; [CLAIMS.md](CLAIMS.md) is the authority on any number.
+
+- **Root:** [README.md](README.md) (this page), [llms.txt](llms.txt) (reading order for AI readers), [AGENTS.md](AGENTS.md) (rules for AI readers), [CLAIMS.md](CLAIMS.md), [CITATION.cff](CITATION.cff), [LICENSE](LICENSE), [LICENSE-CODE](LICENSE-CODE), `.gitignore`.
+- **[00-thesis/](00-thesis/):** the thesis.
+- **[01-cornerstone/](01-cornerstone/README.md):** the December 2025 package: categories, [line breakdown](01-cornerstone/line-breakdown.md), [timeline](01-cornerstone/prediction-timeline.md), and [evidence/](01-cornerstone/evidence/README.md), the GitHub captures (`commits.json`, `code-frequency.json`, `code-frequency-export.csv`, `line-breakdown.json`).
+- **[02-frameworks/](02-frameworks/):** the methods and designs: North Star, AIL, MoIE, ACTS, D1, Adaptive Infrastructure, the software factory harness, META-HARNESS and its skill registry, and the operating prompt for a model working in the lab.
+- **[03-systems/](03-systems/):** MSB v3 and its governance SOP, the Ethos System and its summary, FCVE, FDE Kernel.
+- **[04-papers/](04-papers/README.md):** the white papers and the pre-registered method paper.
+- **[05-experiments/](05-experiments/README.md):** reproductions, reference tests and run records. Subfolders: [cvt-1/](05-experiments/cvt-1/README.md) (pre-registered, not run: `cvt1.py`, `cvt1.ipynb`, `prereg.json`, `tasks.json`), [d1-fixtures/](05-experiments/d1-fixtures/) (two cascade fixtures for D1), [freebuff-runs/](05-experiments/freebuff-runs/README.md) (FreeBuff run records, including the recovered GLM, DeepSeek and Alpha Space Bunny worker runs), [learning-trajectory/](05-experiments/learning-trajectory/README.md) (the benchmark program: `run-record.schema.json`, pilot `runs/`, `tasks/`, `projects/`).
+- **[06-proofs/](06-proofs/README.md):** FCVE's formal verification packages and upstream contributions.
+- **[07-next/](07-next/blackswanlabz-os.md):** planned, not built: [BlackSwanLabz OS](07-next/blackswanlabz-os.md) and the [CVT-1 proposal](07-next/cheap-verification-test.md).
+- **[08-operations/](08-operations/README.md):** the North Star operating SOPs (intake, research, the client loop, daily operations, the gates between found, proven and improved) and the grant-readiness rubric `workforce-grant-rubric-v1.yaml`. Published as written, including the offer and its prices; several pages describe the target system, not what runs today, and some are marked held back.
+- **[docs/](docs/):** the lab's design spec and plan, and the [Doctoral Artifact Battery v2.0 document](docs/doctoral-artifact-battery-v1.md) (the file name says v1, its title says v2.0).
+- **[scripts/](scripts/):** the verifier ([verify.py](scripts/verify.py), `verify.sh`), `cornerstone_breakdown.py`, `d1_failure_to_leverage_compiler.py`, the [workforce grant harness](scripts/workforce-grant-harness.md) (`workforce_grant_harness.py`, `fixtures/`) and `package_lab_verify_skill.sh`.
+- **[skills/](skills/):** the workforce-grant [readiness](skills/workforce-grant-readiness/SKILL.md) and [meta](skills/workforce-grant-readiness-meta/SKILL.md) skills.
+- **[tests/](tests/):** tests for the verifier and the lab-verify harness (`conftest.py`, `test_verify.py`, `test_lab_harness.py`).
+- **[.claude/skills/lab-verify/](.claude/skills/lab-verify/SKILL.md):** the lab-verify skill, which pre-registers, locks and runs an executable-oracle experiment (`scripts/lab_harness.py`, `scripts/ollama_adapter.py`, `templates/prereg.template.json`).
+- **[.github/workflows/verify.yml](.github/workflows/verify.yml):** CI: runs the tests and the verifier on every push and weekly.
+
 ## The idea
 
 AI capability is getting cheaper and more interchangeable every month. When anyone can generate intelligence, what stays scarce is everything around it: choosing the right problem, the context, the workflow, and above all **verification** — knowing that an output is true, that an action was allowed, and that someone is accountable for it. The durable asset isn't the model. It's the verified capability built around models.
@@ -72,12 +93,6 @@ Over the following months the industry scaled up in the same areas — agent mem
 - [**ACTS**](02-frameworks/acts-5-act-research.md) — a five-act research method that ends at a human decision, never an automatic next step.
 - [**D1 — Failure-to-Leverage Compiler**](02-frameworks/d1-failure-to-leverage.md) — compiles discovered failures into reusable controls, tests, and the next research question, with steel gates for environment drift and observer contamination.
 
-## Papers and experiments
-
-- [**Papers**](04-papers/README.md) — the Constraint Migration white paper, Epistemic State Transition: Question Engineering, and the AIL + MoIE Recursive Research Protocol.
-- [**Experiments**](05-experiments/README.md) — reproductions, reference tests, FDE Kernel missions, and a pre-registered benchmark that tests AIL + MoIE against compute-matched baselines, with its falsification condition written down before it runs.
-- [**Proofs**](06-proofs/README.md) — FCVE's formal verification packages and upstream contributions.
-
 ## Learning Trajectory Research Program
 
 [Q2B-LTB-1](05-experiments/learning-trajectory/q2b-ltb-1.md) is the integrated benchmark for question-to-build learning trajectories. It combines LTB learner capability states, INV-LTB problem terrain, verified builds, transfer, retention, cross-model reconstruction, and reference-effort comparison. [CRT-1](05-experiments/learning-trajectory/crt-1.md) tests whether another model can reconstruct the research protocol from its chat and repository evidence package. All definitions are versioned under [05-experiments/learning-trajectory](05-experiments/learning-trajectory/README.md).
@@ -86,14 +101,6 @@ Over the following months the industry scaled up in the same areas — agent mem
 
 [**Black Swan Labs Research Group**](08-operations/black-swan-labs-research-group.md) — the organization-level operating system: a universal research skeleton instantiated through owner intent, question engineering, reusable skills and harnesses, governed state, verification, people operations, experiments, and continuous improvement.
 
-
-## How the lab runs
-
-The [North Star operating SOPs](08-operations/README.md) are the standards for running BlackSwanLabz as an evidence-first research and automation practice: intake, research, the client loop, daily operations, and the gates between *found*, *proven* and *improved*. They're published as written, including the offer and its prices.
-
-## What's next
-
-[**BlackSwanLabz OS**](07-next/blackswanlabz-os.md) — a free operating system (an Omarchy fork) with the Hermes agent and the North Star method built in, and AIL and MoIE given away with it. Planned, not built yet.
 
 ## Receipts
 
