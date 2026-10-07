@@ -8,6 +8,7 @@ Read in this order.
 
 ## Overview
 - [README](README.md): the lab's front page and map.
+- [Repository map](README.md#repository-map): every folder and file in this repository, including code, tests, CI and data.
 
 ## Thesis
 - [The Intelligence Infrastructure Mismatch](00-thesis/intelligence-infrastructure-mismatch.md): the problem statement; capability is scaling faster than the economy can absorb it.
@@ -87,10 +88,7 @@ Read in this order.
 - [PBR-2026-10-03-001 cycle 001 record](05-experiments/freebuff-runs/v8-0-pbr-cycle-001-record.md): FreeBuff run record; pending.
 - [PT-2026-10-03-001: T0 baseline and hold](05-experiments/freebuff-runs/production-test-pt-2026-10-03-001.md): FreeBuff run record; pending.
 - [skill validator adversarial audit; findings open](05-experiments/freebuff-runs/skill-validator-adversarial-audit-2026-10-03.md): FreeBuff run record; pending.
-- [Recovery record: GLM, DeepSeek and Alpha Space Bunny worker runs](05-experiments/freebuff-runs/model-runs-recovery-2026-10-06.md): how the three FreeBuff worker runs were recovered from local logs, and the limits; pending.
-- [FreeBuff worker run: GLM](05-experiments/freebuff-runs/model-run-glm.md): recovered run record; OBSERVED, not verified; pending.
-- [FreeBuff worker run: DeepSeek](05-experiments/freebuff-runs/model-run-deepseek.md): recovered run record; OBSERVED, not verified; pending.
-- [FreeBuff worker run: Alpha Space Bunny](05-experiments/freebuff-runs/model-run-space-bunny-alpha.md): recovered run record; OBSERVED, not verified; pending.
+- [Recovery record: GLM, DeepSeek and Alpha Space Bunny worker runs](05-experiments/freebuff-runs/model-runs-recovery-2026-10-06.md): recovered from Freebuff logs; pending. Records: [GLM](05-experiments/freebuff-runs/model-run-glm.md), [DeepSeek](05-experiments/freebuff-runs/model-run-deepseek.md), [Alpha Space Bunny](05-experiments/freebuff-runs/model-run-space-bunny-alpha.md).
 
 ## Proofs
 - [Proofs](06-proofs/README.md): two theorems run end-to-end through FCVE, each corrected at least once and superseded.

@@ -43,23 +43,15 @@ No step by any of the three workers is dated October 4: that is the date of the 
 
 The forensic session report gave approximate windows and edit counts "log-attributed", without stating its method. The values recomputed here differ; neither set has been independently verified, and the recomputed one states its method.
 
-| Item | Earlier summary | Recomputed here |
-|---|---|---|
-| GLM window | Aug 14 to Sep 12 | 2026-08-14 to 2026-09-12 (agrees) |
-| DeepSeek window | Aug 13 to Sep 18 | 2026-08-08 to 2026-09-30 |
-| Alpha Space Bunny window | Sep 24 to Oct 1 | 2026-09-24 to 2026-10-01 (agrees) |
-| DeepSeek edits (msb-v3 / Vault / PZS) | 804 / 203 / 46 | 844 / 256 / 45 |
-| GLM edits (msb-v3) | 141 | 176 |
-| Alpha Space Bunny edits (msb-v3 / Vault / PZS) | 60 / 16 / 11 | 85 / 24 / 11 |
+Windows agree for GLM (Aug 14 to Sep 12) and Alpha Space Bunny (Sep 24 to Oct 1). DeepSeek differs: Aug 13 to Sep 18 in the summary, Aug 8 to Sep 30 here. Edit counts (msb-v3 / Vault / PZS) differ: DeepSeek 804 / 203 / 46 against 844 / 256 / 45; GLM 141 against 176 (msb-v3); Alpha Space Bunny 60 / 16 / 11 against 85 / 24 / 11.
 
-Recomputed counts are `str_replace` plus `write_file` tool calls whose path text names the tree. The reason for the differences is `UNRESOLVED` (the earlier method is not recorded).
+Recomputed counts are `str_replace` plus `write_file` tool calls whose path text names the tree. The cause of the differences is `UNRESOLVED` (the earlier method is not recorded).
 
 ## Limits and exclusions
 
 - **Unattributed tool calls.** 5172 logged tool calls carry an opaque Freebuff model key instead of a model name and cannot be assigned to any worker (about 1190 of them are verifier-like commands). The agent step lines for all three workers carry readable model names, so these probably belong to other agents, but that is not established. The per-worker numbers may therefore exclude some real work.
 - **Other agents are not recorded here.** The logs also show runs by other Freebuff agents (last run per chat: mimo 6, muse-spark 4, catalog 3, luna 1, solar-pro4 1, luna-6 1). They were outside the request.
-- **Logs are mutable local files**, not signed or chained. They were hashed on 2026-10-06; a later change to them is detectable against the manifest, an earlier change is not.
-- **Run-state files keep only the last run of each chat.** Step counts and tool calls therefore come from the log files; the last-run outputs come from the run-state files.
+- **Logs are mutable local files**, not signed or chained; hashed on 2026-10-06, so later changes are detectable and earlier ones are not. Run-state files keep only the last run of a chat, so counts come from the logs and last-run outputs from the run-state files.
 - **Excluded on purpose:** prompt text, command text, the account email, the user identifier and every Freebuff model key. They are in the raw logs and in the private archive, not in this repository.
 - **No quality comparison** between the workers was recovered; "continued operating in the same environment" is observed, "equally well" is `UNRESOLVED`.
 
