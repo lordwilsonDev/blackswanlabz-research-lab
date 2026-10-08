@@ -41,6 +41,7 @@ Read this table before you say that something is missing. Stages: **Designed** (
 | [BlackSwanLabz OS](07-next/blackswanlabz-os.md) | Designed; **not built** | None | The page says it is a plan and that nothing has been tested. |
 | [Operating standards](08-operations/README.md) | Designed | Public | Several describe the target system, not what runs today. Read each page's own banner. |
 | [Cornerstone package](01-cornerstone/README.md) | Built; committed | Public | Commit totals and the source-line share are verified ([C-001](CLAIMS.md), [C-002](CLAIMS.md)). That the lines were AI-generated is the author's statement, pending ([C-048](CLAIMS.md)); an earlier claim about who wrote the source lines is retracted ([C-045](CLAIMS.md)). |
+| [Sovereign white papers, Jan 2026](https://github.com/lordwilsonDev/blackswan_sovereign_evidence_2026) | Designed; seven-paper index, one stub, one slide deck | Public | Dated record (2026-01-07) of the inversion ideas behind AIL; six papers are not in that repo. No claim row. |
 | Skill library and harness | Built; in daily use by the author | Local only | Found on the author's machine on 2026-10-06 by listing directories; not independently checkable; no claim row. Stated here so a reader does not conclude it is absent. |
 
 ## Repository map
