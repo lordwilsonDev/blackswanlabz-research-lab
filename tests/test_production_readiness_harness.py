@@ -201,3 +201,14 @@ def test_unsupported_schema_version_is_a_tool_error(tmp_path):
     case["schema_version"] = "99.0"
     result = prh.Auditor(case, tmp_path, date(2026, 10, 9)).run()
     assert result["status"] == "TOOL_ERROR"
+
+def test_incomplete_case_template_is_schema_valid_for_preflight():
+    import json
+    from jsonschema import Draft202012Validator, FormatChecker
+
+    root = Path(__file__).resolve().parents[1]
+    schema = json.loads((root / "schemas" / "production-readiness-case.schema.json").read_text())
+    case = json.loads((root / "scripts" / "fixtures" / "production_readiness_case.example.json").read_text())
+    # Schema validity means structurally readable, not production-ready.
+    Draft202012Validator(schema, format_checker=FormatChecker()).validate(case)
+
