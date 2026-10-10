@@ -27,7 +27,7 @@ Keep NOT_ASSESSED, NOT_RUN, STALE, UNRESOLVED, TOOL_ERROR, FAIL and BLOCKED sepa
 ## What the previous blueprint still needed
 
 1. **Coverage accounting:** requirements-to-capability-to-test-to-evidence traceability; exact search scope; inaccessible repository/local skill-store treatment; duplicate capability detection; dependency graph and hidden coupling.
-2. **Specification quality:** measurable user outcome; non-goals and limitations; KNOWN/ASSUMED/UNKNOWN/CONFLICTED/NOT_APPLICABLE/REQUIRES_AUTHORIZATION states; decision-changing clarification questions; acceptance examples and frozen falsification criteria.
+2. **Specification quality:** measurable user outcome; non-goals and limitations; KNOWN/ASSUMED/UNKNOWN/CONFLICTED/NOT_APPLICABLE/REQUIRES_AUTHORIZATION states; decision-changing clarification questions; acceptance examples and frozen falsification criteria. Reuse the existing 50-Question OS Bootstrap/Question Engineering flow one question at a time; do not create a competing intake questionnaire.
 3. **Model fit:** qualify an exact revision for the real task, tools, data boundary, budget and latency. Test instruction/schema fidelity, context use, tool arguments/results, uncertainty/abstention, recovery and fallback. Track expiry and retest triggers. Model brand is not qualification.
 4. **Skill contracts:** stable ID/version/owner; inputs/outputs; pre/postconditions; invariants; dependencies; side effects; required permissions; failure states; timeout/retry/idempotency; deprecation and downstream compatibility.
 5. **Execution controls:** sandbox, least privilege, bounded time/tokens/cost/context/concurrency, action journal, resumable checkpoints, safe retries, cancellation, idempotency, rollback and recovery test.
@@ -39,7 +39,7 @@ Keep NOT_ASSESSED, NOT_RUN, STALE, UNRESOLVED, TOOL_ERROR, FAIL and BLOCKED sepa
 11. **Production operations:** monitoring, SLO/alerts where appropriate, canary/rollback, incidents, support owner, user acceptance, drift and model requalification.
 12. **Meta-loop safety:** the harness may propose changes but cannot silently change its evaluator, authority or release criteria. Convert repeated human interventions into controls only after experiments show benefit; guard against metric gaming.
 
-## How the research methods fit
+## Existing gates and cross-system integration\n\nPRH-C must discover and respect existing governors before running any experiment. It may not override a higher-level stop condition; the Learning Trajectory readiness gate currently records `BLOCKED_FOR_NEW_RUNS` pending CRT-1 readiness and reproducibility conditions. It should reuse the lab's 50-Question OS Bootstrap and Question Engineering flow, asking one adaptive question at a time, rather than duplicating intake. The existing `lab-verify` skill can support preregistration and executable-oracle checks, but it explicitly does not claim peer review or independent external validation.\n\n## How the research methods fit
 
 - **AIL:** invert load-bearing assumptions, derive a competing mechanism, state observables and failure conditions, design a falsifiable test.
 - **MoIE:** route complementary roles through inversion, anomaly retrieval, synthesis, red team and prediction; test whether the mixture beats a simpler matched baseline.
