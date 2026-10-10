@@ -247,8 +247,8 @@ def test_snapshot_headers_cover_08_operations(tmp_path):
     assert any("08-operations/x.md" in e for e in errors)
 
 
-def test_token_budget_is_250k():
-    assert verify.TOKEN_BUDGET == 250_000
+def test_token_budget_accounts_for_prh_completeness_layer():
+    assert verify.TOKEN_BUDGET == 270_000
 
 
 def test_main_offline_success_says_what_was_skipped(tmp_path, capsys):
