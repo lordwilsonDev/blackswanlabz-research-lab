@@ -22,9 +22,9 @@ Use these discovery states: `FOUND`, `NOT_FOUND_IN_SEARCHED_SCOPE`, `ACCESS_LIMI
 ### 2. Compile the user specification
 Record outcome, user, acceptance example, scope/non-goals, preconditions, inputs/outputs, invariants, failure modes, limitations, authority, data classification, operating profile, budget/latency bounds, evaluation criteria, oracle, baseline, holdout, rollback, monitoring, support and ownership. For each field, record source and state: `KNOWN`, `ASSUMED`, `UNKNOWN`, `CONFLICTED`, `NOT_APPLICABLE` with rationale, or `REQUIRES_AUTHORIZATION`.
 
-Ask the smallest question whose answer could change permission, architecture, evaluation, cost or release. Do not repeat questions already answered. Unknown critical details block execution rather than being guessed.
+Ask the smallest question whose answer could change permission, architecture, evaluation, cost or release. Do not repeat questions already answered. Unknown critical details block execution rather than being guessed. Reuse the lab's existing 50-Question OS Bootstrap and Question Engineering interfaces; ask adaptively, one question at a time, rather than spawning a competing questionnaire. Preserve UNKNOWN where a yes/no answer is not justified.
 
-### 3. Map requirements to existing capability
+Before initiating an experiment, inspect governing readiness gates and hard stops. PRH cannot override an upstream hold; in particular, preserve the Learning Trajectory program's `BLOCKED_FOR_NEW_RUNS` state until its own blocking gate is formally closed.\n\n### 3. Map requirements to existing capability
 Map each requirement to existing skills, tools, model capability, policies, tests, and evidence. Classify gaps as capability, authority, tool, knowledge, contract, verification, observability, infrastructure, governance, model fit, operations, user acceptance or unknown. Before adding anything, check for a functionally equivalent capability under another name.
 
 For every gap, ask: Was the relevant scope searched? Can a deterministic control close it? What is the smallest falsifiable change? What might regress? How will closure be proven?
