@@ -219,7 +219,7 @@ def check_links(root: Path) -> list[str]:
     return errors
 
 
-TOKEN_BUDGET = 250_000
+TOKEN_BUDGET = 270_000  # Expanded to accommodate PRH-C v1.0 without excluding source or test files.
 TEXT_SUFFIXES = {".md", ".txt", ".json", ".cff", ".sh", ".py", ".yml", ".yaml", ".csv"}
 SECRET_PATTERNS = {
     "GitHub token": re.compile(r"\b(?:ghp|gho|ghu|ghs)_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{20,}"),
