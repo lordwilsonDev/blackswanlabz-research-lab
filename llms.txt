@@ -28,6 +28,7 @@ Read in this order.
 - [META-HARNESS](02-frameworks/meta-harness.md): author-supplied meta-skill design for building and improving such a harness from evidence; a design, not a result.
 - [META-HARNESS skill registry](02-frameworks/meta-harness-skill-registry.md): author-supplied registry of the skills the meta-harness would need, plus an unverified mapping to counterparts found on the author's machine.
 - [Production Readiness Harness completeness layer (PRH-C)](02-frameworks/production-readiness-harness-completeness-v1.md): profile-specific skill qualification and evidence-integrity preflight design; prototype, not a production certificate.
+- [Production-readiness preflight script](scripts/production_readiness_harness.py), [case schema](schemas/production-readiness-case.schema.json), [operating skill](skills/production-readiness-harness/SKILL.md), and [synthetic tests](tests/test_production_readiness_harness.py): runnable prototype components, not production evidence.
 - [Adaptive Infrastructure](02-frameworks/adaptive-infrastructure.md): the system owns the workflow; the model is a swappable worker.
 - [Axiom Inversion Logic (AIL)](02-frameworks/axiom-inversion-logic.md): invert an assumption a field treats as settled and ask what would have to be true.
 - [Mixture of Inversion Experts (MoIE)](02-frameworks/moie.md): a five-agent sequence that turns an AIL inversion into a falsifiable hypothesis.
