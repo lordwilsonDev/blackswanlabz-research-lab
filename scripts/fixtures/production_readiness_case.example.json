@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PRH-EXAMPLE-NOT-READY",
+  "skill": {
+    "id": "replace.with.real-skill-id",
+    "version": "0.1.0",
+    "owner": "REQUIRES_OWNER",
+    "purpose": "Template only; this is not a readiness claim.",
+    "scope": { "allowed_paths": [], "forbidden_paths": [] }
+  },
+  "contract": {
+    "inputs": [],
+    "outputs": [],
+    "limitations": [],
+    "acceptance_criteria": []
+  },
+  "permissions": {
+    "allowed_actions": [],
+    "denied_actions": [],
+    "approval_required_for": [],
+    "overbroad": null,
+    "least_privilege_test": { "status": "NOT_RUN", "evidence_refs": [] }
+  },
+  "model": {
+    "provider": "UNSPECIFIED",
+    "model_id": "UNSPECIFIED",
+    "task_profile": "UNSPECIFIED",
+    "required_capabilities": [],
+    "qualification": {
+      "status": "NOT_RUN",
+      "evaluated_at": null,
+      "expires_at": null,
+      "suite_version": "UNSPECIFIED",
+      "known_limits": [],
+      "capability_results": {},
+      "evidence_refs": []
+    },
+    "fallback_test": { "status": "NOT_RUN", "evidence_refs": [] },
+    "version_pinned": false
+  },
+  "evaluation": {
+    "baseline_id": "UNSPECIFIED",
+    "holdout": false,
+    "independent_verifier": { "status": "NOT_RUN", "evidence_refs": [] },
+    "checks": {}
+  },
+  "operations": {
+    "timeout_seconds": null,
+    "max_retries": null,
+    "budget_limit": {},
+    "monitoring": { "status": "NOT_RUN", "evidence_refs": [] },
+    "redaction": { "status": "NOT_RUN", "evidence_refs": [] },
+    "rollback_test": { "status": "NOT_RUN", "evidence_refs": [] },
+    "incident_owner": "UNSPECIFIED",
+    "rollback_plan": "UNSPECIFIED",
+    "maintenance_trigger": "UNSPECIFIED",
+    "rate_limit_policy": "UNSPECIFIED",
+    "network_egress_policy": "UNSPECIFIED",
+    "secrets_handling": "UNSPECIFIED",
+    "human_escalation": "UNSPECIFIED",
+    "concurrency_limit": "UNSPECIFIED",
+    "input_size_limit": "UNSPECIFIED",
+    "user_feedback_channel": "UNSPECIFIED",
+    "dependencies_pinned": false,
+    "idempotency_tested": false,
+    "backup_recovery_tested": false
+  },
+  "governance": {
+    "data_classification": "UNSPECIFIED",
+    "retention_policy": "UNSPECIFIED",
+    "deletion_policy": "UNSPECIFIED",
+    "incident_playbook": "UNSPECIFIED",
+    "intellectual_property_policy": "UNSPECIFIED",
+    "audit_log_retention": "UNSPECIFIED",
+    "deployment_region": "UNSPECIFIED",
+    "support_boundary": "UNSPECIFIED",
+    "deprecation_policy": "UNSPECIFIED"
+  },
+  "release": {
+    "profile": "internal",
+    "approval_status": "PENDING",
+    "authorized_by": "",
+    "evidence_refs": []
+  },
+  "evidence": []
+}
