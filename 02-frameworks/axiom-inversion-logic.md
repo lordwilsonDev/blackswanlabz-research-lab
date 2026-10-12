@@ -48,13 +48,19 @@ The Axiom Forge Director spec runs the move through 11 phases, in order:
 
 The AIL ACT operating skill states the posture directly: "Be permissive about generating hypotheses and strict about characterizing claims." The formal spec makes falsifiability a hard requirement: "every active hypothesis has at least one explicit failure condition," predictions are frozen once a research cycle reaches the `PREREGISTERED` state, and a hypothesis with a materially new, unrepresented observation is routed to `NOVEL` rather than silently absorbed. Evidence quality is weighted, not just counted — executed code and real datasets carry a 1.00 source-reliability multiplier in the JEV decision procedure, while an unexecuted model assertion carries 0.20.
 
-## What is not yet shown
+## Existing cross-domain evidence and open comparative questions
 
-The package's own self-assessment is direct about the gap between the method's design and its evidence base:
+**Cross-domain artifact production is documented; do not confuse that with an unrun comparative benchmark.** The [Doctoral Artifact Battery](../docs/doctoral-artifact-battery-v1.md) inventories pre-existing work in AI systems, software engineering, formal verification, mathematics, security/governance, research methods, automation, question engineering, and other fields. The record includes actual repositories such as [MSB v3](../03-systems/msb-v3.md) and [FCVE](../03-systems/fcve.md); it does not start from an empty capability baseline. Count exact domains from a domain-to-artifact matrix, not from overlapping category names.
 
-> **"'100% success rate' and '23+ domains' are not evidenced in the package."** The MoIE_Complete_Operating_System.docx makes those claims directly. The package does not include the underlying run record for 23 domains, and the benchmark companion (hermes12) explicitly says the experiment is not yet run. So the strongest empirical claim in the package is unsupported by anything inside the package. Read it as the author's stated thesis, not as established fact.
+The [Q2B-MBEDDR-001 state-machine run](../05-experiments/learning-trajectory/runs/q2b-mbeddr-001-state-machine.md) also records **a bounded structural-transfer demonstration**: six initial behavior checks passed, three verifier challenges passed after a documented correction, four fresh traffic-light-controller transfer checks passed after an instrumentation correction, and five pedestrian-capability extension checks passed after a further instrumentation correction. That run labels L4 transfer demonstrated, L5 extension provisional, and independent reconstruction and retention pending. These are author-side recorded results, not a universal transfer-rate estimate.
 
-Whether AIL+MoIE actually outperforms a compute-matched baseline is the open, pre-registered question tracked as [C-004](../CLAIMS.md) — status pending.
+### Distinguish three questions
+
+1. **Were artifacts built and tested in multiple domains?** Yes: the linked portfolio and run records document multiple domain-specific artifacts and tests. Assess each artifact by its actual evidence status; do not downgrade the entire portfolio to an untested proposal.
+2. **Has any concrete cross-domain/structural transfer been demonstrated?** Yes, in bounded recorded exercises such as Q2B-MBEDDR-001. This does not by itself establish transfer by independent human operators across every domain or expertise level.
+3. **Does AIL+MoIE outperform a compute-matched best-of-n baseline, and is there a documented 100% success rate across 23+ domains?** These are separate quantitative claims. The original `MoIE_Complete_Operating_System.docx` package did not include underlying run records for its 23+ domains / 100% assertions. That limitation is **scoped to that package**; it does not negate the other artifacts linked above. The [Hermes12 comparison](../05-experiments/hermes12-benchmark.md) has not been run, so the comparative advantage tracked by [C-004](../CLAIMS.md) remains **pending**.
+
+**Evidence rule:** distinguish demonstrated artifact breadth, bounded transfer results, broad operator-to-operator generalization, and compute-matched causal advantage. Neither the absence of records in one package nor the status of one benchmark determines the status of the whole research program.
 
 ## Sources
 
