@@ -185,6 +185,12 @@ The evidence base includes work involving combinations of:
 
 The exact domain count must be derived from the repository evidence rather than asserted from memory.
 
+### Recorded evidence of structural transfer (already performed)
+
+The existing record is not limited to a list of intended domains. For example, [Q2B-MBEDDR-001](../05-experiments/learning-trajectory/runs/q2b-mbeddr-001-state-machine.md) records initial state-machine behavior (6/6 PASS), verifier challenges corrected from 1/3 to 3/3, transfer of the underlying state/guard/transition mechanism to a traffic-light controller (4/4 PASS after correcting the verifier's probe schema), and an additional pedestrian-control extension (5/5 PASS after a further verifier correction). The run describes L4 structural transfer as demonstrated, L5 extension as provisional, and independent reconstruction and retention as pending.
+
+This is **existing author-side evidence of bounded transfer and failure-to-verifier-correction**, not merely a future benchmark proposal. It must be counted as prior work when evaluating the trajectory. Conversely, it does not prove the unrelated quantitative claims of a 100% success rate in 23+ domains or a compute-matched MoIE advantage; see [AIL evidence scope](../02-frameworks/axiom-inversion-logic.md#existing-cross-domain-evidence-and-open-comparative-questions) and [CLAIMS.md C-004](../CLAIMS.md).
+
 The experiment should produce a **domain-to-artifact matrix** identifying:
 
 | Domain | Repository/artifact | What was built | Tests | Evidence | Verification status |
