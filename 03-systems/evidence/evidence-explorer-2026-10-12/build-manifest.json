@@ -1,0 +1,177 @@
+{
+  "site_source_commit": "da14fd341f3d837b0b37d63ef41036656d048a94",
+  "lab_input_commit": "a7ac9a6ce392a251c72310e4b411fa88ac81cdb3",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "55d927463e9a9e7cd3643d9c437bcb7493e2c32d7449e091493280743f568c1b",
+      "size_bytes": 1159
+    },
+    {
+      "path": "dist/app.js",
+      "sha256": "75ae4609213b1dbd3b86206d4fa6ca68766771283514b6d25d5b4dd4946ff5a4",
+      "size_bytes": 15769
+    },
+    {
+      "path": "dist/evidence-data.js",
+      "sha256": "43b22c8efcb99ca5011ab2001014d77135449d855c84b2b52936cd7ee73e521f",
+      "size_bytes": 179519
+    },
+    {
+      "path": "dist/evidence.json",
+      "sha256": "34f4be8751cf8f1c2e59819acb935c723c3a6e2af1b73d76d60617f1d45ab1a9",
+      "size_bytes": 179498
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "fa5249cbf31745f05eaafaa2cd07ae7c1bd75cad38dd15ba40370ecdacbde59e",
+      "size_bytes": 7533
+    },
+    {
+      "path": "dist/model.js",
+      "sha256": "ec9bf20663d1999fb1ae88c71432b6010bb6923839c2141499c2be7cd2937fc2",
+      "size_bytes": 3007
+    },
+    {
+      "path": "dist/sources/01-cornerstone/line-breakdown.md",
+      "sha256": "14bde15aaad9b3a0c8e4138f851174733e6c348f3d984a1b870ceb97869ef105",
+      "size_bytes": 3715
+    },
+    {
+      "path": "dist/sources/01-cornerstone/prediction-timeline.md",
+      "sha256": "29fab385a326a805a928b3487e35da6a9697b45e1ae29b6c08dbfd8d3b045fa8",
+      "size_bytes": 8234
+    },
+    {
+      "path": "dist/sources/02-frameworks/acts-5-act-research.md",
+      "sha256": "182c1ffe8f8ebd554be10af69f05fc34931fcf35b8df8a81a4163e8fe1a66ee3",
+      "size_bytes": 5651
+    },
+    {
+      "path": "dist/sources/02-frameworks/adaptive-infrastructure.md",
+      "sha256": "5929096bcc9da7ff59dfc2e69553ea367164e04c14381df49d7000d8459e4a30",
+      "size_bytes": 5735
+    },
+    {
+      "path": "dist/sources/02-frameworks/axiom-inversion-logic.md",
+      "sha256": "8fb2aec685dd3d8c6750f02ac9b00ea5e2aae04ecec9b63c4fbc9d7eb6dcdde7",
+      "size_bytes": 6932
+    },
+    {
+      "path": "dist/sources/02-frameworks/d1-failure-to-leverage.md",
+      "sha256": "a5ab4b2a938cd5a3821b37820685928362124601fabb0baaf2d715873a76620e",
+      "size_bytes": 5982
+    },
+    {
+      "path": "dist/sources/02-frameworks/moie.md",
+      "sha256": "47d1d11b05e5ab83cc016dbac4e6e8a8943c19f86f3ce86ead63c20ab96ce795",
+      "size_bytes": 3575
+    },
+    {
+      "path": "dist/sources/02-frameworks/north-star.md",
+      "sha256": "20850890cb4b3d845bf1482673f74761aeef3d0a577ce98815f685cb7860421a",
+      "size_bytes": 4208
+    },
+    {
+      "path": "dist/sources/03-systems/ethos-system.md",
+      "sha256": "6a7e3d59585a144371e3f6e1f8a0c2e361273f0c805dc0b004784e9deafac4eb",
+      "size_bytes": 3439
+    },
+    {
+      "path": "dist/sources/03-systems/fcve.md",
+      "sha256": "23b2f9acd6f51575742dadb6a329dd5f1807dfe32c3ad69b08421ca60c5799df",
+      "size_bytes": 4482
+    },
+    {
+      "path": "dist/sources/03-systems/fde-kernel.md",
+      "sha256": "b873b19c089704433138d7a49e0873ee4758344833617038887ac65d79031d0c",
+      "size_bytes": 3150
+    },
+    {
+      "path": "dist/sources/03-systems/msb-v3.md",
+      "sha256": "556d2278545bf0af425ead70f5ea61b6fad92a4496fb10f901b8e5f6e6a53c5e",
+      "size_bytes": 6533
+    },
+    {
+      "path": "dist/sources/04-papers/ail-moie-recursive-research-protocol.md",
+      "sha256": "ec02f14d567e862d857984358a68457b87cc4387ab3a49dabec8886bd37e8568",
+      "size_bytes": 3094
+    },
+    {
+      "path": "dist/sources/05-experiments/adaptive-infrastructure-reproduce.md",
+      "sha256": "85793dc17e4e138ffbb0595c664d9fac1b7d95e0bc82c28dfd0367434f6b4502",
+      "size_bytes": 2812
+    },
+    {
+      "path": "dist/sources/05-experiments/doctoral-artifact-battery-a02.md",
+      "sha256": "89841b067fd3cd9ac0c6e5f2bcfa8e228ba79b8d23e80af225e9a2eacddd6723",
+      "size_bytes": 4409
+    },
+    {
+      "path": "dist/sources/05-experiments/hermes12-benchmark.md",
+      "sha256": "fd5300ab2831b865a7960dd1ad4bf1445c7fac6e474abfc397ba0ebc0f671073",
+      "size_bytes": 3521
+    },
+    {
+      "path": "dist/sources/05-experiments/learning-trajectory/runs/q2b-mbeddr-001-state-machine.md",
+      "sha256": "4e8723cb297c20018bf35d47ee3fd3ddd25ea6427172538872cd120c08694192",
+      "size_bytes": 3481
+    },
+    {
+      "path": "dist/sources/05-experiments/research-loop-reference-tests.md",
+      "sha256": "33f462c9f43b4f82407167be1ec51ca1ff1ee35a5146221d1000b545ed07ffcf",
+      "size_bytes": 2706
+    },
+    {
+      "path": "dist/sources/06-proofs/README.md",
+      "sha256": "4458eb830750142ae098f92fcd7c7d9ca55e68b24a424b69f1283aa1075ca617",
+      "size_bytes": 4311
+    },
+    {
+      "path": "dist/sources/AGENTS.md",
+      "sha256": "3e901489ff091bf93bfabe43448af9e872ce11be817610acfa18329288085483",
+      "size_bytes": 1706
+    },
+    {
+      "path": "dist/sources/CLAIMS.md",
+      "sha256": "562c4536f28400abcd6ef6135e616ba18ae8ce300878bec1c51af5465355e339",
+      "size_bytes": 21804
+    },
+    {
+      "path": "dist/sources/README.md",
+      "sha256": "4506d704984aec8f5bb279c84f69a750576ac896432b8d95d6ae6b5b0fc0f9fc",
+      "size_bytes": 17763
+    },
+    {
+      "path": "dist/sources/manifest.json",
+      "sha256": "6ea1b08658c58b8470acbc14c3b3d81ac1fdf06595f221755802c487f57affae",
+      "size_bytes": 5697
+    },
+    {
+      "path": "dist/sources/scripts/workforce-grant-harness.md",
+      "sha256": "b312364d47d8a8e2fcedf2130cfacc7c0ed8d00ce3765b3715d2472760ce8395",
+      "size_bytes": 978
+    },
+    {
+      "path": "dist/styles.css",
+      "sha256": "32fdd953c4efdd7871f1c313ca823c05c138ac2722f261637a923ac014a1f39b",
+      "size_bytes": 16789
+    },
+    {
+      "path": "scripts/import-evidence.py",
+      "sha256": "8569f2f9e70ab0b3dc2fa06bd32aadfd223343a62db6b425174c42ced554eb29",
+      "size_bytes": 12490
+    },
+    {
+      "path": "scripts/source-tree.json",
+      "sha256": "e046fc57afc28349a5522a7cfcc15104e7f2ad7d447ed18194f028fdf7d45d93",
+      "size_bytes": 13071
+    },
+    {
+      "path": "scripts/validate.mjs",
+      "sha256": "21d99ba250b289bc066006017d0c189010bac40d28e69c740d7cbd02de9977c0",
+      "size_bytes": 10793
+    }
+  ],
+  "note": "Hashes identify the created private Site source. The implementation remains in its Sites source repository; this report does not open Site access."
+}

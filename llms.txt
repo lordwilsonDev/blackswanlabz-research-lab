@@ -34,6 +34,7 @@ Read in this order.
 - [Operating prompt](02-frameworks/model-operating-prompt.md): a prompt that briefs another model on how to work in this lab without outside peer review; untested.
 
 ## Systems
+- [Evidence Explorer v1](03-systems/evidence-explorer.md): built and owner-privately deployed; interactive source-backed collection with a creation-session validation record. This does not upgrade the underlying research claims.
 - [FCVE, Formal Claim Verification Engine](03-systems/fcve.md): archived 2026-09-19; turned a mathematical claim into an auditable evidence package.
 - [The Ethos System](03-systems/ethos-system.md): the seven principles as software you can ask (allow, pause, refuse), with an immune system that proves it hasn't been altered.
 - [Ethos executive summary](03-systems/ethos-executive-summary.md): the generated plain-language report of its latest test run, including every gap it can't yet prove.

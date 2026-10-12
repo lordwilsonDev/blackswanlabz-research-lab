@@ -1,0 +1,131 @@
+{
+  "repo": "lordwilsonDev/blackswanlabz-research-lab",
+  "commit": "a7ac9a6ce392a251c72310e4b411fa88ac81cdb3",
+  "branch": "master",
+  "captured_at": "2026-10-12T22:25:44.970Z",
+  "files": [
+    {
+      "path": "01-cornerstone/line-breakdown.md",
+      "sha256": "14bde15aaad9b3a0c8e4138f851174733e6c348f3d984a1b870ceb97869ef105",
+      "git_blob_sha": "606abc01688e0b8a3a2461c46fc2c0589aba0aa9"
+    },
+    {
+      "path": "01-cornerstone/prediction-timeline.md",
+      "sha256": "29fab385a326a805a928b3487e35da6a9697b45e1ae29b6c08dbfd8d3b045fa8",
+      "git_blob_sha": "f4e54c3dec98655ac30275ebe98fb929c9ddfdee"
+    },
+    {
+      "path": "02-frameworks/acts-5-act-research.md",
+      "sha256": "182c1ffe8f8ebd554be10af69f05fc34931fcf35b8df8a81a4163e8fe1a66ee3",
+      "git_blob_sha": "7fff193897259631107c8bce3bcb27ff57e7b84b"
+    },
+    {
+      "path": "02-frameworks/adaptive-infrastructure.md",
+      "sha256": "5929096bcc9da7ff59dfc2e69553ea367164e04c14381df49d7000d8459e4a30",
+      "git_blob_sha": "4d6ecd221b1720b1cb75e235ec85a687fe05d221"
+    },
+    {
+      "path": "02-frameworks/axiom-inversion-logic.md",
+      "sha256": "8fb2aec685dd3d8c6750f02ac9b00ea5e2aae04ecec9b63c4fbc9d7eb6dcdde7",
+      "git_blob_sha": "c91949c3a8d8a7f2017465224c0c7978ffb4c398"
+    },
+    {
+      "path": "02-frameworks/d1-failure-to-leverage.md",
+      "sha256": "a5ab4b2a938cd5a3821b37820685928362124601fabb0baaf2d715873a76620e",
+      "git_blob_sha": "1917bcf1933b4289fa10956dcac2c0baee9a9094"
+    },
+    {
+      "path": "02-frameworks/moie.md",
+      "sha256": "47d1d11b05e5ab83cc016dbac4e6e8a8943c19f86f3ce86ead63c20ab96ce795",
+      "git_blob_sha": "131ed5255f82979b894b353a282616a5ec0b6937"
+    },
+    {
+      "path": "02-frameworks/north-star.md",
+      "sha256": "20850890cb4b3d845bf1482673f74761aeef3d0a577ce98815f685cb7860421a",
+      "git_blob_sha": "e30a20f6f8093d4df92192da7f5f4a947c1ec158"
+    },
+    {
+      "path": "03-systems/ethos-system.md",
+      "sha256": "6a7e3d59585a144371e3f6e1f8a0c2e361273f0c805dc0b004784e9deafac4eb",
+      "git_blob_sha": "7a08c2c3d2c511c20742750090c68ae79de721a6"
+    },
+    {
+      "path": "03-systems/fcve.md",
+      "sha256": "23b2f9acd6f51575742dadb6a329dd5f1807dfe32c3ad69b08421ca60c5799df",
+      "git_blob_sha": "b23f32f596adf4ed9d404a9ec2ff0c1f813ee6fe"
+    },
+    {
+      "path": "03-systems/fde-kernel.md",
+      "sha256": "b873b19c089704433138d7a49e0873ee4758344833617038887ac65d79031d0c",
+      "git_blob_sha": "29d0d3aeebfdf439581d6f4a3a130f7e0c598845"
+    },
+    {
+      "path": "03-systems/msb-v3.md",
+      "sha256": "556d2278545bf0af425ead70f5ea61b6fad92a4496fb10f901b8e5f6e6a53c5e",
+      "git_blob_sha": "2edf5a98525586080517b8169e054eaa7bb0abee"
+    },
+    {
+      "path": "04-papers/ail-moie-recursive-research-protocol.md",
+      "sha256": "ec02f14d567e862d857984358a68457b87cc4387ab3a49dabec8886bd37e8568",
+      "git_blob_sha": "3fd27d9043a950eb81a47a489ae0ad88e358163b"
+    },
+    {
+      "path": "05-experiments/adaptive-infrastructure-reproduce.md",
+      "sha256": "85793dc17e4e138ffbb0595c664d9fac1b7d95e0bc82c28dfd0367434f6b4502",
+      "git_blob_sha": "b542449ea6750b43274d2ec26939799dc07c33aa"
+    },
+    {
+      "path": "05-experiments/doctoral-artifact-battery-a02.md",
+      "sha256": "89841b067fd3cd9ac0c6e5f2bcfa8e228ba79b8d23e80af225e9a2eacddd6723",
+      "git_blob_sha": "9c1a5247454b12a6f87de5dd60d0f7dc5405c868"
+    },
+    {
+      "path": "05-experiments/hermes12-benchmark.md",
+      "sha256": "fd5300ab2831b865a7960dd1ad4bf1445c7fac6e474abfc397ba0ebc0f671073",
+      "git_blob_sha": "07aaa81c34e176c77e1bf85074f7f6f9c058745f"
+    },
+    {
+      "path": "05-experiments/learning-trajectory/runs/q2b-mbeddr-001-state-machine.md",
+      "sha256": "4e8723cb297c20018bf35d47ee3fd3ddd25ea6427172538872cd120c08694192",
+      "git_blob_sha": "690fc14265b3660a36efebe59a6e5411f191e3c0"
+    },
+    {
+      "path": "05-experiments/research-loop-reference-tests.md",
+      "sha256": "33f462c9f43b4f82407167be1ec51ca1ff1ee35a5146221d1000b545ed07ffcf",
+      "git_blob_sha": "4415cac2c0c2392ba0896b942eafc7c8062e4abe"
+    },
+    {
+      "path": "06-proofs/README.md",
+      "sha256": "4458eb830750142ae098f92fcd7c7d9ca55e68b24a424b69f1283aa1075ca617",
+      "git_blob_sha": "767aef16382d7aef99a45fb78f21b394cf292fd7"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "3e901489ff091bf93bfabe43448af9e872ce11be817610acfa18329288085483",
+      "git_blob_sha": "e6e77f883ed94724d95254863ad9bda37cbc7e8a"
+    },
+    {
+      "path": "CLAIMS.md",
+      "sha256": "562c4536f28400abcd6ef6135e616ba18ae8ce300878bec1c51af5465355e339",
+      "git_blob_sha": "1e2fd37c58f15f393da5d4677a45463798895e8e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "4506d704984aec8f5bb279c84f69a750576ac896432b8d95d6ae6b5b0fc0f9fc",
+      "git_blob_sha": "d187a917c05e6eff946836d20756376e4f9b0acc"
+    },
+    {
+      "path": "scripts/workforce-grant-harness.md",
+      "sha256": "b312364d47d8a8e2fcedf2130cfacc7c0ed8d00ce3765b3715d2472760ce8395",
+      "git_blob_sha": "ed8e4de3e3ee290d24a261d4656b792838461549"
+    }
+  ],
+  "scope": "CLAIMS.md is the authority for claim states. Selected artifact and method pages are captured; this is not a complete inventory of the lab. Underlying experiments were not rerun by this explorer.",
+  "status_counts": {
+    "verified": 29,
+    "pending": 24,
+    "retracted": 1
+  },
+  "domain_note": "Domains and artifact-to-claim associations are editorial navigation. Claim fields and statuses are copied verbatim from the pinned ledger.",
+  "inventory_scope": "Complete 54-row claim register plus 17 selected artifacts and methods. Not an exhaustive inventory of all lab projects, branches, or local work."
+}

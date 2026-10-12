@@ -22,6 +22,7 @@ Read this table before you say that something is missing. Stages: **Designed** (
 
 | System | Stage | Where | What the repo says |
 |---|---|---|---|
+| [Evidence Explorer v1](03-systems/evidence-explorer.md) | Built; privately deployed 2026-10-12 | Owner-private Sites; creation record public | Interactive domain filters, claim receipts, and pinned sources. Creation-session validation and private deployment are recorded ([C-055](CLAIMS.md)); no underlying experiment rerun or browser visual QA is claimed. |
 | [MSB v3](03-systems/msb-v3.md), a local-first governed agent runtime | Built; test collection verified | Public | The pinned commit's test collection is verified ([C-030](CLAIMS.md)). Pass counts and the MVP closeout are the author's own report, pending ([C-031](CLAIMS.md), [C-032](CLAIMS.md)). |
 | [Ethos System](03-systems/ethos-system.md) | Built and tested; nothing is connected to it yet | Private vault repo | The 2026-09-30 run is the author's report, pending ([C-047](CLAIMS.md)). The page defines what "trusted" does and does not mean. |
 | [FCVE](03-systems/fcve.md), a formal claim-verification engine | Run; marked archived in this lab on 2026-09-19 (the GitHub repository itself is not flagged archived) | Public | Issued packages, test files and two upstream patch pull requests are verified ([C-033](CLAIMS.md), [C-034](CLAIMS.md), [C-035](CLAIMS.md)). |
@@ -52,7 +53,7 @@ Everything in this repository, so nothing is hidden. [What exists](#what-exists)
 - **[00-thesis/](00-thesis/):** the thesis.
 - **[01-cornerstone/](01-cornerstone/README.md):** the December 2025 package: [line breakdown](01-cornerstone/line-breakdown.md), [timeline](01-cornerstone/prediction-timeline.md), and [evidence/](01-cornerstone/evidence/README.md), the GitHub captures (`commits.json`, `code-frequency.json`, `code-frequency-export.csv`, `line-breakdown.json`).
 - **[02-frameworks/](02-frameworks/):** the methods and designs: North Star, AIL, MoIE, ACTS, D1, Adaptive Infrastructure, the software factory harness, META-HARNESS and its skill registry, and the operating prompt for a model working in the lab.
-- **[03-systems/](03-systems/):** MSB v3 and its governance SOP, the Ethos System and its summary, FCVE, FDE Kernel.
+- **[03-systems/](03-systems/):** MSB v3 and its governance SOP, the Ethos System and its summary, FCVE, FDE Kernel, and the [Evidence Explorer creation record](03-systems/evidence-explorer.md) with [receipts](03-systems/evidence/evidence-explorer-2026-10-12/creation-receipt.json).
 - **[04-papers/](04-papers/README.md):** the white papers and the pre-registered method paper.
 - **[05-experiments/](05-experiments/README.md):** reproductions, reference tests and run records. Subfolders: [cvt-1/](05-experiments/cvt-1/README.md) (pre-registered, not run: `cvt1.py`, `cvt1.ipynb`, `prereg.json`, `tasks.json`), [d1-fixtures/](05-experiments/d1-fixtures/) (two cascade fixtures for D1), [freebuff-runs/](05-experiments/freebuff-runs/README.md) (FreeBuff run records, including the GLM, DeepSeek and Alpha Space Bunny workers), [learning-trajectory/](05-experiments/learning-trajectory/README.md) (the benchmark program: `run-record.schema.json`, pilot `runs/`, `tasks/`, `projects/`).
 - **[06-proofs/](06-proofs/README.md):** FCVE's formal verification packages and upstream contributions.
@@ -79,6 +80,8 @@ In December 2025, [GITHUB_AI_PROJECTS_PACKAGE](01-cornerstone/README.md) went up
 Over the following months the industry scaled up in the same areas — agent memory, the Model Context Protocol, LLM observability, small on-device models, self-improving agents. The [timeline](01-cornerstone/prediction-timeline.md) sets each category beside where the field went next.
 
 ## What was built
+
+- [**Evidence Explorer v1**](03-systems/evidence-explorer.md) — an interactive, privately hosted collection of the lab's pinned claim register and selected artifacts. Browse domains, filter evidence states, and open source receipts. [Private Site](https://blackswanlabz-proof.docilehawk8.chatgpt.site); creation and validation record: [C-055](CLAIMS.md).
 
 - [**MSB v3**](03-systems/msb-v3.md) — a sovereign, local-first agent runtime with governance brakes, evidence chains and a self-building factory. About 3,900 tests at the pinned commit. Its [enterprise governance SOP](03-systems/msb-v3-governance-sop.md) sets out how it's meant to be run.
 - [**The Ethos System**](03-systems/ethos-system.md) — the seven principles (love, safety, abundance, growth, transparency, never harm, the Golden Rule) turned into software you can ask: *allow, pause or refuse*. An immune system keeps it honest — 485 checks with 0 failures, and 143 of 143 deliberate sabotage attempts caught.
