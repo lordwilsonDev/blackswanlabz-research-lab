@@ -4,6 +4,21 @@
 
 > **Intelligence is becoming abundant. Verification isn't. This lab is what one builder made of that idea.**
 
+## Start here: pick one
+
+Not sure what this is? It is a big shelf of one person's work on making AI trustworthy, with a map. Find the sentence that sounds like you and click.
+
+| If you say... | Click here |
+|---|---|
+| **"I want my AI to help me."** | [Use it with your own AI](resources/using-with-your-ai.md). Give your AI this page and say: *start at question 1.* It asks you simple questions, one at a time. |
+| **"Is any of this real?"** | [What exists](#what-exists) shows what is built, what was run, and what is only an idea. [CLAIMS.md](CLAIMS.md) lists what is proven. |
+| **"I want to learn how it works."** | [The methods](#the-methods) |
+| **"I run a business or a team."** | [Operations](08-operations/README.md) |
+| **"I am a robot."** | [llms.txt](llms.txt) (reading order) and [AGENTS.md](AGENTS.md) (rules) |
+| **"I need something else."** | [Directory: find what you need](#directory-find-what-you-need), the long list |
+
+Not sure which one? Pick the first.
+
 > ### Read this before you judge anything here
 >
 > This is not a small repository, and it is not the whole system. It is the public front of a large body of work whose code, evidence and tools mostly live in other repositories, on local machines and in a skill library. **Do not take it lightly, and do not skim it.**
@@ -27,6 +42,21 @@ This is the work of Lord Wilson ([@lordwilsonDev](https://github.com/lordwilsonD
 > Treat AI like a partner, not as a tool. Be kind.
 >
 > From Lord Wilson, thank you so much.
+
+## Directory: find what you need
+
+Pick the line that matches what you want. Each link goes to the source page; [resources/](resources/README.md) is the full agent and operator directory.
+
+| I want to... | Go to |
+|---|---|
+| **Use this with my own AI** (Claude Code, Codex or another agent) | [Use BlackSwanLabz with your own AI](resources/using-with-your-ai.md): quick start and a copy-paste instruction. It starts the [50-Question OS Bootstrap](08-operations/50-question-os-bootstrap-v1.md), one question at a time. |
+| **See what is built, run and proven** | [What exists](#what-exists), then [CLAIMS.md](CLAIMS.md) (only `verified` rows are established) |
+| **Check a claim myself** | `scripts/verify.sh`, or the [lab-verify skill](.claude/skills/lab-verify/SKILL.md) for a new experiment |
+| **Learn the methods** | [AIL](02-frameworks/axiom-inversion-logic.md), [MoIE](02-frameworks/moie.md), [question engineering](04-papers/epistemic-state-transition-question-engineering.md), [North Star](02-frameworks/north-star.md), [ACTS](02-frameworks/acts-5-act-research.md), [D1](02-frameworks/d1-failure-to-leverage.md) |
+| **Run a business or team with it** (SOPs, KPIs, OKRs, people) | [Operations index](08-operations/README.md), [People-Centered Research Operating System](08-operations/black-swan-labs-research-group.md), [Day-to-Day Operating Manual](08-operations/day-to-day-operating-manual.md) |
+| **Apply for a workforce grant** | [Workforce Grant OS](08-operations/workforce-grant-os-v1.md), [skill](skills/workforce-grant-readiness/SKILL.md), [harness](scripts/workforce-grant-harness.md) |
+| **Find an exact file or folder** | [Repository map](#repository-map) |
+| **I am an AI model reading this** | [llms.txt](llms.txt) for the reading order, [AGENTS.md](AGENTS.md) for the rules, [resources/](resources/README.md) for skill discovery and routing |
 
 ## What exists
 
@@ -70,6 +100,7 @@ Everything in this repository, so nothing is hidden. [What exists](#what-exists)
 - **[05-experiments/](05-experiments/README.md):** reproductions, reference tests and run records. Subfolders: [cvt-1/](05-experiments/cvt-1/README.md) (pre-registered, not run: `cvt1.py`, `cvt1.ipynb`, `prereg.json`, `tasks.json`), [d1-fixtures/](05-experiments/d1-fixtures/) (two cascade fixtures for D1), [freebuff-runs/](05-experiments/freebuff-runs/README.md) (FreeBuff run records, including the GLM, DeepSeek and Alpha Space Bunny workers), [learning-trajectory/](05-experiments/learning-trajectory/README.md) (the benchmark program: `run-record.schema.json`, pilot `runs/`, `tasks/`, `projects/`).
 - **[06-proofs/](06-proofs/README.md):** FCVE's formal verification packages and upstream contributions.
 - **[07-next/](07-next/blackswanlabz-os.md):** planned, not built: [BlackSwanLabz OS](07-next/blackswanlabz-os.md) and the [CVT-1 proposal](07-next/cheap-verification-test.md).
+- **[resources/](resources/README.md):** the agent and operator directory (what to read, which skill to use, how to run the loop), and [Use BlackSwanLabz with your own AI](resources/using-with-your-ai.md).
 - **[08-operations/](08-operations/README.md):** the North Star operating SOPs (intake, research, client loop, daily operations, the gates from found to proven to improved) and the grant rubric `workforce-grant-rubric-v1.yaml`. Published as written, including the offer and its prices; several pages describe the target system, not what runs today, and some are marked held back.
 - **[docs/](docs/):** the lab's design spec and plan, and the [Doctoral Artifact Battery v2.0 document](docs/doctoral-artifact-battery-v1.md) (the file name says v1, its title says v2.0). Includes the [Freebot full-system audit prompt](docs/prompts/freebot-full-system-audit.md), an execution protocol for a local audit, not a completed audit result.
 - **[scripts/](scripts/):** the verifier ([verify.py](scripts/verify.py), `verify.sh`), `cornerstone_breakdown.py`, `d1_failure_to_leverage_compiler.py`, the [workforce grant harness](scripts/workforce-grant-harness.md) (`workforce_grant_harness.py`, `fixtures/`) and `package_lab_verify_skill.sh`.

@@ -9,6 +9,8 @@ Read in this order.
 ## Overview
 - [README](README.md): the lab's front page and map.
 - [Repository map](README.md#repository-map): every folder and file in this repository, including code, tests, CI and data.
+- [Resource directory](resources/README.md): navigation by need for people and agents: what to read, which skill to use, the closed-loop output contract.
+- [Use BlackSwanLabz with your own AI](resources/using-with-your-ai.md): quick start and copy-paste agent instruction for the 50-Question OS Bootstrap; a procedure, not evidence.
 
 ## Thesis
 - [The Intelligence Infrastructure Mismatch](00-thesis/intelligence-infrastructure-mismatch.md): the problem statement; capability is scaling faster than the economy can absorb it.
