@@ -26,6 +26,7 @@ status: active
 | --- | --- | --- |
 | Agent instructions | [AGENTS.md](../AGENTS.md), [llms.txt](../llms.txt) | Repository navigation, claims discipline, absence-check rules |
 | Use with your own AI | [Use BlackSwanLabz With Your Own AI](using-with-your-ai.md) | Quick start, a copy-paste agent instruction, the closed-loop method, completion criteria |
+| Onboarding skill | [blackswanlabz-onboarding](../skills/blackswanlabz-onboarding/SKILL.md) | The whole onboarding as one runnable procedure: discover, 50 questions, scope from the lab |
 | User onboarding | [50-Question OS Bootstrap](../08-operations/50-question-os-bootstrap-v1.md) | One-question-at-a-time intent and capability discovery; **pending** bootstrap interface |
 | Owner intent and people | [People-Centered Research Operating System](../08-operations/black-swan-labs-research-group.md) | Intent compiler, people operations, research relief, quality, governance; design/implementation blueprint |
 | Question methodology | [Epistemic State Transition: Question Engineering](../04-papers/epistemic-state-transition-question-engineering.md) | Question engineering research framework; paper, not a deployed result |
