@@ -5,7 +5,7 @@ captured: 2026-09-28
 status: active
 ---
 
-> **Pricing note (2026-10-12):** the $999 first build below is the earlier offer. First engagements now start on a free tier with a 50% profit share; see the [update in 08-operations/README.md](README.md).
+> **Pricing note (2026-10-12):** the $999 first build below is the earlier offer. First engagements now start free, with donations for custom work; see the [update in 08-operations/README.md](README.md).
 
 
 > **BlackSwanLabz SOP set** — SOP index  ·  **this doc:** current system architecture (v2.1) — governing equation + the three gates; supersedes Operating-Blueprint-v1

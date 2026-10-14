@@ -5,7 +5,7 @@ captured: 2026-09-28
 status: active
 ---
 
-> **Pricing note (2026-10-12):** the $999 first build below is the earlier offer. First engagements now start on a free tier with a 50% profit share; see the [update in 08-operations/README.md](README.md).
+> **Pricing note (2026-10-12):** the $999 first build below is the earlier offer. First engagements now start free, with donations for custom work; see the [update in 08-operations/README.md](README.md).
 
 > Redacted for publication: 2 mentions of 2 company names replaced with [company] at the author's direction (2026-09-28). No other changes besides converting private-note links to plain text.
 
