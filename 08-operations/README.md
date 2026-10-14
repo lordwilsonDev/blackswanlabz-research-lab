@@ -6,7 +6,7 @@ status: active
 
 # 08 Operations
 
-> **Update 2026-10-12 (the author's decision): first engagements now start on a free tier.** The business pays nothing up front. The author earns 50% of profit after the business's operating costs, so the business only pays out of what the work earns. The aim is to work beside the business as a team member, show that the author wants it to win, and build trust. The $999 first build in the pages below was the earlier offer and is kept as written. The written terms (what counts as operating costs, and how a gain is credited to the work) are not final yet.
+> **Update 2026-10-12 (the author's decision): the way in is free.** A person gives their own AI the link to this repository, and the AI walks them through setup at no cost. For more help, the AI can send them the README and the pages they need. Custom work is by donation, at the person's choice, and it is bounded, not endless: the author builds the automation and gives a 15-minute setup walkthrough if needed, and does a business assessment and competitor threat analysis on a 15 to 20 minute call. The $999 first build in the pages below was the earlier offer and is kept as written.
 
 These are the operating standards Wilson wrote for running BlackSwanLabz as an evidence-first research-and-automation practice. Several describe the target system rather than what runs today; their own status notes say what exists now (for example, the Day-to-Day Operating Manual opens with one). They are published as written, with private-note links turned into plain text and a few company names redacted (each affected file says so at the top).
 
