@@ -1,3 +1,4 @@
+import subprocess
 import pytest
 from pathlib import Path
 
@@ -353,3 +354,28 @@ def test_snapshot_files_skip_nested_cache_dirs(tmp_path):
     write(tmp_path, "05-experiments/x/page.md", GOOD_HEADER)
     names = [p.name for p in verify._snapshot_files(tmp_path)]
     assert names == ["page.md"]
+
+
+def test_split_hidden_pins_skips_only_hidden_repos():
+    pins = [("a.md", "o/private", "abc1234"), ("b.md", "o/public", "def5678")]
+    checkable, skipped = verify.split_hidden_pins(pins, lambda repo: repo == "o/private")
+    assert checkable == [("b.md", "o/public", "def5678")]
+    assert len(skipped) == 1 and "o/private" in skipped[0] and "not checked" in skipped[0]
+
+
+def test_visible_repo_with_missing_commit_still_fails():
+    pins = [("b.md", "o/public", "def5678")]
+    checkable, skipped = verify.split_hidden_pins(pins, lambda repo: False)
+    assert skipped == []
+    assert verify.check_pins(checkable, lambda repo, sha: False) == ["b.md: commit def5678 not found in o/public"]
+
+
+def test_gh_repo_hidden_only_on_404(monkeypatch):
+    def fake(stderr, code):
+        return lambda *a, **k: subprocess.CompletedProcess(a, code, "", stderr)
+    monkeypatch.setattr(verify.subprocess, "run", fake("gh: Not Found (HTTP 404)", 1))
+    assert verify.gh_repo_hidden("o/r") is True
+    monkeypatch.setattr(verify.subprocess, "run", fake("gh: connection refused", 1))
+    assert verify.gh_repo_hidden("o/r") is False
+    monkeypatch.setattr(verify.subprocess, "run", fake("", 0))
+    assert verify.gh_repo_hidden("o/r") is False

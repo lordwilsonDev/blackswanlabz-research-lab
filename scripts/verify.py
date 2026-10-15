@@ -299,6 +299,28 @@ def gh_commit_exists(repo: str, sha: str) -> bool:
     return result.returncode == 0 or git_commit_exists(repo, sha)
 
 
+def gh_repo_hidden(repo: str) -> bool:
+    """True only when the API answers 404 for the repo: a private repository this token cannot see.
+    Any other failure (network, rate limit, auth) returns False so the commit check still runs and fails loudly."""
+    result = subprocess.run(["gh", "api", f"repos/{repo}", "--jq", ".full_name"],
+                            capture_output=True, text=True)
+    return result.returncode != 0 and ("HTTP 404" in result.stderr or "Not Found" in result.stderr)
+
+
+def split_hidden_pins(pins: list[tuple[str, str, str]], repo_hidden: Callable[[str], bool]
+                      ) -> tuple[list[tuple[str, str, str]], list[str]]:
+    """Separate pins whose repo this runner cannot see. They are reported, not failed; the owner's own
+    authenticated run still checks them."""
+    hidden: dict[str, bool] = {}
+    checkable, skipped = [], []
+    for rel, repo, sha in pins:
+        if repo not in hidden:
+            hidden[repo] = repo_hidden(repo)
+        (skipped if hidden[repo] else checkable).append((rel, repo, sha))
+    return checkable, [f"{rel}: pin {sha} in {repo} not checked (repository not visible to this runner)"
+                       for rel, repo, sha in skipped]
+
+
 def gh_code_frequency(repo: str) -> list[list[int]]:
     for _ in range(6):
         result = subprocess.run(["gh", "api", f"repos/{repo}/stats/code_frequency"],
@@ -325,7 +347,10 @@ def run(root: Path, online: bool) -> list[str]:
     errors += check_size(root)
     errors += check_secrets(root)
     if online:
-        errors += check_pins(collect_pins(root), gh_commit_exists)
+        checkable, skipped = split_hidden_pins(collect_pins(root), gh_repo_hidden)
+        for note in skipped:
+            print(f"NOTE: {note}", file=sys.stderr)
+        errors += check_pins(checkable, gh_commit_exists)
         try:
             errors += check_code_frequency(gh_code_frequency(CORNERSTONE_REPO))
         except RuntimeError as exc:
