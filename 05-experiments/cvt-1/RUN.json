@@ -1,0 +1,11 @@
+{
+ "adapter": "python3 .claude/skills/lab-verify/scripts/ollama_adapter.py",
+ "note": "Mac mini M4 (Mac16,10) 16GB, qwen3:8b via Ollama 0.34.4, run by Hark via Desktop Commander",
+ "started": "2026-10-08T01:37:32+00:00",
+ "platform": "macOS-26.6.2-arm64-arm-64bit",
+ "machine": "arm64",
+ "python": "3.9.6",
+ "instrument": "lab-harness-0.1",
+ "evidence": true,
+ "finished": "2026-10-08T01:49:18+00:00"
+}

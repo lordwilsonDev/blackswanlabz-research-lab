@@ -1,0 +1,9 @@
+{
+ "locked_at": "2026-10-08T01:32:58+00:00",
+ "git_commit": "e440d9e03c56b3bfdda8ee503a921b6ca6c5e259",
+ "instrument": "lab-harness-0.1",
+ "files": {
+  "prereg.json": "c0626e9a2ef4483e556beae4c6608258ce81476ead4cc6dc73f491faff8638a9",
+  "tasks.json": "82d1b64a7c9f4a65f40a9cd667fbd02fada0db13271fce934363b004821814c6"
+ }
+}
