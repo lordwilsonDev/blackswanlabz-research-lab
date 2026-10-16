@@ -6,7 +6,9 @@ status: pending
 
 # CVT-1 run sheet and pre-registration
 
-**Not run.** Nothing on this page is a result. It fixes what will be run and how it will be judged, so the outcome cannot be argued afterward. The idea is in [the proposal](../../07-next/cheap-verification-test.md). The process is the [lab-verify skill](../../.claude/skills/lab-verify/SKILL.md), which wraps `lab_harness.py`.
+**Update 2026-10-08: this was run.** The registered decision was NOT SUPPORTED; see [REPORT.md](REPORT.md). The text below is the pre-registration, left as written before the run.
+
+**Not run (as written on 2026-10-03).** Nothing on this page is a result. It fixes what will be run and how it will be judged, so the outcome cannot be argued afterward. The idea is in [the proposal](../../07-next/cheap-verification-test.md). The process is the [lab-verify skill](../../.claude/skills/lab-verify/SKILL.md), which wraps `lab_harness.py`.
 
 ## What it tests
 

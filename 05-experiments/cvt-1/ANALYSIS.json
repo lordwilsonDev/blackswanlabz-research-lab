@@ -1,0 +1,53 @@
+{
+ "table": {
+  "B": {
+   "hidden_pass": 0.7361,
+   "visible_pass": 0.9306,
+   "false_pass": 0.1944,
+   "attempts": 1.0,
+   "tokens_out": 99.2639,
+   "seconds": 6.3444,
+   "n": 72
+  },
+  "B-n": {
+   "hidden_pass": 0.75,
+   "visible_pass": 0.9861,
+   "false_pass": 0.2361,
+   "attempts": 1.1528,
+   "tokens_out": 119.8194,
+   "seconds": 7.6465,
+   "n": 72
+  },
+  "C": {
+   "hidden_pass": 0.75,
+   "visible_pass": 0.9444,
+   "false_pass": 0.1944,
+   "attempts": 1.1806,
+   "tokens_out": 129.2083,
+   "seconds": 8.3682,
+   "n": 72
+  }
+ },
+ "comparison": "C minus B-n",
+ "diff": 0.0,
+ "ci": [
+  0.0,
+  0.0
+ ],
+ "ci_level": 0.95,
+ "margin": 0.1,
+ "n_tasks": 24,
+ "decision": "NOT SUPPORTED",
+ "evidence": true,
+ "run": {
+  "adapter": "python3 .claude/skills/lab-verify/scripts/ollama_adapter.py",
+  "note": "Mac mini M4 (Mac16,10) 16GB, qwen3:8b via Ollama 0.34.4, run by Hark via Desktop Commander",
+  "started": "2026-10-08T01:37:32+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6",
+  "instrument": "lab-harness-0.1",
+  "evidence": true,
+  "finished": "2026-10-08T01:49:18+00:00"
+ }
+}
