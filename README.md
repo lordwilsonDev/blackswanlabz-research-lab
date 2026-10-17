@@ -4,6 +4,16 @@
 
 > **Intelligence is becoming abundant. Verification isn't. This lab is what one builder made of that idea.**
 
+## Why This Is Free
+
+**BlackSwanLabz is shared freely because the purpose is to make powerful research, engineering, and organizational capabilities accessible to people who could not otherwise afford to build them.** The goal is to help people learn, create, solve real problems, and improve their lives—not to make access to the starting point a privilege.
+
+**Estimated professional rebuild cost: $1.5 million–$4 million** for a comparable multidisciplinary engineering and research ecosystem spanning AI orchestration, persistent knowledge, capability discovery, skills, SOPs, harnesses, governance, verification, and evidence infrastructure. This is an **illustrative, scope-based estimate**, not an independent valuation, contractor quote, market sale price, or claim that the project has generated that amount in economic value. A fully enterprise-hardened deployment could cost more; a narrower implementation could cost less.
+
+**You can start without paying BlackSwanLabz.** Give this repository to an AI assistant that can read it, follow the [getting-started guide](resources/using-with-your-ai.md), and let it discover relevant procedures and capabilities. Some linked systems are local-only, private, experimental, or require external tools or services; the repository does not promise unrestricted access to those components or zero third-party costs. [See what exists](#what-exists) and [the evidence ledger](CLAIMS.md) for exact availability and verification status.
+
+**Why give it away?** Because the reason for building it was so other people wouldn't have to start from zero. The intent is to lower the barriers to learning and doing meaningful work, preserve evidence instead of hype, and let useful knowledge compound for everyone. Use it to help people, with care, transparency, and accountability.
+
 ## Start here: pick one
 
 Not sure what this is? It is a big shelf of one person's work on making AI trustworthy, with a map. Find the sentence that sounds like you and click.
