@@ -38,6 +38,8 @@ status: active
 | Available verification skill | [lab-verify SKILL.md](../.claude/skills/lab-verify/SKILL.md) | Preregister, lock, self-check, run, analyze, report; see skill's executable harness and limitations |
 | Available workforce skill | [workforce-grant-readiness SKILL.md](../skills/workforce-grant-readiness/SKILL.md) | Workforce evidence, eligibility, competency and outcome mapping; domain-specific |
 | Available workforce harness | [Workforce grant harness](../scripts/workforce-grant-harness.md) | Deterministic preflight and example case |
+| Evidence-gated check (external repo) | [AIL CSM Harness skillpack](https://github.com/lordwilsonDev/ail-csm-harness-skillpack) | A 20-step check an AI runs on its own deliverable before release: evidence ledger, unknowns register, release gate. Four worked examples; run on small tasks, not benchmarked |
+| Software analysis skill (third party) | [leanrea](https://github.com/aicodeking/leanrea), bundled in that pack under `extras/` | AICodeKing, MIT. Plain command-line reverse engineering of software; use only on software you own or may analyze |
 | SOP directory | [Operations index](../08-operations/README.md) | SOP map, status notes, held-back document locations |
 | Operating architecture | [North Star Architecture](../08-operations/north-star-architecture.md) | Intelligence → decision → intervention/verification → compounding; measurement discipline |
 | Control-loop operations | [North Star FDE Cybernetic Loop](../08-operations/north-star-fde-cybernetic-loop.md) | Feedback, state and operational improvement |
@@ -62,6 +64,7 @@ Route by need:
 - Workforce grants → workforce skills and deterministic grant harness.
 - Experimental claim verification → lab-verify skill and its documented run prerequisites.
 - SOP, KPI, OKR and HR design → operations documents + North Star + people model.
+- Checking a finished deliverable before release, or taking apart software you own → AIL CSM Harness skillpack (and its leanrea extra).
 - Recurring execution failures → meta-harness design and any **actually accessible** matching implementation.
 
 ## Closed-loop output contract
