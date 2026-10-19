@@ -21,6 +21,7 @@ Not sure what this is? It is a big shelf of one person's work on making AI trust
 | If you say... | Click here |
 |---|---|
 | **"I want my AI to help me."** | [Use it with your own AI](resources/using-with-your-ai.md). Give your AI this page and say: *start at question 1.* It asks you simple questions, one at a time. |
+| **"I want a free way to check my AI's work."** | [Free skill pack](https://github.com/lordwilsonDev/ail-csm-harness-skillpack): a 20-step check your AI runs on its own work, with worked examples. Copy the link into your AI and say: *run the chain on my task.* |
 | **"Is any of this real?"** | [What exists](#what-exists) shows what is built, what was run, and what is only an idea. [CLAIMS.md](CLAIMS.md) lists what is proven. |
 | **"I want to learn how it works."** | [The methods](#the-methods) |
 | **"I run a business or a team."** | [Operations](08-operations/README.md) |
