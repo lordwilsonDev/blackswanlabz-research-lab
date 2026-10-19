@@ -27,6 +27,7 @@ status: active
 | Agent instructions | [AGENTS.md](../AGENTS.md), [llms.txt](../llms.txt) | Repository navigation, claims discipline, absence-check rules |
 | Use with your own AI | [Use BlackSwanLabz With Your Own AI](using-with-your-ai.md) | Quick start, a copy-paste agent instruction, the closed-loop method, completion criteria |
 | Onboarding skill | [blackswanlabz-onboarding](../skills/blackswanlabz-onboarding/SKILL.md) | The whole onboarding as one runnable procedure: discover, 50 questions, scope from the lab |
+| Business-building skill | [building-a-business](../skills/building-a-business/SKILL.md) | Turns a person's intent into a North Star, KPIs, functions and SOPs in plain words, sized to their tier: [Tier 0 one person up to Tier 4 Fortune 500 scale](../skills/building-a-business/references/functions-and-sops.md), with a [machine-shop interview example](../skills/building-a-business/references/example-machine-shop-interview.md). A procedure, not evidence |
 | User onboarding | [50-Question OS Bootstrap](../08-operations/50-question-os-bootstrap-v1.md) | One-question-at-a-time intent and capability discovery; **pending** bootstrap interface |
 | Owner intent and people | [People-Centered Research Operating System](../08-operations/black-swan-labs-research-group.md) | Intent compiler, people operations, research relief, quality, governance; design/implementation blueprint |
 | Question methodology | [Epistemic State Transition: Question Engineering](../04-papers/epistemic-state-transition-question-engineering.md) | Question engineering research framework; paper, not a deployed result |
@@ -64,6 +65,7 @@ Route by need:
 - Alternative assumptions → AIL + MoIE; then independent evidence.
 - Workforce grants → workforce skills and deterministic grant harness.
 - Experimental claim verification → lab-verify skill and its documented run prerequisites.
+- Starting or structuring any business, from one person to Fortune 500 scale → building-a-business skill (pick the tier first).
 - SOP, KPI, OKR and HR design → operations documents + North Star + people model.
 - Checking a finished deliverable before release, or taking apart software you own → AIL CSM Harness skillpack (and its leanrea extra).
 - Recurring execution failures → meta-harness design and any **actually accessible** matching implementation.
