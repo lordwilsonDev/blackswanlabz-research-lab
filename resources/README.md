@@ -26,6 +26,7 @@ status: active
 | --- | --- | --- |
 | Agent instructions | [AGENTS.md](../AGENTS.md), [llms.txt](../llms.txt) | Repository navigation, claims discipline, absence-check rules |
 | Use with your own AI | [Use BlackSwanLabz With Your Own AI](using-with-your-ai.md) | Quick start, a copy-paste agent instruction, the closed-loop method, completion criteria |
+| First use, one problem | [First Independent Use](first-independent-use.md), AI reads [first-independent-use.ai.md](first-independent-use.ai.md) | A short entry point and the AI-native protocol and receipt |
 | Onboarding skill | [blackswanlabz-onboarding](../skills/blackswanlabz-onboarding/SKILL.md) | The whole onboarding as one runnable procedure: discover, 50 questions, scope from the lab |
 | Business-building skill | [building-a-business](../skills/building-a-business/SKILL.md) | Turns a person's intent into a North Star, KPIs, functions and SOPs in plain words, sized to their tier: [Tier 0 one person up to Tier 4 Fortune 500 scale](../skills/building-a-business/references/functions-and-sops.md), with a [machine-shop interview example](../skills/building-a-business/references/example-machine-shop-interview.md). A procedure, not evidence |
 | User onboarding | [50-Question OS Bootstrap](../08-operations/50-question-os-bootstrap-v1.md) | One-question-at-a-time intent and capability discovery; **pending** bootstrap interface |
