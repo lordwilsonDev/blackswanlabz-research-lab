@@ -29,3 +29,9 @@ name = "meta_test"
 targets = ["skills/test-the-tests/scripts/meta_test.py"]
 tests = ["tests/test_meta_test.py"]
 timeout = 120
+
+[[suite]]
+name = "intent_to_appsscript"
+targets = ["skills/intent-to-appsscript/scripts/validate_contract.py"]
+tests = ["skills/intent-to-appsscript/tests/test_validator.py"]
+timeout = 30

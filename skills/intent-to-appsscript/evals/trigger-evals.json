@@ -1,0 +1,11 @@
+[
+  {"query": "i keep a lead tracker in google sheets and when i mark a row READY i want a gmail draft made for it automatically, but i never want it to send on its own", "should_trigger": true},
+  {"query": "can you set up something so every monday morning a summary of my open tasks sheet gets emailed to my team? i dont really know if apps script is the right thing", "should_trigger": true},
+  {"query": "when someone fills in our intake google form, copy their answers to the master sheet and make a drive folder for them. how would i automate that", "should_trigger": true},
+  {"query": "my apps script that sends invoice reminders ran twice and double emailed people, help me redesign it so that cant happen", "should_trigger": true},
+  {"query": "what does SpreadsheetApp.getActiveSheet() return", "should_trigger": false},
+  {"query": "write a python script that reads a csv and plots a histogram", "should_trigger": false},
+  {"query": "sum column C where column B says paid", "should_trigger": false},
+  {"query": "we need a node service that processes a million webhook events a day and writes to postgres", "should_trigger": false},
+  {"query": "how do I share a google doc with my whole company", "should_trigger": false}
+]

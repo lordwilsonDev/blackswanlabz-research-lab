@@ -195,6 +195,26 @@ def apply_mutant(source: str, index: int, allowed_lines: set[int] | None) -> str
 # --------------------------------------------------------------------------
 # Test audit
 # --------------------------------------------------------------------------
+def _asserting_helpers(tree: ast.AST) -> set[str]:
+    """Names of non-test functions in the file that assert (directly or through another helper)."""
+    funcs = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and not n.name.startswith("test")]
+
+    def asserts(fn, known: set[str]) -> bool:
+        for n in ast.walk(fn):
+            if isinstance(n, ast.Assert):
+                return True
+            if isinstance(n, ast.Call):
+                name = getattr(n.func, "id", getattr(n.func, "attr", ""))
+                if name.startswith("assert") or name in {"raises", "fail"} or name in known:
+                    return True
+        return False
+
+    known: set[str] = set()
+    for _ in range(3):                                   # a few levels of helper-calls-helper
+        known |= {f.name for f in funcs if asserts(f, known)}
+    return known
+
+
 def audit_test_file(path: Path, target_modules: set[str]) -> list[str]:
     findings: list[str] = []
     tree = ast.parse(path.read_text(encoding="utf-8"))
@@ -206,13 +226,15 @@ def audit_test_file(path: Path, target_modules: set[str]) -> list[str]:
             imported.add(node.module.split(".")[0])
     if target_modules and not (imported & target_modules):
         findings.append(f"{path.name}: imports none of its targets {sorted(target_modules)} (TEST_NOT_EVIDENCE)")
+    helpers = _asserting_helpers(tree)
     for fn in [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name.startswith("test")]:
         asserts = [n for n in ast.walk(fn) if isinstance(n, ast.Assert)]
         raises = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
                   and getattr(n.func, "attr", getattr(n.func, "id", "")) in {"raises", "fail", "warns"}]
         delegated = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
                      and (getattr(n.func, "id", "").startswith(("assert_", "check_", "verify_"))
-                          or getattr(n.func, "attr", "").startswith("assert"))]       # unittest: self.assertEqual(...)
+                          or getattr(n.func, "attr", "").startswith("assert")             # unittest: self.assertEqual(...)
+                          or getattr(n.func, "id", getattr(n.func, "attr", None)) in helpers)]
         if not (asserts or raises or delegated):
             findings.append(f"{path.name}::{fn.name}: no assertion")
         for a in asserts:

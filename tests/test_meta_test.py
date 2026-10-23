@@ -105,6 +105,33 @@ def test_audit_recognises_unittest_style_assertions(tmp_path):
     assert "test_eq" not in found and "test_true" not in found
 
 
+def test_audit_follows_assertion_helpers(tmp_path):
+    f = tmp_path / "test_h.py"
+    f.write_text(textwrap.dedent('''\
+        import target
+        def check_total(x):
+            assert x == 1
+        def outer(x):
+            check_total(x)
+        def silent(x):
+            return x
+        def test_direct_helper():
+            check_total(1)
+        def test_nested_helper():
+            outer(1)
+        def test_method_helper():
+            class C:
+                def has(self, v):
+                    assert v
+            C().has(1)
+        def test_useless_helper():
+            silent(1)
+    '''))
+    found = "\n".join(mt.audit_test_file(f, {"target"}))
+    assert "test_useless_helper: no assertion" in found
+    assert "test_direct_helper" not in found and "test_nested_helper" not in found
+
+
 # ---- end to end on a tiny project -------------------------------------------------
 TARGET = textwrap.dedent('''\
     def clamp(x, hi):

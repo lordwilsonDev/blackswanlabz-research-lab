@@ -74,6 +74,10 @@ PYTHON=python3.12 scripts/verify.sh --offline  # skip the network checks
 
 [**skill-forge**](skills/skill-forge/SKILL.md) — a meta-skill that turns a book, framework or SOP into a faithful, attributed, validated Claude skill: rights intake, a source map for every directive, and a validator. Status: pending (drafted and unit-tested; not yet evaluated against a baseline).
 
+[**test-the-tests**](skills/test-the-tests/SKILL.md) — a meta-test skill: breaks code on purpose and counts what the tests miss. Status: pending.
+
+[**intent-to-appsscript**](skills/intent-to-appsscript/SKILL.md) — turns a plain-language Google Workspace automation request into a checked, minimally privileged Apps Script design with a validated receipt gate. Status: pending (validator mutation-tested; not yet evaluated with a model).
+
 ## Third-party material
 
 [**building-an-exo**](third-party/building-an-exo/README.md) — a Claude skill by Kent Langley encoding Salim Ismail's *The Organizational Singularity* (ExO 3.0), stored unmodified with attribution. Not lab work; the lab's licenses do not apply to it.

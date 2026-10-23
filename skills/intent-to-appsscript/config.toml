@@ -1,0 +1,19 @@
+[metadata]
+name = "intent-to-appsscript"
+version = "0.2.0"
+author = "BlackSwanLabz"
+license = "MIT"
+created = "2026-10-23"
+updated = "2026-10-24"
+review_by = "2027-01-24"
+
+[source]
+title = "BlackSwanLabz intent-to-appsscript skill v0.1.0 (seed meta-skill child)"
+authors = ["BlackSwanLabz"]
+publisher = "BlackSwanLabz Research Lab"
+url = ""
+accessed = "2026-10-24"
+source_license = "lab-owned; supplied by the lab owner"
+redistribution = "permitted"
+permission_note = "The v0.1.0 package is the lab's own seed skill, supplied by the lab owner, who asked for this revision. Google documentation is linked, not reproduced."
+required_credit = "BlackSwanLabz Research Lab"
