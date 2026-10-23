@@ -211,7 +211,8 @@ def audit_test_file(path: Path, target_modules: set[str]) -> list[str]:
         raises = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
                   and getattr(n.func, "attr", getattr(n.func, "id", "")) in {"raises", "fail", "warns"}]
         delegated = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
-                     and getattr(n.func, "id", "").startswith(("assert_", "check_", "verify_"))]
+                     and (getattr(n.func, "id", "").startswith(("assert_", "check_", "verify_"))
+                          or getattr(n.func, "attr", "").startswith("assert"))]       # unittest: self.assertEqual(...)
         if not (asserts or raises or delegated):
             findings.append(f"{path.name}::{fn.name}: no assertion")
         for a in asserts:

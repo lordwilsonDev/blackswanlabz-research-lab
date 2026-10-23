@@ -88,6 +88,23 @@ def test_audit_flags_missing_assert_tautology_and_missing_import(tmp_path):
     assert "test_ok" not in text and "test_raises" not in text
 
 
+def test_audit_recognises_unittest_style_assertions(tmp_path):
+    f = tmp_path / "test_u.py"
+    f.write_text(textwrap.dedent('''\
+        import unittest, target
+        class T(unittest.TestCase):
+            def test_eq(self):
+                self.assertEqual(1, 1)
+            def test_true(self):
+                self.assertTrue(target)
+            def test_nothing(self):
+                x = 1
+    '''))
+    found = "\n".join(mt.audit_test_file(f, {"target"}))
+    assert "test_nothing: no assertion" in found
+    assert "test_eq" not in found and "test_true" not in found
+
+
 # ---- end to end on a tiny project -------------------------------------------------
 TARGET = textwrap.dedent('''\
     def clamp(x, hi):
