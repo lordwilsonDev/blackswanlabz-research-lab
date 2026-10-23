@@ -15,9 +15,10 @@ NOW = datetime(2026, 10, 24, tzinfo=timezone.utc)
 
 
 def receipt_for(doc, **over):
-    r = {"contract_hash": vc.contract_hash(doc), "executed_at": "2026-10-23T10:00:00Z", "executed_by": "owner@example.invalid",
-         "environment": "script project v7", "trigger_fired": True, "observed_outcome": "one draft created",
-         "checks": [{"name": t, "status": "PASS", "evidence": "execution log"} for t in doc["tests"]]}
+    r = {"contract_hash": vc.contract_hash(doc), "executed_at": "2026-10-23T10:00:00Z", "executed_by": "the owner's account",
+         "environment": "script project", "mode": "live", "deployed_version": doc.get("deployed_version", "v7"),
+         "trigger_fired": True, "observed_outcome": "one draft created",
+         "checks": [{"name": t, "status": "PASS", "evidence": "execution log line 12"} for t in doc["tests"]]}
     r.update(over)
     return r
 
@@ -85,7 +86,7 @@ class ContractShape(Base):
 
 class Authority(Base):
     def test_broad_scope_needs_justification(self):
-        for scope in vc.BROAD_SCOPES:
+        for scope in sorted(vc.BROAD_SCOPES):
             self.d["permissions"] = [scope]
             self.has("needs a scope_justification")
             self.d["scope_justification"] = "must read every message"
@@ -116,7 +117,7 @@ class Authority(Base):
         self.assertEqual(self.problems(), [])
 
     def test_external_side_effect_without_authorization_is_called_out(self):
-        for action in vc.EXTERNAL_ACTIONS:
+        for action in ("send_email", "send_message", "delete", "modify_external", "purchase", "share", "publish"):
             self.d.update(action=action, status="DEPLOYED_UNVERIFIED", deployed_version="v1", consent_policy="c", rate_limit="r")
             self.has("external side effect deployed without authorization")
         self.d["action"] = "create_draft"
@@ -157,7 +158,7 @@ class Receipts(Base):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         base = Path(self.tmp.name)
-        self.d.update(status="VERIFIED_IN_SCOPE", deployment_authorized=True, execution_receipt=name)
+        self.d.update(status="VERIFIED_IN_SCOPE", deployment_authorized=True, execution_receipt=name, deployed_version="v7")
         if receipt is not None:
             (base / name).write_text(receipt if isinstance(receipt, str) else json.dumps(receipt))
         return base
@@ -239,6 +240,30 @@ class Receipts(Base):
         self.has("receipt check 'extra' is FAIL", base_dir=base, now=NOW)
 
 
+class Helpers(unittest.TestCase):
+    def test_is_text_returns_real_booleans(self):
+        for bad in (5, None, [], {}, "", "   ", "---", "...", "?", "TODO", "tbd later", "N/A", "\u200b"):
+            self.assertIs(vc.is_text(bad), False, bad)
+        for good in ("x", "none kept", "1 read per run", " ok "):
+            self.assertIs(vc.is_text(good), True, good)
+
+    def test_contract_hash_refuses_non_objects_with_a_clear_error(self):
+        for bad in ([1], "x", None, 5):
+            with self.assertRaises(ValueError):
+                vc.contract_hash(bad)
+
+    def test_validate_never_raises_even_if_an_internal_step_does(self):
+        original = vc._validate
+        try:
+            vc._validate = lambda *a, **k: 1 / 0
+            out = vc.validate(BASE)
+        finally:
+            vc._validate = original
+        self.assertEqual(len(out), 1)
+        self.assertIn("ZeroDivisionError", out[0])
+        self.assertIn("invalid", out[0])
+
+
 class Cli(Base):
     def run_cli(self, argv):
         import io
@@ -271,7 +296,7 @@ class Cli(Base):
     def test_cli_resolves_receipts_next_to_the_contract(self):
         with tempfile.TemporaryDirectory() as t:
             d = copy.deepcopy(BASE)
-            d.update(status="VERIFIED_IN_SCOPE", deployment_authorized=True, execution_receipt="receipt.json")
+            d.update(status="VERIFIED_IN_SCOPE", deployment_authorized=True, execution_receipt="receipt.json", deployed_version="v7")
             (Path(t) / "receipt.json").write_text(json.dumps(receipt_for(d)))
             (Path(t) / "contract.json").write_text(json.dumps(d))
             code, out, _ = self.run_cli([str(Path(t) / "contract.json")])

@@ -1,6 +1,6 @@
 # Source map for intent-to-appsscript
 
-Sources: **V1** = the v0.1.0 package's SKILL.md and references (BlackSwanLabz), cited by section. **GD** = Google Apps Script documentation, fetched 2026-10-24 (see `references/OFFICIAL_APPS_SCRIPT.md`). **SC** = the skill-creator platform validator. **REV** = this v0.2.0 revision.
+Sources: **V1** = the v0.1.0 package's SKILL.md and references (BlackSwanLabz), cited by section. **GD** = Google Apps Script documentation, fetched 2026-10-24 (see `references/OFFICIAL_APPS_SCRIPT.md`). **SC** = the skill-creator platform validator. **REV** = the v0.2.0 and v0.3.0 revisions.
 
 | Directive | Source locator | Status | Note |
 |---|---|---|---|
@@ -21,3 +21,5 @@ Sources: **V1** = the v0.1.0 package's SKILL.md and references (BlackSwanLabz), 
 | D-15 | V1 SKILL.md, "Existing BlackSwanLabz integration" | SOURCE-CLAIM | |
 | D-16 | REV: receipt validation design and the lab's "pending is not verified" rule | AUTHOR-ADDITION | A self-reported receipt is not proof; stated so no one over-trusts it. |
 | D-17 | V1 references/OFFICIAL_APPS_SCRIPT.md ("quotas can change, so recheck at deployment") | SOURCE-CLAIM | |
+| D-18 | V1 SKILL.md, "Mission" (rollback procedure) and "MoIE distinct passes" (cybernetics: desired outcome, measurement, stop switch) | SOURCE-CLAIM | v0.1 promised both but the contract had no field for either; v0.3 adds them. |
+| D-19 | REV: found by AIL review (inversion of "a PASS receipt means it ran for real"); V1 references/WHY_THE_PROPERTIES.md three levels of certainty | AUTHOR-ADDITION | |

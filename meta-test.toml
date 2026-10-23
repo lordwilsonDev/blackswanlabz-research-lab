@@ -33,5 +33,5 @@ timeout = 120
 [[suite]]
 name = "intent_to_appsscript"
 targets = ["skills/intent-to-appsscript/scripts/validate_contract.py"]
-tests = ["skills/intent-to-appsscript/tests/test_validator.py"]
+tests = ["skills/intent-to-appsscript/tests/test_validator.py", "skills/intent-to-appsscript/tests/test_adversarial.py"]
 timeout = 30

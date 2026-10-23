@@ -1,4 +1,4 @@
-# intent-to-appsscript (v0.2.0)
+# intent-to-appsscript (v0.3.0)
 
 BlackSwanLabz skill: use AI to understand and compile a routine once, then use ordinary code to repeat it. Turns a plain-language Google Workspace automation request into a bounded Apps Script design with a checked contract, tests, a dry-run default and an honest execution receipt.
 
@@ -20,7 +20,7 @@ The validator checks structure, consistency and the status ladder. It does not e
 
 ## What changed in v0.2.0
 
-See the Changelog in `SKILL.md`. Contracts written for v0.1 need the new fields.
+See the Changelog in `SKILL.md`. Contracts written for v0.1 or v0.2 need the new fields (`rollback`, `success_measure`, and for receipts `mode`, `deployed_version` and evidence).
 
 ## Status
 

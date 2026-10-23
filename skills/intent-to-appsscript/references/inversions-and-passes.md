@@ -2,7 +2,7 @@
 
 Read this at the "Invert and review" step. Keep every counterexample that changes the design.
 
-## Seven assumptions to invert
+## Nine assumptions to invert
 
 1. *Needs AI every time.* Can the routine run as deterministic code?
 2. *The trigger fires once.* Can it fire twice, race or arrive late?
@@ -11,6 +11,8 @@ Read this at the "Invert and review" step. Keep every counterexample that change
 5. *Logs show the truth.* Can logging fail or expose sensitive content?
 6. *One successful test means durable automation.* What happens at the next trigger, renewal, quota limit, schema change or revoked permission?
 7. *A cloud script is sovereign.* What information leaves your boundary and who controls execution?
+8. *Time is unambiguous.* Which time zone does the trigger use (the script's, the sheet's, the owner's), and what happens at a daylight-saving change, a missed run or a run that overlaps the previous one?
+9. *The record shows what ran.* A log, a receipt or a passing test is something a person or script wrote. What would make it wrong, and what independent evidence (the created draft itself, the execution log) would you look at?
 
 ## Review passes
 

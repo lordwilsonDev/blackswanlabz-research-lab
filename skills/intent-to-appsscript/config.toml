@@ -1,11 +1,11 @@
 [metadata]
 name = "intent-to-appsscript"
-version = "0.2.0"
+version = "0.3.0"
 author = "BlackSwanLabz"
 license = "MIT"
 created = "2026-10-23"
-updated = "2026-10-24"
-review_by = "2027-01-24"
+updated = "2026-10-25"
+review_by = "2027-01-25"
 
 [source]
 title = "BlackSwanLabz intent-to-appsscript skill v0.1.0 (seed meta-skill child)"
