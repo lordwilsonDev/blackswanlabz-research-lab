@@ -11,6 +11,7 @@ Read in this order.
 - [Repository map](README.md#repository-map): every folder and file in this repository, including code, tests, CI and data.
 - [Resource directory](resources/README.md): navigation by need for people and agents: what to read, which skill to use, the closed-loop output contract.
 - [Use BlackSwanLabz with your own AI](resources/using-with-your-ai.md): quick start and copy-paste agent instruction for the 50-Question OS Bootstrap; a procedure, not evidence.
+- [First-use protocol (AI-native)](resources/first-independent-use.ai.md): the steps, rules and receipt an AI follows to take one human problem to one bounded, verified result; a procedure, not evidence. Human version: [first-independent-use.md](resources/first-independent-use.md).
 
 ## Thesis
 - [The Intelligence Infrastructure Mismatch](00-thesis/intelligence-infrastructure-mismatch.md): the problem statement; capability is scaling faster than the economy can absorb it.
