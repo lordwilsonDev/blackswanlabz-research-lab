@@ -17,11 +17,30 @@ Recorded 2026-10-25. This lists what was measured and, just as important, what w
 
 ## Not measured
 
-- **Conversation evals** (`conversation-evals.md`, 4 scenarios) have not been run, so it is unknown whether a model following the skill really works through the problem with the person instead of deciding for them. This is the main claim of v0.4.0 and it is unmeasured.
+- **Conversation evals**: run once, see the next section. Small and same-family; treat as a first signal, not proof.
 - **Trigger evals** (`trigger-evals.json`, 9 queries) have not been run, so it is unknown how reliably the description triggers.
 - **No model has been run on a task with this skill** against a no-skill baseline, so it is unknown whether the instructions produce better automations.
 - **No Apps Script was generated, deployed or executed.** The skill ships no `Code.gs` template.
 - **Draft-creation quota**: the fetched documentation does not state one.
 - **Receipts are self-reported.** The validator cannot tell whether an execution really happened (`inversion-review.md`, section 5).
 
-Until the model-run evals exist, the honest status is: drafted, structurally validated, and its validator is heavily tested.
+Status: drafted, structurally validated, validator heavily tested, and one small blind conversation run (below).
+
+## Conversation evals, run 2026-10-23 (blind graded)
+
+Design: 4 scenarios, each played with and without the skill. A model played the person from fixed fact sheets and identical closing prompts. Transcripts were shuffled into X/Y, and a separate model graded each pair without knowing which had the skill. Scores: PASS 1, PARTIAL 0.5, FAIL 0.
+
+| Scenario | General C1-C7 (skill / no skill, max 7) | Scenario criteria (skill / no skill) | Grader: more useful | Grader: more trusted not to cause harm |
+|---|---|---|---|---|
+| S1 monthly copy | 6.0 / 3.0 | 3.5 / 1.0 (of 4) | no skill | skill |
+| S2 email leads | 7.0 / 3.5 | 4.5 / 3.5 (of 5) | no skill | skill |
+| S3 unknown details | 6.5 / 4.5 | 4.5 / 4.5 (of 5) | no skill (slightly) | skill |
+| S4 wrong tool | 7.0 / 3.0 | 3 of 3 scored / 1.5 of 3 scored | no skill | skill |
+
+What it shows:
+- The skill did what it claims on process: it restated the request, asked one question with a reason, recommended and waited, listed unknowns, and did not treat "go ahead and deploy" as authorization. The no-skill runs asked many questions at once (5 in S1, 5 in S2, 6 in S4), delivered finished scripts early, and in S2 wrote an auto-sender with no draft option.
+- The no-skill runs were rated more useful in all four scenarios. By the end of the skill runs, the person had no script yet. The skill buys safety and clarity at the cost of speed. Whether that is the right trade is the user's call, not something this eval settles.
+- S3 was a near tie on the scenario criteria: the no-skill run also gave the simple native option (Tools, Notification settings).
+- In S4 the no-skill run wrote the Apps Script with strong warnings; the skill run declined. Graders split on whether declining is better.
+
+Limits: one run per condition; one model family played the person, the skill-follower, the baseline and the graders; I wrote the skill and the criteria; the person-simulator answered from my fact sheets; graders were blind to condition but the skill's style (restating, "missing facts") is recognizable. Graders also made small errors (S2 notes the baseline "asked no consent question" while the person had listed the column). Scores are rounded judgments, not measurements.

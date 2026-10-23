@@ -1,4 +1,6 @@
-# Conversation evals (to be run by a person)
+# Conversation evals
+
+Run once on 2026-10-23 with simulated people and blind graders; outcomes are in `results.md`. Re-run with a real person before relying on them.
 
 These test the collaborative behaviour the validator cannot see. None has been run yet. To run one, give a model the skill and the opening message, play the person, and judge the model against the pass criteria. Compare with the same opening and no skill if you want a baseline.
 
