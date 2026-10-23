@@ -24,10 +24,17 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-REQUIRED_TEXT = ("source_utterance", "intent", "owner", "trigger", "input", "predicate", "transformation",
-                 "action", "destination", "identity", "idempotency", "failure_policy", "audit_log",
-                 "data_retention", "quota", "success_measure", "rollback", "disable")
+# The baseline: what every automation needs, whatever the situation. These cannot be waived.
+BASELINE_TEXT = ("source_utterance", "intent", "owner", "trigger", "input", "action", "destination", "identity",
+                 "failure_policy", "success_measure", "rollback", "disable")
+# Situational: each applies in some situations and not others. Give a value, or work out with the user
+# that it does not apply and record why as {"not_applicable": "<a real reason>"}.
+SITUATIONAL_TEXT = ("predicate", "transformation", "idempotency", "audit_log", "data_retention", "quota")
+# These two protect against repeated or untraceable side effects, so they cannot be waived once the
+# automation reaches outside the owner's own data.
+NOT_WAIVED_WHEN_ACTING = ("idempotency", "audit_log")
 REQUIRED_LISTS = ("exclusions", "permissions", "tests", "missing_critical_facts")
+DECIDERS = ("user", "user_after_ai_recommendation")        # the AI recommends; only the user decides
 STATUSES = ("DESIGNED", "LOCAL_TESTED", "DEPLOYED_UNVERIFIED", "VERIFIED_IN_SCOPE", "FAILED", "BLOCKED")
 CHECK_STATES = ("PASS", "FAIL", "NOT_RUN")
 # Words in an action name that mean the automation reaches outside the owner's own data.
@@ -46,7 +53,7 @@ BROAD_SCOPES = frozenset({
     "https://www.googleapis.com/auth/contacts",
 })
 HASH_EXCLUDED = ("status", "deployment_authorized", "execution_receipt", "test_results",
-                 "deployed_version", "reason", "contract_hash")
+                 "deployed_version", "reason", "contract_hash", "decisions")
 PLACEHOLDERS = frozenset({"todo", "tbd", "tba", "n/a", "na", "fixme", "xxx", "none yet"})
 PLACEHOLDER_PREFIXES = ("todo", "tbd", "fixme")
 
@@ -59,6 +66,11 @@ def is_text(value) -> bool:
     if not any(ch.isalnum() for ch in s):
         return False
     return s not in PLACEHOLDERS and not s.startswith(PLACEHOLDER_PREFIXES)
+
+
+def is_waiver(value) -> bool:
+    """A situational field marked as not applicable, with a real reason."""
+    return isinstance(value, dict) and set(value) == {"not_applicable"} and is_text(value["not_applicable"])
 
 
 def load_json(text: str):
@@ -152,10 +164,23 @@ def _validate(doc, base_dir: Path | None, now: datetime | None) -> list[str]:
     if not isinstance(doc, dict):
         return ["contract must be a JSON object"]
     problems: list[str] = []
-    for key in REQUIRED_TEXT:
+    words = action_words(doc.get("action"))
+    acting = bool(words & EXTERNAL_WORDS)                  # reaches outside the owner's own data
+    for key in BASELINE_TEXT:
         if key not in doc:
             problems.append(f"missing {key}")
         elif not is_text(doc[key]):
+            problems.append(f"{key} must be non-empty text")
+    for key in SITUATIONAL_TEXT:
+        value = doc.get(key)
+        if key not in doc:
+            problems.append(f'missing {key}: give a value, or mark it {{"not_applicable": "<reason>"}} if it does not apply here')
+        elif isinstance(value, dict):
+            if not is_waiver(value):
+                problems.append(f'{key} waiver must be exactly {{"not_applicable": "<a real reason>"}}')
+            elif key in NOT_WAIVED_WHEN_ACTING and acting:
+                problems.append(f"{key} cannot be marked not_applicable when the action reaches outside the owner's own data")
+        elif not is_text(value):
             problems.append(f"{key} must be non-empty text")
     for key in REQUIRED_LISTS:
         if key not in doc:
@@ -168,6 +193,17 @@ def _validate(doc, base_dir: Path | None, now: datetime | None) -> list[str]:
             problems.append(f"{key} must be non-empty text entries")
         elif key == "tests" and len(set(doc[key])) != len(doc[key]):
             problems.append("tests must be unique")
+    decisions = doc.get("decisions")
+    if "decisions" not in doc:
+        problems.append("missing decisions")
+    elif not isinstance(decisions, list) or not decisions:
+        problems.append("decisions must be a non-empty list: record each choice made with the user")
+    else:
+        for i, item in enumerate(decisions):
+            if not isinstance(item, dict) or not all(is_text(item.get(k)) for k in ("topic", "choice", "reason")):
+                problems.append(f"decisions[{i}] needs topic, choice and reason as real text")
+            if isinstance(item, dict) and item.get("decided_by") not in DECIDERS:
+                problems.append(f"decisions[{i}] decided_by must be 'user' or 'user_after_ai_recommendation': the AI recommends, the user decides")
     if doc.get("dry_run") is not True:
         problems.append("dry_run must default true")
     status = doc.get("status")
@@ -180,7 +216,6 @@ def _validate(doc, base_dir: Path | None, now: datetime | None) -> list[str]:
     if broad and not is_text(doc.get("scope_justification")):
         problems.append(f"broad scope {broad[0].strip()} needs a scope_justification")
 
-    words = action_words(doc.get("action"))
     if sends(words) and (not is_text(doc.get("consent_policy")) or not is_text(doc.get("rate_limit"))):
         problems.append("sending needs a consent_policy and a rate_limit")
 
@@ -188,6 +223,12 @@ def _validate(doc, base_dir: Path | None, now: datetime | None) -> list[str]:
     if deployed and doc.get("deployment_authorized") is not True:
         problems.append("deployed status requires deployment_authorized: true"
                         + (" (external side effect deployed without authorization)" if words & EXTERNAL_WORDS else ""))
+    if deployed:
+        listed = decisions if isinstance(decisions, list) else []
+        authorised = any(isinstance(x, dict) and isinstance(x.get("topic"), str) and x["topic"].strip().lower() == "deployment"
+                         and x.get("decided_by") in DECIDERS and is_text(x.get("quote")) for x in listed)
+        if not authorised:
+            problems.append("a deployed status requires a decision with topic 'deployment' made by the user, with a quote of their words")
     if deployed and not is_text(doc.get("deployed_version")):
         problems.append(f"{status} requires deployed_version")
     if status in ("FAILED", "BLOCKED") and not is_text(doc.get("reason")):

@@ -1,5 +1,5 @@
 {
-  "contract_version": "3",
+  "contract_version": "4",
   "source_utterance": "When a row in my lead tracker becomes READY, prepare a reviewable email draft once; never send it automatically.",
   "intent": "For each lead row whose status changes to READY, create one Gmail draft for the owner to review. Never send.",
   "owner": "workspace_owner",
@@ -40,5 +40,25 @@
     "approved template text"
   ],
   "status": "DESIGNED",
-  "deployment_authorized": false
+  "deployment_authorized": false,
+  "decisions": [
+    {
+      "topic": "routing",
+      "choice": "Apps Script with a scheduled poll, not a formula or a TypeScript service",
+      "reason": "drafting email from rows needs Gmail access and the volume is small",
+      "decided_by": "user_after_ai_recommendation"
+    },
+    {
+      "topic": "sending",
+      "choice": "create drafts only and never send",
+      "reason": "the owner wants to review every email before it goes out",
+      "decided_by": "user"
+    },
+    {
+      "topic": "permissions",
+      "choice": "read one sheet and compose drafts, nothing broader",
+      "reason": "the narrowest scopes that do the job",
+      "decided_by": "user_after_ai_recommendation"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
-# intent-to-appsscript (v0.3.0)
+# intent-to-appsscript (v0.4.0)
 
-BlackSwanLabz skill: use AI to understand and compile a routine once, then use ordinary code to repeat it. Turns a plain-language Google Workspace automation request into a bounded Apps Script design with a checked contract, tests, a dry-run default and an honest execution receipt.
+BlackSwanLabz skill: use AI to understand and compile a routine once, then use ordinary code to repeat it. The AI and the user work through it together: the skill supplies the baseline every automation needs, the person decides everything that depends on their situation, and the AI recommends and explains. The result is a bounded Apps Script design with a checked contract, tests, a dry-run default and an honest execution receipt.
 
 ## Install
 
@@ -8,7 +8,7 @@ Copy this directory to `.claude/skills/intent-to-appsscript/` in your Claude Cod
 
 ## First invocation
 
-"Apply intent-to-appsscript to this task. Reuse existing capabilities, route to the right tool, write the contract, invert the hidden assumptions, build with tests, and only deploy with my explicit authorization."
+"Use intent-to-appsscript and work through this with me. Explain the basics every automation needs, ask me about my situation one thing at a time, recommend and give your reasons, let me decide, and only deploy when I say so."
 
 ## Check a contract
 
@@ -20,7 +20,7 @@ The validator checks structure, consistency and the status ladder. It does not e
 
 ## What changed in v0.2.0
 
-See the Changelog in `SKILL.md`. Contracts written for v0.1 or v0.2 need the new fields (`rollback`, `success_measure`, and for receipts `mode`, `deployed_version` and evidence).
+See the Changelog in `SKILL.md`. Contracts written for earlier versions need the new `decisions` record (and a user `deployment` decision if deployed); six formerly mandatory fields became situational and may be marked `{"not_applicable": "<reason>"}`.
 
 ## Status
 

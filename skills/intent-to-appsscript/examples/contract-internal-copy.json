@@ -1,0 +1,58 @@
+{
+  "contract_version": "4",
+  "source_utterance": "Every month, copy last month's totals from the Sales tab to the Archive tab so I stop doing it by hand.",
+  "intent": "On the first of each month, append the Sales tab's totals range to the Archive tab with a month key. Nothing leaves the sheet.",
+  "owner": "workspace_owner",
+  "trigger": "time-driven, monthly on the 1st; time zone confirmed with the owner as the sheet's (Europe/London); the run may start later in the day",
+  "input": "Sales tab, range A1:F40 of the one sheet",
+  "predicate": {
+    "not_applicable": "copies the whole fixed range every time, so there is no per-row eligibility rule"
+  },
+  "transformation": "none: values are copied as they are, plus a month key and a timestamp",
+  "action": "append_rows",
+  "destination": "Archive tab of the same sheet",
+  "exclusions": [],
+  "identity": "installable trigger creator",
+  "permissions": [
+    "this one spreadsheet only (a script bound to the sheet)"
+  ],
+  "dry_run": true,
+  "idempotency": "the month key (YYYY-MM) is written beside the rows; skip if that key is already in the Archive tab",
+  "failure_policy": "stop and email the owner if the Sales range is empty or its headers changed; never write a partial set of rows",
+  "audit_log": {
+    "not_applicable": "the appended rows carry their own month key and timestamp, and nothing is sent outside the sheet"
+  },
+  "data_retention": {
+    "not_applicable": "no personal data; the archive lives as long as the sheet"
+  },
+  "quota": {
+    "not_applicable": "one append of about 40 rows a month, far below any documented limit"
+  },
+  "success_measure": "after each run the Archive tab has exactly one block for the new month with the same row count as the Sales range",
+  "rollback": "delete the Archive rows with that month key",
+  "disable": "delete the monthly installable trigger",
+  "tests": [
+    "normal month",
+    "run twice in one month",
+    "empty Sales range",
+    "header changed",
+    "trigger fires late"
+  ],
+  "missing_critical_facts": [],
+  "decisions": [
+    {
+      "topic": "routing",
+      "choice": "Apps Script on a monthly trigger",
+      "reason": "a formula cannot append history, and one scheduled copy does not justify a separate service",
+      "decided_by": "user_after_ai_recommendation"
+    },
+    {
+      "topic": "which fields apply",
+      "choice": "no eligibility rule, audit log, retention or quota section",
+      "reason": "data never leaves the sheet and the volume is tiny",
+      "decided_by": "user"
+    }
+  ],
+  "status": "DESIGNED",
+  "deployment_authorized": false
+}

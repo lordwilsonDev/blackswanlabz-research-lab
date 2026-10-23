@@ -11,6 +11,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import validate_contract as vc  # noqa: E402
 
 BASE = json.loads((ROOT / "examples" / "contract.json").read_text())
+DEPLOY_DECISION = {"topic": "deployment", "choice": "deploy the script to the owner's account", "reason": "tested and the owner is ready",
+                   "decided_by": "user", "quote": "Yes, deploy it to my account."}
+BASE["decisions"] = BASE["decisions"] + [DEPLOY_DECISION]       # present so deployed-status tests can focus on one rule
 NOW = datetime(2026, 10, 24, tzinfo=timezone.utc)
 
 
@@ -39,7 +42,7 @@ class ContractShape(Base):
         self.assertEqual(self.problems(), [])
 
     def test_every_required_text_field_is_enforced(self):
-        for key in vc.REQUIRED_TEXT:
+        for key in vc.BASELINE_TEXT:
             d = copy.deepcopy(BASE)
             d.pop(key)
             self.assertIn(f"missing {key}", vc.validate(d), key)

@@ -93,3 +93,18 @@ The three unfixable cases are recorded as tests (`test_known_limits_are_real_lim
 - "Post" and "message" over-flag by design.
 - Google documentation was rechecked from page summaries on 2026-10-24.
 - No model has run the skill on a real task, and no Apps Script was generated or deployed.
+
+## 8. Addendum: the v0.4.0 design change (collaboration)
+
+The lab owner changed the design so the user and the AI work through the problem together, with the skill supplying a baseline. The same method was applied to that change.
+
+| Assumption | Inversion, and the prediction | Outcome |
+|---|---|---|
+| Making some fields optional is safe | A waiver becomes a way to skip safety. Predict: `idempotency` or `audit_log` waived on an email-sending contract validates. | **Real if left alone; closed.** These two cannot be waived once the action reaches outward (tests in `test_collaboration.py`). |
+| A waiver reason shows judgement | Predict: `{"not_applicable": "n/a"}` or an empty reason passes. | **Closed.** A waiver needs real text and exactly one key. |
+| The AI recording the user's decisions keeps the user in charge | Predict: the AI can record itself as the decider. | **Closed.** `decided_by` must be `user` or `user_after_ai_recommendation`; anything else is rejected. |
+| A user decision was really the user's | Predict: a fabricated `quote` passes. | **Confirmed and unfixable by a validator.** `decided_by` and `quote` are self-reported; the conversation is the safeguard. Recorded in the schema reference and "Not covered". |
+| Collaboration produces better outcomes | Predict: a model following the new workflow still dumps a full design or decides for the user. | **Untested.** The four scenarios in `conversation-evals.md` are written but not run. |
+
+The first three held after fixes (17 new tests, mutation score 100%). The last two are open and stated as such.
+
