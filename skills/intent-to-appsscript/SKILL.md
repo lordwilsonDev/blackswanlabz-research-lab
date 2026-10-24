@@ -2,7 +2,7 @@
 name: intent-to-appsscript
 description: Work with a person, step by step, to turn a plain-language request to automate a Google Workspace routine (sheets, Gmail drafts, calendar, Drive) into a safe, minimally privileged Apps Script automation. The skill supplies the baseline every automation needs, and the person decides everything that depends on their situation, with the AI recommending and explaining. Use whenever the user wants something to happen automatically when a sheet changes or on a schedule, says automate this, wants a script for Google Sheets or Gmail, or asks whether Apps Script is the right tool. Also routes away from Apps Script when a native formula, filter, existing workflow or a TypeScript service is better. Never deploys without the user's explicit say-so.
 metadata:
-  version: 0.4.0
+  version: 0.5.0
 ---
 
 # Intent to Apps Script Automation
@@ -21,9 +21,23 @@ BlackSwanLabz seed child-skill. v0.1.0 by the lab. v0.2.0 tightened it (platform
 - The user asks whether Apps Script is the right tool for something.
 - Not for one-off questions about Apps Script syntax, and not when the routine needs heavy packages, long-running jobs or high throughput (that is a TypeScript or Node service; say so).
 
+## Choose the working mode first
+
+The person picks how this goes, once, at the start. Show them this and wait for their answer. Recommend **careful** unless the job is plainly private and small.
+
+> **Careful (default, safer, slower).** One question at a time, each with its reason. I recommend, you decide. No script until the safety facts are settled.
+> **Fast (quicker, riskier).** I ask my few most important questions together, then give you a first draft script right away, with every guess I made listed at the top. **Warning: in fast mode I will be guessing about things I have not asked you. A guess can mean wrong rows, duplicate runs or emails to the wrong people. The draft is untested, runs as a dry run only, and nothing is deployed or sent until you say so.**
+> Which do you want?
+
+Rules for the switch:
+- Record it as a `decisions` entry with topic `working_mode` and choice `careful` or `fast`. For `fast`, also set `warning_shown: true` and put their reply in `quote`. The validator checks this form, not that the warning was really shown, so show it.
+- They can switch at any time. Going fast to careful is always allowed. Going careful to fast needs the warning shown again.
+- **Fast changes only the pace.** It never waives the baseline, never allows sending or deploying without their explicit say-so (D-05, D-10, D-11, D-12), never turns off the dry run (D-06), and never lets you drop a risk you already know about. If the request sends email to other people, say that fast is still drafts-only until the questions on consent and duplicates are answered.
+- In fast mode the unknowns go in `missing_critical_facts` and at the top of the draft as "I assumed", so the person can correct them. Do not hide them.
+
 ## Workflow: work through it together
 
-Go one decision at a time, in plain language, and say why you are asking. Do not hand over a finished design to approve. `references/conversation-guide.md` has the questions, in beginner words, and what to emphasize for different situations.
+In careful mode, go one decision at a time, in plain language, and say why you are asking. In fast mode, ask your few most important questions together, then draft. Do not hand over a finished design to approve. `references/conversation-guide.md` has the questions, in beginner words, and what to emphasize for different situations.
 
 1. **Listen and say it back.** Keep their exact words in `source_utterance`. Say your reading of it in your own words and ask if it is right; that goes in `intent`.
 2. **Learn their situation.** Who is it for (just them or a team), how often, what data and how sensitive, what already exists, and what would go wrong if it misbehaved. Ask only what changes the design.
@@ -63,6 +77,7 @@ Every directive has a row in `source-map.md`. The reasons are part of the rule.
 - **D-20 The AI recommends and explains; the user decides.** Routing, permissions, whether to send, which items do not apply, and deployment are the person's choices. Offer a recommendation with its reason, then wait. The validator rejects a decision recorded as made by the AI.
 - **D-21 Start from the baseline, then fit the rest to the situation.** The baseline is what every automation needs and cannot be waived. Situational items may be marked not applicable, but only with a real reason, and idempotency and the audit trail cannot be waived once the automation reaches outside the owner's own data. Nothing is skipped silently.
 - **D-22 Teach as you go, one decision at a time.** Plain words, the reason for each question, and no finished design to rubber-stamp. A person who understood each choice can run, change and stop the automation later.
+- **D-24 Speed is the person's choice, with the warning shown.** Offer careful and fast, recommend careful by default, and record the answer. Fast shortens the conversation; it does not shorten the safety rules.
 - **D-23 What you do not know stays unknown.** Put open questions in `missing_critical_facts` and ask; do not fill gaps with plausible guesses.
 
 ## Validation Checkpoints
@@ -101,6 +116,7 @@ Templates: `examples/contract.json` is a valid starter for an automation that dr
 
 ## Changelog
 
+- **v0.5.0 (2026-10-24)**: Added the careful/fast working-mode switch at the lab owner's direction, because a blind eval showed the careful flow rated safer but less useful in all four scenarios. New directive D-24; validator requires one `working_mode` decision, and `fast` needs `warning_shown: true` plus the user's quote. Invalidates: contracts without a `working_mode` decision. The fast mode itself is not yet evaluated.
 - **v0.4.0 (2026-10-25)**: Design change at the lab owner's direction: the user and the AI work through it together. New collaborative workflow and `references/conversation-guide.md`. The contract is split into a non-waivable **baseline** and **situational** items that may be marked `{"not_applicable": "<reason>"}` (idempotency and audit_log cannot be waived when the action reaches outward). New required `decisions` record where each entry is decided by `user` or `user_after_ai_recommendation`, never the AI, and a deployed status requires a `deployment` decision with the user's quote. New directives D-20 to D-23 and a second example. Fewer fields are now mandatory in every case (`predicate`, `transformation`, `idempotency`, `audit_log`, `data_retention`, `quota` became situational). Invalidates: v0.3 contracts (they lack `decisions`; deployed ones also lack a deployment decision).
 - **v0.3.0 (2026-10-25)**: AIL/MoIE review. Fixed 15 defects found by hostile inputs, including placeholders, duplicate names, a validator crash, spelling bypasses of scope and sending rules, dry-run and wrong-version receipts, evidence-free PASS, duplicate JSON keys, and a missing rollback and success measure.
 - **v0.2.0 (2026-10-24)**: Platform-valid frontmatter; contract v2; the VERIFIED gate checks a real receipt file instead of any non-empty string; status-ladder, consent and broad-scope rules; directive IDs, source map, tests and eval records.

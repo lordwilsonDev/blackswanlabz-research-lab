@@ -27,3 +27,4 @@ Sources: **V1** = the v0.1.0 package's SKILL.md and references (BlackSwanLabz), 
 | D-21 | OWNER (a baseline, but everyone's situation is different); REV contract split into baseline and situational fields | AUTHOR-ADDITION | Waivers need a real reason; idempotency and audit_log cannot be waived when the action reaches outward. |
 | D-22 | OWNER; V1 SKILL.md "Teaching expert" pass and "Beginner script" | AUTHOR-ADDITION | |
 | D-23 | V1 SKILL.md "Contract from natural language" ("missing critical facts"; "do not fabricate") | SOURCE-CLAIM | |
+| D-24 | OWNER (2026-10-24: switch between speed and safety, with a clear warning); blind conversation eval in `evals/results.md` | AUTHOR-ADDITION | Enforced in the validator: one `working_mode` decision; `fast` needs `warning_shown: true` and a quote. Fast mode itself is unevaluated. |

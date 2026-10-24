@@ -43,6 +43,12 @@
   "deployment_authorized": false,
   "decisions": [
     {
+      "topic": "working_mode",
+      "choice": "careful",
+      "reason": "the owner wants every question asked and every decision explained before anything is built",
+      "decided_by": "user_after_ai_recommendation"
+    },
+    {
       "topic": "routing",
       "choice": "Apps Script with a scheduled poll, not a formula or a TypeScript service",
       "reason": "drafting email from rows needs Gmail access and the volume is small",

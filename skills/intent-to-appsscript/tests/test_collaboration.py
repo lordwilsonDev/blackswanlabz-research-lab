@@ -174,3 +174,57 @@ class DeploymentIsTheUsersDecision(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WorkingMode(unittest.TestCase):
+    """Careful or fast is the user's switch. Fast needs a shown warning and their words, and it
+    relaxes nothing else the validator checks."""
+
+    def doc(self, *modes):
+        d = copy.deepcopy(DRAFTER)
+        d["decisions"] = [x for x in d["decisions"] if x["topic"] != "working_mode"] + list(modes)
+        return d
+
+    def fast(self, **over):
+        m = {"topic": "working_mode", "choice": "fast", "reason": "I want a draft quickly", "decided_by": "user",
+             "warning_shown": True, "quote": "I understand, fast please."}
+        m.update(over)
+        return m
+
+    def test_missing_mode_is_rejected(self):
+        self.assertTrue(any("working_mode" in p for p in vc.validate(self.doc())))
+
+    def test_two_modes_are_rejected(self):
+        d = self.doc(self.fast(), {**self.fast(), "choice": "careful"})
+        self.assertTrue(any("exactly one working_mode" in p for p in vc.validate(d)))
+
+    def test_unknown_mode_is_rejected(self):
+        d = self.doc({**self.fast(), "choice": "yolo"})
+        self.assertTrue(any("'careful' or 'fast'" in p for p in vc.validate(d)))
+
+    def test_fast_with_warning_and_quote_is_valid(self):
+        self.assertEqual(vc.validate(self.doc(self.fast())), [])
+
+    def test_fast_without_a_quote_is_rejected(self):
+        m = self.fast()
+        del m["quote"]
+        self.assertTrue(any("warning" in p for p in vc.validate(self.doc(m))))
+
+    def test_fast_without_warning_shown_is_rejected(self):
+        self.assertTrue(any("warning" in p for p in vc.validate(self.doc(self.fast(warning_shown=False)))))
+
+    def test_ai_cannot_choose_the_mode(self):
+        self.assertTrue(any("decided_by" in p for p in vc.validate(self.doc(self.fast(decided_by="ai")))))
+
+    def test_fast_does_not_relax_the_safety_checks(self):
+        d = self.doc(self.fast())
+        d["dry_run"] = False
+        d["status"] = "DEPLOYED_UNVERIFIED"
+        d["deployed_version"] = "1"
+        d["deployment_authorized"] = True
+        problems = vc.validate(d)
+        self.assertTrue(any("dry_run" in p for p in problems))
+        self.assertTrue(any("'deployment'" in p for p in problems))
+
+    def test_choice_is_case_insensitive(self):
+        self.assertEqual(vc.validate(self.doc(self.fast(choice="FAST"))), [])

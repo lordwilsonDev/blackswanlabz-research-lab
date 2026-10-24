@@ -41,6 +41,12 @@
   "missing_critical_facts": [],
   "decisions": [
     {
+      "topic": "working_mode",
+      "choice": "careful",
+      "reason": "the owner wants every question asked and every decision explained before anything is built",
+      "decided_by": "user_after_ai_recommendation"
+    },
+    {
       "topic": "routing",
       "choice": "Apps Script on a monthly trigger",
       "reason": "a formula cannot append history, and one scheduled copy does not justify a separate service",

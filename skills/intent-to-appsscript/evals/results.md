@@ -17,6 +17,7 @@ Recorded 2026-10-25. This lists what was measured and, just as important, what w
 
 ## Not measured
 
+- **Fast mode (v0.5.0)** is unevaluated. The validator tests cover its record (9 tests); how a model behaves in fast mode, and whether it keeps its guesses visible, has not been run.
 - **Conversation evals**: run once, see the next section. Small and same-family; treat as a first signal, not proof.
 - **Trigger evals** (`trigger-evals.json`, 9 queries) have not been run, so it is unknown how reliably the description triggers.
 - **No model has been run on a task with this skill** against a no-skill baseline, so it is unknown whether the instructions produce better automations.

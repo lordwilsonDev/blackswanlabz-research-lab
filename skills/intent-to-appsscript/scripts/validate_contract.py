@@ -34,6 +34,7 @@ SITUATIONAL_TEXT = ("predicate", "transformation", "idempotency", "audit_log", "
 # automation reaches outside the owner's own data.
 NOT_WAIVED_WHEN_ACTING = ("idempotency", "audit_log")
 REQUIRED_LISTS = ("exclusions", "permissions", "tests", "missing_critical_facts")
+WORKING_MODES = ("careful", "fast")
 DECIDERS = ("user", "user_after_ai_recommendation")        # the AI recommends; only the user decides
 STATUSES = ("DESIGNED", "LOCAL_TESTED", "DEPLOYED_UNVERIFIED", "VERIFIED_IN_SCOPE", "FAILED", "BLOCKED")
 CHECK_STATES = ("PASS", "FAIL", "NOT_RUN")
@@ -204,6 +205,17 @@ def _validate(doc, base_dir: Path | None, now: datetime | None) -> list[str]:
                 problems.append(f"decisions[{i}] needs topic, choice and reason as real text")
             if isinstance(item, dict) and item.get("decided_by") not in DECIDERS:
                 problems.append(f"decisions[{i}] decided_by must be 'user' or 'user_after_ai_recommendation': the AI recommends, the user decides")
+        modes = [x for x in decisions if isinstance(x, dict) and isinstance(x.get("topic"), str)
+                 and x["topic"].strip().lower() == "working_mode"]
+        if len(modes) != 1:
+            problems.append("decisions needs exactly one working_mode decision: the user chose careful or fast")
+        else:
+            mode = modes[0]
+            choice = mode.get("choice")
+            if not isinstance(choice, str) or choice.strip().lower() not in WORKING_MODES:
+                problems.append("working_mode choice must be 'careful' or 'fast'")
+            elif choice.strip().lower() == "fast" and not (is_text(mode.get("quote")) and mode.get("warning_shown") is True):
+                problems.append("working_mode 'fast' requires warning_shown: true and the user's quote acknowledging the warning")
     if doc.get("dry_run") is not True:
         problems.append("dry_run must default true")
     status = doc.get("status")

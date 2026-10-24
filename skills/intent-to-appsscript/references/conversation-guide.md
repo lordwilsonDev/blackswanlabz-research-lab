@@ -90,3 +90,7 @@ Notice: one question, a reason, a recommendation, the choice recorded as theirs.
 ## 7. Teach-back
 
 At the end, ask: "Can you tell me in your own words what this does, when it runs, and how you'd stop it?" If they cannot, explain the part they missed and ask again. An automation its owner cannot stop or explain is not finished.
+
+## Careful or fast
+
+Ask this before anything else. Use the wording in `SKILL.md`, "Choose the working mode first", including the warning in bold; do not soften it. If they ask which to pick: careful for anything that emails people, touches shared or sensitive data, or runs on a schedule unattended; fast is reasonable for a private, small, reversible job they will check themselves. In fast mode, still list every guess at the top of the draft.
