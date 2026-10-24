@@ -104,6 +104,12 @@ Every directive has a row in `source-map.md`. The reasons are part of the rule.
 - `references/OFFICIAL_APPS_SCRIPT.md`: official documentation links and what was rechecked. Read at step 7 and again before deploying.
 - `references/WHY_THE_PROPERTIES.md`: why each contract property exists and the three levels of certainty. Read when explaining the design or deciding what a status may claim.
 
+- `references/options-catalog.md`: every route (by hand, native features, add-ons, no-code tools, Apps Script, a service, a database) with when each fits and what to watch for, plus quick routing and the questions that decide. Read at step 4.
+- `references/what-you-might-have-missed.md`: a checklist of ownership, trigger, data, people, access, failure, cost, testing and handover items people usually overlook. Read at steps 2, 6 and before deployment.
+- `references/decision-worksheet.md`: a one-page worksheet the person and the AI fill in together. Use it to keep the choices in one place.
+- `references/stop-and-undo-playbook.md`: how to stop the automation and undo what it did. Give it to the person before deploying and at handoff.
+- `references/glossary.md`: plain-word definitions to use instead of jargon.
+
 Templates: `examples/contract.json` is a valid starter for an automation that drafts email. `examples/contract-internal-copy.json` is a valid starter for one that stays inside a single sheet, with several items marked not applicable. Script: `scripts/validate_contract.py` checks a contract and its receipt.
 
 ## Not covered
@@ -116,7 +122,7 @@ Templates: `examples/contract.json` is a valid starter for an automation that dr
 
 ## Changelog
 
-- **v0.5.0 (2026-10-24)**: Added the careful/fast working-mode switch at the lab owner's direction, because a blind eval showed the careful flow rated safer but less useful in all four scenarios. New directive D-24; validator requires one `working_mode` decision, and `fast` needs `warning_shown: true` plus the user's quote. Invalidates: contracts without a `working_mode` decision. The fast mode itself is not yet evaluated.
+- **v0.5.0 (2026-10-24)**: Added the careful/fast working-mode switch at the lab owner's direction, because a blind eval showed the careful flow rated safer but less useful in all four scenarios. New directive D-24; validator requires one `working_mode` decision, and `fast` needs `warning_shown: true` plus the user's quote. Invalidates: contracts without a `working_mode` decision. Added five resource files (options catalog, what you might have missed, decision worksheet, stop-and-undo playbook, glossary). The fast mode itself is not yet evaluated.
 - **v0.4.0 (2026-10-25)**: Design change at the lab owner's direction: the user and the AI work through it together. New collaborative workflow and `references/conversation-guide.md`. The contract is split into a non-waivable **baseline** and **situational** items that may be marked `{"not_applicable": "<reason>"}` (idempotency and audit_log cannot be waived when the action reaches outward). New required `decisions` record where each entry is decided by `user` or `user_after_ai_recommendation`, never the AI, and a deployed status requires a `deployment` decision with the user's quote. New directives D-20 to D-23 and a second example. Fewer fields are now mandatory in every case (`predicate`, `transformation`, `idempotency`, `audit_log`, `data_retention`, `quota` became situational). Invalidates: v0.3 contracts (they lack `decisions`; deployed ones also lack a deployment decision).
 - **v0.3.0 (2026-10-25)**: AIL/MoIE review. Fixed 15 defects found by hostile inputs, including placeholders, duplicate names, a validator crash, spelling bypasses of scope and sending rules, dry-run and wrong-version receipts, evidence-free PASS, duplicate JSON keys, and a missing rollback and success measure.
 - **v0.2.0 (2026-10-24)**: Platform-valid frontmatter; contract v2; the VERIFIED gate checks a real receipt file instead of any non-empty string; status-ladder, consent and broad-scope rules; directive IDs, source map, tests and eval records.

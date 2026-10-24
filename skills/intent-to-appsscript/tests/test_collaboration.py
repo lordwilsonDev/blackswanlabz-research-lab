@@ -228,3 +228,18 @@ class WorkingMode(unittest.TestCase):
 
     def test_choice_is_case_insensitive(self):
         self.assertEqual(vc.validate(self.doc(self.fast(choice="FAST"))), [])
+
+
+class Resources(unittest.TestCase):
+    """Every reference file is linked from SKILL.md and every link resolves."""
+
+    def test_references_and_skill_agree(self):
+        text = (ROOT / "SKILL.md").read_text()
+        listed = set(__import__("re").findall(r"`(references/[\w.\-]+\.md)`", text))
+        on_disk = {f"references/{p.name}" for p in (ROOT / "references").glob("*.md")}
+        self.assertEqual(listed, on_disk)
+
+    def test_worksheet_and_guides_name_the_mode_and_the_waiver(self):
+        sheet = (ROOT / "references" / "decision-worksheet.md").read_text()
+        self.assertIn("missing_critical_facts", sheet)
+        self.assertIn("careful / fast", sheet)
