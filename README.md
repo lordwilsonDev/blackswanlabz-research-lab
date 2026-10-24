@@ -76,7 +76,7 @@ PYTHON=python3.12 scripts/verify.sh --offline  # skip the network checks
 
 [**test-the-tests**](skills/test-the-tests/SKILL.md) — a meta-test skill: breaks code on purpose and counts what the tests miss. Status: pending.
 
-[**intent-to-appsscript**](skills/intent-to-appsscript/SKILL.md) — turns a plain-language Google Workspace automation request into a checked, minimally privileged Apps Script design with a validated receipt gate. Status: pending (validator mutation-tested; not yet evaluated with a model).
+[**intent-to-appsscript**](skills/intent-to-appsscript/SKILL.md) — turns a plain-language Google Workspace automation request into a checked, minimally privileged Apps Script design with a validated receipt gate. Works through the design with the person (careful or fast mode, with a warning). Status: pending (validator mutation-tested; one small blind conversation eval, see its `evals/results.md`; fast mode not evaluated).
 
 ## Third-party material
 

@@ -73,7 +73,7 @@ Read in this order.
 ## Skills
 - [skill-forge](skills/skill-forge/SKILL.md): meta-skill for encoding a body of knowledge as an attributed, validated skill. Pending: not evaluated against a baseline.
 - [test-the-tests](skills/test-the-tests/SKILL.md): meta-test skill that mutates code to find what tests miss. Pending.
-- [intent-to-appsscript](skills/intent-to-appsscript/SKILL.md): plain-language Workspace routine to checked Apps Script design. Pending: validator mutation-tested, not evaluated with a model.
+- [intent-to-appsscript](skills/intent-to-appsscript/SKILL.md): plain-language Workspace routine to checked Apps Script design. Pending: validator mutation-tested; one small blind conversation eval (evals/results.md); fast mode not evaluated.
 
 ## Third-party (not lab work)
 - [building-an-exo](third-party/building-an-exo/README.md): a Claude skill by Kent Langley based on Salim Ismail's The Organizational Singularity; kept unmodified with attribution. Not a lab claim.
